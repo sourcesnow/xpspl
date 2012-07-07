@@ -14,7 +14,7 @@ namespace prggmr\signal\time;
  */
 function interval($function, $interval, $vars = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null)
 {
-    $signal = new signal\time\Interval($interval, $vars);
+    $signal = new Interval($interval, $vars);
     $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
     return [$signal, $handle];
 }
@@ -32,7 +32,7 @@ function interval($function, $interval, $vars = null, $priority = QUEUE_DEFAULT_
  */
 function timeout($function, $timeout, $vars = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
 {
-    $signal = new signal\time\Timeout($timeout, $vars);
+    $signal = new Timeout($timeout, $vars);
     $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
     return [$signal, $handle];
 }

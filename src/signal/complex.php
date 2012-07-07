@@ -66,7 +66,7 @@ abstract class Complex extends Standard {
      * 
      * @return  void
      */
-    abstract public function routine($history = null);
+    public function routine($history = null){}
 
     /**
      * Returns the routine object for this complex signal.

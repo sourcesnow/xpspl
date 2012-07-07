@@ -310,13 +310,10 @@ class Engine {
         if ($this->get_state() === STATE_HALTED) return false;
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
             $routine = $_node[0]->routine($this->_event_history);
-            if (false != $routine) {
+            if ($routine instanceof signal\Routine) {
                 // Check signals
-                $signals = $_node[0]->get_dispatch_signals();
+                $signals = $_node[0]->get_signals();
                 if (null !== $signals) {
-                    if (!is_array($signals)) {
-                        $signals = [$signals];
-                    }
                     foreach ($signals as $_signal) {
                         list($_sig, $_vars, $_event) = $_signal;
                         // ensure it has not exhausted
