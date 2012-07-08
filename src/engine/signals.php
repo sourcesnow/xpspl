@@ -70,6 +70,10 @@ class Signals {
      */
     const IDLE_FUNCTION_OVERFLOW = 0xE012;
     /**
+     * Exception encountered during a routine calculation.
+     */
+    const ROUTINE_CALCUATION_ERROR = 0xE013;
+    /**
      * Engine loop startup
      */
     const LOOP_START = 0xE015;

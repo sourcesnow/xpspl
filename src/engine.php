@@ -8,7 +8,7 @@ namespace prggmr;
 
 use \Closure,
     \InvalidArgumentException,
-    \prggmr\engine\Signals as esig;
+    \prggmr\engine\Signals as engine_signals;
 
 /**
  * Complex signal return to trigger the signal during routine calculation.
@@ -259,7 +259,7 @@ class Engine {
                 $engine->shutdown();
             }, new \prggmr\signal\time\Timeout($ttr, $this));
         }
-        $this->signal(esig::LOOP_START);
+        $this->signal(engine_signals::LOOP_START);
         while($this->_routines()) {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
@@ -268,13 +268,14 @@ class Engine {
                     $this->signal($_routine[0], $_routine[1], $_routine[2]);
                 }
             }
+            // check for 
             // check for idle time
-            if ($this->_routines[0] !== null) {
+            if ($this->_routines[0][0] !== null && $this->_routines[0][1] < milliseconds()) {
                 // idle for the given time in milliseconds
                 usleep($this->_routines[0] * 1000);
             }
         }
-        $this->signal(esig::LOOP_SHUTDOWN);
+        $this->signal(engine_signals::LOOP_SHUTDOWN);
     }
 
     /**
@@ -305,59 +306,48 @@ class Engine {
     private function _routines()
     {
         $return = false;
-        $this->_routines = [[], null, null];
+        $this->_routines = [[], [0], null];
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
-            $routine = $_node[0]->routine($this->_event_history);
-            if ($routine instanceof signal\Routine) {
-                // Check signals
-                $signals = $_node[0]->get_signals();
-                if (null !== $signals) {
-                    foreach ($signals as $_signal) {
-                        list($_sig, $_vars, $_event) = $_signal;
-                        // ensure it has not exhausted
-                        if (false === $this->_has_routine_exhausted($_sig)) {
-                            $return = true;
-                            // recurring signals will always get the same event
-                            // was the event registered with the signal at the handle?
-                            if (null === $_event) {
-                                if (!isset($_node[2])) {
-                                    // has this signal provided an event?
-                                    if (null !== $_node[0]->event()) {
-                                        $_event = $_node[0]->event();
-                                        // destroy reference so we dont circle
-                                        $this->_storage[self::COMPLEX_STORAGE][$_key][0]->event(false);
-                                    } else {
-                                        $_event = new Event();
-                                    }
-                                    // store future reference
-                                    $this->_storage[self::COMPLEX_STORAGE][$_key][2] = $_event;
-                                } else {
-                                    $_event = $_node[2];
-                                }
+            try {
+                $routine = $_node[0]->routine($this->_event_history);
+                if ($routine instanceof signal\Routine) {
+                    // Check signals
+                    $signals = $routine->get_signals();
+                    if (null !== $signals && count($signals) != 0) {
+                        foreach ($signals as $_signal) {
+                            list($_sig, $_vars, $_event) = $_signal;
+                            // ensure it has not exhausted
+                            if (false === $this->_has_routine_exhausted($_sig)) {
+                                $return = true;
+                                // As of v2.0.0 the engine no longer attempts to keep
+                                // a reference to the same event.
+                                // This functionality is now dependent upon the signal
+                                $this->_routines[0][] = [$_sig, $_vars, $_event];
                             }
-                            $this->_routines[0][] = [$_sig, $_vars, $_event];
+                        }
+                    }
+                    // Idle Time
+                    $idle = $routine->get_idle_time();
+                    if ($idle !== null && (is_int($idle) || is_float($idle))) {
+                        if (null === $this->_routines[0] || $this->_routines[0] > $idle) {
+                            $return = true;
+                            $this->_routines[1] = [$idle, $idle + milliseconds()];
+                        }
+                    }
+                    // Idle function
+                    $function = $routine->get_idle_function();
+                    if ($function !== null) {
+                        if ($this->_routines[2] !== null) {
+                            $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
+                        } else {
+                            $this->_routines[2] = $function;
                         }
                     }
                 }
-                // Idle Time
-                $idle = $_node[0]->get_idle_time();
-                if ($idle !== null && (is_int($idle) || is_float($idle))) {
-                    if (null === $this->_routines[0] || $this->_routines[0] > $idle) {
-                        $return = true;
-                        $this->_routines[1] = [$idle, $idle + milliseconds()];
-                    }
-                }
-                // Idle function
-                $function = $_node[0]->get_idle_function();
-                if ($function !== null) {
-                    if ($this->_routines[2] !== null) {
-                        $this->signal(esig::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
-                    } else {
-                        $this->_routines[2] = $function;
-                    }
-                }
+            } catch (\Exception) {
+                $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, $_node);
             }
         }
         return $return;
@@ -378,7 +368,7 @@ class Engine {
             $queue = $queue[1];
         }
         if (true === $this->queue_exhausted($queue)) {
-            $this->signal(esig::EXHAUSTED_QUEUE_SIGNALED, array(
+            $this->signal(engine_signals::EXHAUSTED_QUEUE_SIGNALED, array(
                 $queue
             ));
             return true;
@@ -456,14 +446,14 @@ class Engine {
         }
 
         if (is_int($signal) && $signal >= 0xE001 && $signal <= 0xE02A) {
-            $this->signal(esig::RESTRICTED_SIGNAL, array(
+            $this->signal(engine_signals::RESTRICTED_SIGNAL, array(
                 func_get_args()
             ));
         }
 
         if (!$callable instanceof Handle) {
             if (!$callable instanceof \Closure) {
-                $this->signal(esig::INVALID_HANDLE, array(
+                $this->signal(engine_signals::INVALID_HANDLE, array(
                     func_get_args()
                 ));
                 return false;
@@ -500,7 +490,7 @@ class Engine {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
-                $this->signal(esig::INVALID_SIGNAL, array($exception, $signal));
+                $this->signal(engine_signals::INVALID_SIGNAL, array($exception, $signal));
                 return false;
             }
         }
@@ -553,12 +543,12 @@ class Engine {
     public function handle_loader($signal, $directory, $heap = QUEUE_MIN_HEAP)
     {
         if (!is_dir($directory) || !is_readable($directory)) {
-            $this->signal(esig::INVALID_HANDLE_DIRECTORY, array(
+            $this->signal(engine_signals::INVALID_HANDLE_DIRECTORY, array(
                 $directory, $signal
             ));
         }
         if (!is_string($signal) && !is_int($signal)) {
-            $this->signal(esig::INVALID_SIGNAL, array($signal));
+            $this->signal(engine_signals::INVALID_SIGNAL, array($signal));
             return false;
         }
         // ensure handle always has the highest priority
@@ -578,7 +568,7 @@ class Engine {
                     require_once $i;
                 }, $_file);
             }
-            // Resignal this signal
+            // Rengine_signalsnal this signal
             // The current event is not passed so the handles will get a clean
             // event.
             // Event analysis will show the handles were loaded from here.
@@ -629,7 +619,7 @@ class Engine {
         if (is_string($signal) || is_int($signal)) {
             $locate = true;
         } elseif (!$signal instanceof \prggmr\signal\Complex) {
-            $this->signal(esig::INVALID_SIGNAL, array($signal));
+            $this->signal(engine_signals::INVALID_SIGNAL, array($signal));
             return [self::SEARCH_NOOP, null];
         }
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
@@ -664,7 +654,7 @@ class Engine {
         // event creation
         if (!$event instanceof Event) {
             if (null !== $event) {
-                $this->signal(esig::INVALID_EVENT, array($event));
+                $this->signal(engine_signals::INVALID_EVENT, array($event));
             }
             $event = new Event($ttl);
         } else {
@@ -782,7 +772,7 @@ class Engine {
     protected function _execute($signal, $queue, $event, $vars, $interrupt = true)
     {
         if ($event->has_expired()) {
-            $this->signal(esig::EVENT_EXPIRED, [$event]);
+            $this->signal(engine_signals::EVENT_EXPIRED, [$event]);
             return $event;
         }
         // handle pre interupt functions
@@ -817,7 +807,7 @@ class Engine {
                     if ($exception instanceof EngineException) {
                         throw $exception;
                     }
-                    $this->signal(esig::HANDLE_EXCEPTION, array(
+                    $this->signal(engine_signals::HANDLE_EXCEPTION, array(
                         $exception, $signal
                     ));
                 }
@@ -907,7 +897,7 @@ class Engine {
             $dir = dirname(realpath(__FILE__)).'/signal';
         } else {
             if (!is_dir($dir)) {
-                $this->signal(esig::INVALID_SIGNAL_DIRECTORY, $dir);
+                $this->signal(engine_signals::INVALID_SIGNAL_DIRECTORY, $dir);
             }
         }
 
@@ -918,7 +908,7 @@ class Engine {
                 $this->_libraries[$name] = true;
                 require_once $path.'/__autoload.php';
             } else {
-                $this->signal(esig::SIGNAL_LOAD_FAILURE, [$name, $dir]);
+                $this->signal(engine_signals::SIGNAL_LOAD_FAILURE, [$name, $dir]);
             }
         }
     }
@@ -940,21 +930,21 @@ class Engine {
         // Variable Checks
         if (!$handle instanceof Handle) {
             if (!$handle instanceof \Closure) {
-                $this->signal(esig::INVALID_HANDLE, $handle);
+                $this->signal(engine_signals::INVALID_HANDLE, $handle);
                 return false;
             } else {
                 $handle = new Handle($handle);
             }
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
-            $this->signal(esig::INVALID_SIGNAL, $signal);
+            $this->signal(engine_signals::INVALID_SIGNAL, $signal);
             return false;
         }
         if (null === $interrupt) {
             $interrupt = self::INTERRUPT_PRE;
         }
         if (!is_int($interrupt) || $interrupt >= 3) {
-            $this->signal(esig::INVALID_INTERRUPT, $interrupt);
+            $this->signal(engine_signals::INVALID_INTERRUPT, $interrupt);
         }
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];

@@ -75,6 +75,11 @@ abstract class Complex extends Standard {
      */
     final public function get_routine()
     {
+        if (!is_array($this->_routine)) {
+            throw new \RuntimeException(sprintf(
+                "Corrupted or invalid routine detected in %s"
+            ), get_class($this));
+        }
         return $this->_routine;
     }
 
@@ -88,5 +93,26 @@ abstract class Complex extends Standard {
         if (null === $event) return $this->_event;
         $this->_event = $event;
         return $this->_event;
+    }
+
+    /**
+     * Method for adding this signal to signal itself within a routine.
+     *
+     * @param  boolean|object  $event  Create or provide an event. Default = true
+     * 
+     * @param  integer|null  $ttl  TTL for the event.
+     *
+     * @return  void
+     */
+    public function signal_this($event = true, $vars = null, $ttl = null)
+    {
+        if (null === $this->_event) {
+            if (!$event instanceof \prggmr\Event) {
+                $this->event(new \prggmr\Event($ttl));
+            } else {
+                $this->event($event);
+            }
+        }
+        $this->_routine->add_signal($this, $vars, $this->event());
     }
 }

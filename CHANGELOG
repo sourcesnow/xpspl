@@ -1,4 +1,5 @@
 [ 2.0.0 TBD ]
+- Added the signal_this method to the Complex signal object
 - Removed the interval and timeout methods from prggmr's main API
 - Added the get_routine method to the Complex signal.
 - Added add_dispatch_signal, set_idle_time, set_idle_function to the Routine
