@@ -143,7 +143,7 @@ function engine_code($code)
         case \prggmr\engine\Signals::SIGNAL_LOAD_FAILURE:
             return "($code) Signal library __autoload could not be found";
             break;
-        case \prggmr\engine\Signals::INVALID_INTERUPT:
+        case \prggmr\engine\Signals::INVALID_INTERRUPT:
             return "($code) Invalid signal interuption";
         break;
         case \prggmr\engine\Signals::EVENT_EXPIRED:
@@ -151,6 +151,9 @@ function engine_code($code)
             break;
         case \prggmr\engine\Signals::IDLE_FUNCTION_OVERFLOW:
             return "($code) Multiple signals have returned an engine idle function";
+            break;
+        case \prggmr\engine\Signals::ROUTINE_CALCUATION_ERROR:
+            return "($code) Routine calculation error";
             break;
         default:
             return "($code) Unknown engine code";

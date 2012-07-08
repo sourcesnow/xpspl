@@ -9,12 +9,12 @@ namespace prggmr\signal\time;
  /**
  * Time signal
  *
- * Trigger a signal based on timed intervals.
+ * Trigger a signal based on timed intervals in milliseconds
  */
 class Interval extends \prggmr\signal\time\Timeout {
 
     /**
-     * Milliseconds elasped before signaling.
+     * Milliseconds before signaling.
      * 
      * @var  integer
      */
@@ -23,7 +23,7 @@ class Interval extends \prggmr\signal\time\Timeout {
     /**
      * Constructs a time signal.
      *
-     * @param  int  $time  Microseconds before signaling.
+     * @param  int  $time  Milliseconds before signaling.
      *
      * @throws  InvalidArgumentException
      *
@@ -36,7 +36,7 @@ class Interval extends \prggmr\signal\time\Timeout {
     }
     
     /**
-     * Determines when the time signal should fire, otherwise returning
+     * Determine when the time signal should trigger, otherwise returning
      * the engine to idle until it will.
      * 
      * @return  integer
@@ -47,7 +47,7 @@ class Interval extends \prggmr\signal\time\Timeout {
         $return = null;
         if ($current >= $this->_info) {
             $this->_routine->set_idle_time($this->_time + milliseconds());
-            $this->_routine->add_signal($this);
+            $this->signal_this(true);
         }
     }
 }

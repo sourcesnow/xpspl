@@ -75,11 +75,6 @@ abstract class Complex extends Standard {
      */
     final public function get_routine()
     {
-        if (!is_array($this->_routine)) {
-            throw new \RuntimeException(sprintf(
-                "Corrupted or invalid routine detected in %s"
-            ), get_class($this));
-        }
         return $this->_routine;
     }
 

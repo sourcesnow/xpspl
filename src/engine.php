@@ -198,14 +198,13 @@ class Engine {
         }
         $this->handle(function(){
             $args = func_get_args();
-            $type = end($args);
             $message = null;
             if ($args[0] instanceof \Exception) {
                 $message = $args[0]->getMessage();
             } else {
                 $message = engine_code($type);
             }
-            throw new EngineException($message, $type, $args);
+            throw new EngineException($message, $this->get_signal()->info(), $args);
         }, $this->_engine_handle_signal, 0, null);
     }
 
@@ -268,11 +267,14 @@ class Engine {
                     $this->signal($_routine[0], $_routine[1], $_routine[2]);
                 }
             }
-            // check for 
+            // check for idle function
+            if ($this->_routines[2] !== null) {
+                call_user_func_array($this->_routines[2], [$this]);
+            }
             // check for idle time
-            if ($this->_routines[0][0] !== null && $this->_routines[0][1] < milliseconds()) {
+            if ($this->_routines[1][0] !== null && $this->_routines[1][1] > milliseconds()) {
                 // idle for the given time in milliseconds
-                usleep($this->_routines[0] * 1000);
+                usleep($this->_routines[1][0] * 1000);
             }
         }
         $this->signal(engine_signals::LOOP_SHUTDOWN);
@@ -311,45 +313,56 @@ class Engine {
         if ($this->get_state() === STATE_HALTED) return false;
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
             try {
+                // Run the routine
                 $routine = $_node[0]->routine($this->_event_history);
-                if ($routine instanceof signal\Routine) {
-                    // Check signals
-                    $signals = $routine->get_signals();
-                    if (null !== $signals && count($signals) != 0) {
-                        foreach ($signals as $_signal) {
-                            list($_sig, $_vars, $_event) = $_signal;
-                            // ensure it has not exhausted
-                            if (false === $this->_has_routine_exhausted($_sig)) {
+                // Did it return true
+                if (true === $routine) {
+                    // Is the routine a routine?
+                    if (!$routine instanceof signal\Routine) {
+                        $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, [$e, $_node]);
+                    } else {
+                        // Check signals
+                        $routine = $_node[0]->get_routine();
+                        $signals = $routine->get_signals();
+                        if (null !== $signals && count($signals) != 0) {
+                            foreach ($signals as $_signal) {
+                                list($_sig, $_vars, $_event) = $_signal;
+                                // ensure it has not exhausted
+                                if (false === $this->_has_routine_exhausted($_sig)) {
+                                    $return = true;
+                                    // As of v2.0.0 the engine no longer attempts to keep
+                                    // a reference to the same event.
+                                    // This functionality is now dependent upon the signal
+                                    $this->_routines[0][] = [$_sig, $_vars, $_event];
+                                }
+                            }
+                        }
+                        // Idle Time
+                        $idle = $routine->get_idle_time();
+                        if ($idle !== null && (is_int($idle) || is_float($idle))) {
+                            if (null === $this->_routines[0] || $this->_routines[0] > $idle) {
                                 $return = true;
-                                // As of v2.0.0 the engine no longer attempts to keep
-                                // a reference to the same event.
-                                // This functionality is now dependent upon the signal
-                                $this->_routines[0][] = [$_sig, $_vars, $_event];
+                                $this->_routines[1] = [$idle, $idle + milliseconds()];
+                            }
+                        }
+                        // Idle function
+                        $function = $routine->get_idle_function();
+                        if ($function !== null) {
+                            if ($this->_routines[2] !== null) {
+                                $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
+                            } else {
+                                $this->_routines[2] = $function;
                             }
                         }
                     }
-                    // Idle Time
-                    $idle = $routine->get_idle_time();
-                    if ($idle !== null && (is_int($idle) || is_float($idle))) {
-                        if (null === $this->_routines[0] || $this->_routines[0] > $idle) {
-                            $return = true;
-                            $this->_routines[1] = [$idle, $idle + milliseconds()];
-                        }
-                    }
-                    // Idle function
-                    $function = $routine->get_idle_function();
-                    if ($function !== null) {
-                        if ($this->_routines[2] !== null) {
-                            $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
-                        } else {
-                            $this->_routines[2] = $function;
-                        }
-                    }
                 }
-            } catch (\Exception) {
-                $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, $_node);
+            // Catch any problems that happended and signal them
+            } catch (\Exception $e) {
+                echo $e;
+                $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, [$e, $_node]);
             }
         }
+        var_dump($return);
         return $return;
     }
 
@@ -452,7 +465,7 @@ class Engine {
         }
 
         if (!$callable instanceof Handle) {
-            if (!$callable instanceof \Closure) {
+            if (!is_callable($callable)) {
                 $this->signal(engine_signals::INVALID_HANDLE, array(
                     func_get_args()
                 ));
@@ -667,8 +680,6 @@ class Engine {
         if (!$this->_store_history) {
             return $event;
         }
-        // TODO : infinite loop detection algorithm
-        // if possible ... or needed
         // event history management
         if (null !== $this->_current_event) {
             $this->_event_children[] = $this->_current_event;
@@ -974,7 +985,7 @@ class Engine {
      * 
      * @return  boolean
      */
-    protected function _interrupt($signal, $type, $vars, &$event)
+    private function _interrupt($signal, $type, $vars, &$event)
     {
         // do nothing no interupt registered
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$type])) {

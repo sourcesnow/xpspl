@@ -1,4 +1,6 @@
 [ 2.0.0 TBD ]
+- Can now use any callable for a handle
+- Engine::_interrupt is not private
 - Added the signal_this method to the Complex signal object
 - Removed the interval and timeout methods from prggmr's main API
 - Added the get_routine method to the Complex signal.
