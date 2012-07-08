@@ -20,7 +20,7 @@ final class Routine {
      *
      * @var  null|array
      */
-    protected $_signals = null;
+    protected $_signals = [];
 
     /**
      * Amount of time to idle the engine.
@@ -54,7 +54,7 @@ final class Routine {
      */
     public function add_signal($signal = null, $vars = null, $event = null) 
     {
-        $this->_signals = [$signal, $vars, $event];
+        $this->_signals[] = [$signal, $vars, $event];
     }
 
 
@@ -65,7 +65,7 @@ final class Routine {
      */
     public function get_signals()
     {
-        return $this->_signal;
+        return $this->_signals;
     }
 
     /**

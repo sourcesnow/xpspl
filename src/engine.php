@@ -199,12 +199,13 @@ class Engine {
         $this->handle(function(){
             $args = func_get_args();
             $message = null;
+            $type = $this->get_signal();
             if ($args[0] instanceof \Exception) {
                 $message = $args[0]->getMessage();
             } else {
                 $message = engine_code($type);
             }
-            throw new EngineException($message, $this->get_signal()->info(), $args);
+            throw new EngineException($message, $typw, $args);
         }, $this->_engine_handle_signal, 0, null);
     }
 
@@ -315,11 +316,16 @@ class Engine {
             try {
                 // Run the routine
                 $routine = $_node[0]->routine($this->_event_history);
+                var_dump($routine);
                 // Did it return true
                 if (true === $routine) {
+                    $routine = $_node[0]->get_routine();
                     // Is the routine a routine?
                     if (!$routine instanceof signal\Routine) {
-                        $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, [$e, $_node]);
+                        throw new \Exception(sprintf(
+                            "%s did not return a routine",
+                            get_class($_node[0])
+                        ));
                     } else {
                         // Check signals
                         $routine = $_node[0]->get_routine();
@@ -327,6 +333,7 @@ class Engine {
                         if (null !== $signals && count($signals) != 0) {
                             foreach ($signals as $_signal) {
                                 list($_sig, $_vars, $_event) = $_signal;
+                                var_dump($_sig, $_vars, $_event);
                                 // ensure it has not exhausted
                                 if (false === $this->_has_routine_exhausted($_sig)) {
                                     $return = true;
@@ -340,8 +347,9 @@ class Engine {
                         // Idle Time
                         $idle = $routine->get_idle_time();
                         if ($idle !== null && (is_int($idle) || is_float($idle))) {
-                            if (null === $this->_routines[0] || $this->_routines[0] > $idle) {
+                            if (null === $this->_routines[1] || $this->_routines[1] > $idle) {
                                 $return = true;
+                                var_dump($idle);
                                 $this->_routines[1] = [$idle, $idle + milliseconds()];
                             }
                         }
@@ -358,11 +366,9 @@ class Engine {
                 }
             // Catch any problems that happended and signal them
             } catch (\Exception $e) {
-                echo $e;
                 $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, [$e, $_node]);
             }
         }
-        var_dump($return);
         return $return;
     }
 
@@ -377,9 +383,12 @@ class Engine {
     {
         if (!$queue instanceof Queue) {
             $queue = $this->signal_queue($queue, false);
+            var_dump($queue);
+            die();
             if (false === $queue || $queue[0] === self::QUEUE_NEW) return false;
             $queue = $queue[1];
         }
+        var_dump($queue);
         if (true === $this->queue_exhausted($queue)) {
             $this->signal(engine_signals::EXHAUSTED_QUEUE_SIGNALED, array(
                 $queue
@@ -511,12 +520,12 @@ class Engine {
         if ($complex) {
             $search = $this->_search_complex($signal);
             if ($search[0] === self::SEARCH_FOUND) {
-                $queue = $search[1];
+                $queue = $search[1][0];
             }
         } else {
             $search = $this->_search($signal);
             if ($search[0] === self::SEARCH_FOUND) {
-                $queue = $search[1];
+                $queue = $search[1][0];
             }
         }
 
@@ -635,13 +644,13 @@ class Engine {
             $this->signal(engine_signals::INVALID_SIGNAL, array($signal));
             return [self::SEARCH_NOOP, null];
         }
-        foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
-            if ($locate) {
-                $eval = $_node[0]->evaluate($signal);
-                if ($eval !== false) {
-                    $found[] = [$_node[1], $eval];
-                }
-            } else {
+        if (!$locate) {
+            $id = spl_object_hash($signal);
+            if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
+                return [self::SEARCH_FOUND, [$this->_storage[self::COMPLEX_STORAGE][$id][1], null], $id];
+            } 
+        } else {
+            foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
                 if ($_node[0] === $signal) {
                     return [self::SEARCH_FOUND, [[$_node[1], null]], $_key];
                 }

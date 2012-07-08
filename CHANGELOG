@@ -1,4 +1,5 @@
 [ 2.0.0 TBD ]
+- Complex signals are now stored using their hash for faster lookups
 - Can now use any callable for a handle
 - Engine::_interrupt is not private
 - Added the signal_this method to the Complex signal object

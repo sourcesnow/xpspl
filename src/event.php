@@ -61,6 +61,7 @@ class Event {
             }
             $this->_ttl = milliseconds() + $ttl;
         }
+        $this->set_state(STATE_DECLARED);
     }
 
     /**

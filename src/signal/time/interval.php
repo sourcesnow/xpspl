@@ -49,5 +49,6 @@ class Interval extends \prggmr\signal\time\Timeout {
             $this->_routine->set_idle_time($this->_time + milliseconds());
             $this->signal_this(true);
         }
+        return true;
     }
 }
