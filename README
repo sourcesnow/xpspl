@@ -1,5 +1,15 @@
-prggmr is an event processing engine for PHP 5.4. designed to be lightweight, 
-fast and very simple to use.
+prggmr is a [complex event engine](http://en.wikipedia.org/wiki/Complex_event_processing), 
+it is designed to be very simple to use and provide functionality not otherwise
+possible in the realm of PHP.
+
+## Warning
+
+The following readme contains information and code that will challenge
+the way you think and write your PHP code.
+
+Do not proceed unless you are mentally prepared for that.
+
+Have Fun!
 
 ## Global events usage
 
