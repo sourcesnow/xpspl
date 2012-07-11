@@ -31,7 +31,7 @@ class Interval extends \prggmr\signal\time\Timeout {
      */
     public function __construct($time)
     {
-        parent::__construct($time, $vars);
+        parent::__construct($time);
         $this->_time = $time;
     }
     
@@ -44,10 +44,11 @@ class Interval extends \prggmr\signal\time\Timeout {
     public function routine($history = null)
     {
         $current = milliseconds();
-        $return = null;
-        if ($current >= $this->_info) {
+        if ($current > $this->_info) {
             $this->_routine->set_idle_time($this->_time + milliseconds());
             $this->signal_this(true);
+        } else {
+            $this->_routine->set_idle_time($this->_info - $current);
         }
         return true;
     }

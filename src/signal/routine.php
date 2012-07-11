@@ -16,13 +16,6 @@ namespace prggmr\signal;
 final class Routine {
 
     /**
-     * Signals to trigger.
-     *
-     * @var  null|array
-     */
-    protected $_signals = [];
-
-    /**
      * Amount of time to idle the engine.
      *
      * @var  integer|null
@@ -34,7 +27,7 @@ final class Routine {
      *
      * @var  array|null
      */
-    protected $_dispatch_signals = null;
+    protected $_signals = [];
 
     /**
      * Function to execute to idle the engine.
@@ -73,7 +66,7 @@ final class Routine {
      *
      * @return  integer|null
      */
-    final public function get_idle_time(/* ... */)
+    public function get_idle_time(/* ... */)
     {
         return $this->_idle_time;
     }
@@ -83,7 +76,7 @@ final class Routine {
      *
      * @return  null|closure
      */
-    final public function get_idle_function(/* ... */)
+    public function get_idle_function(/* ... */)
     {
         return $this->_idle_function;
     }
@@ -93,7 +86,7 @@ final class Routine {
      *
      * @return  void
      */
-    final public function set_idle_time($time)
+    public function set_idle_time($time)
     {
         $this->_idle_time = $time;
     }
@@ -105,8 +98,20 @@ final class Routine {
      * 
      * @return  void
      */
-    final public function set_idle_function($function)
+    public function set_idle_function($function)
     {
         $this->_idle_function = $function;
+    }
+
+    /**
+     * Resets the routine after the engine has used it.
+     *
+     * @return  void
+     */
+    public function reset()
+    {
+        $this->_idle_function = null;
+        $this->_idle_time = null;
+        $this->_signals = null;
     }
 }

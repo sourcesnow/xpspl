@@ -50,7 +50,7 @@ class Timeout extends \prggmr\signal\Complex {
     {
         $current = milliseconds();
         if (null === $this->_info) return false;
-        if ($current >= $this->_info) {
+        if ($current > $this->_info) {
             $this->signal_this(true);
         } else {
             $this->_routine->set_idle_time($this->_info - $current);

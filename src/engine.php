@@ -315,53 +315,52 @@ class Engine {
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
             try {
                 // Run the routine
-                $routine = $_node[0]->routine($this->_event_history);
-                var_dump($routine);
+                $_routine = $_node[0]->routine($this->_event_history);
                 // Did it return true
-                if (true === $routine) {
-                    $routine = $_node[0]->get_routine();
+                if (true === $_routine) {
+                    $_routine = $_node[0]->get_routine();
                     // Is the routine a routine?
-                    if (!$routine instanceof signal\Routine) {
+                    if (!$_routine instanceof signal\Routine) {
                         throw new \Exception(sprintf(
                             "%s did not return a routine",
                             get_class($_node[0])
                         ));
                     } else {
                         // Check signals
-                        $routine = $_node[0]->get_routine();
-                        $signals = $routine->get_signals();
-                        if (null !== $signals && count($signals) != 0) {
-                            foreach ($signals as $_signal) {
-                                list($_sig, $_vars, $_event) = $_signal;
-                                var_dump($_sig, $_vars, $_event);
+                        $_routine = $_node[0]->get_routine();
+                        $_signals = $_routine->get_signals();
+                        var_dump($_signals);
+                        if (null !== $_signals && count($_signals) != 0) {
+                            foreach ($_signals as $__signal) {
+                                list($__sig, $__vars, $__event) = $__signal;
                                 // ensure it has not exhausted
-                                if (false === $this->_has_routine_exhausted($_sig)) {
+                                if (false === $this->_has_routine_exhausted($__sig)) {
                                     $return = true;
                                     // As of v2.0.0 the engine no longer attempts to keep
                                     // a reference to the same event.
                                     // This functionality is now dependent upon the signal
-                                    $this->_routines[0][] = [$_sig, $_vars, $_event];
+                                    $this->_routines[0][] = [$__sig, $__vars, $__event];
                                 }
                             }
                         }
                         // Idle Time
-                        $idle = $routine->get_idle_time();
-                        if ($idle !== null && (is_int($idle) || is_float($idle))) {
-                            if (null === $this->_routines[1] || $this->_routines[1] > $idle) {
+                        $_idle = $_routine->get_idle_time();
+                        if ($_idle !== null && (is_int($_idle) || is_float($_idle))) {
+                            if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
                                 $return = true;
-                                var_dump($idle);
-                                $this->_routines[1] = [$idle, $idle + milliseconds()];
+                                $this->_routines[1] = [$_idle, $_idle + milliseconds()];
                             }
                         }
                         // Idle function
-                        $function = $routine->get_idle_function();
-                        if ($function !== null) {
+                        $_function = $_routine->get_idle_function();
+                        if ($_function !== null) {
                             if ($this->_routines[2] !== null) {
                                 $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
                             } else {
-                                $this->_routines[2] = $function;
+                                $this->_routines[2] = $_function;
                             }
                         }
+                        $_routine->reset();
                     }
                 }
             // Catch any problems that happended and signal them
