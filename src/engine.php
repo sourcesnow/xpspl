@@ -325,43 +325,42 @@ class Engine {
                             "%s did not return a routine",
                             get_class($_node[0])
                         ));
-                    } else {
-                        // Check signals
-                        $_routine = $_node[0]->get_routine();
-                        $_signals = $_routine->get_signals();
-                        var_dump($_signals);
-                        if (null !== $_signals && count($_signals) != 0) {
-                            foreach ($_signals as $__signal) {
-                                list($__sig, $__vars, $__event) = $__signal;
-                                // ensure it has not exhausted
-                                if (false === $this->_has_routine_exhausted($__sig)) {
-                                    $return = true;
-                                    // As of v2.0.0 the engine no longer attempts to keep
-                                    // a reference to the same event.
-                                    // This functionality is now dependent upon the signal
-                                    $this->_routines[0][] = [$__sig, $__vars, $__event];
-                                }
-                            }
-                        }
-                        // Idle Time
-                        $_idle = $_routine->get_idle_time();
-                        if ($_idle !== null && (is_int($_idle) || is_float($_idle))) {
-                            if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
-                                $return = true;
-                                $this->_routines[1] = [$_idle, $_idle + milliseconds()];
-                            }
-                        }
-                        // Idle function
-                        $_function = $_routine->get_idle_function();
-                        if ($_function !== null) {
-                            if ($this->_routines[2] !== null) {
-                                $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
-                            } else {
-                                $this->_routines[2] = $_function;
-                            }
-                        }
-                        $_routine->reset();
                     }
+                    // Check signals
+                    $_routine = $_node[0]->get_routine();
+                    $_signals = $_routine->get_signals();
+                    var_dump($_signals);
+                    if (null !== $_signals && count($_signals) != 0) {
+                        foreach ($_signals as $__signal) {
+                            list($__sig, $__vars, $__event) = $__signal;
+                            // ensure it has not exhausted
+                            if (false === $this->_has_routine_exhausted($__sig)) {
+                                $return = true;
+                                // As of v2.0.0 the engine no longer attempts to keep
+                                // a reference to the same event.
+                                // This functionality is now dependent upon the signal
+                                $this->_routines[0][] = [$__sig, $__vars, $__event];
+                            }
+                        }
+                    }
+                    // Idle Time
+                    $_idle = $_routine->get_idle_time();
+                    if ($_idle !== null && (is_int($_idle) || is_float($_idle))) {
+                        if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
+                            $return = true;
+                            $this->_routines[1] = [$_idle, $_idle + milliseconds()];
+                        }
+                    }
+                    // Idle function
+                    $_function = $_routine->get_idle_function();
+                    if ($_function !== null) {
+                        if ($this->_routines[2] !== null) {
+                            $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
+                        } else {
+                            $this->_routines[2] = $_function;
+                        }
+                    }
+                    $_routine->reset();
                 }
             // Catch any problems that happended and signal them
             } catch (\Exception $e) {
