@@ -45,11 +45,10 @@ class Interval extends \prggmr\signal\time\Timeout {
     {
         $current = milliseconds();
         if ($current > $this->_info) {
-            $this->_routine->set_idle_time($this->_time + milliseconds());
+            $this->_info = $this->_time + milliseconds();
             $this->signal_this(true);
-        } else {
-            $this->_routine->set_idle_time($this->_info - $current);
         }
+        $this->_routine->set_idle_time($this->_info - $current);
         return true;
     }
 }

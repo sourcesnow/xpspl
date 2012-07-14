@@ -82,17 +82,6 @@ class Engine {
     const INTERRUPT_POST = 1;
 
     /**
-     * Allows for 
-     */
-
-    /**
-     * Determins if queue storage needs to be sorted.
-     * 
-     * @var  boolean
-     */
-    protected $_unsorted = false;
-
-    /**
      * Last sig handler added to the engine.
      * 
      * @var  object
@@ -272,6 +261,7 @@ class Engine {
             if ($this->_routines[2] !== null) {
                 call_user_func_array($this->_routines[2], [$this]);
             }
+            var_dump($this->_routines);
             // check for idle time
             if ($this->_routines[1][0] !== null && $this->_routines[1][1] > milliseconds()) {
                 // idle for the given time in milliseconds
@@ -308,6 +298,7 @@ class Engine {
      */
     private function _routines()
     {
+        echo "RUNNING";
         $return = false;
         $this->_routines = [[], [0], null];
         // allow for external shutdown signal before running anything
@@ -326,15 +317,18 @@ class Engine {
                             get_class($_node[0])
                         ));
                     }
-                    // Check signals
-                    $_routine = $_node[0]->get_routine();
+                    // Get all required data and reset the routine
                     $_signals = $_routine->get_signals();
-                    var_dump($_signals);
+                    $_idle = $_routine->get_idle_time();
+                    $_function = $_routine->get_idle_function();
+                    $_routine->reset();
+                    // Check signals
                     if (null !== $_signals && count($_signals) != 0) {
                         foreach ($_signals as $__signal) {
                             list($__sig, $__vars, $__event) = $__signal;
                             // ensure it has not exhausted
-                            if (false === $this->_has_routine_exhausted($__sig)) {
+                            if (false === $this->_has_signal_exhausted($__sig)) {
+                                echo "HERE";
                                 $return = true;
                                 // As of v2.0.0 the engine no longer attempts to keep
                                 // a reference to the same event.
@@ -343,8 +337,9 @@ class Engine {
                             }
                         }
                     }
+                    echo $_key;
+                    echo $_idle.PHP_EOL;
                     // Idle Time
-                    $_idle = $_routine->get_idle_time();
                     if ($_idle !== null && (is_int($_idle) || is_float($_idle))) {
                         if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
                             $return = true;
@@ -352,7 +347,6 @@ class Engine {
                         }
                     }
                     // Idle function
-                    $_function = $_routine->get_idle_function();
                     if ($_function !== null) {
                         if ($this->_routines[2] !== null) {
                             $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
@@ -360,7 +354,6 @@ class Engine {
                             $this->_routines[2] = $_function;
                         }
                     }
-                    $_routine->reset();
                 }
             // Catch any problems that happended and signal them
             } catch (\Exception $e) {
@@ -371,22 +364,17 @@ class Engine {
     }
 
     /**
-     * Determines if the given signal queue has exhausted during routine calculation.
+     * Determines if the given signal has exhausted during routine calculation.
      * 
      * @param  string|integer|object  $queue
      * 
      * @return  boolean
      */
-    private function _has_routine_exhausted($queue)
+    private function _has_signal_exhausted($signal)
     {
-        if (!$queue instanceof Queue) {
-            $queue = $this->signal_queue($queue, false);
-            var_dump($queue);
-            die();
-            if (false === $queue || $queue[0] === self::QUEUE_NEW) return false;
-            $queue = $queue[1];
-        }
-        var_dump($queue);
+        $queue = $this->signal_queue($signal, false);
+        if (false === $queue || $queue[0] === self::QUEUE_NEW) return false;
+        $queue = $queue[1];
         if (true === $this->queue_exhausted($queue)) {
             $this->signal(engine_signals::EXHAUSTED_QUEUE_SIGNALED, array(
                 $queue
@@ -537,7 +525,8 @@ class Engine {
                     $signal, $queue
                 ];
             } else {
-                $this->_storage[self::COMPLEX_STORAGE][] = [$signal, $queue];
+                $id = spl_object_hash($signal);
+                $this->_storage[self::COMPLEX_STORAGE][$id] = [$signal, $queue];
             }
             $return = [self::QUEUE_NEW, $queue, $signal];
         } else {
