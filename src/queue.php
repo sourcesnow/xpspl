@@ -106,6 +106,7 @@ class Queue {
     */
     public function dequeue($node)
     {
+        if ($this->count() === 0) return false;
         while($this->valid()) {
             if ($this->current()[0] === $node) {
                 unset($this->_storage[$this->key()]);

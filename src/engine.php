@@ -173,9 +173,7 @@ class Engine {
      */
     protected function _register_exception_handler()
     {
-        if (!class_exists('\prggmr\signal\integer\Range', false)){
-            require_once 'signal/integer/range.php';
-        }
+        $this->load_signal('integer');
         if (null === $this->_exception_handle_signal) {
             $this->_engine_handle_signal = new \prggmr\signal\integer\Range(
                 0xE002, 0xE014
@@ -253,6 +251,8 @@ class Engine {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
             if (count($this->_routines[0]) !== 0) {
+                var_dump($this);
+                exit;
                 foreach ($this->_routines[0] as $_routine) {
                     $this->signal($_routine[0], $_routine[1], $_routine[2]);
                 }
@@ -261,7 +261,6 @@ class Engine {
             if ($this->_routines[2] !== null) {
                 call_user_func_array($this->_routines[2], [$this]);
             }
-            var_dump($this->_routines);
             // check for idle time
             if ($this->_routines[1][0] !== null && $this->_routines[1][1] > milliseconds()) {
                 // idle for the given time in milliseconds
@@ -298,7 +297,6 @@ class Engine {
      */
     private function _routines()
     {
-        echo "RUNNING";
         $return = false;
         $this->_routines = [[], [0], null];
         // allow for external shutdown signal before running anything
@@ -327,8 +325,7 @@ class Engine {
                         foreach ($_signals as $__signal) {
                             list($__sig, $__vars, $__event) = $__signal;
                             // ensure it has not exhausted
-                            if (false === $this->_has_signal_exhausted($__sig)) {
-                                echo "HERE";
+                            if (false === $this->has_signal_exhausted($__sig)) {
                                 $return = true;
                                 // As of v2.0.0 the engine no longer attempts to keep
                                 // a reference to the same event.
@@ -337,8 +334,6 @@ class Engine {
                             }
                         }
                     }
-                    echo $_key;
-                    echo $_idle.PHP_EOL;
                     // Idle Time
                     if ($_idle !== null && (is_int($_idle) || is_float($_idle))) {
                         if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
@@ -370,18 +365,17 @@ class Engine {
      * 
      * @return  boolean
      */
-    private function _has_signal_exhausted($signal)
+    public function has_signal_exhausted($signal)
     {
         $queue = $this->signal_queue($signal, false);
-        if (false === $queue || $queue[0] === self::QUEUE_NEW) return false;
-        $queue = $queue[1];
-        if (true === $this->queue_exhausted($queue)) {
-            $this->signal(engine_signals::EXHAUSTED_QUEUE_SIGNALED, array(
-                $queue
-            ));
-            return true;
-        }
-        return false;
+        if (false === $queue) return true;
+        // if (true === $this->queue_exhausted($queue)) {
+        //     $this->signal(engine_signals::EXHAUSTED_QUEUE_SIGNALED, array(
+        //         $queue
+        //     ));
+        //     return true;
+        // }
+        return true === $this->queue_exhausted($queue);
     }
 
     /**
@@ -414,9 +408,8 @@ class Engine {
      */
     public function handle_remove($handle, $signal)
     {
-        $slot = $this->signal_queue($signal);
-        if ($slot[0] <= self::QUEUE_EMPTY) return false;
-        return $slot[1]->dequeue($handle);
+        $queue = $this->signal_queue($signal);
+        return $queue->dequeue($handle);
     }
 
     /**
@@ -469,22 +462,29 @@ class Engine {
             $handle = new Handle($callable, $exhaust);
         }
 
-        $slot = $this->signal_queue($signal);
-        if (false !== $slot && $slot[1] instanceof \prggmr\Queue) {
-            $slot[1]->enqueue($handle, $priority);
+        $queue = $this->signal_queue($signal);
+        if (false !== $queue) {
+            $queue->enqueue($handle, $priority);
         }
 
         return $handle;
     }
 
     /**
-     * Locates or creates a signal Queue in storage.
-     * 
+     * Registers or locates a signal queue in storage.
+     *
+     * Queues are stored using an array structure in the storage of
+     *
+     * [
+     *     0 => prggmr\Signal,
+     *     1 => prggmr\Queue
+     * ]
+     *
      * @param  string|integer|object  $signal  Signal
      * @param  boolean  $create  Create the queue if not found.
      * @param  integer  $type  [QUEUE_MIN_HEAP,QUEUE_MAX_HEAP]
      *
-     * @return  boolean|array  False|[QUEUE_NEW|QUEUE_EMPTY|QUEUE_NONEMPTY, queue, signal]
+     * @return  boolean|object  false|prggmr\Queue
      */
     public function signal_queue($signal, $create = true, $type = QUEUE_MIN_HEAP)
     {
@@ -505,13 +505,13 @@ class Engine {
 
         if ($complex) {
             $search = $this->_search_complex($signal);
-            if ($search[0] === self::SEARCH_FOUND) {
-                $queue = $search[1][0];
+            if (null !== $search) {
+                $queue = $search;
             }
         } else {
             $search = $this->_search($signal);
-            if ($search[0] === self::SEARCH_FOUND) {
-                $queue = $search[1][0];
+            if (null !== $search) {
+                $queue = $search;
             }
         }
 
@@ -528,16 +528,9 @@ class Engine {
                 $id = spl_object_hash($signal);
                 $this->_storage[self::COMPLEX_STORAGE][$id] = [$signal, $queue];
             }
-            $return = [self::QUEUE_NEW, $queue, $signal];
-        } else {
-            if ($queue->count() === 0) {
-                $return = [self::QUEUE_EMPTY, $queue, $signal];
-            } else {
-                $return = [self::QUEUE_NONEMPTY, $queue, $signal];
-            }
         }
         $this->_last_sig_added = $signal;
-        return $return;
+        return $queue;
     }
 
     /**
@@ -592,21 +585,21 @@ class Engine {
      * 
      * @param  string|int|object  $signal  Signal for queue
      * 
-     * @return  array  [SEARCH_NULL|SEARCH_FOUND|SEARCH_NOOP, object|null]
+     * @return  null|object  null|Queue object
      */
     protected function _search($signal) 
     {
         if ($signal instanceof \prggmr\signal\Complex) {
-            return [self::SEARCH_NOOP, null];
+            return null;
         }
         if ($signal instanceof \prggmr\Signal) {
             $signal = $signal->info();
         }
         $signal = (string) $signal;
         if (isset($this->_storage[self::HASH_STORAGE][$signal])) {
-            return [self::SEARCH_FOUND, $this->_storage[self::HASH_STORAGE][$signal][1]];
+            return $this->_storage[self::HASH_STORAGE][$signal][1];
         }
-        return [self::SEARCH_NULL, null];
+        return null;
     }
 
     /**
@@ -616,12 +609,12 @@ class Engine {
      * 
      * @param  string|int|object  $signal  Signal(s) to lookup.
      * 
-     * @return  array  [SEARCH_NULL|SEARCH_FOUND|SEARCH_NOOP, object|array|null, index]
+     * @return  null|array|object
      */
     public function _search_complex($signal)
     {
         if (count($this->_storage[self::COMPLEX_STORAGE]) == 0) {
-            return [self::SEARCH_NOOP, null];
+            return null;
         }
         $locate = false;
         $found = array();
@@ -629,24 +622,25 @@ class Engine {
             $locate = true;
         } elseif (!$signal instanceof \prggmr\signal\Complex) {
             $this->signal(engine_signals::INVALID_SIGNAL, array($signal));
-            return [self::SEARCH_NOOP, null];
+            return null;
         }
         if (!$locate) {
             $id = spl_object_hash($signal);
             if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
-                return [self::SEARCH_FOUND, [$this->_storage[self::COMPLEX_STORAGE][$id][1], null], $id];
-            } 
+                return $this->_storage[self::COMPLEX_STORAGE][$id][1];
+            }
         } else {
             foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
-                if ($_node[0] === $signal) {
-                    return [self::SEARCH_FOUND, [[$_node[1], null]], $_key];
+                $eval = $_node[0]->evaluate($signal);
+                if (false !== $eval) {
+                    $found[] = [$_node[1], $eval];
                 }
             }
         }
         if ($locate && count($found) !== 0) {
-            return [self::SEARCH_FOUND, $found];
+            return $found;
         }
-        return [self::SEARCH_NULL, null];
+        return null;
     }
 
     /**
@@ -733,24 +727,28 @@ class Engine {
 
         // locate sig handlers
         $queue = new Queue();
-        $stack = $this->_search($signal);
-        if ($stack[0] === self::SEARCH_FOUND) {
-            $storage = $stack[1]->storage();
-            $queue->merge($storage);
+        $simple = $this->_search($signal);
+        if (null !== $search) {
+            $queue->merge($simple->storage());
         }
         $complex = $this->_search_complex($signal);
-        if ($complex[0] === self::SEARCH_FOUND) {
-            array_walk($complex[1], function($node) use ($queue){
-                if (is_bool($node[1]) === false) {
-                    $data = $node[1];
-                    $node[0]->walk(function($handle) use ($data){
-                        $handle[0]->params($data);
-                    });
-                }
-                $storage = $node[0]->storage();
-                $queue->merge($storage);
-            });
+        var_dump($complex);
+        var_dump($signal);
+        if (null !== $complex) {
+            if (is_array($complex)) {
+                array_walk($complex, function($node) use ($queue) {
+                    if (is_bool($node[1]) === false) {
+                        $data = $node[1];
+                        $node[0]->walk(function($handle) use ($data){
+                            $handle[0]->params($data);
+                        });
+                    }
+                    $queue->merge($node[0]->storage());
+                });
+            }
         }
+
+        var_dump($queue);
 
         // no sig handlers found
         if ($queue->count() === 0) {

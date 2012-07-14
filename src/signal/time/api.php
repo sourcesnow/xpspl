@@ -12,7 +12,7 @@ namespace prggmr\signal\time;
  *
  * @return  array  [signal, handle]
  */
-function interval($function, $interval, $vars = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 0)
+function interval($function, $interval, $vars = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null)
 {
     $signal = new Interval($interval, $vars);
     $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);

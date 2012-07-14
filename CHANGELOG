@@ -1,4 +1,7 @@
 [ 2.0.0 TBD ]
+- signal_queue function rewriting to return either false or the queue
+- _search and _search_complex no longer return the type of return
+- Added the has_signal_exhausted function to engine's public API.
 - Complex signals are now stored using their hash for faster lookups
 - Can now use any callable for a handle
 - Engine::_interrupt is not private

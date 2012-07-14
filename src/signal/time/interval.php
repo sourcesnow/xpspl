@@ -44,7 +44,7 @@ class Interval extends \prggmr\signal\time\Timeout {
     public function routine($history = null)
     {
         $current = milliseconds();
-        if ($current > $this->_info) {
+        if ($current >= $this->_info) {
             $this->_info = $this->_time + milliseconds();
             $this->signal_this(true);
         }
