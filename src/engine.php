@@ -179,7 +179,7 @@ class Engine {
                 0xE002, 0xE014
             );
         } else {
-            if ($this->_search_complex($this->_engine_handle_signal)[0] === self::SEARCH_FOUND) {
+            if (null !== $this->_search_complex($this->_engine_handle_signal)) {
                 return true;
             }
         }

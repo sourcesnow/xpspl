@@ -2,9 +2,9 @@
 
 prggmr\load_signal("time");
 
-prggmr\handle(function(){
-    echo "Loop Start";
-}, \prggmr\engine\Signals::LOOP_START);
+// prggmr\handle(function(){
+//     echo "Loop Start";
+// }, \prggmr\engine\Signals::LOOP_START);
 
 prggmr\handle(function(){
     echo "Loop END";

@@ -1,4 +1,6 @@
 [ 2.0.0 TBD ]
+- Added the prggmr\engine\signal classes used for handling errors
+- Removed the prggmr\engine\Signals class
 - signal_queue function rewriting to return either false or the queue
 - _search and _search_complex no longer return the type of return
 - Added the has_signal_exhausted function to engine's public API.
