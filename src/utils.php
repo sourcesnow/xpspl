@@ -30,7 +30,7 @@ function milliseconds(/* ... */) {
  * @return void
  */
 function signal_exceptions($exception) {
-    \prggmr\signal(\prggmr\engine\Signals::GLOBAL_EXCEPTION, $exception);
+    \prggmr\signal(\prggmr\engine\signal\Error(), $exception);
 }
 
 /**
@@ -46,7 +46,7 @@ function signal_exceptions($exception) {
  * @return  void
  */
 function signal_errors($errno, $errstr, $errfile, $errline) {
-    \prggmr\signal(\prggmr\engine\Signals::GLOBAL_ERROR, array(
+    \prggmr\signal(new \prggmr\engine\signal\Error($errstr), array(
         $errstr, 0, $errno, $errfile, $errline
     ));
 }
