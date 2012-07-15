@@ -3,7 +3,7 @@
 prggmr\load_signal("time");
 
 prggmr\handle(function(){
-    echo "Loop Start";
+    echo "Loop Starting Here";
 }, new \prggmr\engine\signal\Loop_Start());
 
 prggmr\handle(function(){
@@ -14,7 +14,7 @@ prggmr\signal\time\interval(function(){
     echo "1 1/2 Second".PHP_EOL;
 }, 1500);
 
-// prggmr\signal\time\timeout(function(){
-//     prggmr\prggmr_shutdown();
-//     echo "5 Seconds".PHP_EOL;
-// }, 1000);
+prggmr\signal\time\timeout(function(){
+    prggmr\shutdown();
+    echo "5 Seconds".PHP_EOL;
+}, 5000);

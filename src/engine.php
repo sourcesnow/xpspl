@@ -244,8 +244,6 @@ class Engine {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
             if (count($this->_routines[0]) !== 0) {
-                var_dump($this);
-                exit;
                 foreach ($this->_routines[0] as $_routine) {
                     $this->signal($_routine[0], $_routine[1], $_routine[2]);
                 }
@@ -601,7 +599,6 @@ class Engine {
      */
     private function _event($signal, $event = null, $ttl = null)
     {
-        var_dump($signal);
         // event creation
         if (!$event instanceof Event) {
             if (null !== $event) {
@@ -678,12 +675,10 @@ class Engine {
         // locate sig handlers
         $queue = new Queue();
         $simple = $this->_search($signal);
-        if (null !== $search) {
+        if (null !== $simple) {
             $queue->merge($simple->storage());
         }
         $complex = $this->_search_complex($signal);
-        var_dump($complex);
-        var_dump($signal);
         if (null !== $complex) {
             if (is_array($complex)) {
                 array_walk($complex, function($node) use ($queue) {
@@ -695,10 +690,10 @@ class Engine {
                     }
                     $queue->merge($node[0]->storage());
                 });
+            } else {
+                $queue->merge($complex->storage());
             }
         }
-
-        var_dump($queue);
 
         // no sig handlers found
         if ($queue->count() === 0) {

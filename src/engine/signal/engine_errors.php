@@ -14,7 +14,6 @@ class Engine_Errors extends \prggmr\signal\Complex {
 
     public function evaluate($signal)
     {
-        echo "HERE";
         if ($signal instanceof Error) {
             return true;
         }
