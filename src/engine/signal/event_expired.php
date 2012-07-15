@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Expired event triggered for execution
  */
-class Event_Expired extends Base {}
+class Event_Expired extends Error {}

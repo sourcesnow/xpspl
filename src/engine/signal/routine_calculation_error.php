@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Exception occured during a routine calculation.
  */
-class Routine_Calculation_Error extends Base {}
+class Routine_Calculation_Error extends Error {}

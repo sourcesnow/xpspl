@@ -2,13 +2,13 @@
 
 prggmr\load_signal("time");
 
-// prggmr\handle(function(){
-//     echo "Loop Start";
-// }, \prggmr\engine\Signals::LOOP_START);
+prggmr\handle(function(){
+    echo "Loop Start";
+}, new \prggmr\engine\signal\Loop_Start());
 
 prggmr\handle(function(){
     echo "Loop END";
-}, \prggmr\engine\Signals::LOOP_SHUTDOWN);
+}, new \prggmr\engine\signal\Loop_Shutdown());
 
 prggmr\signal\time\interval(function(){
     echo "1 1/2 Second".PHP_EOL;

@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Maximum number of idle functions exceeded.
  */
-class Idle_Function_Overflow extends Base {}
+class Idle_Function_Overflow extends Error {}

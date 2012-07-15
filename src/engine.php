@@ -8,7 +8,7 @@ namespace prggmr;
 
 use \Closure,
     \InvalidArgumentException,
-    \prggmr\engine\Signals as engine_signals;
+    \prggmr\engine\signal as engine_signals;
 
 /**
  * Complex signal return to trigger the signal during routine calculation.
@@ -162,22 +162,19 @@ class Engine {
         $this->_store_history = (bool) $event_history;
         $this->flush();
         if ($this->_engine_exceptions) {
-           $this->_register_exception_handler();
+           $this->_register_error_handler();
         }
     }
 
     /**
-     * Registers the engine exceptions signal handler.
+     * Registers the engine error signal handler.
      *
      * @return  void
      */
-    protected function _register_exception_handler()
+    protected function _register_error_handler()
     {
-        $this->load_signal('integer');
         if (null === $this->_exception_handle_signal) {
-            $this->_engine_handle_signal = new \prggmr\signal\integer\Range(
-                0xE002, 0xE014
-            );
+            $this->_engine_handle_signal = new \prggmr\engine\signal\Engine_Errors();
         } else {
             if (null !== $this->_search_complex($this->_engine_handle_signal)) {
                 return true;
@@ -185,14 +182,10 @@ class Engine {
         }
         $this->handle(function(){
             $args = func_get_args();
-            $message = null;
+            $message = $this->get_signal()->get_message();
+            $exception = $this->get_signal()->get_exception();
             $type = $this->get_signal();
-            if ($args[0] instanceof \Exception) {
-                $message = $args[0]->getMessage();
-            } else {
-                $message = engine_code($type);
-            }
-            throw new EngineException($message, $typw, $args);
+            throw new Engine_Exception($message, $type, $args);
         }, $this->_engine_handle_signal, 0, null);
     }
 
@@ -219,7 +212,7 @@ class Engine {
     public function enable_signaled_exceptions()
     {
         $this->_engine_exceptions = true;
-        $this->_register_exception_handler();
+        $this->_register_error_handler();
     }
 
     /**
@@ -344,7 +337,9 @@ class Engine {
                     // Idle function
                     if ($_function !== null) {
                         if ($this->_routines[2] !== null) {
-                            $this->signal(new engine_signals\Idle_Function_Overflow(), array($_node[0]));
+                            $this->signal(new engine_signals\Idle_Function_Overflow(
+                                "There can be only one idle function"
+                            ), array($_node[0]));
                         } else {
                             $this->_routines[2] = $_function;
                         }
@@ -352,7 +347,9 @@ class Engine {
                 }
             // Catch any problems that happended and signal them
             } catch (\Exception $e) {
-                $this->signal(engine_signals::ROUTINE_CALCUATION_ERROR, [$e, $_node]);
+                $this->signal(new engine_signals\Routine_Calculation_Error(
+                    "An error has occured during a routine calculation"
+                ), [$e, $_node]);
             }
         }
         return $return;
@@ -446,15 +443,11 @@ class Engine {
             unset($tmp);
         }
 
-        if (is_int($signal) && $signal >= 0xE001 && $signal <= 0xE02A) {
-            $this->signal(engine_signals::RESTRICTED_SIGNAL, array(
-                func_get_args()
-            ));
-        }
-
         if (!$callable instanceof Handle) {
             if (!is_callable($callable)) {
-                $this->signal(engine_signals::INVALID_HANDLE, array(
+                $this->signal(new engine_signals\Invalid_Handle(
+                       "Invalid handle given to the handle method" 
+                    ), array(
                     func_get_args()
                 ));
                 return false;
@@ -498,7 +491,9 @@ class Engine {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
-                $this->signal(engine_signals::INVALID_SIGNAL, array($exception, $signal));
+                $this->signal(new engine_signals\Invalid_Signal(
+                    "Invalid signal given to the signal_queue"
+                ), array($exception, $signal));
                 return false;
             }
         }
@@ -531,53 +526,6 @@ class Engine {
         }
         $this->_last_sig_added = $signal;
         return $queue;
-    }
-
-    /**
-     * Registers a new sig handle loader which recursively loads files in the
-     * given directory when a signal is triggered.
-     * 
-     * @param  integer|string|object  $signal  Signal to register with
-     * @param  string  $directory  Directory to load handles from
-     * 
-     * @return  object|boolean  \prggmr\Handle|False on error
-     */
-    public function handle_loader($signal, $directory, $heap = QUEUE_MIN_HEAP)
-    {
-        if (!is_dir($directory) || !is_readable($directory)) {
-            $this->signal(engine_signals::INVALID_HANDLE_DIRECTORY, array(
-                $directory, $signal
-            ));
-        }
-        if (!is_string($signal) && !is_int($signal)) {
-            $this->signal(engine_signals::INVALID_SIGNAL, array($signal));
-            return false;
-        }
-        // ensure handle always has the highest priority
-        $priority = 0;
-        if ($heap === QUEUE_MAX_HEAP) {
-            $priority = PHP_INT_MAX;
-        }
-        $engine = $this;
-        $handle = $this->handle(function() use ($directory, $engine) {
-            $dir = new \RegexIterator(
-                new \RecursiveIteratorIterator(
-                    new \RecursiveDirectoryIterator($directory)
-                ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
-            );
-            foreach ($dir as $_file) {
-                array_map(function($i){
-                    require_once $i;
-                }, $_file);
-            }
-            // Rengine_signalsnal this signal
-            // The current event is not passed so the handles will get a clean
-            // event.
-            // Event analysis will show the handles were loaded from here.
-            $engine->signal($this->get_signal(), func_get_args());
-            return true;
-        }, $signal, 0, 1);
-        return $handle;
     }
 
     /**
@@ -621,7 +569,6 @@ class Engine {
         if (is_string($signal) || is_int($signal)) {
             $locate = true;
         } elseif (!$signal instanceof \prggmr\signal\Complex) {
-            $this->signal(engine_signals::INVALID_SIGNAL, array($signal));
             return null;
         }
         if (!$locate) {
@@ -654,10 +601,13 @@ class Engine {
      */
     private function _event($signal, $event = null, $ttl = null)
     {
+        var_dump($signal);
         // event creation
         if (!$event instanceof Event) {
             if (null !== $event) {
-                $this->signal(engine_signals::INVALID_EVENT, array($event));
+                $this->signal(new engine_signals\Invalid_Event(
+                    "Invalid event passed for execution"
+                ), array($event));
             }
             $event = new Event($ttl);
         } else {
@@ -777,7 +727,9 @@ class Engine {
     protected function _execute($signal, $queue, $event, $vars, $interrupt = true)
     {
         if ($event->has_expired()) {
-            $this->signal(engine_signals::EVENT_EXPIRED, [$event]);
+            $this->signal(new engine_signals\Event_Expired(
+                "Expired event passed for execution"
+            ), [$event]);
             return $event;
         }
         // handle pre interupt functions
@@ -809,10 +761,12 @@ class Engine {
                 } catch (\Exception $exception) {
                     $event->set_state(STATE_ERROR);
                     $handle->set_state(STATE_ERROR);
-                    if ($exception instanceof EngineException) {
+                    if ($exception instanceof Engine_Exception) {
                         throw $exception;
                     }
-                    $this->signal(engine_signals::HANDLE_EXCEPTION, array(
+                    $this->signal(new engine_signals\Handle_Exception(
+                            "Exception occured during handle execution"
+                        ), array(
                         $exception, $signal
                     ));
                 }
@@ -902,7 +856,9 @@ class Engine {
             $dir = dirname(realpath(__FILE__)).'/signal';
         } else {
             if (!is_dir($dir)) {
-                $this->signal(engine_signals::INVALID_SIGNAL_DIRECTORY, $dir);
+                $this->signal(new engine_signals\Signal_Library_Failure(
+                    "Invalid signal library name"
+                ), $dir);
             }
         }
 
@@ -913,7 +869,9 @@ class Engine {
                 $this->_libraries[$name] = true;
                 require_once $path.'/__autoload.php';
             } else {
-                $this->signal(engine_signals::SIGNAL_LOAD_FAILURE, [$name, $dir]);
+                $this->signal(new engine_signals\Signal_Library_Failure(
+                    "Signal library does not have an __autoload file"
+                ), [$name, $dir]);
             }
         }
     }
@@ -935,21 +893,27 @@ class Engine {
         // Variable Checks
         if (!$handle instanceof Handle) {
             if (!$handle instanceof \Closure) {
-                $this->signal(engine_signals::INVALID_HANDLE, $handle);
+                $this->signal(new engine_signals\Invalid_Handle(
+                    "Invalid handle given for signal interruption"
+                ), $handle);
                 return false;
             } else {
                 $handle = new Handle($handle);
             }
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
-            $this->signal(engine_signals::INVALID_SIGNAL, $signal);
+            $this->signal(new engine_signals\Ivalid_Signal(
+                "Invalid signal given for handle interruption"
+            ), $signal);
             return false;
         }
         if (null === $interrupt) {
             $interrupt = self::INTERRUPT_PRE;
         }
         if (!is_int($interrupt) || $interrupt >= 3) {
-            $this->signal(engine_signals::INVALID_INTERRUPT, $interrupt);
+            $this->signal(new engine_signals\Invalid_Interrupt(
+                "Invalid interruption location"
+            ), $interrupt);
         }
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
@@ -1120,23 +1084,33 @@ class Engine {
     }
 }
 
-class EngineException extends \Exception {
+class Engine_Exception extends \Exception {
 
-    protected $_type = null;
+    /**
+     * The signal that occured.
+     * 
+     * @var  object
+     */
+    protected $_signal = null;
 
+    /**
+     * Arguments associated with the exception
+     * 
+     * @var  null|array
+     */
     protected $_args = null;
 
     /**
      * Constructs a new engine exception.
      * 
      * @param  string|null  $message  Exception message if given
-     * @param  integer  $type  Engine error type
+     * @param  object  $signal  Error signal
      * @param  array  $args  Arguments present for exception
      */
-    public function __construct($message, $type, $args)
+    public function __construct($message, $signal, $args)
     {
         parent::__construct($message);
-        $this->_type = $type;
+        $this->_signal = $type;
         $this->_args = $args;
     }
 
@@ -1155,8 +1129,8 @@ class EngineException extends \Exception {
      * 
      * @return  integer
      */
-    public function get_engine_code(/* ... */)
+    public function get_signal(/* ... */)
     {
-        return $this->_type;
+        return $this->_signal;
     }
 }

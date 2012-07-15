@@ -8,9 +8,9 @@ namespace prggmr\engine\signal;
 
 
 /**
- * The base error signal for engine errors.
+ * The base any engine signal.
  */
-class Base extends prggmr\signal\Standard {
+class Error extends Base {
 
     /**
      * Error message
@@ -27,7 +27,7 @@ class Base extends prggmr\signal\Standard {
     protected $_exception = null;
 
     /**
-     * Constructs a new error signal.
+     * Constructs a new signal.
      *
      * @param  string  $error  Error message.
      * @param  object|null  $exception  Exception object if exists
@@ -60,15 +60,4 @@ class Base extends prggmr\signal\Standard {
         return $this->_exception;
     }
 
-    /**
-     * These cannot evalute or run a routine.
-     */
-    public function routine($history = null)
-    {
-        return false;
-    }
-    public function evaluate($signal = null)
-    {
-        return false;
-    }
 }

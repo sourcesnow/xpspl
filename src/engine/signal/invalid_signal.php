@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Invalid signal encountered by the engine.
  */
-class Invalid_Signal extends Base {}
+class Invalid_Signal extends Error {}

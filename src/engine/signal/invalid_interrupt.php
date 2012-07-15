@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Invalid signal interruption
  */
-class Invalid_Interrupt extends Base {}
+class Invalid_Interrupt extends Error {}

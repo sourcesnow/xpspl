@@ -8,15 +8,16 @@ namespace prggmr\engine\signal;
 
 
 /**
- * The base any engine signal.
+ * Catches all engine signals that trigger.
  */
-class Base extends \prggmr\Signal {
-    
-    /**
-     * Returns the information for this signal.
-     */
-    public function info()
+class Engine_Signals extends \prggmr\signal\Complex {
+
+    public function evaluate($signal)
     {
-        return 'prggmr_'.strtolower(get_class($this));
+        if ($signal instanceof Base) {
+            return true;
+        }
+        return false;
     }
+
 }
