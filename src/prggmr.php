@@ -19,18 +19,31 @@ if (defined('PRGGMR_DEV_MODE')) {
 $dir = dirname(realpath(__FILE__));
 
 // start'er up
+// utils & traits
 require $dir.'/utils.php';
 require $dir.'/singleton.php';
 require $dir.'/storage.php';
 require $dir.'/state.php';
-require $dir.'/engine/signals.php';
+// engine itself
 require $dir.'/engine.php';
+// signals
 require $dir.'/signal/routine.php';
 require $dir.'/signal/standard.php';
 require $dir.'/signal.php';
 require $dir.'/signal/complex.php';
-require $dir.'/signal/time/timeout.php';
-require $dir.'/signal/time/interval.php';
+require $dir.'/engine/signal/base.php';
+require $dir.'/engine/signal/event_expired.php';
+require $dir.'/engine/signal/handle_exception.php';
+require $dir.'/engine/signal/idle_function_overflow.php';
+require $dir.'/engine/signal/invalid_event.php';
+require $dir.'/engine/signal/invalid_handle.php';
+require $dir.'/engine/signal/invalid_interrupt.php';
+require $dir.'/engine/signal/invalid_signal.php';
+require $dir.'/engine/signal/loop_shutdown.php';
+require $dir.'/engine/signal/loop_start.php';
+require $dir.'/engine/signal/routine_calculation_error.php';
+require $dir.'/engine/signal/signal_library_failure.php';
+// event, handle, queue and the API
 require $dir.'/event.php';
 require $dir.'/queue.php';
 require $dir.'/handle.php';

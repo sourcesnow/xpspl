@@ -246,7 +246,7 @@ class Engine {
                 $engine->shutdown();
             }, new \prggmr\signal\time\Timeout($ttr, $this));
         }
-        $this->signal(engine_signals::LOOP_START);
+        $this->signal(new engine_signals\Loop_Start());
         while($this->_routines()) {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
@@ -267,7 +267,7 @@ class Engine {
                 usleep($this->_routines[1][0] * 1000);
             }
         }
-        $this->signal(engine_signals::LOOP_SHUTDOWN);
+        $this->signal(new engine_signals\Loop_Shutdown());
     }
 
     /**
@@ -344,7 +344,7 @@ class Engine {
                     // Idle function
                     if ($_function !== null) {
                         if ($this->_routines[2] !== null) {
-                            $this->signal(engine_signals::IDLE_FUNCTION_OVERFLOW, array($_node[0]));
+                            $this->signal(new engine_signals\Idle_Function_Overflow(), array($_node[0]));
                         } else {
                             $this->_routines[2] = $_function;
                         }

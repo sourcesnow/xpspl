@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Failed to load a signal library
  */
-class Signal_Library_Failure extends Error {}
+class Signal_Library_Failure extends Base {}

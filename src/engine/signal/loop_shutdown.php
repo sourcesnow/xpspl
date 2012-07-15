@@ -8,6 +8,6 @@ namespace prggmr\engine\signal;
 
 
 /**
- * Expired event triggered for execution
+ * Event loop shutdown
  */
-class Event_Expired extends Base {}
+class Loop_Shutdown extends Base {}

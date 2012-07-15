@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Exception encountered during handle execution
  */
-class Handle_Exception extends Error {}
+class Handle_Exception extends Base {}

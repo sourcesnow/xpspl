@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Invalid handle signal.
  */
-class Invalid_Handle extends Error {}
+class Invalid_Handle extends Base {}
