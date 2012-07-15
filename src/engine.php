@@ -173,7 +173,7 @@ class Engine {
      */
     protected function _register_error_handler()
     {
-        if (null === $this->_exception_handle_signal) {
+        if (null === $this->_engine_handle_signal) {
             $this->_engine_handle_signal = new \prggmr\engine\signal\Engine_Errors();
         } else {
             if (null !== $this->_search_complex($this->_engine_handle_signal)) {

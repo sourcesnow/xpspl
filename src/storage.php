@@ -39,7 +39,7 @@ trait Storage {
      * 
      * @return  void
      */
-    public function merge(&$array)
+    public function merge($array)
     {
         $this->_storage += $array;
     }
