@@ -140,6 +140,7 @@ class Uri extends \prggmr\signal\Complex {
                 $this->_is_match = true;
             }
         }
+        parent::__construct($uri);
     }
 
     /**
@@ -185,9 +186,10 @@ class Uri extends \prggmr\signal\Complex {
             if (false !== $this->_event) {
                 $this->_event->set_uri(REQUEST_URI);
             }
-            return [null, ENGINE_ROUTINE_SIGNAL, null];
+            $this->signal_this();
+            return true;
         }
-        return null;
+        return false;
     }
 
     public function evalute($signal = null) 

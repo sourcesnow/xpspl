@@ -209,7 +209,7 @@ function init($event_history = true, $engine_exceptions = true)
  */
 function disable_signaled_exceptions($history = false)
 {
-    return prggmr::instance()->disable_signaled_exceptions($history);
+    return \prggmr::instance()->disable_signaled_exceptions($history);
 }
 
 /**
@@ -219,7 +219,7 @@ function disable_signaled_exceptions($history = false)
  */
 function enable_signaled_exceptions()
 {
-    return prggmr::instance()->enable_signaled_exceptions();
+    return \prggmr::instance()->enable_signaled_exceptions();
 }
 
 /**
@@ -229,7 +229,7 @@ function enable_signaled_exceptions()
  */
 function erase_history()
 {
-    return prggmr::instance()->erase_history();
+    return \prggmr::instance()->erase_history();
 }
 
 /**
@@ -242,5 +242,5 @@ function erase_history()
  */
 function save_event_history($flag)
 {
-    return prggmr::instance()->save_event_history($flag);
+    return \prggmr::instance()->save_event_history($flag);
 }

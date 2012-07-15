@@ -1,7 +1,9 @@
 <?php
 prggmr\load_signal('unittest');
-
 use prggmr\signal\unittest as unittest;
+
+// Enable history
+prggmr\save_event_history(true);
 
 unittest\api\test(function(){
     $this->true(true);
@@ -40,4 +42,4 @@ prggmr\handle(function(){
     echo PHP_EOL;
     echo "Ran $tests tests";
     echo PHP_EOL;
-}, prggmr\engine\Signals::LOOP_SHUTDOWN);
+}, new prggmr\engine\signal\Loop_Shutdown());

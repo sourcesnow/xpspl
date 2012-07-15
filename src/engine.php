@@ -676,6 +676,7 @@ class Engine {
         $queue = new Queue();
         $simple = $this->_search($signal);
         if (null !== $simple) {
+            
             $queue->merge($simple->storage());
         }
         $complex = $this->_search_complex($signal);
