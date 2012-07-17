@@ -676,7 +676,6 @@ class Engine {
         $queue = new Queue();
         $simple = $this->_search($signal);
         if (null !== $simple) {
-            
             $queue->merge($simple->storage());
         }
         $complex = $this->_search_complex($signal);
@@ -1015,14 +1014,23 @@ class Engine {
      */
     public function delete_signal($signal, $history = false)
     {
-        if ($signal instanceof signal\Complex) {
-            $search = $this->_search_complex($signal);
-            if ($search[0] !== self::SEARCH_FOUND) return false;
-            unset($this->_storage[self::COMPLEX_STORAGE][$search[3]]);
-        } elseif (isset($this->_storage[self::HASH_STORAGE][$signal])) {
+        if ($signal instanceof signal\Standard) {
+            if ($signal instanceof signal\Complex) {
+                $obj = spl_object_hash($signal);
+                if (!isset($this->_storage[self::COMPLEX_STORAGE][$obj])) {
+                    return false;
+                }
+                unset($this->_storage[self::COMPLEX_STORAGE][$obj]);
+            } else {
+                $signal = $signal->get_info();
+            }
+        }
+
+        if (is_string($signal) || is_int($signal)) {
+            if (!isset($this->_storage[self::HASH_STORAGE][$signal])) {
+                return false;
+            }
             unset($this->_storage[self::HASH_STORAGE][$signal]);
-        } else {
-            return false;
         }
 
         if ($history) {

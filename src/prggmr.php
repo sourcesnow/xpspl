@@ -78,7 +78,7 @@ final class prggmr extends \prggmr\Engine {
      * 
      * @return  object  prggmr\Engine
      */
-    final public static function init($event_history, $engine_exceptions) 
+    final public static function init($event_history = true, $engine_exceptions = true) 
     {
         if (null === static::$_instance) {
             static::$_instance = new self($event_history, $engine_exceptions);

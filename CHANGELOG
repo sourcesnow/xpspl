@@ -1,4 +1,10 @@
 [ 2.0.0 TBD ]
+- Added Micheal Dowling to the CREDITS file
+- Added the cron-expression vendor library
+- Added the signal\time\cron API function.
+- Added the signal\time\Cron signal.
+- Autoloading is now used
+- Removed the engine_code function
 - Renamed EngineException to Engine_Exception
 - Removed handle_loader from the engine
 - Added the prggmr\engine\signal classes used for engine signals
@@ -22,15 +28,11 @@
 - Added the signal\Routines class
 - Added the get_idle_time, get_dispatch_signals, get_idle_function to the 
   Complex signal class.
-- Engine routine now uses the get_idle_time, *_dispatch_signal and 
-  *_idle_function.
-- Engine now supports for complex signals to set a function to call to idle
-  the engine rather than just making a call to usleep.
-- Engine now allows for setting the engine_exceptions and event_history flags
+- Engine routine now uses the get_idle_tim xceptions and event_history flags
   on construction.
 
 [ 1.2.4 060712 ]
-- Added pcntl signal library
+- Added pcntl signal library                                  
 
 [ 1.2.3 052112 ]
 - Account for the BASE_URI setting in the http\Uri signal

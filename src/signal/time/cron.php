@@ -1,43 +1,64 @@
 <?php
-namespace prggmr\signal;
+namespace prggmr\signal\time;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
  
+
+if (!class_exists('\Cron\CronExpression')) {
+    $file = dirname(realpath(__FILE__)).'/../../../vendor/mtdowling/cron-expression/build/cron.phar';
+    if (file_exists($file)) {
+        require_once $file;
+        define('HAS_CRONEXPRESSION', true);
+    } else {
+        define('HAS_CRONEXPRESSION', false);
+    }
+} else {
+    define('HAS_CRONEXPRESSION', true);
+}
+
  /**
  * Cron signal
  *
  * Signal event based on the UNIX cron definition
  */
-class Cron extends \prggmr\signal\Interval {
+class Cron extends \prggmr\signal\Complex {
 
     /**
-     * Milliseconds elasped before signaling.
+     * Cron-Expression object
      * 
      * @var  integer
      */
-    protected $_time = null;
+    protected $_cron = null;
 
     /**
-     * Constructs a cron signal.
+     * Next runtime of the cron.
      *
-     * @param  int  $time  Microseconds before signaling.
+     * @var  integer
+     */
+    protected $_next_run = null;
+
+    /**
+     * Constructs a new cron signal.
+     *
+     * @param  string  $expression  Cron expression
      *
      * @throws  InvalidArgumentException
      *
      * @return  void
      */
-    public function __construct($time, $vars = null)
+    public function __construct($expression)
     {
-        if (!PRGGMR_DEBUG) {
+        if (!HAS_CRONEXPRESSION) {
             throw new \RuntimeException(
-                "This signal is currenlty under development!"
-            );  
+                "Cron-Expression library is required for cron signals - https://github.com/mtdowling/cron-expression"
+            );
         }
-        parent::__construct($time, $vars);
-        $this->_time = $time;
+        $this->_cron = \Cron\CronExpression::factory($expression);
+        $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
+        parent::__construct();
     }
     
     /**
@@ -48,12 +69,15 @@ class Cron extends \prggmr\signal\Interval {
      */
     public function routine($history = null)
     {
-        $current = milliseconds();
-        $return = null;
-        if ($current >= $this->_info) {
-            $this->_info = $this->_time + milliseconds();
-            $return = ENGINE_ROUTINE_SIGNAL;
+        $current = time();
+        $diff = $this->_next_run - $current;
+        if ($diff <= 0) {
+            $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
+            // engine goes by milliseconds
+            $this->signal_this();
+        } else {
+            $this->_routine->set_idle_time($diff);
         }
-        return [$return, $this->_info - $current];
+        return true;
     }
 }

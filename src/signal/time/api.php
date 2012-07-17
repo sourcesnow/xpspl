@@ -36,3 +36,20 @@ function timeout($function, $timeout, $vars = null, $priority = QUEUE_DEFAULT_PR
     $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
     return [$signal, $handle];
 }
+
+
+/**
+ * Setup a cron based signal.
+ *
+ * @param  callable  $function  Function to call
+ * @param  string  $expression  Cron expression
+ * @param  integer  $priority  Priority
+ * @param  integer|null  $exhaust  Exhaust rate
+ *
+ * @return  array  [signal, handle]
+ */
+function cron($function, $expression, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null) {
+    $signal = new Cron($expression);
+    $handle = \prggmr\handle($function, $signal, $priority, $exhaust);
+    return [$signal, $handle];
+}

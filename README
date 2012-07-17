@@ -29,6 +29,18 @@ prggmr\handle(function(){
 prggmr\signal('light.green');
 ```
 
+### Cron Jobs
+
+prggmr supports CRONTAB style expressions for signals.
+
+```php
+<?php
+prggmr\load_signal('time');
+prggmr\signal\time\cron(function(){
+    echo "Running this every 15 minutes!".PHP_EOL;
+}, '*/15 * * * *');
+```
+
 ### Signal interruption before handle execution
 
 ```php
@@ -169,27 +181,6 @@ prggmr uses [semver](http://semver.org) you should too.
 
 The following signals are on the development roadmap.
 
-### CRON
-
-CRON based time signals based on http://docs.oracle.com/cd/E14592_01/doc.10142/e14611/cron_expressions.htm
-
-#### Example
-
-```php
-<?php
-
-// every 15 minutes
-prggmr\handle(function(){
-}, new prggmr\signal\time\Cron('*/15 * * * *'));
-
-// 23:00:00 every weekday night
-prggmr\handle(function(){
-} new prggmr\signal\time\Cron('0 23 ? * MON-FRI'));
-
-// 10:15 everyday
-prggmr\handle(function(){
-}, new prggmr\signal\time\Cron('0 15 10 * * ?'));
-```
 
 ### Event Stream Server
 

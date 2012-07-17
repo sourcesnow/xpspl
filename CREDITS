@@ -17,3 +17,7 @@ D: Supporter
 
 N: Igal Alkon
 D: Strict error fix for Kohana integration
+
+N: Michael Dowling
+W: http://mtdowling.com
+D: Cron-Expression library
