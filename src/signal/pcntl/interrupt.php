@@ -5,7 +5,11 @@ namespace prggmr\signal\pcntl;
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
- 
+ if (!function_exists('pcntl_signal')) {
+    throw new RuntimeException(
+        'pcntl interrupt signal requires the pcntl module to be loaded'
+    );
+}
  /**
   * Allow for handling script interruption.
   */

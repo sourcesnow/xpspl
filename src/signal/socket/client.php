@@ -9,7 +9,7 @@ if (!$socket)
 
 // same socket will be later used in recv_from
 // no binding is required if you wish only send and never receive
-$client_side_sock = '127.0.0.1'
+$client_side_sock = '127.0.0.1';
 if (!socket_bind($socket, '127.0.0.1'))
         die("Unable to bind to $client_side_sock");
 

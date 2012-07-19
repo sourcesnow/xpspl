@@ -249,7 +249,7 @@ class Engine {
                 }
             }
             // check for idle function
-            if ($this->_routines[2] !== null) {
+            if (null !== $this->_routines[2]) {
                 call_user_func_array($this->_routines[2], [$this]);
             }
             // check for idle time
@@ -334,6 +334,7 @@ class Engine {
                     }
                     // Idle function
                     if ($_function !== null) {
+                        $return = true;
                         if ($this->_routines[2] !== null) {
                             $this->signal(new engine_signals\Idle_Function_Overflow(
                                 "There can be only one idle function"

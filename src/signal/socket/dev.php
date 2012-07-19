@@ -137,6 +137,7 @@ function handle_client($ssock, $csock)
 function interact($socket) 
 { 
     /* TALK TO YOUR CLIENT */ 
+    echo "HELLO";
 } 
 
 /** 
