@@ -9,5 +9,6 @@ $dir = dirname(realpath(__FILE__));
 /**
  * Autoload the socket signals.
  */
+require_once $dir.'/socket.php';
 require_once $dir.'/server.php';
 require_once $dir.'/connection.php';

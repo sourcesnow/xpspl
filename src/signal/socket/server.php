@@ -11,12 +11,14 @@ namespace prggmr\signal\socket;
  */
 class Server extends \prggmr\signal\Complex {
 
+    use Socket;
+
     /**
-     * The socket connection.
+     * Connection signal.
      *
-     * @var  resource
+     * @param  object
      */
-    protected $_socket = null;
+    protected $_connection = null;
 
     /**
      * Constructs a new socket stream.
@@ -28,6 +30,7 @@ class Server extends \prggmr\signal\Complex {
      */
     public function __construct($address, $type = 'tcp') 
     {
+        // Establish a connection
         $errno = $errstr = null;
         $this->_socket = stream_socket_server(sprintf(
             '%s://%s',
@@ -41,18 +44,13 @@ class Server extends \prggmr\signal\Complex {
         }
         // Non-blocking
         stream_set_blocking($this->_socket, 0);
+
+        $this->_connection = new Connection(sprintf('%s_new_connection',
+            spl_object_hash($this)
+        ));
+
         // Shutdown the stream
         parent::__construct(null);
-    }
-
-    /**
-     * Returns the socket connection.
-     *
-     * @return  resource
-     */
-    public function get_socket(/* ... */)
-    {
-        return $this->_socket;
     }
 
     /**
@@ -64,10 +62,21 @@ class Server extends \prggmr\signal\Complex {
     public function routine($history = null) 
     {
         $this->_routine->set_idle_function(function($engine){
-            if (false !== $connection = @stream_socket_accept($this->_socket, 30)) {
-                $this->_routine->add_signal(new Connection($connection));
+            if (false !== $socket = @stream_socket_accept($this->_socket, 30)) {
+                $this->_connection->set_socket($socket);
+                $this->_routine->add_signal($this->_connection);
             }
         });
         return true;
+    }
+
+    /**
+     * Returns the signal triggered for a new connection.
+     *
+     * @return  object
+     */
+    public function connect(/* ... */)
+    {
+        return $this->_connection;
     }
 }
