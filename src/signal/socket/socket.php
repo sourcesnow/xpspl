@@ -67,13 +67,13 @@ trait Socket {
     }
 
     /**
-     * Closes the socket connection.
+     * Disconnects the socket connection.
      *
      * @param  integer  $how
      *
      * @return  boolean
      */
-    public function close($how = STREAM_SHUT_RDWR)
+    public function disconnect($how = STREAM_SHUT_RDWR)
     {
         return stream_socket_shutdown($this->_socket, $how);
     }

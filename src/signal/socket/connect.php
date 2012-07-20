@@ -9,6 +9,4 @@ namespace prggmr\signal\socket;
 /**
  * Socket stream connection signal.
  */
-class Connection extends \prggmr\Signal {
-    use Socket;
-}
+class Connect extends \prggmr\Signal {}

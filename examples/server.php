@@ -16,16 +16,19 @@ prggmr\handle(function(){}, $server, null, 0);
 
 // Handle a new connection
 prggmr\handle(function(){
-    echo "New client connection".PHP_EOL;
-    // Get the socket
-    $socket = $this->get_signal();
-    // Read from it
-    $rec = $socket->read();
-    $socket->write("Your HTTP Headers " . PHP_EOL . $rec . PHP_EOL);
+    echo "Client connected".PHP_EOL;
     // Write to it
-    $socket->write("HelloWorld".PHP_EOL);
-    // And close it
-    $socket->close();
-}, $server->connect(), null, null);
+    $this->write("HelloWorld".PHP_EOL);
+    $this->disconnect();
+}, $server->on_connect(), null, null);
+
+/**
+ * Handle a disconnect.
+ *
+ * This only allows for handling the disconnect after it has disconnected.
+ */
+prggmr\handle(function(){
+    echo "Client disconnected".PHP_EOL;
+}, $server->on_disconnect(), null, null);
 
 echo "Server is running at $address".PHP_EOL;

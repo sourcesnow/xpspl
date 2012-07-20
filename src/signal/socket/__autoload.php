@@ -11,4 +11,7 @@ $dir = dirname(realpath(__FILE__));
  */
 require_once $dir.'/socket.php';
 require_once $dir.'/server.php';
-require_once $dir.'/connection.php';
+require_once $dir.'/connect.php';
+require_once $dir.'/disconnect.php';
+require_once $dir.'/event/connect.php';
+require_once $dir.'/event/disconnect.php';

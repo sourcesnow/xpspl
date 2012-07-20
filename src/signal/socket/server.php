@@ -16,9 +16,9 @@ class Server extends \prggmr\signal\Complex {
     /**
      * Connection signal.
      *
-     * @param  object
+     * @var  object
      */
-    protected $_connection = null;
+    protected $_connect = null;
 
     /**
      * Constructs a new socket stream.
@@ -36,20 +36,24 @@ class Server extends \prggmr\signal\Complex {
             '%s://%s',
             $type, $address
         ), $errno, $errstr);
+
         if (0 !== $errno || "" !== $errstr) {
             throw new \RuntimeException(sprintf(
                 "Could not connect to socket %s (%s) %s",
                 $address, $errno, $errstr
             ));
         }
-        // Non-blocking
+        // prggmr forces non-blocking
         stream_set_blocking($this->_socket, 0);
 
-        $this->_connection = new Connection(sprintf('%s_new_connection',
+        $this->_connect = new Connect(sprintf('%s_connect',
             spl_object_hash($this)
         ));
 
-        // Shutdown the stream
+        $this->_disconnect = new Disconnect(sprintf('%s_disconnect',
+            spl_object_hash($this)
+        ));
+
         parent::__construct(null);
     }
 
@@ -61,10 +65,20 @@ class Server extends \prggmr\signal\Complex {
      */
     public function routine($history = null) 
     {
+        /**
+         * This allows for the signals to signal something within the server
+         * socket. This is done by passing the $server signal to the event
+         * I'm currently pondering a better solution for now this works.
+         */
+        if (count($this->_routine->get_signals()) !== 0) {
+            return true;
+        }
         $this->_routine->set_idle_function(function($engine){
             if (false !== $socket = @stream_socket_accept($this->_socket, 30)) {
-                $this->_connection->set_socket($socket);
-                $this->_routine->add_signal($this->_connection);
+                $this->_routine->add_signal(
+                    $this->_connect,
+                    new event\Connect($socket, $this)
+                );
             }
         });
         return true;
@@ -75,8 +89,33 @@ class Server extends \prggmr\signal\Complex {
      *
      * @return  object
      */
-    public function connect(/* ... */)
+    public function on_connect(/* ... */)
     {
-        return $this->_connection;
+        return $this->_connect;
+    }
+
+    /**
+     * Returns the disconnect signals.
+     *
+     * @return  object
+     */
+    public function on_disconnect(/* ... */)
+    {
+        return $this->_disconnect;
+    }
+
+     /**
+     * Sends the disconnection signal.
+     *
+     * @param  resource  $socket  Socket that disconnected
+     *
+     * @return  void
+     */
+    public function send_disconnect($socket)
+    {
+        $this->_routine->add_signal(
+            $this->_disconnect,
+            new event\Disconnect($socket, $this)
+        );
     }
 }
