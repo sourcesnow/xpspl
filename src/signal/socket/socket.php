@@ -56,7 +56,7 @@ trait Socket {
      * Reads the given length of data from a socket.
      *
      * @param  integer  $length  Maximum number of bytes to read in.
-     *                           Default = !MB
+     *                           Default = 1MB
      * @param  integer  $flags  See http://php.net/manual/en/function.stream-socket-recvfrom.php
      *
      * @return  string

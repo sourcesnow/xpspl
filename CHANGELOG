@@ -1,6 +1,7 @@
 [ 2.0.0 TBD ]
-- Added Micheal Dowling to the CREDITS file
-- Added the cron-expression vendor library
+- Added the socket signal with support for a socket server.
+- Added Micheal Dowling to the CREDITS file.
+- Added the cron-expression vendor library.
 - Added the signal\time\cron API function.
 - Added the signal\time\Cron signal.
 - Autoloading is now used
@@ -9,7 +10,7 @@
 - Removed handle_loader from the engine
 - Added the prggmr\engine\signal classes used for engine signals
 - Removed the prggmr\engine\Signals class
-- signal_queue function rewriting to return either false or the queue
+- signal_queue function rewritten to return either false or the queue
 - _search and _search_complex no longer return the type of return
 - Added the has_signal_exhausted function to engine's public API.
 - Complex signals are now stored using their hash for faster lookups
@@ -26,9 +27,7 @@
 - Routine signals now all dispatch through the signal method rather than calling
   the _execute method directly
 - Added the signal\Routines class
-- Added the get_idle_time, get_dispatch_signals, get_idle_function to the 
-  Complex signal class.
-- Engine routine now uses the get_idle_tim xceptions and event_history flags
+- Engine routine now uses the get_idle_time and event_history flags
   on construction.
 
 [ 1.2.4 060712 ]

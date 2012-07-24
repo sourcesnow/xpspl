@@ -9,4 +9,21 @@ namespace prggmr\signal\socket\event;
 /**
  * Socket disconnection event.
  */
-class Disconnect extends Connect {}
+class Disconnect extends Connect {
+
+    /**
+     * Cannot disconnect a disconnect.
+     *
+     * @throws  LogicException
+     * 
+     * @return  void
+     */
+    public function disconnect()
+    {
+        throw new \LogicException(sprintf(
+            "Socket %s is already disconnected",
+            stream_socket_get_name($this->get_socket(), true)
+        ));
+    }
+
+}

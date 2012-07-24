@@ -22,6 +22,7 @@ class Interrupt extends \prggmr\signal\Complex
             } else {
                 $engine->signal($this);
             }
+            exit(0);
             return true;
         });
     }

@@ -29,6 +29,43 @@ prggmr\handle(function(){
 prggmr\signal('light.green');
 ```
 
+### Asynchronous Network I/O
+
+```php
+<?php
+/**
+ * Non-Blocking Server
+ */
+prggmr\load_signal('socket');
+
+$server = new prggmr\signal\socket\Server("0.0.0.0:1337");
+
+// On Connect
+$server->on_connect(function(){
+    echo "New Connection".PHP_EOL;
+    $this->write("Hello".PHP_EOL);
+});
+
+// On Disconnect
+$server->on_disconnect(function(){
+    echo "Disconnecting".PHP_EOL;
+    $this->write("Goodbye".PHP_EOL);
+});
+
+// Register the server
+prggmr\handle(function(){
+    echo "Server is running at ".$this->get_address().PHP_EOL;
+}, $server);
+```
+
+To connect
+
+```ssh
+telnet 127.0.0.1 1337
+```
+
+Or open your browser to http://127.0.0.1:1337
+
 ### Cron Jobs
 
 prggmr supports CRONTAB style expressions for signals.
@@ -200,37 +237,4 @@ handle(function($bytes){
 handle(function($bytes){
     // do something
 }, $socket->write());
-```
-
-### Non-Blocking Asynchronous Signal I/O
-
-This will allow for non-blocking event driven I/O using file descriptors or 
-networking socktes.
-
-#### Example
-    
-```php
-<?php
-
-$socket = new \prggmr\signal\io\Socket('127.0.0.1', 8888);
-
-handle(function($bytes){
-    echo "Read bytes";
-    echo $bytes;
-}, $socket->read(1024));
-
-handle(function($bytes){
-    echo "Writing bytes";
-    echo $bytes;
-}, $socket->write());
-
-handle(function($client){
-    echo "Client connected";
-    echo $client->ip_address;
-}, $socket->connect());
-
-handle(function($client){
-    echo "Client disconnected";
-    echo $client->ip_address;
-}, $socket->disconnect());
 ```

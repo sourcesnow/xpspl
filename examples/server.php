@@ -2,28 +2,23 @@
 /**
  * Non-Blocking Server
  */
-
-$address = "0.0.0.0:5001";
-
 prggmr\load_signal('socket');
-prggmr\load_signal('pcntl');
-prggmr\load_signal('time');
 
-$server = new prggmr\signal\socket\Server($address);
+$server = new prggmr\signal\socket\Server("0.0.0.0:1337");
 
 // On Connect
 $server->on_connect(function(){
     echo "New Connection".PHP_EOL;
-    $this->write("Hello");
+    $this->write("Hello".PHP_EOL);
 });
 
 // On Disconnect
 $server->on_disconnect(function(){
     echo "Disconnecting".PHP_EOL;
-    $this->write("Goodbye");
+    $this->write("Goodbye".PHP_EOL);
 });
 
 // Register the server
 prggmr\handle(function(){
     echo "Server is running at ".$this->get_address().PHP_EOL;
-}, $server, null, null);
+}, $server);

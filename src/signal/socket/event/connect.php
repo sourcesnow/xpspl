@@ -46,8 +46,4 @@ class Connect extends \prggmr\Event {
     {
         $this->signal_stream->send_disconnect($this->get_socket());
     }
-
-    /**
-     * Returns the server.
-     */
 }
