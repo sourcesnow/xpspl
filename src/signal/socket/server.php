@@ -21,14 +21,28 @@ class Server extends \prggmr\signal\Complex {
     protected $_connect = null;
 
     /**
-     * Constructs a new socket stream.
+     * Instance of an engine to use for signaling.
+     *
+     * @var  null|object
+     */
+    protected $_engine = null;
+
+    /**
+     * Network address
+     *
+     * @var  string
+     */
+    protected $_address = null;
+
+    /**
+     * Constructs a new network socket stream.
      *
      * @param  string  $address  Address to make the connection on.
      * @param  string  $type  The network connection type. tcp|udp
      *
      * @return  void
      */
-    public function __construct($address, $type = 'tcp') 
+    public function __construct($address, $type = 'tcp', $engine = null) 
     {
         // Establish a connection
         $errno = $errstr = null;
@@ -43,18 +57,38 @@ class Server extends \prggmr\signal\Complex {
                 $address, $errno, $errstr
             ));
         }
+
+        $this->_address = $address;
+
         // prggmr forces non-blocking
         stream_set_blocking($this->_socket, 0);
 
         $this->_connect = new Connect(sprintf('%s_connect',
             spl_object_hash($this)
         ));
-
         $this->_disconnect = new Disconnect(sprintf('%s_disconnect',
             spl_object_hash($this)
         ));
 
+        if (null !== $engine && $engine instanceof \prggmr\Engine) {
+            $this->_engine = $engine;
+        }
+
+        // Disconnect the connection immediatly after connecting
+        // these are forced into the server
+        $this->on_connect(function(){
+            $this->disconnect();
+        }, PHP_MAX_INT, null);
+
+        $this->on_disconnect(function(){
+            stream_socket_shutdown($this->get_socket(), STREAM_SHUT_RDWR);
+        }, PHP_MAX_INT, null);
+
         parent::__construct(null);
+
+        $this->_routine->add_signal(
+            $this, new event\Server($this->_socket)
+        );
     }
 
     /**
@@ -85,26 +119,38 @@ class Server extends \prggmr\signal\Complex {
     }
 
     /**
-     * Returns the signal triggered for a new connection.
+     * Registers a new handle for new connections.
+     *
+     * @param  callable  $function  Function to call on connect.
+     * @param  integer|null  $priority  Priority of this function.
+     * @param  integer|null  $exhaust  Exhaustion of this function.
      *
      * @return  object
      */
-    public function on_connect(/* ... */)
+    public function on_connect($function, $priority = null, $exhaust = null)
     {
-        return $this->_connect;
+        return $this->get_engine()->handle(
+            $function, $this->_connect, $priority, $exhaust
+        );
     }
 
     /**
-     * Returns the disconnect signals.
+     * Registers a new handle for disconnections.
+     *
+     * @param  callable  $function  Function to call on connect.
+     * @param  integer|null  $priority  Priority of this function.
+     * @param  integer|null  $exhaust  Exhaustion of this function.
      *
      * @return  object
      */
-    public function on_disconnect(/* ... */)
+    public function on_disconnect($function, $priority = null, $exhaust = null)
     {
-        return $this->_disconnect;
+        return $this->get_engine()->handle(
+            $function, $this->_disconnect, $priority, $exhaust
+        );
     }
 
-     /**
+    /**
      * Sends the disconnection signal.
      *
      * @param  resource  $socket  Socket that disconnected
@@ -117,5 +163,28 @@ class Server extends \prggmr\signal\Complex {
             $this->_disconnect,
             new event\Disconnect($socket, $this)
         );
+    }
+
+    /**
+     * Returns the prggmr engine used for this server.
+     *
+     * @return  object
+     */
+    public function get_engine(/* ... */)
+    {
+        if (null !== $this->_engine) {
+            return $this->_engine;
+        }
+        return \prggmr::instance();
+    }
+
+    /**
+     * Returns the address for the network socket.
+     *
+     * @return  string
+     */
+    public function get_address(/* ... */)
+    {
+        return $this->_address;
     }
 }

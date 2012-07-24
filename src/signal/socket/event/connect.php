@@ -10,6 +10,7 @@ namespace prggmr\signal\socket\event;
  * Socket connection event.
  */
 class Connect extends \prggmr\Event {
+    
     use \prggmr\signal\socket\Socket;
 
     /**
@@ -44,6 +45,9 @@ class Connect extends \prggmr\Event {
     public function disconnect($how = STREAM_SHUT_RDWR)
     {
         $this->signal_stream->send_disconnect($this->get_socket());
-        stream_socket_shutdown($this->_socket, $how);
     }
+
+    /**
+     * Returns the server.
+     */
 }

@@ -15,3 +15,5 @@ require_once $dir.'/connect.php';
 require_once $dir.'/disconnect.php';
 require_once $dir.'/event/connect.php';
 require_once $dir.'/event/disconnect.php';
+require_once $dir.'/event/server.php';
+
