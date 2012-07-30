@@ -1,17 +1,13 @@
 prggmr is a [complex event engine](http://en.wikipedia.org/wiki/Complex_event_processing), 
-it is designed to be very simple to use and provide functionality not otherwise
-possible in the realm of PHP.
+it has been developed to provide real-time signals, events and asynchronous i/o 
+in the PHP language.
 
-## Warning
-
-The following readme contains information and code that will challenge
-the way you think and write your PHP code.
-
-Do not proceed unless you are mentally prepared for that.
+prggmr is designed to put no limits on its capabilities other than what the
+programmer developing the system is capable of.
 
 Have Fun!
 
-## Global events usage
+## Usage
 
 ### Registering handles
 
@@ -104,7 +100,7 @@ prggmr\signal_interrupt(function(){
 var_dump(prggmr\event_history());
 ```
 
-## Engine instance usage
+## Using a non-global engine
 
 ### Registering a prggmr\Engine
 
@@ -159,6 +155,31 @@ var_dump($engine->event_history());
 
 Depending on your needs prggmr can be installed using two different methods.
 
+### Recommended Method
+
+This is the recommended method
+
+Download the latest release and run the install file within prggmr.
+
+```ssh
+sudo ./install
+```
+
+The library will be installed to your PHP_INCLUDE_PATH
+
+
+```php
+<?php
+
+require_once 'prggmr/src/prggmr.php';
+```
+
+The prggmr executable will also be available.
+
+```ssh
+prggmr
+```
+
 ### Composer
 
 Include the following in your ```composer.json``` file.
@@ -171,10 +192,12 @@ Include the following in your ```composer.json``` file.
 }
 ```
 
-Run the installer.
+Just run the installer provided.
 
-    $ curl -s http://getcomposer.org/installer | php
-    $ php composer.phar install
+```ssh
+$ curl -s http://getcomposer.org/installer | php
+$ php composer.phar install
+```
 
 And include the library
 
@@ -182,24 +205,6 @@ And include the library
 <?php
 
 require_once 'vendor/prggmr/prggmr/src/prggmr.php';
-```
-
-### Installation to PHP_INCLUDE_PATH
-
-This method is recommended if you are building multiple applications on a server
-
-Download the latest release and run the following command in the prggmr folder.
-
-```ssh
-sudo ./install
-```
-
-And include the library
-
-```php
-<?php
-
-require_once 'prggmr/src/prggmr.php';
 ```
 
 ## Documentation
@@ -213,6 +218,30 @@ The prggmr mailing list is located here [mailing list](https://groups.google.com
 ## Versions
 
 prggmr uses [semver](http://semver.org) you should too.
+
+## Supported Signals
+
+The current complex signals are supported,
+
+### HTTP
+
+HTTP signals allow you to signal HTTP requests using the requested URI into the engine, the intention is to allow for a completely event-driven website.
+
+### Time
+
+Time signals allow for signaling events based on time, this includes intervals and timeouts in seconds, milliseconds or microseconds or using the CRON syntax.
+
+### Sockets
+
+Socket signals allow for non-blocking signal driven i/o, currently prggmr supports server connections.
+
+### Unit Test
+
+The Unit test signal allows for unit testing using signals and events.
+
+### Process Control
+
+The process control signal allows for signaling when your PHP application recieves a system signal such as an interrupt.
 
 ## Signals Roadmap
 
@@ -237,4 +266,14 @@ handle(function($bytes){
 handle(function($bytes){
     // do something
 }, $socket->write());
-```
+
+### prggmr Event Server
+
+A real-time event server.
+
+### PEQL - prggmr Event Query Language
+
+An SQL language that can be used to communicate with the event server.
+
+    SIGNAL weeding WHEN groom AND bride AND church_bells IF groom.tuxedo = black
+    and bride.gown = white AND bride RECIEVED_AFTER groom

@@ -108,6 +108,8 @@ class Server extends \prggmr\signal\Complex {
             return true;
         }
         $this->_routine->set_idle_function(function($engine){
+            $idle = $engine->get_routine()[1];
+            if ($)
             if (false !== $socket = @stream_socket_accept($this->_socket, 30)) {
                 $this->_routine->add_signal(
                     $this->_connect,

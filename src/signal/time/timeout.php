@@ -10,6 +10,8 @@ namespace prggmr\signal\time;
  * Timeout signal
  *
  * Trigger a signal based on a timeout.
+ *
+ * As of v2.0 timeouts can be set on a second, millisecond or microsecond basis
  */
 class Timeout extends \prggmr\signal\Complex {
 
@@ -21,6 +23,20 @@ class Timeout extends \prggmr\signal\Complex {
     protected $_vars = null;
 
     /**
+     * The time precision.
+     *
+     * @var  integer
+     */
+    protected $_precision = null;
+
+    /**
+     * Precisions for time length.
+     */
+    const SECONDS = 1;
+    const MILLISECONDS = 2;
+    const MICROSECONDS = 3;
+
+    /**
      * Constructs a timeout signal.
      *
      * @param  int  $time  Microseconds before signaling.
@@ -29,14 +45,25 @@ class Timeout extends \prggmr\signal\Complex {
      *
      * @return  void
      */
-    public function __construct($time)
+    public function __construct($time, $precision = self::MILLISECONDS)
     {
         if (!is_int($time) || $time <= 0) {
             throw new \InvalidArgumentException(
                 "Invalid or negative timeout given."
             );
         }
-        $this->_info = $time + milliseconds();
+        $this->_precision = $precision;
+        switch($this->_precision) {
+            case self::SECONDS:
+                $this->_info = $time + time();
+                break;
+            case self::MILLISECONDS:
+                $this->_info = $time + milliseconds();
+                break;
+            case self::MICROSECONDS:
+                $this->_info = $time + round(microtime(true));
+                break;
+        }
         parent::__construct();
     }
     
@@ -53,7 +80,23 @@ class Timeout extends \prggmr\signal\Complex {
         if ($current > $this->_info) {
             $this->signal_this(true);
         } else {
-            $this->_routine->set_idle_time($this->_info - $current);
+            switch($this->_precision) {
+                case self::SECONDS:
+                    $this->_routine->set_idle_seconds(
+                        $this->_info - $current
+                    );
+                    break;
+                case self::MILLISECONDS:
+                    $this->_routine->set_idle_milliseconds(
+                        $this->_info - $current
+                    );
+                    break;
+                case self::MILLISECONDS:
+                    $this->_routine->set_idle_microseconds(
+                        $this->_info - $current
+                    );
+                    break;
+            }
         }
         return true;
     }

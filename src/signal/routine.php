@@ -16,11 +16,25 @@ namespace prggmr\signal;
 final class Routine {
 
     /**
-     * Amount of time to idle the engine.
+     * Amount of time to idle the engine in seconds.
      *
      * @var  integer|null
      */
-    protected $_idle_time = null;
+    protected $_idle_seconds = null;
+
+    /**
+     * Amount of time to idle the engine in milliseconds.
+     *
+     * @var  integer|null
+     */
+    protected $_idle_milliseconds = null;
+
+    /**
+     * Amount of time to idle the engine in microseconds.
+     *
+     * @var  integer|null
+     */
+    protected $_idle_microseconds = null;
 
     /**
      * Array of signals to dispatch.
@@ -62,13 +76,46 @@ final class Routine {
     }
 
     /**
-     * Returns an idle time for the signal.
+     * Returns an idle time for the signal in seconds.
      *
      * @return  integer|null
      */
-    public function get_idle_time(/* ... */)
+    public function get_idle_seconds(/* ... */)
     {
-        return $this->_idle_time;
+        return $this->_idle_seconds;
+    }
+
+    /**
+     * Returns an idle time for the signal in seconds.
+     *
+     * @return  integer|null
+     */
+    public function get_idle_milliseconds(/* ... */)
+    {
+        return $this->_idle_milliseconds;
+    }
+
+    /**
+     * Returns an idle time for the signal in microseconds.
+     *
+     * @return  integer|null
+     */
+    public function get_idle_microseconds(/* ... */)
+    {
+        return $this->_idle_microseconds;
+    }
+
+    /**
+     * Returns an idle time for the signal in seconds.
+     *
+     * @return  integer|null
+     */
+    public function get_idle_seconds(/* ... */)
+    {
+        return $this->_idle_seconds;
+            $this->_idle_milliseconds,
+            $this->_idle_microseconds
+        ];
     }
 
     /**
@@ -82,13 +129,37 @@ final class Routine {
     }
 
     /**
-     * Sets the idle time for the signal.
+     * Sets the time to idle in seconds.
      *
      * @return  void
      */
-    public function set_idle_time($time)
+    public function set_idle_seconds($time)
     {
-        $this->_idle_time = $time;
+        $this->_idle_seconds = $time;
+    }
+
+    /**
+     * Sets the time to idle in seconds.
+     *
+     * @throws  OverflowException
+     * 
+     * @return  void
+     */
+    public function set_idle_milliseconds($time)
+    {
+        $this->_idle_milliseconds = $time * 1000;
+    }
+
+    /**
+     * Sets the time to idle in microseconds.
+     *
+     * @throws  OverflowException
+     * 
+     * @return  void
+     */
+    public function set_idle_microseconds($time)
+    {
+        $this->_idle_microseconds = $time;
     }
 
     /**

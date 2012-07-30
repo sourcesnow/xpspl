@@ -9,7 +9,9 @@ namespace prggmr\signal\time;
  /**
  * Time signal
  *
- * Trigger a signal based on timed intervals in milliseconds
+ * Trigger a signal based on timed intervals in milliseconds.
+ *
+ * As of v2.0 intervals can be set on a second, millisecond or microsecond basis
  */
 class Interval extends \prggmr\signal\time\Timeout {
 
@@ -29,9 +31,9 @@ class Interval extends \prggmr\signal\time\Timeout {
      *
      * @return  void
      */
-    public function __construct($time)
+    public function __construct($time, $precision = self::MILLISECONDS)
     {
-        parent::__construct($time);
+        parent::__construct($time, $precision);
         $this->_time = $time;
     }
     
@@ -45,10 +47,36 @@ class Interval extends \prggmr\signal\time\Timeout {
     {
         $current = milliseconds();
         if ($current >= $this->_info) {
-            $this->_info = $this->_time + milliseconds();
+            switch($this->_precision) {
+                case self::SECONDS:
+                    $this->_info = $this->_time + time();
+                    break;
+                case self::MILLISECONDS:
+                    $this->_info = $this->_time + milliseconds();
+                    break;
+                case self::MICROSECONDS:
+                    $this->_info = $this->_time + round(microtime(true));
+                    break;
+            }
             $this->signal_this(true);
         }
-        $this->_routine->set_idle_time($this->_info - $current);
+        switch($this->_precision) {
+            case self::SECONDS:
+                $this->_routine->set_idle_seconds(
+                    $this->_info - $current
+                );
+                break;
+            case self::MILLISECONDS:
+                $this->_routine->set_idle_milliseconds(
+                    $this->_info - $current
+                );
+                break;
+            case self::MILLISECONDS:
+                $this->_routine->set_idle_microseconds(
+                    $this->_info - $current
+                );
+                break;
+        }
         return true;
     }
 }

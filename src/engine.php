@@ -308,7 +308,9 @@ class Engine {
                     }
                     // Get all required data and reset the routine
                     $_signals = $_routine->get_signals();
-                    $_idle = $_routine->get_idle_time();
+                    $_seconds = $_routine->get_idle_seconds();
+                    $_milliseconds = $_routine->get_idle_milliseconds();
+                    $_microseconds = $_routine->get_idle_microseconds();
                     $_function = $_routine->get_idle_function();
                     $_routine->reset();
                     // Check signals
