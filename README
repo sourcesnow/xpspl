@@ -266,6 +266,7 @@ handle(function($bytes){
 handle(function($bytes){
     // do something
 }, $socket->write());
+```
 
 ### prggmr Event Server
 
@@ -275,5 +276,7 @@ A real-time event server.
 
 An SQL language that can be used to communicate with the event server.
 
+``
     SIGNAL weeding WHEN groom AND bride AND church_bells IF groom.tuxedo = black
     and bride.gown = white AND bride RECIEVED_AFTER groom
+```
