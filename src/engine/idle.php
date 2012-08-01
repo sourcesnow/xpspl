@@ -32,6 +32,16 @@ abstract class Idle {
     protected $_priority = 100;
 
     /**
+     * Allow override of this function.
+     *
+     * When set to true the "override" method will be called otherwise the 
+     * engine will signal a Idle_Function_Overflow.
+     *
+     * @var  boolean
+     */
+    protected $_allow_override = false;
+
+    /**
      * Idle's the engine.
      *
      * This function is purely responsible for providing the engine the ability
@@ -77,5 +87,28 @@ abstract class Idle {
     public function get_limit(/* ... */)
     {
         return $this->_limit;
+    }
+
+    /**
+     * Return if this function allows itself to be overwritten in the limit
+     * is met or exceeded.
+     *
+     * @return  boolean
+     */
+    public function allow_override(/* ... */)
+    {
+        return $this->_allow_override;
+    }
+
+    /**
+     * Returns if the given function can override this in the engine.
+     *
+     * @param  object  $idle  Idle function object
+     *
+     * @return  boolean
+     */
+    public function override($idle)
+    {
+        return false;
     }
 }
