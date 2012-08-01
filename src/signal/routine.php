@@ -82,7 +82,7 @@ final class Routine {
      */
     public function get_idle_seconds(/* ... */)
     {
-        return $this->_idle_seconds;
+        return intval($this->_idle_seconds);
     }
 
     /**
@@ -92,7 +92,7 @@ final class Routine {
      */
     public function get_idle_milliseconds(/* ... */)
     {
-        return $this->_idle_milliseconds;
+        return intval($this->_idle_milliseconds);
     }
 
     /**
@@ -102,20 +102,7 @@ final class Routine {
      */
     public function get_idle_microseconds(/* ... */)
     {
-        return $this->_idle_microseconds;
-    }
-
-    /**
-     * Returns an idle time for the signal in seconds.
-     *
-     * @return  integer|null
-     */
-    public function get_idle_seconds(/* ... */)
-    {
-        return $this->_idle_seconds;
-            $this->_idle_milliseconds,
-            $this->_idle_microseconds
-        ];
+        return intval($this->_idle_microseconds);
     }
 
     /**

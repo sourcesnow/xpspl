@@ -12,12 +12,21 @@
  */
 
 /**
- * Returns the current UNIX timestamp in milliseconds.
+ * Returns the current time since epox in milliseconds.
  * 
  * @return  integer
  */
 function milliseconds(/* ... */) {
-    return round(microtime(true) * 1000);
+    return microseconds() * 1000;
+}
+
+/**
+ * Returns the current time since epox in microseonds.
+ *
+ * @return  integer
+ */
+function microseconds(/* ... */) {
+    return round(microtime(true));
 }
 
 /**

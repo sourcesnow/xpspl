@@ -31,7 +31,7 @@ class Interval extends \prggmr\signal\time\Timeout {
      *
      * @return  void
      */
-    public function __construct($time, $precision = self::MILLISECONDS)
+    public function __construct($time, $precision = \prggmr\Engine::IDLE_MILLISECONDS)
     {
         parent::__construct($time, $precision);
         $this->_time = $time;
@@ -48,30 +48,30 @@ class Interval extends \prggmr\signal\time\Timeout {
         $current = milliseconds();
         if ($current >= $this->_info) {
             switch($this->_precision) {
-                case self::SECONDS:
+                case \prggmr\Engine::IDLE_SECONDS:
                     $this->_info = $this->_time + time();
                     break;
-                case self::MILLISECONDS:
+                case \prggmr\Engine::IDLE_MILLISECONDS:
                     $this->_info = $this->_time + milliseconds();
                     break;
-                case self::MICROSECONDS:
-                    $this->_info = $this->_time + round(microtime(true));
+                case \prggmr\Engine::IDLE_MICROSECONDS:
+                    $this->_info = $this->_time + microseconds();
                     break;
             }
             $this->signal_this(true);
         }
         switch($this->_precision) {
-            case self::SECONDS:
+            case \prggmr\Engine::IDLE_SECONDS:
                 $this->_routine->set_idle_seconds(
                     $this->_info - $current
                 );
                 break;
-            case self::MILLISECONDS:
+            case \prggmr\Engine::IDLE_MILLISECONDS:
                 $this->_routine->set_idle_milliseconds(
                     $this->_info - $current
                 );
                 break;
-            case self::MILLISECONDS:
+            case \prggmr\Engine::IDLE_MILLISECONDS:
                 $this->_routine->set_idle_microseconds(
                     $this->_info - $current
                 );

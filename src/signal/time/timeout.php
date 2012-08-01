@@ -30,13 +30,6 @@ class Timeout extends \prggmr\signal\Complex {
     protected $_precision = null;
 
     /**
-     * Precisions for time length.
-     */
-    const SECONDS = 1;
-    const MILLISECONDS = 2;
-    const MICROSECONDS = 3;
-
-    /**
      * Constructs a timeout signal.
      *
      * @param  int  $time  Microseconds before signaling.
@@ -45,7 +38,7 @@ class Timeout extends \prggmr\signal\Complex {
      *
      * @return  void
      */
-    public function __construct($time, $precision = self::MILLISECONDS)
+    public function __construct($time, $precision = \prggmr\Engine::IDLE_MILLISECONDS)
     {
         if (!is_int($time) || $time <= 0) {
             throw new \InvalidArgumentException(
@@ -54,14 +47,14 @@ class Timeout extends \prggmr\signal\Complex {
         }
         $this->_precision = $precision;
         switch($this->_precision) {
-            case self::SECONDS:
+            case \prggmr\Engine::IDLE_SECONDS:
                 $this->_info = $time + time();
                 break;
-            case self::MILLISECONDS:
+            case \prggmr\Engine::IDLE_MILLISECONDS:
                 $this->_info = $time + milliseconds();
                 break;
-            case self::MICROSECONDS:
-                $this->_info = $time + round(microtime(true));
+            case \prggmr\Engine::IDLE_MICROSECONDS:
+                $this->_info = $time + microseconds();
                 break;
         }
         parent::__construct();
@@ -81,17 +74,17 @@ class Timeout extends \prggmr\signal\Complex {
             $this->signal_this(true);
         } else {
             switch($this->_precision) {
-                case self::SECONDS:
+                case \prggmr\Engine::IDLE_SECONDS:
                     $this->_routine->set_idle_seconds(
                         $this->_info - $current
                     );
                     break;
-                case self::MILLISECONDS:
+                case \prggmr\Engine::IDLE_MILLISECONDS:
                     $this->_routine->set_idle_milliseconds(
                         $this->_info - $current
                     );
                     break;
-                case self::MILLISECONDS:
+                case \prggmr\Engine::IDLE_MILLISECONDS:
                     $this->_routine->set_idle_microseconds(
                         $this->_info - $current
                     );
