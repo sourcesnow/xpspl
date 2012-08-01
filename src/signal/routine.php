@@ -20,21 +20,7 @@ final class Routine {
      *
      * @var  integer|null
      */
-    protected $_idle_seconds = null;
-
-    /**
-     * Amount of time to idle the engine in milliseconds.
-     *
-     * @var  integer|null
-     */
-    protected $_idle_milliseconds = null;
-
-    /**
-     * Amount of time to idle the engine in microseconds.
-     *
-     * @var  integer|null
-     */
-    protected $_idle_microseconds = null;
+    protected $_idle = null;
 
     /**
      * Array of signals to dispatch.
@@ -44,11 +30,11 @@ final class Routine {
     protected $_signals = [];
 
     /**
-     * Function to execute to idle the engine.
+     * Idler to idle the engine.
      *
-     * @var  closure|null
+     * @var  object|null
      */
-    protected $_idle_function = null;
+    protected $_idle = null;
 
     /**
      * Registers a new signal to trigger.
@@ -76,43 +62,13 @@ final class Routine {
     }
 
     /**
-     * Returns an idle time for the signal in seconds.
+     * Returns an idle for the engine.
      *
-     * @return  integer|null
+     * @return  object|null
      */
-    public function get_idle_seconds(/* ... */)
+    public function get_idle(/* ... */)
     {
-        return intval($this->_idle_seconds);
-    }
-
-    /**
-     * Returns an idle time for the signal in seconds.
-     *
-     * @return  integer|null
-     */
-    public function get_idle_milliseconds(/* ... */)
-    {
-        return intval($this->_idle_milliseconds);
-    }
-
-    /**
-     * Returns an idle time for the signal in microseconds.
-     *
-     * @return  integer|null
-     */
-    public function get_idle_microseconds(/* ... */)
-    {
-        return intval($this->_idle_microseconds);
-    }
-
-    /**
-     * Returns a function for the engine to run during idle.
-     *
-     * @return  null|closure
-     */
-    public function get_idle_function(/* ... */)
-    {
-        return $this->_idle_function;
+        return $this->_idle;
     }
 
     /**
@@ -120,45 +76,14 @@ final class Routine {
      *
      * @return  void
      */
-    public function set_idle_seconds($time)
+    public function set_idle($idle)
     {
-        $this->_idle_seconds = $time;
-    }
-
-    /**
-     * Sets the time to idle in seconds.
-     *
-     * @throws  OverflowException
-     * 
-     * @return  void
-     */
-    public function set_idle_milliseconds($time)
-    {
-        $this->_idle_milliseconds = $time * 1000;
-    }
-
-    /**
-     * Sets the time to idle in microseconds.
-     *
-     * @throws  OverflowException
-     * 
-     * @return  void
-     */
-    public function set_idle_microseconds($time)
-    {
-        $this->_idle_microseconds = $time;
-    }
-
-    /**
-     * Sets a function for the engine to run during idle.
-     *
-     * @param  closure  $function  Function to run to idle.
-     * 
-     * @return  void
-     */
-    public function set_idle_function($function)
-    {
-        $this->_idle_function = $function;
+        if (!$idle instanceof \prggmr\engine\Idle) {
+            throw new \InvalidArgumentException(
+                "Idle must be an instance of prggmr\engine\Idle"
+            );
+        }
+        $this->_idle = $idle;
     }
 
     /**
@@ -168,8 +93,7 @@ final class Routine {
      */
     public function reset()
     {
-        $this->_idle_function = null;
-        $this->_idle_time = null;
+        $this->_idle = null;
         $this->_signals = null;
     }
 }

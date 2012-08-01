@@ -82,13 +82,6 @@ class Engine {
     const INTERRUPT_POST = 1;
 
     /**
-     * Idle time declarations
-     */
-    const IDLE_SECONDS = 1;
-    const IDLE_MILLISECONDS = 2;
-    const IDLE_MICROSECONDS = 3;
-
-    /**
      * Last sig handler added to the engine.
      * 
      * @var  object
@@ -336,7 +329,7 @@ class Engine {
                     }
 
                     // Check the amount of time to idle if given
-                    if (null !== $_seconds && null !== $_milliseconds && null ) {
+                    if (null !== $_seconds && null !== $_milliseconds && null !== $_microseconds) {
                         if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
                             $return = true;
                             $this->_routines[1] = [$_idle, $_idle + milliseconds()];
