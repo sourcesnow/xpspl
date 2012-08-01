@@ -1,4 +1,5 @@
 [ 2.0.0 TBD ]
+- Engine now uses the prggmr\engine\Idle class for idling
 - Added the microseconds function
 - Added the socket signal with support for a socket server.
 - Added Micheal Dowling to the CREDITS file.

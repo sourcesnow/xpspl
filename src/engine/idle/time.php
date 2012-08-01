@@ -106,8 +106,34 @@ class Time extends prggmr\engine\Idle {
     }
 
     /**
+     * Returns the length of time to idle.
+     *
+     * @return  integer
+     */
+    public function get_time(/* ... */)
+    {
+        return $this->_tti;
+    }
+
+    /**
+     * Returns the type of time.
+     *
+     * @return  integer
+     */
+    public function get_type(/* ... */)
+    {
+        return $this->_type;
+    }
+
+    /**
      * Determine if the given time idle function is less than the current.
      *
-     * @
+     * @param  object  $time  Time idle object
+     *
+     * @return  boolean
      */
+    public function override($time)
+    {
+        
+    }
 }

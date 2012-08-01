@@ -31,7 +31,7 @@ class Interval extends \prggmr\signal\time\Timeout {
      *
      * @return  void
      */
-    public function __construct($time, $precision = \prggmr\Engine::IDLE_MILLISECONDS)
+    public function __construct($time, $precision = \prggmr\engine\idle\Time::MILLISECONDS)
     {
         parent::__construct($time, $precision);
         $this->_time = $time;

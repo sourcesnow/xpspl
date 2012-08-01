@@ -14,6 +14,9 @@ namespace prggmr\engine;
  * gives the default functions of setting the maximum of itself allowed per 
  * loop, the priority of the idling function and allow override of the same
  * idle.
+ *
+ * The base provides the rules that only one type of the given idle function
+ * should exist and a default priority of zero for all.
  */
 abstract class Idle {
 
@@ -29,7 +32,7 @@ abstract class Idle {
      *
      * @var  integer
      */
-    protected $_priority = 100;
+    protected $_priority = 0;
 
     /**
      * Allow override of this function.
@@ -55,8 +58,8 @@ abstract class Idle {
      * You have been warned that,
      *
      * Creating a function that does not properly idle, does not respect the
-     * engine specs or is poorly developed will result in terrible performance 
-     * unexpected results and damaging to your system ... use caution.
+     * engine specs or is poorly designed will result in terrible performance, 
+     * unexpected results and damage to your system ... use caution.
      * 
      * @param  object  $engine  The engine that wishes to idle.
      *
