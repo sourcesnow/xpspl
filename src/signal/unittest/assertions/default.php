@@ -5,7 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-use prggmr\signal\unittest\api as api;
+use prggmr\signal\unittest as api;
 
 /**
  * Default assertions.

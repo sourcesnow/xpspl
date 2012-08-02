@@ -16,13 +16,6 @@ namespace prggmr\signal;
 final class Routine {
 
     /**
-     * Amount of time to idle the engine in seconds.
-     *
-     * @var  integer|null
-     */
-    protected $_idle = null;
-
-    /**
      * Array of signals to dispatch.
      *
      * @var  array|null
@@ -30,7 +23,7 @@ final class Routine {
     protected $_signals = [];
 
     /**
-     * Idler to idle the engine.
+     * Idler used to idle the engine.
      *
      * @var  object|null
      */

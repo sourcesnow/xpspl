@@ -37,46 +37,20 @@ class Interval extends \prggmr\signal\time\Timeout {
         $this->_time = $time;
     }
     
+
     /**
-     * Determine when the time signal should trigger, otherwise returning
-     * the engine to idle until it will.
+     * Determines the time in the future that this signal should trigger and
+     * and sets the engines idle time until then. 
      * 
-     * @return  integer
+     * @return  void
      */
     public function routine($history = null)
     {
-        $current = milliseconds();
-        if ($current >= $this->_info) {
-            switch($this->_precision) {
-                case \prggmr\Engine::IDLE_SECONDS:
-                    $this->_info = $this->_time + time();
-                    break;
-                case \prggmr\Engine::IDLE_MILLISECONDS:
-                    $this->_info = $this->_time + milliseconds();
-                    break;
-                case \prggmr\Engine::IDLE_MICROSECONDS:
-                    $this->_info = $this->_time + microseconds();
-                    break;
-            }
-            $this->signal_this(true);
+        if ($this->_idle->has_time_passed()) {
+            $this->_idle = \prggmr\engine\idle\Time($this->_time, $this->_instruction);
+            $this->signal_this();
         }
-        switch($this->_precision) {
-            case \prggmr\Engine::IDLE_SECONDS:
-                $this->_routine->set_idle_seconds(
-                    $this->_info - $current
-                );
-                break;
-            case \prggmr\Engine::IDLE_MILLISECONDS:
-                $this->_routine->set_idle_milliseconds(
-                    $this->_info - $current
-                );
-                break;
-            case \prggmr\Engine::IDLE_MILLISECONDS:
-                $this->_routine->set_idle_microseconds(
-                    $this->_info - $current
-                );
-                break;
-        }
+        $this->_routine->set_idle($this->_idle);
         return true;
     }
 }

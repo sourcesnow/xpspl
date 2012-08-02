@@ -16,18 +16,16 @@ namespace prggmr\signal\time;
 class Timeout extends \prggmr\signal\Complex {
 
     /**
-     * Variables to pass the timeout handle.
-     * 
-     * @var null|array
-     */
-    protected $_vars = null;
-
-    /**
-     * The time precision.
+     * The time instruction.
      *
      * @var  integer
      */
-    protected $_precision = null;
+    protected $_instruction = null;
+
+    /**
+     * The time idle object.
+     */
+    protected $_idle = null;
 
     /**
      * Constructs a timeout signal.
@@ -38,25 +36,15 @@ class Timeout extends \prggmr\signal\Complex {
      *
      * @return  void
      */
-    public function __construct($time, $precision = \prggmr\Engine::IDLE_MILLISECONDS)
+    public function __construct($time, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
     {
         if (!is_int($time) || $time <= 0) {
             throw new \InvalidArgumentException(
-                "Invalid or negative timeout given."
+                "Timeout given must be greater than 0"
             );
         }
-        $this->_precision = $precision;
-        switch($this->_precision) {
-            case \prggmr\Engine::IDLE_SECONDS:
-                $this->_info = $time + time();
-                break;
-            case \prggmr\Engine::IDLE_MILLISECONDS:
-                $this->_info = $time + milliseconds();
-                break;
-            case \prggmr\Engine::IDLE_MICROSECONDS:
-                $this->_info = $time + microseconds();
-                break;
-        }
+        $this->_instruction = $instruction;
+        $this->_idle = new \prggmr\engine\idle\Time($time, $instruction);
         parent::__construct();
     }
     
@@ -68,28 +56,12 @@ class Timeout extends \prggmr\signal\Complex {
      */
     public function routine($history = null)
     {
-        $current = milliseconds();
-        if (null === $this->_info) return false;
-        if ($current > $this->_info) {
-            $this->signal_this(true);
+        if (null === $this->_idle) return false;
+        if ($this->_idle->has_time_passed()) {
+            $this->signal_this();
+            $this->_idle = null;
         } else {
-            switch($this->_precision) {
-                case \prggmr\Engine::IDLE_SECONDS:
-                    $this->_routine->set_idle_seconds(
-                        $this->_info - $current
-                    );
-                    break;
-                case \prggmr\Engine::IDLE_MILLISECONDS:
-                    $this->_routine->set_idle_milliseconds(
-                        $this->_info - $current
-                    );
-                    break;
-                case \prggmr\Engine::IDLE_MILLISECONDS:
-                    $this->_routine->set_idle_microseconds(
-                        $this->_info - $current
-                    );
-                    break;
-            }
+            $this->_routine->set_idle($this->_idle);
         }
         return true;
     }

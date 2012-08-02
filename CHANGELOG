@@ -1,4 +1,6 @@
 [ 2.0.0 TBD ]
+- Added the engine\Routine class
+- Autoloading is now used for classes
 - Engine now uses the prggmr\engine\Idle class for idling
 - Added the microseconds function
 - Added the socket signal with support for a socket server.

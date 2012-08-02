@@ -18,38 +18,21 @@ if (defined('PRGGMR_DEV_MODE')) {
 
 $dir = dirname(realpath(__FILE__));
 
+/**
+ * Prggmr autoloader
+ */
+$dir = dirname(realpath(__FILE__));
+spl_autoload_register(function($class) use ($dir){
+    // remove prggmr name from class name
+    $class = str_replace('prggmr\\', '', $class);
+    $class = strtolower(str_replace('\\', '/', $class)).'.php';
+    require_once $dir.'/'.$class;
+});
+
+
 // start'er up
 // utils & traits
 require $dir.'/utils.php';
-require $dir.'/singleton.php';
-require $dir.'/storage.php';
-require $dir.'/state.php';
-// engine itself
-require $dir.'/engine.php';
-// signals
-require $dir.'/signal/routine.php';
-require $dir.'/signal/standard.php';
-require $dir.'/signal.php';
-require $dir.'/signal/complex.php';
-require $dir.'/engine/signal/base.php';
-require $dir.'/engine/signal/error.php';
-require $dir.'/engine/signal/engine_errors.php';
-require $dir.'/engine/signal/engine_signals.php';
-require $dir.'/engine/signal/event_expired.php';
-require $dir.'/engine/signal/handle_exception.php';
-require $dir.'/engine/signal/idle_function_overflow.php';
-require $dir.'/engine/signal/invalid_event.php';
-require $dir.'/engine/signal/invalid_handle.php';
-require $dir.'/engine/signal/invalid_interrupt.php';
-require $dir.'/engine/signal/invalid_signal.php';
-require $dir.'/engine/signal/loop_shutdown.php';
-require $dir.'/engine/signal/loop_start.php';
-require $dir.'/engine/signal/routine_calculation_error.php';
-require $dir.'/engine/signal/signal_library_failure.php';
-// event, handle, queue and the API
-require $dir.'/event.php';
-require $dir.'/queue.php';
-require $dir.'/handle.php';
 require $dir.'/api.php';
 
 // debugging mode disabled by default

@@ -28,11 +28,11 @@ abstract class Idle {
     protected $_limit = 1;
 
     /**
-     * Priority of this idle function.
+     * Priority of this idle function. Zero comes first
      *
      * @var  integer
      */
-    protected $_priority = 0;
+    protected $_priority = null;
 
     /**
      * Allow override of this function.
@@ -77,7 +77,7 @@ abstract class Idle {
      *
      * @return  integer
      */
-    public function get_priority(/* ... */)
+    final public function get_priority(/* ... */)
     {
         return $this->_priority;
     }
@@ -87,7 +87,7 @@ abstract class Idle {
      *
      * @return  integer
      */
-    public function get_limit(/* ... */)
+    final public function get_limit(/* ... */)
     {
         return $this->_limit;
     }
@@ -98,7 +98,7 @@ abstract class Idle {
      *
      * @return  boolean
      */
-    public function allow_override(/* ... */)
+    final public function allow_override(/* ... */)
     {
         return $this->_allow_override;
     }

@@ -235,61 +235,39 @@ class Engine {
     public function loop($ttr = null)
     {
         if (null !== $ttr) {
-            $this->handle(function($engine){
+            $engine = $this;
+            $this->handle(function() use ($engine) {
                 $engine->shutdown();
-            }, new \prggmr\signal\time\Timeout($ttr, $this));
+            }, new \prggmr\signal\time\Timeout($ttr));
         }
         $this->signal(new engine_signals\Loop_Start());
-        while($this->_routines()) {
+        while($this->_routine()) {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
-            if (count($this->_routines[0]) !== 0) {
-                foreach ($this->_routines[0] as $_routine) {
-                    $this->signal($_routine[0], $_routine[1], $_routine[2]);
+            $signals = $this->_routine->get_signals();
+            if (count($signals) !== 0) {
+                foreach ($signals as $_signal) {
+                    $this->signal($_signal[0], $_signal[2], $_signal[2]);
                 }
             }
+            $idle = $this->_routine->get_idle();
             // check for idle function
-            if (null !== $this->_routines[2]) {
-                call_user_func_array($this->_routines[2], [$this]);
-            }
-            // check for idle time
-            if ($this->_routines[1][0] !== null && $this->_routines[1][1] > milliseconds()) {
-                // idle for the given time in milliseconds
-                usleep($this->_routines[1][0] * 1000);
+            if (false !== $idle) {
+                $idle->idle($this);
             }
         }
         $this->signal(new engine_signals\Loop_Shutdown());
     }
 
     /**
-     * Runs complex signal routines for engine loop.
-     *
-     * The routines are stored within the engine using the following structure,
-     *
-     * [
-     *     # Signals to dispatch
-     *     0 => [],
-     *     # Idle Time
-     *     1 => [
-     *         # Time to idle
-     *         0 => (int|null)
-     *         # Timestamp when the engine should wake up
-     *         1 => int
-     *     ],
-     *     # Idle function
-     *     2 => (null|closure)
-     * ]
-     *
-     * The engine only allows for a single function to be executed as the 
-     * idle function and attempting to register two or more functions will
-     * result in a engine\Signal::IDLE_FUNCTION_OVERFLOW signal triggered.
+     * Runs the complex signal routine for engine loop.
      * 
      * @return  boolean|array
      */
-    private function _routines()
+    private function _routine()
     {
         $return = false;
-        $this->_routines = [[], [0], null];
+        $this->_routine = new engine\Routine();
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
@@ -308,10 +286,7 @@ class Engine {
                     }
                     // Get all required data and reset the routine
                     $_signals = $_routine->get_signals();
-                    $_seconds = $_routine->get_idle_seconds();
-                    $_milliseconds = $_routine->get_idle_milliseconds();
-                    $_microseconds = $_routine->get_idle_microseconds();
-                    $_function = $_routine->get_idle_function();
+                    $_idle = $_routine->get_idle();
                     $_routine->reset();
                     // Check signals
                     if (null !== $_signals && count($_signals) != 0) {
@@ -320,31 +295,14 @@ class Engine {
                             // ensure it has not exhausted
                             if (false === $this->has_signal_exhausted($__sig)) {
                                 $return = true;
-                                // As of v2.0.0 the engine no longer attempts to keep
-                                // a reference to the same event.
-                                // This functionality is now dependent upon the signal
-                                $this->_routines[0][] = [$__sig, $__vars, $__event];
+                                $this->_routine->add_signal($__sig, $__vars, $__event);
                             }
                         }
                     }
-
-                    // Check the amount of time to idle if given
-                    if (null !== $_seconds && null !== $_milliseconds && null !== $_microseconds) {
-                        if (0 === $this->_routines[1][0] || $this->_routines[1][0] > $_idle) {
-                            $return = true;
-                            $this->_routines[1] = [$_idle, $_idle + milliseconds()];
-                        }
-                    }
-                    // Idle function
-                    if ($_function !== null) {
+                    // Check for an idle function
+                    if (null !== $_idle) {
                         $return = true;
-                        if ($this->_routines[2] !== null) {
-                            $this->signal(new engine_signals\Idle_Function_Overflow(
-                                "There can be only one idle function"
-                            ), array($_node[0]));
-                        } else {
-                            $this->_routines[2] = $_function;
-                        }
+                        $this->_routine->add_idle($_idle);
                     }
                 }
             // Catch any problems that happended and signal them
@@ -355,6 +313,16 @@ class Engine {
             }
         }
         return $return;
+    }
+
+    /**
+     * Returns the current routine object.
+     *
+     * @return  null|object
+     */
+    public function get_routine(/* ... */)
+    {
+        return $this->_routine;
     }
 
     /**
