@@ -31,9 +31,9 @@ class Interval extends \prggmr\signal\time\Timeout {
      *
      * @return  void
      */
-    public function __construct($time, $precision = \prggmr\engine\idle\Time::MILLISECONDS)
+    public function __construct($time, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
     {
-        parent::__construct($time, $precision);
+        parent::__construct($time, $instruction);
         $this->_time = $time;
     }
     
@@ -47,7 +47,7 @@ class Interval extends \prggmr\signal\time\Timeout {
     public function routine($history = null)
     {
         if ($this->_idle->has_time_passed()) {
-            $this->_idle = \prggmr\engine\idle\Time($this->_time, $this->_instruction);
+            $this->_idle = new \prggmr\engine\idle\Time($this->_time, $this->_instruction);
             $this->signal_this();
         }
         $this->_routine->set_idle($this->_idle);

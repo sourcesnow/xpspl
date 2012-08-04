@@ -8,7 +8,7 @@ prggmr\load_signal('unittest');
 
 use prggmr\signal\unittest as unittest;
 
-unittest\api\suite(function(){
+unittest\suite(function(){
 
     $this->setup(function(){
         $this->engine = new prggmr\Engine();

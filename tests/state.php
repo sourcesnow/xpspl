@@ -13,7 +13,7 @@ class Temp {
     use prggmr\State;
 }
 
-unittest\api\suite(function(){
+unittest\suite(function(){
     /**
      * Setup and teardown function
      */

@@ -16,7 +16,7 @@ namespace prggmr;
  *
  * @return  object|boolean  Handle, boolean if error
  */
-function handle($closure, $signal, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+function handle($closure, $signal = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
 {
     return \prggmr::instance()->handle($closure, $signal, $priority, $exhaust);
 }

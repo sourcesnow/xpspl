@@ -65,7 +65,7 @@ class Time extends \prggmr\engine\Idle {
      */
     public function __construct($time, $instruction)
     {
-        if ($instruction <= 0 || $instruction >= 5) {
+        if ($instruction <= 0 || $instruction >= 4) {
             throw new \InvalidArgumentException(
                 "Invalid idle time instruction"
             );
@@ -93,7 +93,7 @@ class Time extends \prggmr\engine\Idle {
      */
     public function idle($engine)
     {
-        switch ($this->_type) {
+        switch ($this->_instruction) {
             case self::SECONDS:
                 sleep($this->_tti);
                 break;
@@ -143,15 +143,15 @@ class Time extends \prggmr\engine\Idle {
      */
     public function has_time_passed(/* ... */)
     {
-        switch ($this->_type) {
+        switch ($this->_instruction) {
             case self::SECONDS:
-                return $this->_tts >= time();
+                return $this->_tts <= time();
                 break;
             case self::MILLISECONDS:
-                return $this->_tts >= milliseconds();
+                return $this->_tts <= milliseconds();
                 break;
             case self::MICROSECONDS:
-                return $this->_tts >= mircoseconds();
+                return $this->_tts <= microseconds();
                 break;
         }
     }
@@ -173,10 +173,10 @@ class Time extends \prggmr\engine\Idle {
             case self::SECONDS:
                 switch ($this->_instruction) {
                     case self::SECONDS:
-                        if ($this->_tts >= $time->get_time_until()) {
-                            return true;
+                        if ($this->_tts <= $time->get_time_until()) {
+                            return false;
                         }
-                        return false;
+                        return true;
                         break;
                     case self::MILLISECONDS:
                         $difference = ($this->_tts - milliseconds()) / 1000;
@@ -228,16 +228,18 @@ class Time extends \prggmr\engine\Idle {
                         break;
                     case self::MILLISECONDS:
                         $difference = ($this->_tts - milliseconds()) * 1000;
-                        if ($difference >= ($time->get_time_until() - microseconds())) {
+                        if ($difference <= ($time->get_time_until() - microseconds())) {
+                            echo $difference . ' is smaller than ' . ($time->get_time_until() - microseconds());
                             return true;
                         }
-                        break;
                         return false;
+                        break;
                     case self::MICROSECONDS:
                         if ($this->_tts >= $time->get_time_until()) {
                             return true;
                         }
                         return false;
+                        break;
                 }
                 break;
         }

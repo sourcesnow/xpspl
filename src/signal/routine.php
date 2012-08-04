@@ -38,7 +38,7 @@ final class Routine {
      * 
      * @return  boolean
      */
-    public function add_signal($signal = null, $event = null, $vars = null) 
+    public function add_signal($signal = null, $vars = null, $event = null) 
     {
         $this->_signals[] = [$signal, $vars, $event];
     }

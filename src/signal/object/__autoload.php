@@ -4,13 +4,5 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-
-prggmr\load_signal("unittest");
-
-// load the standard unittest output
-prggmr\signal\unittest\generate_output();
-
-foreach (glob('*.php') as $file)
-{
-    include_once ($file);
-}
+$dir = dirname(realpath(__FILE__));
+require_once $dir.'/handler.php';

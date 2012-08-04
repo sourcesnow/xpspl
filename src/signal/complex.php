@@ -99,9 +99,9 @@ abstract class Complex extends Standard {
      *
      * @return  void
      */
-    public function signal_this($event = true, $vars = null, $ttl = null)
+    public function signal_this($event = null, $vars = null, $ttl = null)
     {
-        if (null === $this->_event) {
+        if (null !== $event) {
             if (!$event instanceof \prggmr\Event) {
                 $this->event(new \prggmr\Event($ttl));
             } else {

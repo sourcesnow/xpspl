@@ -235,10 +235,10 @@ class Engine {
     public function loop($ttr = null)
     {
         if (null !== $ttr) {
-            $engine = $this;
-            $this->handle(function() use ($engine) {
-                $engine->shutdown();
-            }, new \prggmr\signal\time\Timeout($ttr));
+            // $engine = $this;
+            // $this->handle(function() use ($engine) {
+            //     $engine->shutdown();
+            // }, new \prggmr\signal\time\Timeout($ttr));
         }
         $this->signal(new engine_signals\Loop_Start());
         while($this->_routine()) {
@@ -401,7 +401,7 @@ class Engine {
      *
      * @return  object|boolean  Handle, boolean if error
      */
-    public function handle($callable, $signal, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+    public function handle($callable, $signal= null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
     {
         /**
          * Allow for giving the signal first
@@ -449,7 +449,7 @@ class Engine {
      *
      * @return  boolean|object  false|prggmr\Queue
      */
-    public function signal_queue($signal, $create = true, $type = QUEUE_MIN_HEAP)
+    public function signal_queue($signal, $create = true, $type = Queue::QUEUE_MIN_HEAP)
     {
         $complex = false;
         $queue = false;

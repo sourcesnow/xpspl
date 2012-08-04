@@ -83,21 +83,21 @@ final class Routine {
             if (get_class($_func) === get_class($idle)) {
                 if (!$_func->allow_override()) {
                     throw new \RuntimeException(sprintf(
-                        "There can be only one %s idler",
+                        "Idle class %s does not allow override",
                         get_class($_func)
                     ));
                 }
                 if ($_func->override($idle)) {
                     $this->_idle[$_k] = $idle;
-                    return;
                 }
+                return;
             }
         }
         $this->_idle[] = $idle;
         if (count($this->_idle) >= 2) {
             usort($this->_idle, function($a, $b){
                 $a = $a->get_priority();
-                $b = $a->get_priority();
+                $b = $b->get_priority();
                 if (null === $a) {
                     return -1;
                 }

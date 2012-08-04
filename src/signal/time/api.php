@@ -12,9 +12,9 @@ namespace prggmr\signal\time;
  *
  * @return  array  [signal, handle]
  */
-function interval($function, $interval, $vars = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null)
+function interval($function, $interval, $instruction = \prggmr\engine\idle\Time::MILLISECONDS, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null)
 {
-    $signal = new Interval($interval, $vars);
+    $signal = new Interval($interval, $instruction);
     $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
     return [$signal, $handle];
 }
@@ -30,9 +30,9 @@ function interval($function, $interval, $vars = null, $priority = QUEUE_DEFAULT_
  *
  * @return  array  [signal, handle]
  */
-function timeout($function, $timeout, $vars = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+function timeout($function, $timeout, $instruction = \prggmr\engine\idle\Time::MILLISECONDS, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
 {
-    $signal = new Timeout($timeout, $vars);
+    $signal = new Timeout($timeout, $instruction);
     $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
     return [$signal, $handle];
 }

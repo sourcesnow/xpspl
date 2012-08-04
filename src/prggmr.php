@@ -17,11 +17,9 @@ if (defined('PRGGMR_DEV_MODE')) {
 }
 
 $dir = dirname(realpath(__FILE__));
-
 /**
  * Prggmr autoloader
  */
-$dir = dirname(realpath(__FILE__));
 spl_autoload_register(function($class) use ($dir){
     // remove prggmr name from class name
     $class = str_replace('prggmr\\', '', $class);

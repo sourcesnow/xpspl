@@ -23,18 +23,6 @@ if (!defined('QUEUE_DEFAULT_PRIORITY')) {
 }
 
 /**
- * Queue Heap Types available.
- * 
- * QUEUE_MIN_HEAP
- * Queue functions as a min-heap.
- * 
- * QUEUE_MAX_HEAP
- * Queue functions as a max-heap.
- */
-define('QUEUE_MIN_HEAP', 0xBF01);
-define('QUEUE_MAX_HEAP', 0xBF02);
-
-/**
  * As of v0.3.0 Queues no longer maintain a reference to a signal.
  *
  * The Queue is still a representation of a PriorityQueue and will remain so 
@@ -45,6 +33,18 @@ define('QUEUE_MAX_HEAP', 0xBF02);
 class Queue {
 
     use Storage;
+
+    /**
+     * Queue Heap Types available.
+     * 
+     * QUEUE_MIN_HEAP
+     * Queue functions as a min-heap.
+     * 
+     * QUEUE_MAX_HEAP
+     * Queue functions as a max-heap.
+     */
+    const QUEUE_MIN_HEAP = 0xBF01;
+    const QUEUE_MAX_HEAP = 0xBF02;
 
     /**
      * Flag for prioritizing.
@@ -67,7 +67,7 @@ class Queue {
      *
      * @return  void
      */
-    public function __construct($type = QUEUE_MIN_HEAP)
+    public function __construct($type = self::QUEUE_MIN_HEAP)
     {
         $this->_type = $type;
     }
@@ -126,7 +126,7 @@ class Queue {
     {
         if (!$this->_dirty && !$force) return null;
         $this->usort(function($a, $b){
-            if ($this->_type === QUEUE_MAX_HEAP) {
+            if ($this->_type === self::QUEUE_MAX_HEAP) {
                 return $a[1] < $b[1];
             }
             return $a[1] > $b[1];

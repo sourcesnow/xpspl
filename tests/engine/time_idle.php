@@ -8,7 +8,10 @@ prggmr\load_signal('unittest');
 
 use prggmr\signal\unittest as unittest;
 
+unittest\generate_output();
+
 unittest\suite(function(){
+
     unittest\test(function(){
         $time1 = new \prggmr\engine\idle\Time(1, \prggmr\engine\idle\Time::SECONDS);
         $time2 = new \prggmr\engine\idle\Time(1500, \prggmr\engine\idle\Time::MILLISECONDS);
@@ -26,4 +29,5 @@ unittest\suite(function(){
         $time2 = new \prggmr\engine\idle\Time(1.6, \prggmr\engine\idle\Time::MILLISECONDS);
         $this->false($time1->override($time2));
     }, 'Microseconds less than milliseconds presicion');
+
 });

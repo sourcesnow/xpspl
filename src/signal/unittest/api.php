@@ -58,6 +58,9 @@ function suite($function, $event = null) {
  * @return  void
  */
 function generate_output() {
+    // enable the event history
+    \prggmr\save_event_history(true);
+
     // Startup
     \prggmr\handle(function(){
         define('UNITTEST_START_TIME', milliseconds());
@@ -66,7 +69,7 @@ function generate_output() {
             unittest\Output::SYSTEM
         );
         $output->send_linebreak(unittest\Output::SYSTEM);
-    }, \prggmr\engine\Signals::LOOP_START);
+    }, new \prggmr\engine\signal\Loop_Start());
 
     // Shutdown
     \prggmr\handle(function(){
@@ -140,5 +143,5 @@ function generate_output() {
             $pass, $fail, $skip
         ), unittest\Output::SYSTEM, true);
 
-    }, \prggmr\engine\Signals::LOOP_SHUTDOWN);
+    }, new \prggmr\engine\signal\Loop_Shutdown());
 }

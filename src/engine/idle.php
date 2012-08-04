@@ -21,13 +21,6 @@ namespace prggmr\engine;
 abstract class Idle {
 
     /**
-     * Amount of this idle that can be run each loop.
-     *
-     * @var  integer
-     */
-    protected $_limit = 1;
-
-    /**
      * Priority of this idle function. Zero comes first
      *
      * @var  integer
@@ -80,16 +73,6 @@ abstract class Idle {
     final public function get_priority(/* ... */)
     {
         return $this->_priority;
-    }
-
-    /**
-     * Returns the maximum amount of idle functions allowed of this.
-     *
-     * @return  integer
-     */
-    final public function get_limit(/* ... */)
-    {
-        return $this->_limit;
     }
 
     /**

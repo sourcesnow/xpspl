@@ -8,7 +8,7 @@ namespace prggmr\signal\time;
  
 use \prggmr\engine\idle as idle;
 
-if (!class_exists('\Cron\CronExpression')) {
+if (!class_exists('\Cron\CronExpression', false)) {
     $file = dirname(realpath(__FILE__)).'/../../../vendor/mtdowling/cron-expression/build/cron.phar';
     if (file_exists($file)) {
         require_once $file;
@@ -77,7 +77,7 @@ class Cron extends \prggmr\signal\Complex {
             // engine goes by milliseconds
             $this->signal_this();
         } else {
-            $this->_routine->set_idle(new idle\Time($diff, idle\Time::SECONDS);
+            $this->_routine->set_idle(new idle\Time($diff, idle\Time::SECONDS));
         }
         return true;
     }

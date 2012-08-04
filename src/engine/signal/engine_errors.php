@@ -12,7 +12,7 @@ namespace prggmr\engine\signal;
  */
 class Engine_Errors extends \prggmr\signal\Complex {
 
-    public function evaluate($signal)
+    public function evaluate($signal = null)
     {
         if ($signal instanceof Error) {
             return true;
