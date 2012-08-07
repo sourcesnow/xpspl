@@ -842,16 +842,16 @@ class Engine {
     /**
      * Registers a function to interrupt the signal stack before or after a 
      * signal fires.
-     * 
-     * @param  object  $handle  Handle to execute
+     *
      * @param  string|object  $signal
+     * @param  object  $handle  Handle to execute
      * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
      * @param  int|null  $priority  Interupt priority
      * @param  boolean  $complex  Register the given complex signal as a complex interrupt signal
      * 
      * @return  boolean  True|False false is failure
      */
-    public function signal_interrupt($handle, $signal, $interrupt = null, $priority = null, $complex = false) 
+    public function signal_interrupt($signal, $handle, $interrupt = null, $priority = null, $complex = false) 
     {
         // Variable Checks
         if (!$handle instanceof Handle) {
