@@ -9,7 +9,7 @@ namespace prggmr\signal\object;
  /**
  * Handle signals using the methods of an object.
  */
-class Handler extends \prggmr\signal\Complex {
+class Listener extends \prggmr\signal\Complex {
 
     /**
      * Class members.
@@ -21,7 +21,7 @@ class Handler extends \prggmr\signal\Complex {
      *
      * @return  void
      */
-    public function __construct()
+    public function __construct($engine = null)
     {
         foreach (get_class_methods($this) as $_method) {
             // skip magic methods
@@ -39,11 +39,6 @@ class Handler extends \prggmr\signal\Complex {
      */
     public function evaluate($signal = null)
     {
-        foreach ($this->_methods as $_method) {
-            if ($_method === $_signal) {
-                return true;
-            }
-        }
         return false;
     }
 }

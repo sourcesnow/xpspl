@@ -82,9 +82,9 @@ function event_history(/* ... */)
  *
  * @return  boolean|array  False|[QUEUE_NEW|QUEUE_EMPTY|QUEUE_NONEMPTY, queue, signal]
  */
-function signal_queue($signal, $create = true, $type = QUEUE_MIN_HEAP)
+function register($signal, $create = true, $type = QUEUE_MIN_HEAP)
 {
-    return \prggmr::instance()->signal_queue($signal, $create, $type);
+    return \prggmr::instance()->register($signal, $create, $type);
 }
 
 /**
@@ -243,4 +243,9 @@ function erase_history()
 function save_event_history($flag)
 {
     return \prggmr::instance()->save_event_history($flag);
+}
+
+function listen($listener)
+{
+    return \prggmr::instance()->listen($listener);
 }

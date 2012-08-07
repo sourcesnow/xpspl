@@ -48,6 +48,11 @@ class Handle {
      * @var  boolean
      */
     protected $_exhausted = null;
+
+    /**
+     * Is the handle function a closure.
+     */
+    protected $_isclosure = false;
     
     /**
      * Array of additional parameters to pass the executing function.
@@ -55,6 +60,13 @@ class Handle {
      * @var  array
      */
     protected $_params = null;
+
+    /**
+     * Object to bind the handle function, used only when not a closure.
+     *
+     * @var  null|object
+     */
+    protected $_bind = null;
 
     /**
      * Constructs a new handle object.
@@ -66,9 +78,9 @@ class Handle {
      */
     public function __construct($function, $exhaust = 1)
     {
-        if (!$function instanceof Closure) {
+        if (!$function instanceof Closure && !is_callable($function)) {
             throw new \InvalidArgumentException(sprintf(
-                "handle requires a closure (%s) given",
+                "handle requires a callable (%s) given",
                 (is_object($function)) ?
                 get_class($function) : gettype($function)
             ));
@@ -77,8 +89,13 @@ class Handle {
         if (null !== $exhaust && (!is_int($exhaust) || $exhaust <= -1)) {
             $exhaust = 1;
         }
-        // unbind the closure
-        $this->_function = $function->bindTo(new \stdClass());
+        // unbind the closure if is
+        if ($function instanceof \Closure) {
+            $this->_isclosure = true;
+            $this->_function = $function->bindTo(new \stdClass());
+        } else {
+            $this->_function = $function;
+        }
         $this->_exhaustion = $exhaust;
     }
 
@@ -109,7 +126,13 @@ class Handle {
             $this->_exhaustion--;
         }
 
-        return call_user_func_array($this->_function, $params);
+        if (!$this->_isclosure) {
+            array_unshift($params, $this->_bind);
+        }
+
+        $result = call_user_func_array($this->_function, $params);
+        $this->_bind = null;
+        return $result;
     }
 
     /**
@@ -169,6 +192,10 @@ class Handle {
      */
     public function bind($object)
     {
-        $this->_function = $this->_function->bindTo($object);
+        if (!$this->_isclosure) {
+            $this->_bind = $object;
+        } else {
+            $this->_function = $this->_function->bindTo($object);
+        }
     }
 }

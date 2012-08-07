@@ -180,13 +180,13 @@ class Engine {
                 return true;
             }
         }
-        $this->handle(function(){
+        $this->handle($this->_engine_handle_signal, function(){
             $args = func_get_args();
             $message = $this->get_signal()->get_message();
             $exception = $this->get_signal()->get_exception();
             $type = $this->get_signal();
             throw new Engine_Exception($message, $type, $args);
-        }, $this->_engine_handle_signal, 0, null);
+        }, 0, null);
     }
 
     /**
@@ -334,14 +334,8 @@ class Engine {
      */
     public function has_signal_exhausted($signal)
     {
-        $queue = $this->signal_queue($signal, false);
+        $queue = $this->register($signal, false);
         if (false === $queue) return true;
-        // if (true === $this->queue_exhausted($queue)) {
-        //     $this->signal(engine_signals::EXHAUSTED_QUEUE_SIGNALED, array(
-        //         $queue
-        //     ));
-        //     return true;
-        // }
         return true === $this->queue_exhausted($queue);
     }
 
@@ -375,7 +369,7 @@ class Engine {
      */
     public function handle_remove($handle, $signal)
     {
-        $queue = $this->signal_queue($signal);
+        $queue = $this->register($signal);
         return $queue->dequeue($handle);
     }
 
@@ -392,29 +386,33 @@ class Engine {
     }
 
     /**
+     * Registers an object listener.
+     *
+     * @param  object  $listener  prggmr\Listener
+     *
+     * @return  void
+     */
+    public function listen(Listener $listener)
+    {
+        foreach ($listener->get_signal_handlers() as $_sig_handle) {
+            $this->handle($_sig_handle[1], array($listener, $_sig_handle[0]));
+        }
+    }
+
+    /**
      * Creates a new signal handler.
      *
-     * @param  object  $callable  Closure
      * @param  string|int|object  $signal  Signal to attach the handle.
+     * @param  object  $callable  Signal handler
      * @param  integer $priority  Handle priority.
      * @param  integer  $exhaust  Handle exhaustion.
      *
      * @return  object|boolean  Handle, boolean if error
      */
-    public function handle($callable, $signal= null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+    public function handle($signal, $handle, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
     {
-        /**
-         * Allow for giving the signal first
-         */
-        if ($signal instanceof Closure) {
-            $tmp = $callable;
-            $callable = $signal;
-            $signal = $tmp;
-            unset($tmp);
-        }
-
-        if (!$callable instanceof Handle) {
-            if (!is_callable($callable)) {
+        if (!$handle instanceof Handle) {
+            if (!is_callable($handle)) {
                 $this->signal(new engine_signals\Invalid_Handle(
                        "Invalid handle given to the handle method" 
                     ), array(
@@ -422,14 +420,12 @@ class Engine {
                 ));
                 return false;
             }
-            $handle = new Handle($callable, $exhaust);
+            $handle = new Handle($handle, $exhaust);
         }
-
-        $queue = $this->signal_queue($signal);
+        $queue = $this->register($signal);
         if (false !== $queue) {
             $queue->enqueue($handle, $priority);
         }
-
         return $handle;
     }
 
@@ -449,7 +445,7 @@ class Engine {
      *
      * @return  boolean|object  false|prggmr\Queue
      */
-    public function signal_queue($signal, $create = true, $type = Queue::QUEUE_MIN_HEAP)
+    public function register($signal, $create = true, $type = Queue::QUEUE_MIN_HEAP)
     {
         $complex = false;
         $queue = false;
@@ -462,7 +458,7 @@ class Engine {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
                 $this->signal(new engine_signals\Invalid_Signal(
-                    "Invalid signal given to the signal_queue"
+                    "Invalid signal given to the register"
                 ), array($exception, $signal));
                 return false;
             }
