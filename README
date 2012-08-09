@@ -13,9 +13,9 @@ Have Fun!
 
 ```php
 <?php
-prggmr\handle(function(){
+prggmr\handle('light.green', function(){
     echo "The light is green go!";
-}, 'light.green');
+});
 ```
 
 ### Dispatching signals
@@ -69,9 +69,9 @@ prggmr supports CRONTAB style expressions for signals.
 ```php
 <?php
 prggmr\load_signal('time');
-prggmr\signal\time\cron(function(){
+prggmr\signal\time\cron('*/15 * * * *', function(){
     echo "Running this every 15 minutes!".PHP_EOL;
-}, '*/15 * * * *');
+});
 ```
 
 ### Signal interruption before handle execution
@@ -259,20 +259,20 @@ W3C Event-Stream (Specs)[http://dev.w3.org/html5/eventsource/].
 
 $socket = new \prggmr\signal\http\EventStream();
 
-handle(function($bytes){
+handle($socket->read(), function($bytes){
     // do something
-}, $socket->read());
+});
 
-handle(function($bytes){
+handle($socket->write(), function($bytes){
     // do something
-}, $socket->write());
+});
 ```
 
 ### prggmr Event Server
 
-A real-time event server.
+A real-time complex event event server.
 
-### PEQL - prggmr Event Query Language
+### PEL - prggmr Event Language
 
 An SQL language that can be used to communicate with the event server.
 

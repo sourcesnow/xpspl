@@ -1,7 +1,7 @@
 <?php
 ini_set('memory_limit', -1);
 $time = microtime(true);
-for ($i=0;$i!=100;$i++){
+for ($i=0;$i!=2000;$i++){
     prggmr\handle(function(){
     }, $i);
 }

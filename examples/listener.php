@@ -1,11 +1,15 @@
 <?php
 
+prggmr\load_signal('http');
+
 /**
  * Handle methods as signal handlers.
  */
 class User extends \prggmr\Listener {
+    
+    public $on_hello_world = 'new \prggmr\signal\http\Uri("/hello/world");';
 
-    public function on_hello_world($event)
+    public function on_hello_world(http\Event $event)
     {
         echo "HelloWorld".PHP_EOL;
     }

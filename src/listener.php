@@ -22,13 +22,17 @@ class Listener {
      *
      * @return  void
      */
-    final public function __construct($engine = null)
+    public function __construct($engine = null)
     {
         foreach (get_class_methods($this) as $_method) {
             // skip magic methods
             if (stripos('_', $_method) === 0) continue;
             if (stristr($_method, 'on_') === false) continue;
-            $_signal = str_replace('on_', '', $_method);
+            if (isset($this->$_method)) {
+                $_signal = eval($this->{$_method});
+            } else {
+                $_signal = str_replace('on_', '', $_method);
+            }
             $this->_sig_handlers[] = [
                 $_method,
                 $_signal
