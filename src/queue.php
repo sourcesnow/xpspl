@@ -82,7 +82,7 @@ class Queue {
      *
      * @return  void
      */
-    public function enqueue($node, $priority = QUEUE_DEFAULT_PRIORITY)
+    public function enqueue($node, $priority = null)
     {
         if ($this->count() > QUEUE_MAX_SIZE) {
             throw new \OverflowException(

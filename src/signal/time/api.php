@@ -6,16 +6,15 @@ namespace prggmr\signal\time;
  *
  * @param  object  $function  Closure
  * @param  integer  $timeout  Milliseconds before calling timeout.
- * @param  array  $vars  Variables to pass the timeout function
- * @param  integer  $priority  Timeout priority
- * @param  integer|null  $exhaust  Exhaustion Rate | Default null
+ * @param  array  $instruction  The time instruction
+ * @param  object  $event 
  *
  * @return  array  [signal, handle]
  */
-function interval($function, $interval, $instruction = \prggmr\engine\idle\Time::MILLISECONDS, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null)
+function interval($interval, $function, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
 {
     $signal = new Interval($interval, $instruction);
-    $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
+    $handle = \prggmr::instance()->handle($function, $signal);
     return [$signal, $handle];
 }
 
@@ -24,16 +23,14 @@ function interval($function, $interval, $instruction = \prggmr\engine\idle\Time:
  * 
  * @param  object  $function  Closure
  * @param  integer  $timeout  Milliseconds before calling timeout.
- * @param  array  $vars  Variables to pass the timeout function
- * @param  integer  $priority  Timeout priority
- * @param  integer|null  $exhaust  Exhaustion Rate | Default 1
+ * @param  array  $instruction  The time instruction
  *
  * @return  array  [signal, handle]
  */
-function timeout($function, $timeout, $instruction = \prggmr\engine\idle\Time::MILLISECONDS, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+function timeout($function, $timeout, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
 {
     $signal = new Timeout($timeout, $instruction);
-    $handle = \prggmr::instance()->handle($function, $signal, $priority, $exhaust);
+    $handle = \prggmr::instance()->handle($function, $signal);
     return [$signal, $handle];
 }
 
@@ -43,13 +40,11 @@ function timeout($function, $timeout, $instruction = \prggmr\engine\idle\Time::M
  *
  * @param  callable  $function  Function to call
  * @param  string  $expression  Cron expression
- * @param  integer  $priority  Priority
- * @param  integer|null  $exhaust  Exhaust rate
  *
  * @return  array  [signal, handle]
  */
-function cron($function, $expression, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = null) {
+function cron($function, $expression) {
     $signal = new Cron($expression);
-    $handle = \prggmr\handle($function, $signal, $priority, $exhaust);
+    $handle = \prggmr\handle($signal, $function);
     return [$signal, $handle];
 }

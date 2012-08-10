@@ -36,7 +36,7 @@ function create_assertion($function, $name, $message = null) {
  */
 function test($function, $name = null, $event = null) {
     $signal = new unittest\Test($name, $event);
-    $handle = \prggmr\handle($function, $signal);
+    $handle = \prggmr\handle($signal, $function);
     return [$handle, $signal];
 }
 
@@ -62,17 +62,17 @@ function generate_output() {
     \prggmr\save_event_history(true);
 
     // Startup
-    \prggmr\handle(function(){
+    \prggmr\handle(new \prggmr\engine\signal\Loop_Start(), function(){
         define('UNITTEST_START_TIME', milliseconds());
         $output = unittest\Output::instance();
         $output->send("prggmr unittest library " . PRGGMR_VERSION, 
             unittest\Output::SYSTEM
         );
         $output->send_linebreak(unittest\Output::SYSTEM);
-    }, new \prggmr\engine\signal\Loop_Start());
+    });
 
     // Shutdown
-    \prggmr\handle(function(){
+    \prggmr\handle(new \prggmr\engine\signal\Loop_Shutdown(), function(){
         define('UNITTEST_END_TIME', milliseconds());
         $tests = 0;
         $pass = 0;
@@ -143,5 +143,5 @@ function generate_output() {
             $pass, $fail, $skip
         ), unittest\Output::SYSTEM, true);
 
-    }, new \prggmr\engine\signal\Loop_Shutdown());
+    });
 }

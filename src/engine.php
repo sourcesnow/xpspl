@@ -399,12 +399,10 @@ class Engine {
      *
      * @param  string|int|object  $signal  Signal to attach the handle.
      * @param  object  $callable  Signal handler
-     * @param  integer $priority  Handle priority.
-     * @param  integer  $exhaust  Handle exhaustion.
      *
      * @return  object|boolean  Handle, boolean if error
      */
-    public function handle($signal, $handle, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+    public function handle($signal, $handle)
     {
         if (!$handle instanceof Handle) {
             if (!is_callable($handle)) {
@@ -415,11 +413,11 @@ class Engine {
                 ));
                 return false;
             }
-            $handle = new Handle($handle, $exhaust);
+            $handle = new Handle($handle);
         }
         $queue = $this->register($signal);
         if (false !== $queue) {
-            $queue->enqueue($handle, $priority);
+            $queue->enqueue($handle, $handle->get_priority());
         }
         return $handle;
     }

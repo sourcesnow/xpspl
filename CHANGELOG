@@ -1,4 +1,5 @@
 [ 2.0.0 TBD ]
+- Removed the "vars" variable from the handle function
 - Removed the ENGINE_ROUTINE_SIGNAL constant
 - Engine::signal_queue renamed to Engine::register
 - Added the engine\Routine class

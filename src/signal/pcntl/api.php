@@ -17,5 +17,5 @@ namespace prggmr\signal\pcntl;
 function interrupt($handle, $engine = null) 
 {
     $signal = new Interrupt($engine);
-    return [\prggmr\handle($handle, $signal), $signal];
+    return [\prggmr\handle($signal, $handle), $signal];
 }
