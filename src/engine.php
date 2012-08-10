@@ -615,21 +615,12 @@ class Engine {
      *
      * @param  mixed  $signal  Signal instance or signal.
      *
-     * @param  array  $vars  Array of variables to pass handles.
-     *
      * @param  object  $event  \prggmr\Event
      *
      * @return  object  Event
      */
-    public function signal($signal, $vars = null, $event = null, $ttl = null)
+    public function signal($signal, $event = null, $ttl = null)
     {
-        // check variables
-        if (null !== $vars) {
-            if (!is_array($vars)) {
-                $vars = array($vars);
-            }
-        }
-
         // load engine event
         $event = $this->_event($signal, $event, $ttl);
 
@@ -662,7 +653,7 @@ class Engine {
             return $event;
         }
 
-        return $this->_execute($signal, $queue, $event, $vars);
+        return $this->_execute($signal, $queue, $event);
     }
 
     /**
@@ -675,12 +666,11 @@ class Engine {
      * @param  object  $signal  Signal instance.
      * @param  object  $queue  Queue instance.
      * @param  object  $event  Event instance.
-     * @param  array  $vars  Array of variables to pass handles.
      * @param  boolean  $interupt  Run the interrupt functions.
      *
      * @return  object  Event
      */
-    protected function _execute($signal, $queue, $event, $vars, $interrupt = true)
+    protected function _execute($signal, $queue, $event, $interrupt = true)
     {
         if ($event->has_expired()) {
             $this->signal(new engine_signals\Event_Expired(
@@ -690,7 +680,7 @@ class Engine {
         }
         // handle pre interupt functions
         if ($interrupt) {
-            $this->_interrupt($signal, self::INTERRUPT_PRE, $vars, $event);
+            $this->_interrupt($signal, self::INTERRUPT_PRE, $event);
             if ($event->get_state() === STATE_HALTED) {
                 $this->_event_exit($event);
                 return $event;
@@ -710,10 +700,10 @@ class Engine {
             // set event as running
             $event->set_state(STATE_RUNNING);
             if ($this->_engine_exceptions) {
-                $result = $handle($vars);
+                $result = $handle();
             } else {
                 try {
-                    $result = $handle($vars);
+                    $result = $handle();
                 } catch (\Exception $exception) {
                     $event->set_state(STATE_ERROR);
                     $handle->set_state(STATE_ERROR);
@@ -738,7 +728,7 @@ class Engine {
         }
         // handle interupt functions
         if ($interrupt) {
-            $this->_interrupt($signal, self::INTERRUPT_POST, $vars, $event);
+            $this->_interrupt($signal, self::INTERRUPT_POST, $event);
         }
         $this->_event_exit($event);
         return $event;
@@ -899,7 +889,7 @@ class Engine {
      * 
      * @return  boolean
      */
-    private function _interrupt($signal, $type, $vars, &$event)
+    private function _interrupt($signal, $type, $event)
     {
         // do nothing no interupt registered
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$type])) {
@@ -932,7 +922,7 @@ class Engine {
             }
         }
         if (null !== $queue) {
-            $this->_execute($signal, $queue, $event, $vars, false);
+            $this->_execute($signal, $queue, $event, false);
         }
     }
 

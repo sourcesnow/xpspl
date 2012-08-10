@@ -1,4 +1,7 @@
 [ 2.0.0 TBD ]
+- Removed the "$vars" variable from the signal function
+- Priority and exhaustion must now be defined in the handle object and cannot
+  be assigned directly via the handle function
 - Removed the "vars" variable from the handle function
 - Removed the ENGINE_ROUTINE_SIGNAL constant
 - Engine::signal_queue renamed to Engine::register

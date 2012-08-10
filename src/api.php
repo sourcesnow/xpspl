@@ -11,18 +11,16 @@ namespace prggmr;
  *
  * @param  string|integer|object  $signal  Signal to attach the handle.
  * @param  object  $callable  Callable
- * @param  integer $priority  Priority.
- * @param  integer  $exhaust  Exhaustion.
  *
  * @return  object|boolean  Handle, boolean if error
  */
-function handle($signal, $closure, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+function handle($signal, $callable)
 {
-    return \prggmr::instance()->handle($closure, $signal, $priority, $exhaust);
+    return \prggmr::instance()->handle($signal, $callable);
 }
 
 /**
- * Remove a signal handler.
+ * Remove a sig handler.
  *
  * @param  string|integer|object  $signal  Signal handle is attached to.
  * @param  object  $handle  Handle instance.
@@ -50,7 +48,7 @@ function handle_loader($signal, $directory, $heap = QUEUE_MIN_HEAP)
 }
 
 /**
- * Signal an event.
+ * Signals an event.
  *
  * @param  string|integer|object  $signal  Signal or a signal instance.
  * @param  array  $vars  Array of variables to pass the handles.
@@ -58,9 +56,9 @@ function handle_loader($signal, $directory, $heap = QUEUE_MIN_HEAP)
  *
  * @return  object  \prggmr\Event
  */
-function signal($signal, $vars = null, &$event = null)
+function signal($signal, $event = null)
 {
-    return \prggmr::instance()->signal($signal, $vars, $event);
+    return \prggmr::instance()->signal($signal, $event);
 }
 
 /**

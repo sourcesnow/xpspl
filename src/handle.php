@@ -73,6 +73,7 @@ class Handle {
      *
      * @param  mixed  $function  A callable php variable.
      * @param  integer  $exhaust  Count to set handle exhaustion.
+     * @param  null|integer  $priority  Priority of the handle.
      * 
      * @return  void
      */
@@ -96,6 +97,7 @@ class Handle {
         } else {
             $this->_function = $function;
         }
+        $this->_priority = $priority;
         $this->_exhaustion = $exhaust;
     }
 
