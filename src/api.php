@@ -9,14 +9,14 @@ namespace prggmr;
 /**
  * Creates a new signal handler.
  *
- * @param  object  $callable  Closure
  * @param  string|integer|object  $signal  Signal to attach the handle.
- * @param  integer $priority  Handle priority.
- * @param  integer  $exhaust  Handle exhaustion.
+ * @param  object  $callable  Callable
+ * @param  integer $priority  Priority.
+ * @param  integer  $exhaust  Exhaustion.
  *
  * @return  object|boolean  Handle, boolean if error
  */
-function handle($closure, $signal = null, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
+function handle($signal, $closure, $priority = QUEUE_DEFAULT_PRIORITY, $exhaust = 1)
 {
     return \prggmr::instance()->handle($closure, $signal, $priority, $exhaust);
 }
@@ -24,14 +24,14 @@ function handle($closure, $signal = null, $priority = QUEUE_DEFAULT_PRIORITY, $e
 /**
  * Remove a signal handler.
  *
- * @param  object  $handle  Handle instance.
  * @param  string|integer|object  $signal  Signal handle is attached to.
+ * @param  object  $handle  Handle instance.
  *
  * @return  void
  */
-function handle_remove($handle, $signal)
+function handle_remove($signal, $handle)
 {
-    return \prggmr::instance()->handle_remove($handle, $signal);   
+    return \prggmr::instance()->handle_remove($signal, $handle);   
 }
 
 /**
@@ -74,7 +74,7 @@ function event_history(/* ... */)
 }
 
 /**
- * Locates or creates a signal Queue in storage.
+ * Registers or returns a signal Queue in storage.
  * 
  * @param  string|integer|object  $signal  Signal
  * @param  boolean  $create  Create the queue if not found.
@@ -90,13 +90,11 @@ function register($signal, $create = true, $type = QUEUE_MIN_HEAP)
 /**
  * Starts the prggmr event loop.
  *
- * @param  null|integer  $ttr  Number of milliseconds to run the loop. 
- *
  * @return  void
  */
-function loop($ttr = null)
+function loop()
 {
-    return \prggmr::instance()->loop($ttr);
+    return \prggmr::instance()->loop();
 }
 
 /**
@@ -125,18 +123,18 @@ function load_signal($name, $dir = null)
 /**
  * Registers a function to interupt the signal stack before or after a 
  * signal fires.
- * 
- * @param  object  $handle  Handle to execute
+ *
  * @param  string|object  $signal
+ * @param  object  $handle  Handle to execute
  * @param  int|null  $place  Interruption location. prggmr\Engine::INTERRUPT_PRE|prggmr\Engine::INTERRUPT_POST
  * @param  int|null  $priority  Interrupt priority
  * @param  boolean  $complex  Register the given complex signal as a complex interrupt signal
  * 
  * @return  boolean  True|False false is failure
  */
-function signal_interrupt($handle, $signal, $interrupt = null, $priority = null, $complex = false) 
+function signal_interrupt($signal, $handle, $interrupt = null, $priority = null, $complex = false) 
 {
-    return \prggmr::instance()->signal_interrupt($handle, $signal, $interrupt, $priority, $complex);
+    return \prggmr::instance()->signal_interrupt($signal, $handle, $interrupt, $priority, $complex);
 }
 
 /**
@@ -223,7 +221,7 @@ function enable_signaled_exceptions()
 }
 
 /**
- * Cleans out the event history.
+ * Cleans out the entire event history.
  *
  * @return  void
  */
@@ -234,7 +232,6 @@ function erase_history()
 
 /**
  * Sets the flag for storing the event history.
- * If disabling the history this does not clear the current.
  *
  * @param  boolean  $flag
  *
@@ -245,6 +242,13 @@ function save_event_history($flag)
     return \prggmr::instance()->save_event_history($flag);
 }
 
+/**
+ * Registers a new event listener object in the engine.
+ * 
+ * @param  object  $listener  The event listening object
+ * 
+ * @return  void
+ */
 function listen($listener)
 {
     return \prggmr::instance()->listen($listener);

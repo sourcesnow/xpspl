@@ -11,11 +11,6 @@ use \Closure,
     \prggmr\engine\signal as engine_signals;
 
 /**
- * Complex signal return to trigger the signal during routine calculation.
- */
-define('ENGINE_ROUTINE_SIGNAL', -0xF14E);
-
-/**
  * As of v0.3.0 the loop is now run in respect to the currently available handles,
  * this prevents the engine from running contionusly forever when there isn't anything
  * that it needs to do.

@@ -1,12 +1,12 @@
 <?php
 
-prggmr\handle(function(){
+prggmr\handle('b', function(){
     prggmr\signal('a');
-}, 'b');
+});
 
-prggmr\handle(function(){
+prggmr\handle('a', function(){
     prggmr\signal('c');
-}, 'a');
+});
 
 prggmr\signal('b');
 prggmr\signal('c');
