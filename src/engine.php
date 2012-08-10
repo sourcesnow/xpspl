@@ -242,7 +242,7 @@ class Engine {
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
-                    $this->signal($_signal[0], $_signal[2], $_signal[2]);
+                    $this->signal($_signal[0], $_signal[1]);
                 }
             }
             $idle = $this->_routine->get_idle();
@@ -255,7 +255,7 @@ class Engine {
     }
 
     /**
-     * Runs the complex signal routine for engine loop.
+     * Runs the complex signal routine for the engine loop.
      * 
      * @return  boolean|array
      */
@@ -286,11 +286,11 @@ class Engine {
                     // Check signals
                     if (null !== $_signals && count($_signals) != 0) {
                         foreach ($_signals as $__signal) {
-                            list($__sig, $__vars, $__event) = $__signal;
+                            list($__sig, $__event) = $__signal;
                             // ensure it has not exhausted
                             if (false === $this->has_signal_exhausted($__sig)) {
                                 $return = true;
-                                $this->_routine->add_signal($__sig, $__vars, $__event);
+                                $this->_routine->add_signal($__sig, $__event);
                             }
                         }
                     }

@@ -34,13 +34,12 @@ final class Routine {
      *
      * @param  int|string|object  $signal  Signal to trigger.
      * @param  object|null  $event  Event to use during execution.
-     * @param  null|array  $vars  Variables to pass the sig handler.
      * 
      * @return  boolean
      */
-    public function add_signal($signal = null, $vars = null, $event = null) 
+    public function add_signal($signal = null, $event = null) 
     {
-        $this->_signals[] = [$signal, $vars, $event];
+        $this->_signals[] = [$signal, $event];
     }
 
 

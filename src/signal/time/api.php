@@ -2,35 +2,40 @@
 namespace prggmr\signal\time;
 
 /**
- * Calls a function at the specified intervals of time in milliseconds.
+ * Calls a function at the specified intervals of time.
  *
- * @param  object  $function  Closure
- * @param  integer  $timeout  Milliseconds before calling timeout.
- * @param  array  $instruction  The time instruction
- * @param  object  $event 
+ * @param  integer  $interval  Time between the interval.
+ * @param  callable  $callable  Callable variable.
+ * @param  array  $instruction  The time instruction. Default = Milliseconds
  *
  * @return  array  [signal, handle]
  */
-function interval($interval, $function, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+function interval($interval, $callable, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
 {
     $signal = new Interval($interval, $instruction);
-    $handle = \prggmr::instance()->handle($function, $signal);
+    if (!$callable instanceof \prggmr\Handle) {
+        $callable = new \prggmr\Handle($callable, 0)
+    }
+    $handle = \prggmr::instance()->handle($signal, new $callable);
     return [$signal, $handle];
 }
 
 /**
- * Calls a timeout function after the specified time in microseconds.
- * 
- * @param  object  $function  Closure
- * @param  integer  $timeout  Milliseconds before calling timeout.
- * @param  array  $instruction  The time instruction
+ * Calls a function after the specified timeout.
+ *
+ * @param  integer  $timeout  Amount of time to wait.
+ * @param  callable  $callable  Callable variable.
+ * @param  array  $instruction  The time instruction. Default = Milliseconds
  *
  * @return  array  [signal, handle]
  */
-function timeout($function, $timeout, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+function timeout($timeout, $callable, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
 {
     $signal = new Timeout($timeout, $instruction);
-    $handle = \prggmr::instance()->handle($function, $signal);
+    if (!$callable instanceof \prggmr\Handle) {
+        $callable = new \prggmr\Handle($callable, 1)
+    }
+    $handle = \prggmr::instance()->handle($signal, $function);
     return [$signal, $handle];
 }
 
@@ -38,13 +43,16 @@ function timeout($function, $timeout, $instruction = \prggmr\engine\idle\Time::M
 /**
  * Setup a cron based signal.
  *
- * @param  callable  $function  Function to call
  * @param  string  $expression  Cron expression
+ * @param  callable  $callable  Callable variable.
  *
  * @return  array  [signal, handle]
  */
-function cron($function, $expression) {
+function cron($expression, $callable) {
     $signal = new Cron($expression);
-    $handle = \prggmr\handle($signal, $function);
+    if (!$callable instanceof \prggmr\Handle) {
+        $callable = new \prggmr\Handle($callable, 1)
+    }
+    $handle = \prggmr\handle($signal, $callable);
     return [$signal, $handle];
 }
