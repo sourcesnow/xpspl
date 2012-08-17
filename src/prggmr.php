@@ -16,22 +16,14 @@ if (defined('PRGGMR_DEV_MODE')) {
     error_reporting(E_ALL);
 }
 
-$dir = dirname(realpath(__FILE__));
-/**
- * Prggmr autoloader
- */
-spl_autoload_register(function($class) use ($dir){
-    // remove prggmr name from class name
-    $class = str_replace('prggmr\\', '', $class);
-    $class = strtolower(str_replace('\\', '/', $class)).'.php';
-    require_once $dir.'/'.$class;
-});
-
+// Add this to include path
+$prggmr_path = dirname(realpath(__FILE__));
+set_include_path($prggmr_path.'/../../' . PATH_SEPARATOR . get_include_path());
 
 // start'er up
 // utils & traits
-require $dir.'/utils.php';
-require $dir.'/api.php';
+require $prggmr_path.'/utils.php';
+require $prggmr_path.'/api.php';
 
 // debugging mode disabled by default
 if (!defined('PRGGMR_DEBUG')) {

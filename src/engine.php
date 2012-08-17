@@ -175,13 +175,14 @@ class Engine {
                 return true;
             }
         }
-        $this->handle($this->_engine_handle_signal, function(){
+        $handle = new Handle(function(){
             $args = func_get_args();
             $message = $this->get_signal()->get_message();
             $exception = $this->get_signal()->get_exception();
             $type = $this->get_signal();
             throw new Engine_Exception($message, $type, $args);
-        }, 0, null);
+        }, 0);
+        $this->handle($this->_engine_handle_signal, $handle);
     }
 
     /**
@@ -623,7 +624,6 @@ class Engine {
     {
         // load engine event
         $event = $this->_event($signal, $event, $ttl);
-
         // locate sig handlers
         $queue = new Queue();
         $simple = $this->_search($signal);
@@ -674,7 +674,7 @@ class Engine {
     {
         if ($event->has_expired()) {
             $this->signal(new engine_signals\Event_Expired(
-                "Expired event passed for execution"
+                "Event has expired"
             ), [$event]);
             return $event;
         }

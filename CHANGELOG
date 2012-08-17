@@ -1,4 +1,5 @@
 [ 2.0.0 TBD ]
+- Added PRGGMR_AUTOLOAD_STRICT constant
 - Completely removed the ability to pass vars as a parameter throughout
 - Priority and exhaustion must now be defined in the handle object and cannot
   be assigned directly via the handle function

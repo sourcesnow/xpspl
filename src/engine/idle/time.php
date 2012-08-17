@@ -98,7 +98,8 @@ class Time extends \prggmr\engine\Idle {
                 sleep($this->_tti);
                 break;
             case self::MILLISECONDS:
-                usleep($this->_tti * 1000);
+                $tts = $this->_tti * 1000;
+                usleep($tts);
                 break;
             case self::MICROSECONDS:
                 usleep($this->_tti);

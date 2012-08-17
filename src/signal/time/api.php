@@ -14,9 +14,9 @@ function interval($interval, $callable, $instruction = \prggmr\engine\idle\Time:
 {
     $signal = new Interval($interval, $instruction);
     if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, 0)
+        $callable = new \prggmr\Handle($callable, 0);
     }
-    $handle = \prggmr::instance()->handle($signal, new $callable);
+    $handle = \prggmr::instance()->handle($signal, $callable);
     return [$signal, $handle];
 }
 
@@ -33,9 +33,9 @@ function timeout($timeout, $callable, $instruction = \prggmr\engine\idle\Time::M
 {
     $signal = new Timeout($timeout, $instruction);
     if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, 1)
+        $callable = new \prggmr\Handle($callable, 1);
     }
-    $handle = \prggmr::instance()->handle($signal, $function);
+    $handle = \prggmr::instance()->handle($signal, $callable);
     return [$signal, $handle];
 }
 
@@ -51,7 +51,7 @@ function timeout($timeout, $callable, $instruction = \prggmr\engine\idle\Time::M
 function cron($expression, $callable) {
     $signal = new Cron($expression);
     if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, 1)
+        $callable = new \prggmr\Handle($callable, 1);
     }
     $handle = \prggmr\handle($signal, $callable);
     return [$signal, $handle];

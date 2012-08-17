@@ -12,6 +12,23 @@
  */
 
 /**
+ * Prggmr autoloader
+ */
+define('PRGGMR_AUTOLOADER', true);
+if (!defined('PRGGMR_AUTOLOAD_STRICT')) {
+    define('PRGGMR_AUTOLOAD_STRICT', true);
+}
+spl_autoload_register(function($class){
+    // remove prggmr name from class name
+    $paths = explode('\\', $class);
+    $lib = array_shift($paths);
+    $file = $lib.'/'.'src/'.strtolower(implode('/', $paths)).'.php';
+    if (!file_exists($file) && false === PRGGMR_AUTOLOAD_STRICT) return;
+    require_once $file;
+});
+
+
+/**
  * Returns the current time since epox in milliseconds.
  * 
  * @return  integer
