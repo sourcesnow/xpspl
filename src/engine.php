@@ -243,6 +243,7 @@ class Engine {
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
+                    var_dump($_signal);
                     $this->signal($_signal[0], $_signal[1]);
                 }
             }
@@ -418,6 +419,9 @@ class Engine {
         }
         $queue = $this->register($signal);
         if (false !== $queue) {
+            if (is_array($queue)) {
+                $queue = $queue[0][0];
+            }
             $queue->enqueue($handle, $handle->get_priority());
         }
         return $handle;
@@ -536,15 +540,14 @@ class Engine {
             if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
                 return $this->_storage[self::COMPLEX_STORAGE][$id][1];
             }
-        } else {
-            foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
-                $eval = $_node[0]->evaluate($signal);
-                if (false !== $eval) {
-                    $found[] = [$_node[1], $eval];
-                }
+        }
+        foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
+            $eval = $_node[0]->evaluate($signal);
+            if (false !== $eval) {
+                $found[] = [$_node[1], $eval];
             }
         }
-        if ($locate && count($found) !== 0) {
+        if (count($found) !== 0) {
             return $found;
         }
         return null;

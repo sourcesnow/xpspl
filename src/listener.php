@@ -22,7 +22,7 @@ class Listener {
      *
      * @return  void
      */
-    public function __construct($engine = null)
+    public function __construct()
     {
         foreach (get_class_methods($this) as $_method) {
             // skip magic methods
