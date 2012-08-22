@@ -87,12 +87,6 @@ trait State
      */
     public function set_state($state) 
     {
-        if ($state < 1 && $state > 7) {
-            throw new \InvalidArgumentException(
-                sprintf('Invalid object state %d', $state)
-            );
-        }
-
         $this->_state = $state;
     }
 }

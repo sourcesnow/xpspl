@@ -672,26 +672,26 @@ class Engine {
             }
         }
         // execute sig handlers
-        $queue->sort(true);
+        $queue->sort();
         $queue->reset();
-        while($queue->valid()) {
+        foreach ($queue->storage() as $_node) {
             if ($event->get_state() === STATE_HALTED) {
                 break;
             }
-            $handle = $queue->current()[0];
-            $handle->set_state(STATE_RUNNING);
+            $_handle = $_node[0];
+            $_handle->set_state(STATE_RUNNING);
             // bind event to allow use of "this"
-            $handle->bind($event);
+            $_handle->bind($event);
             // set event as running
             $event->set_state(STATE_RUNNING);
             if ($this->_engine_exceptions) {
-                $result = $handle();
+                $result = $_handle();
             } else {
                 try {
-                    $result = $handle();
+                    $result = $_handle();
                 } catch (\Exception $exception) {
                     $event->set_state(STATE_ERROR);
-                    $handle->set_state(STATE_ERROR);
+                    $_handle->set_state(STATE_ERROR);
                     if ($exception instanceof Engine_Exception) {
                         throw $exception;
                     }
@@ -708,8 +708,7 @@ class Engine {
                     $event->halt();
                 }
             }
-            $handle->set_state(STATE_EXITED);
-            $queue->next();
+            $_handle->set_state(STATE_EXITED);
         }
         // handle interupt functions
         if ($interrupt) {

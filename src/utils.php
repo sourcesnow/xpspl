@@ -24,7 +24,7 @@ spl_autoload_register(function($class){
     $lib = array_shift($paths);
     $file = $lib.'/'.'src/'.strtolower(implode('/', $paths)).'.php';
     if (!file_exists($file) && false === PRGGMR_AUTOLOAD_STRICT) return;
-    require_once $file;
+    include $file;
 });
 
 

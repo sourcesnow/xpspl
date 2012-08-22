@@ -122,10 +122,10 @@ class Queue {
      *
      * @return  void
      */
-    public function sort($force = false)
+    public function sort()
     {
-        if (!$this->_dirty && !$force) return null;
-        $this->usort(function($a, $b){
+        if (!$this->_dirty) return null;
+        usort($this->_storage, function($a, $b){
             if ($this->_type === self::QUEUE_MAX_HEAP) {
                 return $a[1] < $b[1];
             }
