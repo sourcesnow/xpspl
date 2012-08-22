@@ -27,7 +27,6 @@ spl_autoload_register(function($class){
     include $file;
 });
 
-
 /**
  * Returns the current time since epox in milliseconds.
  * 

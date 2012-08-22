@@ -632,12 +632,6 @@ class Engine {
             });
         }
 
-        // no sig handlers found
-        if ($queue->count() === 0) {
-            $this->_event_exit($event);
-            return $event;
-        }
-
         return $this->_execute($signal, $queue, $event);
     }
 
@@ -673,7 +667,7 @@ class Engine {
         }
         // execute sig handlers
         $queue->sort();
-        $queue->reset();
+        reset($queue->storage());
         foreach ($queue->storage() as $_node) {
             if ($event->get_state() === STATE_HALTED) {
                 break;
