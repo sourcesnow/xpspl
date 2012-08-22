@@ -89,7 +89,7 @@ trait Storage {
     }
     public function valid(/* ... */)
     {
-        return $this->current() !== false;
+        return current($this->_storage) !== false;
     }
     public function sort(/* ... */)
     {

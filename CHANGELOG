@@ -1,4 +1,6 @@
 [ 2.0.0 TBD ]
+- Added evalute_signals and search_signals to the engine
+- Removed the _search and _search_complex methods in the engine
 - Added PRGGMR_AUTOLOAD_STRICT constant
 - Completely removed the ability to pass vars as a parameter throughout
 - Priority and exhaustion must now be defined in the handle object and cannot

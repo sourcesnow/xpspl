@@ -87,7 +87,7 @@ trait State
      */
     public function set_state($state) 
     {
-        if (!in_array($state, range(1, 7))) {
+        if ($state < 1 && $state > 7) {
             throw new \InvalidArgumentException(
                 sprintf('Invalid object state %d', $state)
             );

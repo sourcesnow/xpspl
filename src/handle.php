@@ -133,6 +133,7 @@ class Handle {
         }
         $result = call_user_func_array($this->_function, $params);
         $this->_bind = null;
+        $this->_params = null;
         return $result;
     }
 
