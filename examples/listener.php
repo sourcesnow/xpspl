@@ -7,11 +7,12 @@ prggmr\load_signal('http');
  */
 class User extends \prggmr\Listener {
     
-    public $on_hello_world = 'new \prggmr\signal\http\Uri("/hello/world");';
-
-    public function on_hello_world(http\Event $event)
+    public function on_user_register(\prggmr\Event $event)
     {
-        echo "HelloWorld".PHP_EOL;
+        $user = new \allpro\models\User();
+        $user->username = "Test";
+        $user->email = "prggmr@gmail.com";
+        $user->save();
     }
 
     public function on_load($event)
@@ -21,9 +22,14 @@ class User extends \prggmr\Listener {
     }
 }
 
+prggmr\signal_interrurpt(new \flames\signals\Insert(new \allpro\models\User()), function(){
+    echo $sql;
+});
+
 prggmr\listen(new User());
 
 prggmr\handle('hello_world', function(){
+    $this->a++;
     echo "HelloWorld2".PHP_EOL;
 });
 
