@@ -34,7 +34,7 @@ class Listener {
                 $_signal = str_replace('on_', '', $_method);
             }
             $this->_sig_handlers[] = [
-                $_method,
+                array($this, $_method),
                 $_signal
             ];
         }
@@ -48,5 +48,13 @@ class Listener {
     public function get_signal_handlers(/* ... */)
     {
         return $this->_sig_handlers;
+    }
+
+    /**
+     * Cleans the listener.
+     */
+    public function clean(/* ... */)
+    {
+        $this->_sig_handlers = null;
     }
 }

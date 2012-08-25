@@ -13,6 +13,11 @@ namespace prggmr\engine\signal;
 class Base extends \prggmr\Signal {
     
     /**
+     * Does nothing..
+     */
+    public function __construct(){}
+
+    /**
      * Returns the information for this signal.
      */
     public function info()

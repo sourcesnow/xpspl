@@ -175,14 +175,14 @@ class Engine {
                 return true;
             }
         }
-        $handle = new Handle(function(){
-            $args = func_get_args();
-            $message = $this->get_signal()->get_message();
-            $exception = $this->get_signal()->get_exception();
-            $type = $this->get_signal();
-            throw new Engine_Exception($message, $type, $args);
-        }, 0);
-        $this->handle($this->_engine_handle_signal, $handle);
+        // $handle = new Handle(function(){
+        //     $args = func_get_args();
+        //     $message = $this->get_signal()->get_message();
+        //     $exception = $this->get_signal()->get_exception();
+        //     $type = $this->get_signal();
+        //     throw new Engine_Exception($message, $type, $args);
+        // }, 0);
+        // $this->handle($this->_engine_handle_signal, $handle);
     }
 
     /**
@@ -391,8 +391,9 @@ class Engine {
     public function listen(Listener $listener)
     {
         foreach ($listener->get_signal_handlers() as $_sig_handle) {
-            $this->handle($_sig_handle[1], array($listener, $_sig_handle[0]));
+            $this->handle($_sig_handle[1], $_sig_handle[0]);
         }
+        $listener->clean();
     }
 
     /**

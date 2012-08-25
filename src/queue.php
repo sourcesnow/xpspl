@@ -108,7 +108,12 @@ class Queue {
     {
         if (!$this->_dirty) return null;
         usort($this->_storage, function($a, $b){
-            return $a[1] > $b[1];
+            $a = $a[1];
+            $b = $b[1];
+            if ($a == $b) {
+                return 0;
+            }
+            return ($a < $b) ? -1 : 1;
         });
         $this->_dirty = false;
     }
