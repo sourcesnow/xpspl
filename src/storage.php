@@ -29,7 +29,7 @@ trait Storage {
      * 
      * @return  array
      */
-    public function storage(/* ... */)
+    public function &storage(/* ... */)
     {
         return $this->_storage;
     }
