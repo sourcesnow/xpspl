@@ -14,7 +14,7 @@ class Engine_Signals extends \prggmr\signal\Complex {
 
     public function evaluate($signal)
     {
-        if ($signal instanceof Base) {
+        if ($signal instanceof $this) {
             return true;
         }
         return false;

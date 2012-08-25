@@ -438,11 +438,10 @@ class Engine {
      *
      * @param  string|integer|object  $signal  Signal
      * @param  boolean  $create  Create the queue if not found.
-     * @param  integer  $type  [QUEUE_MIN_HEAP,QUEUE_MAX_HEAP]
      *
      * @return  boolean|object  false|prggmr\Queue
      */
-    public function register($signal, $create = true, $type = Queue::QUEUE_MIN_HEAP)
+    public function register($signal, $create = true)
     {
         $queue = false;
 
@@ -467,7 +466,7 @@ class Engine {
             if (!$create) {
                 return false;
             }
-            $queue = new Queue($type);
+            $queue = new Queue();
             if (!$signal instanceof \prggmr\signal\Complex) {
                 $this->_storage[self::HASH_STORAGE][(string) $signal->info()] = [
                     $signal, $queue
@@ -807,12 +806,11 @@ class Engine {
      * @param  string|object  $signal
      * @param  object  $handle  Handle to execute
      * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
-     * @param  int|null  $priority  Interupt priority
      * @param  boolean  $complex  Register the given complex signal as a complex interrupt signal
      * 
      * @return  boolean  True|False false is failure
      */
-    public function signal_interrupt($signal, $handle, $interrupt = null, $priority = null, $complex = false) 
+    public function signal_interrupt($signal, $handle, $interrupt = null, $complex = false) 
     {
         // Variable Checks
         if (!$handle instanceof Handle) {

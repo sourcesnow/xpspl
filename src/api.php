@@ -76,13 +76,26 @@ function event_history(/* ... */)
  * 
  * @param  string|integer|object  $signal  Signal
  * @param  boolean  $create  Create the queue if not found.
- * @param  integer  $type  [QUEUE_MIN_HEAP,QUEUE_MAX_HEAP]
  *
  * @return  boolean|array  False|[QUEUE_NEW|QUEUE_EMPTY|QUEUE_NONEMPTY, queue, signal]
  */
-function register($signal, $create = true, $type = QUEUE_MIN_HEAP)
+function register($signal, $create = true)
 {
-    return \prggmr::instance()->register($signal, $create, $type);
+    return \prggmr::instance()->register($signal, $create);
+}
+
+/**
+ * Searches for a signal in storage returning its storage node if found,
+ * optionally the index can be returned.
+ * 
+ * @param  string|int|object  $signal  Signal to search for.
+ * @param  boolean  $index  Return the index of the signal.
+ * 
+ * @return  null|array  [signal, queue]
+ */
+function search_signals($signal, $index = false) 
+{
+    return \prggmr::instance()->search_signals($signal, $index);
 }
 
 /**
@@ -125,12 +138,11 @@ function load_signal($name, $dir = null)
  * @param  string|object  $signal
  * @param  object  $handle  Handle to execute
  * @param  int|null  $place  Interruption location. prggmr\Engine::INTERRUPT_PRE|prggmr\Engine::INTERRUPT_POST
- * @param  int|null  $priority  Interrupt priority
  * @param  boolean  $complex  Register the given complex signal as a complex interrupt signal
  * 
  * @return  boolean  True|False false is failure
  */
-function signal_interrupt($signal, $handle, $interrupt = null, $priority = null, $complex = false) 
+function signal_interrupt($signal, $handle, $interrupt = null, $complex = false) 
 {
     return \prggmr::instance()->signal_interrupt($signal, $handle, $interrupt, $priority, $complex);
 }

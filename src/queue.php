@@ -35,18 +35,6 @@ class Queue {
     use Storage;
 
     /**
-     * Queue Heap Types available.
-     * 
-     * QUEUE_MIN_HEAP
-     * Queue functions as a min-heap.
-     * 
-     * QUEUE_MAX_HEAP
-     * Queue functions as a max-heap.
-     */
-    const QUEUE_MIN_HEAP = 0xBF01;
-    const QUEUE_MAX_HEAP = 0xBF02;
-
-    /**
      * Flag for prioritizing.
      * 
      * @var  boolean
@@ -61,16 +49,9 @@ class Queue {
     protected $_type = 0;
 
     /**
-     * Constructs a new queue object.
-     *
-     * @param  int  $type  Queue type
-     *
-     * @return  void
+     * Priority
      */
-    public function __construct($type = self::QUEUE_MIN_HEAP)
-    {
-        $this->_type = $type;
-    }
+    protected $_priority = QUEUE_DEFAULT_PRIORITY;
 
     /**
      * Pushes a new handler into the queue.
@@ -91,8 +72,9 @@ class Queue {
         }
         $this->_dirty = true;
         if (null === $priority || !is_int($priority)) {
-            $priority = QUEUE_DEFAULT_PRIORITY;
+            $priority = $this->_priority;
         }
+        $this->_priority++;
         $this->_storage[] = [$node, $priority];
     }
 
@@ -126,9 +108,6 @@ class Queue {
     {
         if (!$this->_dirty) return null;
         usort($this->_storage, function($a, $b){
-            if ($this->_type === self::QUEUE_MAX_HEAP) {
-                return $a[1] < $b[1];
-            }
             return $a[1] > $b[1];
         });
         $this->_dirty = false;
