@@ -469,7 +469,7 @@ class Engine {
             }
             $queue = new Queue();
             if (!$signal instanceof \prggmr\signal\Complex) {
-                $this->_storage[self::HASH_STORAGE][(string) $signal->info()] = [
+                $this->_storage[self::HASH_STORAGE][(string) $signal->get_info()] = [
                     $signal, $queue
                 ];
             } else {
@@ -501,7 +501,7 @@ class Engine {
             return null;
         }
         if ($signal instanceof \prggmr\Signal) {
-            $signal = $signal->info();
+            $signal = $signal->get_info();
         }
         $signal = (string) $signal;
         if (isset($this->_storage[self::HASH_STORAGE][$signal])) {
@@ -807,15 +807,16 @@ class Engine {
      * @param  string|object  $signal
      * @param  object  $handle  Handle to execute
      * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
-     * @param  boolean  $complex  Register the given complex signal as a complex interrupt signal
+     * @param  boolean  $class  Register the given signal as a class based interruption
+     *                          using the class instance.
      * 
      * @return  boolean  True|False false is failure
      */
-    public function signal_interrupt($signal, $handle, $interrupt = null, $complex = false) 
+    public function signal_interrupt($signal, $handle, $interrupt = null, $class = false) 
     {
         // Variable Checks
         if (!$handle instanceof Handle) {
-            if (!$handle instanceof \Closure) {
+            if (!is_callable($handle)) {
                 $this->signal(new engine_signals\Invalid_Handle(
                     "Invalid handle given for signal interruption"
                 ), $handle);
@@ -833,7 +834,8 @@ class Engine {
         if (null === $interrupt) {
             $interrupt = self::INTERRUPT_PRE;
         }
-        if (!is_int($interrupt) || $interrupt >= 3) {
+        if ($interrupt != self::INTERRUPT_PRE && 
+            $interrupt != self::INTERRUPT_POST) {
             $this->signal(new engine_signals\Invalid_Interrupt(
                 "Invalid interruption location"
             ), $interrupt);
@@ -842,17 +844,26 @@ class Engine {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
         }
         $storage =& $this->_storage[self::INTERRUPT_STORAGE][$interrupt];
-        if ($signal instanceof signal\Complex && $complex) {
+        if ($signal instanceof signal\Complex && !$class) {
             $storage[self::COMPLEX_STORAGE][] =  [
-                $signal, $handle, $priority
+                $signal, $handle
             ];
         } else {
-            $name = (is_object($signal)) ? get_class($signal) : $signal;
+            if ($class) {
+                if (!$class instanceof signal\Standard) {
+                    $this->signal(new engine_signals\Ivalid_Signal(
+                        "Interruption based on a class must recieve a signal instance"
+                    ), $interrupt);
+                }
+                $name = get_class($signal);
+            } else {
+                $name = $signal->get_info();
+            }
             if (!isset($storage[self::HASH_STORAGE][$name])) {
                 $storage[self::HASH_STORAGE][$name] = [];
             }
             $storage[self::HASH_STORAGE][$name][] = [
-                $signal, $handle, $priority
+                $signal, $handle
             ];
         }
         return true;
@@ -868,11 +879,10 @@ class Engine {
      */
     private function _interrupt($signal, $type, $event)
     {
-        // do nothing no interupt registered
+        // do nothing no interrupts registered
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$type])) {
             return true;
         }
-        $name = (is_object($signal)) ? get_class($signal) : $signal;
         $queue = null;
         if (count($this->_storage[self::INTERRUPT_STORAGE][$type][self::COMPLEX_STORAGE]) != 0) {
             foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::COMPLEX_STORAGE] as $_node) {
@@ -888,13 +898,19 @@ class Engine {
                 }
             }
         }
-        if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$name])) {
-            foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$name] as $_node) {
-                if ($name === $_node[0] || $signal === $_node[0]) {
+        $lookup = [
+            (is_object($signal)) ? get_class($signal) : $signal
+        ];
+        if ($signal instanceof Signal) {
+            $lookup[] = $signal->get_info();
+        }
+        foreach ($lookup as $_index) {
+            if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index])) {
+                foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index] as $_node) {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
-                    $queue->enqueue($_node[1], $_node[2]);
+                    $queue->enqueue($_node[1], $_node[1]->get_priority());
                 }
             }
         }
@@ -924,7 +940,7 @@ class Engine {
                     if ($history) {
                         $this->erase_signal_history(
                             ($_node[0] instanceof signal\Complex) ?
-                                $_node[0] : $_node[0]->info()
+                                $_node[0] : $_node[0]->get_info()
                         );
                     }
                 }

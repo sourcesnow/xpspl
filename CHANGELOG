@@ -1,5 +1,7 @@
 ## 2.0.0 TBD
 
+* Added the objects signal library
+* Signal::info renamed to Signal::get_info
 * Queues no longer allow for MIN,MAX heaps and work properly as FIFO
 * Added evalute_signals and search_signals to the engine
 * Removed the _search and _search_complex methods in the engine

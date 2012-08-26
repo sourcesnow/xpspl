@@ -25,7 +25,7 @@ abstract class Standard {
      *
      * @return  boolean
      */
-    public function info(/* ... */) 
+    public function get_info(/* ... */) 
     {
         return $this->_info;
     }

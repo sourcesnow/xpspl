@@ -8,20 +8,6 @@ namespace prggmr\engine\signal;
 
 
 /**
- * The base any engine signal.
+ * The base for any engine signal.
  */
-class Base extends \prggmr\Signal {
-    
-    /**
-     * Does nothing..
-     */
-    public function __construct(){}
-
-    /**
-     * Returns the information for this signal.
-     */
-    public function info()
-    {
-        return 'prggmr_'.strtolower(get_class($this));
-    }
-}
+class Base extends \prggmr\signal\objects\Signal {}
