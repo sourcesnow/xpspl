@@ -8,7 +8,14 @@ namespace prggmr\signal\objects;
 
 
 /**
- * The base any engine signal.
+ * Signal that is based on the class name.
+ *
+ * This allows for signals as
+ *
+ * prggmr\handle(new Signal_Name(), function{});
+ * prggmr\signal(new Signal_Name());
+ *
+ * java like eh :)
  */
 class Signal extends \prggmr\Signal {
     
