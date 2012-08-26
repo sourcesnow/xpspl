@@ -886,7 +886,7 @@ class Engine {
         $queue = null;
         if (count($this->_storage[self::INTERRUPT_STORAGE][$type][self::COMPLEX_STORAGE]) != 0) {
             foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::COMPLEX_STORAGE] as $_node) {
-                $eval = $_node[0]->evalute($signal);
+                $eval = $_node[0]->evaluate($signal);
                 if (false !== $eval) {
                     if (true !== $eval) {
                         $_node[1]->params($eval);

@@ -77,7 +77,7 @@ class Handle {
      * 
      * @return  void
      */
-    public function __construct($function, $priority = null, $exhaust = 1)
+    public function __construct($function, $exhaust = 1, $priority = null)
     {
         if (!$function instanceof Closure && !is_callable($function)) {
             throw new \InvalidArgumentException(sprintf(

@@ -192,7 +192,7 @@ class Uri extends \prggmr\signal\Complex {
         return false;
     }
 
-    public function evalute($signal = null) 
+    public function evaluate($signal = null) 
     {
         if ($this->_is_match) {
             if (null !== $this->_vars) {
