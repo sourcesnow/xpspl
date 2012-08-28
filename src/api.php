@@ -33,21 +33,6 @@ function handle_remove($signal, $handle)
 }
 
 /**
- * Registers a new signal handle loader which recursively loads files in the
- * given directory when a signal is triggered.
- * 
- * @param  integer|string|object  $signal  Signal to register with
- * @param  string  $directory  Directory to load handles from
- * @param  integer  $heap  Queue heap type
- * 
- * @return  object  \prggmr\Handle
- */
-function handle_loader($signal, $directory, $heap = QUEUE_MIN_HEAP)
-{
-    return \prggmr::instance()->handle_loader($signal, $directory, $heap);
-}
-
-/**
  * Signals an event.
  *
  * @param  string|integer|object  $signal  Signal or a signal instance.

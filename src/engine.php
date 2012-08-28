@@ -363,10 +363,13 @@ class Engine {
      * 
      * @return  void
      */
-    public function handle_remove($handle, $signal)
+    public function handle_remove($signal, $handle)
     {
-        $queue = $this->register($signal);
-        return $queue->dequeue($handle);
+        $queue = $this->search_signals($signal);
+        if (null === $queue) {
+            return;
+        }
+        return $queue[1]->dequeue($handle);
     }
 
     /**
@@ -519,7 +522,7 @@ class Engine {
      *
      * @return  array|null  [[[signal, queue], eval_return]]
      */
-    public function evalute_signals($signal)
+    public function evaluate_signals($signal)
     {
         if (count($this->_storage[self::COMPLEX_STORAGE]) == 0) {
             return null;
@@ -619,7 +622,7 @@ class Engine {
             $queue->merge($searched[1]->storage());
         }
         // evaluate complex signals
-        $evalated = $this->evalute_signals($signal);
+        $evalated = $this->evaluate_signals($signal);
         if (null !== $evalated) {
             array_walk($evalated, function($node) use ($queue) {
                 if (is_bool($node[1]) === false) {
