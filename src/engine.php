@@ -322,7 +322,7 @@ class Engine {
     }
 
     /**
-     * Determines if the given signal has exhausted during routine calculation.
+     * Determines if the given signal has exhausted its queue handles.
      * 
      * @param  string|integer|object  $queue
      * 
@@ -531,11 +531,11 @@ class Engine {
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_node) {
             $eval = $_node[0]->evaluate($signal);
             if (false !== $eval) {
-                $found[] = [$_node, $eval];
+                $return[] = [$_node, $eval];
             }
         }
-        if (count($found) !== 0) {
-            return $found;
+        if (count($return) !== 0) {
+            return $return;
         }
         return null;
     }

@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Event loop shutdown
  */
-class Loop_Shutdown extends Error {}
+class Loop_Shutdown extends Base {}

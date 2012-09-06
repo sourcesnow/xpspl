@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * Event loop start
  */
-class Loop_Start extends Error {}
+class Loop_Start extends Base {}

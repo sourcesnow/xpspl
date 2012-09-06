@@ -33,7 +33,7 @@ spl_autoload_register(function($class){
  * @return  integer
  */
 function milliseconds(/* ... */) {
-    return microseconds() * 1000;
+    return round(microtime(true)) * 1000;
 }
 
 /**
@@ -42,7 +42,7 @@ function milliseconds(/* ... */) {
  * @return  integer
  */
 function microseconds(/* ... */) {
-    return round(microtime(true));
+    return microtime(true);
 }
 
 /**

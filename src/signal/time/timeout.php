@@ -9,7 +9,7 @@ namespace prggmr\signal\time;
  /**
  * Timeout signal
  *
- * Trigger a signal based on a timeout.
+ * Trigger a signal based on a timeout delay.
  *
  * As of v2.0 timeouts can be set on a second, millisecond or microsecond basis
  */
@@ -36,15 +36,15 @@ class Timeout extends \prggmr\signal\Complex {
      *
      * @return  void
      */
-    public function __construct($time, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+    public function __construct($delay, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
     {
-        if (!is_int($time) || $time <= 0) {
+        if ((!is_int($delay) || !is_float($delay)) && $delay < 0) {
             throw new \InvalidArgumentException(
-                "Timeout given must be greater than 0"
+                "Delay given must be greater than 0"
             );
         }
         $this->_instruction = $instruction;
-        $this->_idle = new \prggmr\engine\idle\Time($time, $instruction);
+        $this->_idle = new \prggmr\engine\idle\Time($delay, $instruction);
         parent::__construct();
     }
     

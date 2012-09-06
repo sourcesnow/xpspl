@@ -8,9 +8,9 @@ namespace prggmr\engine\signal;
 
 
 /**
- * The base any engine signal.
+ * The error event
  */
-class Error extends Base {
+class Error extends Base  {
 
     /**
      * Error message

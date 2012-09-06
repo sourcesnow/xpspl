@@ -16,25 +16,25 @@ namespace prggmr\signal\time;
 class Interval extends \prggmr\signal\time\Timeout {
 
     /**
-     * Milliseconds before signaling.
+     * Delay before signaling.
      * 
      * @var  integer
      */
-    protected $_time = null;
+    protected $_delay = null;
 
     /**
      * Constructs a time signal.
      *
-     * @param  int  $time  Milliseconds before signaling.
+     * @param  int  $delay  Milliseconds before signaling.
      *
      * @throws  InvalidArgumentException
      *
      * @return  void
      */
-    public function __construct($time, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+    public function __construct($delay, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
     {
-        parent::__construct($time, $instruction);
-        $this->_time = $time;
+        parent::__construct($delay, $instruction);
+        $this->_delay = $delay;
     }
     
 
@@ -47,7 +47,7 @@ class Interval extends \prggmr\signal\time\Timeout {
     public function routine($history = null)
     {
         if ($this->_idle->has_time_passed()) {
-            $this->_idle = new \prggmr\engine\idle\Time($this->_time, $this->_instruction);
+            $this->_idle = new \prggmr\engine\idle\Time($this->_delay, $this->_instruction);
             $this->signal_this();
         }
         $this->_routine->set_idle($this->_idle);
