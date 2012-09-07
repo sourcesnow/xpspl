@@ -11,9 +11,9 @@ namespace prggmr\signal\pcntl;
     );
 }
  /**
-  * Allow for handling script interruption.
+  * Allow for handling script termination.
   */
-class Interrupt extends Signal
+class Terminate extends Signal
 {
-    protected $_signal = SIGINT;
+    protected $_signal = SIGTERM;
 }

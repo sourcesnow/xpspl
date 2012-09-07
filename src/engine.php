@@ -305,7 +305,7 @@ class Engine {
             } catch (\Exception $e) {
                 $this->signal(new engine_signals\Routine_Calculation_Error(
                     "An error has occured during a routine calculation"
-                ), [$e, $_node]);
+                ),  new engine\event\Error([$e, $_node]));
             }
         }
         return $return;
@@ -413,9 +413,8 @@ class Engine {
             if (!is_callable($handle)) {
                 $this->signal(new engine_signals\Invalid_Handle(
                        "Invalid handle given to the handle method" 
-                    ), array(
-                    func_get_args()
-                ));
+                    ), new engine\event\Error([func_get_args()])
+                );
                 return false;
             }
             $handle = new Handle($handle);
@@ -455,7 +454,7 @@ class Engine {
             } catch (\InvalidArgumentException $e) {
                 $this->signal(new engine_signals\Invalid_Signal(
                     "Invalid signal given to register"
-                ), array($exception, $signal));
+                ),  new engine\event\Error([$exception, $signal]));
                 return false;
             }
         }
@@ -556,7 +555,7 @@ class Engine {
             if (null !== $event) {
                 $this->signal(new engine_signals\Invalid_Event(
                     "Invalid event passed for execution"
-                ), array($event));
+                ),  new engine\event\Error($event));
             }
             $event = new Event($ttl);
         } else {
@@ -657,7 +656,7 @@ class Engine {
         if ($event->has_expired()) {
             $this->signal(new engine_signals\Event_Expired(
                 "Event has expired"
-            ), [$event]);
+            ),  new engine\event\Error([$event]));
             return $event;
         }
         // handle pre interupt functions
@@ -694,9 +693,7 @@ class Engine {
                     }
                     $this->signal(new engine_signals\Handle_Exception(
                             "Exception occured during handle execution"
-                        ), array(
-                        $exception, $signal
-                    ));
+                        ),  new engine\event\Error([$exception, $signal]));
                 }
             }
             if (null !== $result) {
@@ -785,7 +782,7 @@ class Engine {
             if (!is_dir($dir)) {
                 $this->signal(new engine_signals\Signal_Library_Failure(
                     "Invalid signal library name"
-                ), $dir);
+                ),  new engine\event\Error($dir));
             }
         }
 
@@ -798,7 +795,7 @@ class Engine {
             } else {
                 $this->signal(new engine_signals\Signal_Library_Failure(
                     "Signal library does not have an __autoload file"
-                ), [$name, $dir]);
+                ),  new engine\event\Error([$name, $dir]));
             }
         }
     }
@@ -822,7 +819,7 @@ class Engine {
             if (!is_callable($handle)) {
                 $this->signal(new engine_signals\Invalid_Handle(
                     "Invalid handle given for signal interruption"
-                ), $handle);
+                ),  new engine\event\Error($handle));
                 return false;
             } else {
                 $handle = new Handle($handle);
@@ -831,7 +828,7 @@ class Engine {
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
             $this->signal(new engine_signals\Ivalid_Signal(
                 "Invalid signal given for handle interruption"
-            ), $signal);
+            ), new engine\event\Error($signal));
             return false;
         }
         if (null === $interrupt) {
@@ -841,7 +838,7 @@ class Engine {
             $interrupt != self::INTERRUPT_POST) {
             $this->signal(new engine_signals\Invalid_Interrupt(
                 "Invalid interruption location"
-            ), $interrupt);
+            ), new engine\event\Error($interrupt));
         }
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
@@ -856,7 +853,7 @@ class Engine {
                 if (!$class instanceof signal\Standard) {
                     $this->signal(new engine_signals\Ivalid_Signal(
                         "Interruption based on a class must recieve a signal instance"
-                    ), $interrupt);
+                    ), new engine\event\Error($interrupt));
                 }
                 $name = get_class($signal);
             } else {

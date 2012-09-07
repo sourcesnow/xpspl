@@ -1,5 +1,11 @@
 ## 2.0.0 TBD
 
+* Added the engine\event\Error class which is now passed to all engine error 
+  signals.
+* Added the terminate function the pcntl sig API
+* Added the pcntl\Terminate signal
+* signal\pcntl\Interrupt now extends the pcntl\Signal
+* Added the pctnl Signal object
 * Added the objects signal library
 * Signal::info renamed to Signal::get_info
 * Queues no longer allow for MIN,MAX heaps and work properly as FIFO

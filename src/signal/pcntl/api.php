@@ -19,3 +19,17 @@ function interrupt($handle, $engine = null)
     $signal = new Interrupt($engine);
     return [\prggmr\handle($signal, $handle), $signal];
 }
+
+/**
+ * Registers a function to be called on the SIGTERM signal.
+ *
+ * @param  callable  $handle  Function to be called.
+ * @param  object|null  $engine  prggmr Engine instance to assign the handle.
+ *
+ * @return  array  [signal, handle]
+ */
+function terminate($handle, $engine = null) 
+{
+    $signal = new Terminate($engine);
+    return [\prggmr\handle($signal, $handle), $signal];
+}
