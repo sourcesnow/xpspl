@@ -322,7 +322,7 @@ class Engine {
     }
 
     /**
-     * Determines if the given signal has exhausted during routine calculation.
+     * Determines if the given signal has exhausted.
      * 
      * @param  string|integer|object  $queue
      * 
@@ -330,8 +330,8 @@ class Engine {
      */
     public function has_signal_exhausted($signal)
     {
-        $queue = $this->register($signal, false);
-        if (false === $queue) return true;
+        $queue = $this->search_signals($signal);
+        if (null === $queue) return true;
         return true === $this->queue_exhausted($queue);
     }
 
@@ -369,7 +369,7 @@ class Engine {
         if (null === $queue) {
             return;
         }
-        return $queue[1]->dequeue($handle);
+        return $queue->dequeue($handle);
     }
 
     /**
@@ -441,15 +441,14 @@ class Engine {
      * ]
      *
      * @param  string|integer|object  $signal  Signal
-     * @param  boolean  $create  Create the queue if not found.
      *
      * @return  boolean|object  false|prggmr\Queue
      */
-    public function register($signal, $create = true)
+    public function register($signal)
     {
         $queue = false;
 
-        if (!$signal instanceof \prggmr\Signal\Standard) {
+        if (!$signal instanceof \prggmr\signal\Standard) {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
@@ -463,13 +462,10 @@ class Engine {
         $search = $this->search_signals($signal);
 
         if (null !== $search) {
-            $queue = $search[1];
+            return $search;
         }
 
         if (!$queue) {
-            if (!$create) {
-                return false;
-            }
             $queue = new Queue();
             if (!$signal instanceof \prggmr\signal\Complex) {
                 $this->_storage[self::HASH_STORAGE][(string) $signal->get_info()] = [
@@ -485,13 +481,13 @@ class Engine {
     }
 
     /**
-     * Searches for a signal in storage returning its storage node if found,
+     * Searches for a signal in storage returning its storage queue if found,
      * optionally the index can be returned.
      * 
      * @param  string|int|object  $signal  Signal to search for.
      * @param  boolean  $index  Return the index of the signal.
      * 
-     * @return  null|array  [signal, queue]
+     * @return  null|object  null|Queue
      */
     public function search_signals($signal, $index = false) 
     {
@@ -619,7 +615,7 @@ class Engine {
         // search for exact matches
         $searched = $this->search_signals($signal);
         if (null !== $searched) {
-            $queue->merge($searched[1]->storage());
+            $queue->merge($searched->storage());
         }
         // evaluate complex signals
         $evalated = $this->evaluate_signals($signal);
@@ -770,15 +766,15 @@ class Engine {
     /**
      * Loads a complex signal library.
      * 
-     * @param  string  $name  Signal library name.
+     * @param  string  $library  Signal library name.
      * @param  string|null  $dir  Location of the library. 
      * 
      * @return  void
      */
-    public function load_signal($name, $dir = null) 
+    public function load_signal($library, $dir = null) 
     {
         // already loaded
-        if (isset($this->_libraries[$name])) return true;
+        if (isset($this->_libraries[$library])) return true;
         if ($dir === null) {
             $dir = dirname(realpath(__FILE__)).'/signal';
         } else {
@@ -789,16 +785,16 @@ class Engine {
             }
         }
 
-        if (is_dir($dir.'/'.$name)) {
-            $path = $dir.'/'.$name;
+        if (is_dir($dir.'/'.$library)) {
+            $path = $dir.'/'.$library;
             if (file_exists($path.'/__autoload.php')) {
                 // keep history of what has been loaded
-                $this->_libraries[$name] = true;
+                $this->_libraries[$library] = true;
                 require_once $path.'/__autoload.php';
             } else {
                 $this->signal(new engine_signals\Signal_Library_Failure(
                     "Signal library does not have an __autoload file"
-                ), [$name, $dir]);
+                ), [$library, $dir]);
             }
         }
     }

@@ -89,12 +89,12 @@ class Queue {
     public function dequeue($node)
     {
         if ($this->count() === 0) return false;
-        while($this->valid()) {
-            if ($this->current()[0] === $node) {
-                unset($this->_storage[$this->key()]);
+        reset($this->_storage);
+        foreach ($this->_storage as $_key => $_node) {
+            if ($_node[0] === $node) {
+                unset($this->_storage[$_key]);
                 return true;
             }
-            $this->next();
         }
         return false;
     }

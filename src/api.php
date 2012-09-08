@@ -57,16 +57,15 @@ function event_history(/* ... */)
 }
 
 /**
- * Registers or returns a signal Queue in storage.
+ * Registers a signal in the engine.
  * 
  * @param  string|integer|object  $signal  Signal
- * @param  boolean  $create  Create the queue if not found.
  *
- * @return  boolean|array  False|[QUEUE_NEW|QUEUE_EMPTY|QUEUE_NONEMPTY, queue, signal]
+ * @return  object  Queue
  */
-function register($signal, $create = true)
+function register($signal)
 {
-    return \prggmr::instance()->register($signal, $create);
+    return \prggmr::instance()->register($signal);
 }
 
 /**
@@ -106,14 +105,14 @@ function shutdown()
 /**
  * Load a signal library.
  * 
- * @param  string  $name  Signal library name.
+ * @param  string  $library  Signal library name.
  * @param  string|null  $dir  Location of the library. 
  * 
  * @return  void
  */
-function load_signal($name, $dir = null) 
+function load_signal($library, $dir = null) 
 {
-    return \prggmr::instance()->load_signal($name, $dir);
+    return \prggmr::instance()->load_signal($library, $dir);
 }
 
 /**

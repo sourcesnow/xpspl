@@ -1,5 +1,5 @@
 ## 2.0.0 TBD
-
+* search_signals now returns only the Queue object or null
 * Added the objects signal library
 * Signal::info renamed to Signal::get_info
 * Queues no longer allow for MIN,MAX heaps and work properly as FIFO
