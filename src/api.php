@@ -104,16 +104,16 @@ function shutdown()
 }
 
 /**
- * Load a signal library.
+ * Load a module.
  * 
- * @param  string  $name  Signal library name.
- * @param  string|null  $dir  Location of the library. 
+ * @param  string  $name  Module name.
+ * @param  string|null  $dir  Location of the module. 
  * 
  * @return  void
  */
-function load_signal($name, $dir = null) 
+function load_module($name, $dir = null) 
 {
-    return \prggmr::instance()->load_signal($name, $dir);
+    return \prggmr::instance()->load_module($name, $dir);
 }
 
 /**

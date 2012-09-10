@@ -1,5 +1,7 @@
 ## 2.0.0 TBD
 
+* Renamed load_signal to load_module
+* Renamed src/signal to src/modules
 * Added the engine\event\Error class which is now passed to all engine error 
   signals.
 * Added the terminate function the pcntl sig API

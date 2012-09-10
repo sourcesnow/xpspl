@@ -71,7 +71,7 @@ abstract class Complex extends Standard {
     /**
      * Returns the routine object for this complex signal.
      * 
-     * @return  object  prggmr\signal\Routine
+     * @return  object  prggmr\module\Routine
      */
     final public function get_routine()
     {

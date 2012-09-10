@@ -121,7 +121,7 @@ class Engine {
     /**
      * Libraries loaded
      */
-    protected $_libraries = [];
+    protected $_module = [];
 
     /**
      * Throw exceptions encountered rather than a signal.
@@ -765,23 +765,23 @@ class Engine {
     }
 
     /**
-     * Loads a complex signal library.
+     * Loads a prggmr module.
      * 
-     * @param  string  $name  Signal library name.
-     * @param  string|null  $dir  Location of the library. 
+     * @param  string  $name  Module name.
+     * @param  string|null  $dir  Location of the module. 
      * 
      * @return  void
      */
-    public function load_signal($name, $dir = null) 
+    public function load_module($name, $dir = null) 
     {
         // already loaded
-        if (isset($this->_libraries[$name])) return true;
+        if (isset($this->_module[$name])) return true;
         if ($dir === null) {
-            $dir = dirname(realpath(__FILE__)).'/signal';
+            $dir = dirname(realpath(__FILE__)).'/module';
         } else {
             if (!is_dir($dir)) {
                 $this->signal(new engine_signals\Signal_Library_Failure(
-                    "Invalid signal library name"
+                    "Invalid module"
                 ),  new engine\event\Error($dir));
             }
         }
@@ -790,11 +790,11 @@ class Engine {
             $path = $dir.'/'.$name;
             if (file_exists($path.'/__autoload.php')) {
                 // keep history of what has been loaded
-                $this->_libraries[$name] = true;
+                $this->_module[$name] = true;
                 require_once $path.'/__autoload.php';
             } else {
                 $this->signal(new engine_signals\Signal_Library_Failure(
-                    "Signal library does not have an __autoload file"
+                    "Module does not have an __autoload file"
                 ),  new engine\event\Error([$name, $dir]));
             }
         }

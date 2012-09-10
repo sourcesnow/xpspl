@@ -1,13 +1,12 @@
 <?php
-namespace prggmr\engine\signal;
+namespace prggmr\module\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-
 /**
- * The base for any engine signal.
+ * Socket stream connection signal.
  */
-class Base extends \prggmr\module\objects\Signal {}
+class Connect extends \prggmr\Signal {}
