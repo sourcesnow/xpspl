@@ -494,7 +494,7 @@ class Engine {
             $id = spl_object_hash($signal);
             if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
                 if ($index) return $id;
-                return $this->_storage[self::COMPLEX_STORAGE][$id];
+                return $this->_storage[self::COMPLEX_STORAGE][$id][1];
             }
             return null;
         }
@@ -504,7 +504,7 @@ class Engine {
         $signal = (string) $signal;
         if (isset($this->_storage[self::HASH_STORAGE][$signal])) {
             if ($index) return $signal;
-            return $this->_storage[self::HASH_STORAGE][$signal];
+            return $this->_storage[self::HASH_STORAGE][$signal][1];
         }
         return null;
     }
@@ -782,8 +782,8 @@ class Engine {
             }
         }
 
-        if (is_dir($dir.'/'.$library)) {
-            $path = $dir.'/'.$library;
+        if (is_dir($dir.'/'.$name)) {
+            $path = $dir.'/'.$name;
             if (file_exists($path.'/__autoload.php')) {
                 // keep history of what has been loaded
                 $this->_module[$name] = true;
