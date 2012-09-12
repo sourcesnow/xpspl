@@ -57,8 +57,6 @@ while true; do
                 SKIP=true
                 ;;
             esac;;
-        * )
-            echo "Please answer yes or no."
-            ;;
+        * ) echo "Please answer yes or no.";;
     esac
 done
