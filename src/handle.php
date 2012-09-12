@@ -110,9 +110,6 @@ class Handle {
      */
     public function __invoke($params = null) 
     {
-        # test for exhaustion
-        if ($this->is_exhausted()) return true;
-
         # force array
         if (null === $params) {
             $params = [];
@@ -124,17 +121,26 @@ class Handle {
             $params = array_merge($params, $this->_params);
         }
 
-        if (null !== $this->_exhaustion) {
-            $this->_exhaustion--;
-        }
-
         if (!$this->_isclosure) {
             array_unshift($params, $this->_bind);
         }
+        var_dump($this);
         $result = call_user_func_array($this->_function, $params);
         $this->_bind = null;
         $this->_params = null;
         return $result;
+    }
+
+    /**
+     * Decrements the exhaustion counter.
+     *
+     * @return  void
+     */
+    public function decrement_exhaust(/* ... */)
+    {
+        if (null !== $this->_exhaustion) {
+            $this->_exhaustion--;
+        }
     }
 
     /**

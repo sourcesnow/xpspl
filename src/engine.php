@@ -234,7 +234,7 @@ class Engine {
             $engine = $this;
             $this->handle(function() use ($engine) {
                 $engine->shutdown();
-            }, new \prggmr\signal\time\Timeout($ttr));
+            }, new \prggmr\module\time\Timeout($ttr));
         }
         $this->signal(new engine_signals\Loop_Start());
         while($this->_routine()) {
@@ -658,19 +658,20 @@ class Engine {
         // handle pre interupt functions
         if ($interrupt) {
             $this->_interrupt($signal, self::INTERRUPT_PRE, $event);
-            if ($event->get_state() === STATE_HALTED) {
-                $this->_event_exit($event);
-                return $event;
-            }
         }
         // execute sig handlers
         $queue->sort();
         reset($queue->storage());
         foreach ($queue->storage() as $_node) {
-            if ($event->get_state() === STATE_HALTED) {
-                break;
-            }
             $_handle = $_node[0];
+            # test for exhaustion
+            if ($_handle->is_exhausted()) {
+                continue;
+            }
+            $_handle->decrement_exhaust();
+            if ($event->get_state() === STATE_HALTED) {
+                continue;
+            }
             $_handle->set_state(STATE_RUNNING);
             // bind event to allow use of "this"
             $_handle->bind($event);
@@ -688,8 +689,8 @@ class Engine {
                         throw $exception;
                     }
                     $this->signal(new engine_signals\Handle_Exception(
-                            "Exception occured during handle execution"
-                        ),  new engine\event\Error([$exception, $signal]));
+                        "Exception occured during handle execution"
+                    ),  new engine\event\Error([$exception, $signal]));
                 }
             }
             if (null !== $result) {
@@ -903,7 +904,6 @@ class Engine {
         if ($signal instanceof Signal) {
             $lookup[] = $signal->get_info();
         }
-        var_dump($lookup);
         foreach ($lookup as $_index) {
             if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index])) {
                 foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index] as $_node) {

@@ -92,6 +92,11 @@ class Uri extends \prggmr\signal\Complex {
     protected $_routes = null;
 
     /**
+     * Variables for the URI event.
+     */
+    protected $_vars = [];
+
+    /**
      * Configures a new URI signal.
      * 
      * @param  string  $uri  URI of request to handle.
@@ -182,6 +187,9 @@ class Uri extends \prggmr\signal\Complex {
         if ($this->_is_match) {
             if (null === $this->_event) {
                 $this->_event = new Event();
+                foreach ($this->_vars as $_key => $_var) {
+                    $this->_event->{$_key} = $_var;
+                }
             }
             if (false !== $this->_event) {
                 $this->_event->set_uri(REQUEST_URI);
@@ -194,7 +202,8 @@ class Uri extends \prggmr\signal\Complex {
 
     public function evaluate($signal = null) 
     {
-        if ($this->_is_match) {
+        if (!is_object($signal)) return false;
+        if ($this->_is_match && get_class($signal) == get_class($this)) {
             if (null !== $this->_vars) {
                 return $this->_vars;
             }
