@@ -853,7 +853,11 @@ class Engine {
                 }
                 $name = get_class($signal);
             } else {
-                $name = $signal->get_info();
+                if ($signal instanceof Signal) {
+                    $name = $signal->get_info();
+                } else {
+                    $name = $signal;
+                }
             }
             if (!isset($storage[self::HASH_STORAGE][$name])) {
                 $storage[self::HASH_STORAGE][$name] = [];
