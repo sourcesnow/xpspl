@@ -1,17 +1,20 @@
 <?php
 // you must declare ticks for this signal
 declare(ticks=1);
+
 prggmr\load_signal('pcntl');
-prggmr\handle(function(){
-    echo PHP_EOL."CATCHING SHUTDOWN".PHP_EOL;
-    // if you dont exit it will not exit on SIGINT
+prggmr\load_signal('time');
+
+prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function(){
     exit;
-}, new prggmr\signal\pcntl\Interrupt());
-$engine = new prggmr\Engine();
-$engine->handle(function(){
-    echo PHP_EOL."CATCHING SHUTDOWN IN ENGINE".PHP_EOL;
-    var_dump($this);
-    exit;
-}, new prggmr\signal\pcntl\Interrupt($engine));
-// inifite loop to demonstrate ctrl-c to exit
-while(1){}
+});
+
+prggmr\signal\pcntl\terminate(function(){
+    echo "SENDING THE SHUTDOWN SIGNAL";
+    prggmr\shutdown();
+});
+
+prggmr\signal\time\interval(5, function(){
+    echo "5 Seconds".PHP_EOL;
+}, \prggmr\engine\idle\Time::SECONDS);
+

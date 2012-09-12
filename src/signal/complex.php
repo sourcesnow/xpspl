@@ -71,7 +71,7 @@ abstract class Complex extends Standard {
     /**
      * Returns the routine object for this complex signal.
      * 
-     * @return  object  prggmr\signal\Routine
+     * @return  object  prggmr\module\Routine
      */
     final public function get_routine()
     {
@@ -99,7 +99,7 @@ abstract class Complex extends Standard {
      *
      * @return  void
      */
-    public function signal_this($event = null, $vars = null, $ttl = null)
+    public function signal_this($event = null, $ttl = null)
     {
         if (null !== $event) {
             if (!$event instanceof \prggmr\Event) {
@@ -108,6 +108,6 @@ abstract class Complex extends Standard {
                 $this->event($event);
             }
         }
-        $this->_routine->add_signal($this, $vars, $this->event());
+        $this->_routine->add_signal($this, $this->event());
     }
 }

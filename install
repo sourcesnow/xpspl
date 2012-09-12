@@ -6,9 +6,9 @@ PHPPATH=$(php -r "echo get_include_path();")
 INSTALLPATH=""
 BINPATH="/usr/bin"
 echo ""
-echo "============================================================="
-echo "!! WARNING THIS WILL REPLACE YOUR EXISTING AN INSTALLATION !!"
-echo "============================================================="
+echo "======================================="
+echo "This will replace your existing install"
+echo "======================================="
 echo ""
 for x in $(echo $PHPPATH | tr ":" "\n")
 do
@@ -31,25 +31,19 @@ while true; do
     case $yn in
         [Yy]* )
             install="$INSTALL_PATH/prggmr"
+            rm -rf "$install"
             echo "Installing prggmr to $install"
-            if [ -f "$install" ]; then
-                echo "No current installation found"
-            else
-                echo "Removing current installation"
-                rm -rf "$install"
-            fi
             mkdir $install
             cp -Rf * "$install"
+            rm "$BINPATH/prggmr"
             echo "Installing the executable prggmr file"
-            if [ -f "$BINPATH/prggmr" ]; then
-                echo "Removing current executable file"
-                rm "$BINPATH/prggmr"
-            fi
             ln -s "$install/bin/prggmr" "$BINPATH"
             prggmr -v
             echo "Installed"
             echo "Have fun with prggmr"
             echo "Report bugs to https://github.com/nwhitingx/prggmr/issues"
+            echo "====================================="
+            prggmr -h
             break;;
         [Nn]* )
             read -p "Where do you want to install : " INSTALL_PATH
@@ -63,6 +57,8 @@ while true; do
                 SKIP=true
                 ;;
             esac;;
-        * ) echo "Please answer yes or no.";;
+        * )
+            echo "Please answer yes or no."
+            ;;
     esac
 done
