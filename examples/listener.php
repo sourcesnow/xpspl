@@ -1,6 +1,6 @@
 <?php
 
-prggmr\load_signal('http');
+prggmr\load_module('http');
 
 /**
  * Handle methods as signal handlers.
@@ -18,27 +18,20 @@ class User extends \prggmr\Listener {
     public function on_load($event)
     {
         echo $event->injected;
-        echo "asdfsadf".PHP_EOL;
     }
 }
-
-prggmr\signal_interrurpt(new \flames\signals\Insert(new \allpro\models\User()), function(){
-    echo $sql;
-});
 
 prggmr\listen(new User());
 
 prggmr\handle('hello_world', function(){
-    $this->a++;
     echo "HelloWorld2".PHP_EOL;
 });
 
 // Inject into the event before the on_load method is called!
 prggmr\signal_interrupt("load", function(){
     $this->db = "MY DB";
-    $this->injected = "Some real shit";
+    $this->injected = "And i injected this data here!";
 });
 
 prggmr\signal('hello_world');
-
 prggmr\signal('load');

@@ -10,63 +10,63 @@ require '../src/prggmr.php';
 /**
  * Load the http signal library
  */
-prggmr\load_signal('http');
+prggmr\load_module('http');
 
 // Shorten namespace down
-use prggmr\signal\http as http;
+use prggmr\module\http as http;
 /**
  * Route to /
  */
-prggmr\signal_interrupt(function(){
+prggmr\signal_interrupt('\prggmr\module\http\Uri', function(){
     $this->db = new stdClass();
     // echo "Here";
     return false;
-}, 'prggmr\signal\http\Uri');
+}, null, true);
 
-http\api\uri_request(function(){
+http\api\uri_request("/", function(){
     echo "Hello World";
     var_dump($this->db);
-}, "/");
+});
 
-http\api\uri_request(function(){
+http\api\uri_request(['/dashboard/:param', ['param' => '.*']], function(){
     echo 1111;
-},['/dashboard/:param', ['param' => '.*']]);
+});
 
-http\api\uri_request(function(){
+http\api\uri_request('/dashboard', function(){
     echo "At the dashboard";
-}, '/dashboard');
+});
 
 /**
  * Route to /user/:name
  */
-prggmr\signal_interrupt(function($name){
+prggmr\signal_interrupt(new http\Uri("/user/:name"), function($name){
     echo "Performing pre-handle action on $name";
-}, new http\Uri("/user/:name"), null, null, true);
+}, null, null, true);
 
-http\api\uri_request(function($name, $dog){
+http\api\uri_request("/user/:name/:dog", function($name, $dog){
     echo "WHAT $name $dog";
-}, "/user/:name/:dog");
+});
 
-http\api\uri_request(function($name){
+http\api\uri_request("/user/:name", function($name){
     echo "Hello $name";
-}, "/user/:name");
+});
 
 /**
  * Route to /admin/:id
  * 
  * Cancel stack in interrupt if $_GET['auth'] is not set
  */
-prggmr\signal_interrupt(function($id){
+prggmr\signal_interrupt(new http\Uri("/admin/:id"), function($id){
     if (!isset($_GET['auth'])) {
         echo "You do not have permission to view $id";
         $this->halt();
     } else {
         echo $_GET['auth'];
     }
-}, new http\Uri("/admin/:id"));
+});
 
-http\api\uri_request(function($id){
+http\api\uri_request("/admin/:id", function($id){
     echo "Viewing $id";
-}, "/admin/:id");
+});
 
 prggmr\loop();

@@ -175,14 +175,14 @@ class Engine {
                 return true;
             }
         }
-        // $handle = new Handle(function(){
-        //     $args = func_get_args();
-        //     $message = $this->get_signal()->get_message();
-        //     $exception = $this->get_signal()->get_exception();
-        //     $type = $this->get_signal();
-        //     throw new Engine_Exception($message, $type, $args);
-        // }, 0);
-        // $this->handle($this->_engine_handle_signal, $handle);
+        $handle = new Handle(function(){
+            $args = func_get_args();
+            $message = $this->get_signal()->get_error();
+            $exception = $this->get_signal()->get_exception();
+            $type = $this->get_signal();
+            throw new Engine_Exception($message, $type, $args);
+        }, null);
+        $this->handle($this->_engine_handle_signal, $handle);
     }
 
     /**
@@ -847,11 +847,10 @@ class Engine {
         } else {
             if ($class) {
                 if (!$class instanceof signal\Standard) {
-                    $this->signal(new engine_signals\Ivalid_Signal(
-                        "Interruption based on a class must recieve a signal instance"
-                    ), new engine\event\Error($interrupt));
+                    $name = $signal;
+                } else {
+                    $name = get_class($signal);
                 }
-                $name = get_class($signal);
             } else {
                 if ($signal instanceof Signal) {
                     $name = $signal->get_info();
@@ -904,6 +903,7 @@ class Engine {
         if ($signal instanceof Signal) {
             $lookup[] = $signal->get_info();
         }
+        var_dump($lookup);
         foreach ($lookup as $_index) {
             if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index])) {
                 foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index] as $_node) {

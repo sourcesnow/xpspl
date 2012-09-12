@@ -1,22 +1,20 @@
 <?php
 declare(ticks=1);
-prggmr\load_signal('pcntl');
+prggmr\load_module('pcntl');
 
 prggmr\save_event_history(true);
 
-prggmr\handle(function(){
+prggmr\handle('b', function(){
     prggmr\signal('a');
-}, 'b', null, null);
+});
 
-prggmr\handle(function(){
+prggmr\handle('a', function(){
     prggmr\signal('c');
-    prggmr\signal('b');
-}, 'a', null, null);
+});
 
 
-prggmr\signal\pcntl\interrupt(function(){
+prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function(){
     var_dump(prggmr\event_history());
-    exit;
 });
 
 prggmr\signal('b');

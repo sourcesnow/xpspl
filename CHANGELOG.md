@@ -1,7 +1,7 @@
 ## 2.0.0 TBD
 
 * search_signals now returns only the Queue object or null
-* Renamed load_signal to load_module
+* Renamed load_module to load_module
 * Renamed src/signal to src/modules
 * Added the engine\event\Error class which is now passed to all engine error 
   signals.

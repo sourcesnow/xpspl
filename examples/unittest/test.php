@@ -1,5 +1,5 @@
 <?php
-prggmr\load_signal('unittest');
+prggmr\load_module('unittest');
 use prggmr\signal\unittest as unittest;
 
 // Enable history

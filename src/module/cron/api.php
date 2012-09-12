@@ -10,9 +10,9 @@ namespace prggmr\module\cron;
  * @return  array  [signal, handle]
  */
 function cron($expression, $callable) {
-    $signal = new Cron($expression);
+    $signal = new Signal($expression);
     if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, 1);
+        $callable = new \prggmr\Handle($callable, null);
     }
     $handle = \prggmr\handle($signal, $callable);
     return [$signal, $handle];

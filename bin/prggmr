@@ -105,7 +105,7 @@ if (isset($showversion)) exit('prggmr version '.PRGGMR_VERSION."
 ");
 
 if (isset($unittest)) {
-    prggmr\load_signal('unittest');
+    prggmr\load_module('unittest');
 }
 
 if (!file_exists($runfile)) {

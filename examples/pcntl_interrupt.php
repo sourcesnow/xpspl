@@ -2,8 +2,8 @@
 // you must declare ticks for this signal
 declare(ticks=1);
 
-prggmr\load_signal('pcntl');
-prggmr\load_signal('time');
+prggmr\load_module('pcntl');
+prggmr\load_module('time');
 
 prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function(){
     exit;

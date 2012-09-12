@@ -5,5 +5,5 @@
  * that can be found in the LICENSE file.
  */
 $dir = dirname(realpath(__FILE__));
-require_once $dir.'/cron.php';
+require_once $dir.'/signal.php';
 require_once $dir.'/api.php';

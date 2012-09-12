@@ -1,5 +1,5 @@
 <?php
-prggmr\load_signal('integer');
+prggmr\load_module('integer');
 
 prggmr\handle(function($name){
     echo "Hello $name";

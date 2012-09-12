@@ -5,7 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-prggmr\load_signal("unittest");
+prggmr\load_module("unittest");
 
 // load the standard unittest output
 prggmr\signal\unittest\generate_output();

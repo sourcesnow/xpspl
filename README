@@ -32,7 +32,7 @@ prggmr\signal('light.green');
 /**
  * Non-Blocking Server
  */
-prggmr\load_signal('socket');
+prggmr\load_module('socket');
 
 $server = new prggmr\signal\socket\Server("0.0.0.0:1337");
 
@@ -68,7 +68,7 @@ prggmr supports CRONTAB style expressions for signals.
 
 ```php
 <?php
-prggmr\load_signal('time');
+prggmr\load_module('time');
 prggmr\signal\time\cron('*/15 * * * *', function(){
     echo "Running this every 15 minutes!".PHP_EOL;
 });

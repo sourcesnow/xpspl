@@ -2,7 +2,7 @@
 /**
  * Non-Blocking Server
  */
-prggmr\load_signal('socket');
+prggmr\load_module('socket');
 
 $server = new prggmr\signal\socket\Server("0.0.0.0:1337");
 

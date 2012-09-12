@@ -1,6 +1,6 @@
 <?php
 
-prggmr\load_signal("time");
+prggmr\load_module("time");
 
 prggmr\handle(function(){
     echo "Loop Start";

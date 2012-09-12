@@ -4,7 +4,7 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-prggmr\load_signal('unittest');
+prggmr\load_module('unittest');
 
 use prggmr\signal\unittest as unittest;
 

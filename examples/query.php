@@ -1,5 +1,5 @@
 <?php
-prggmr\load_signal('string');
+prggmr\load_module('string');
 
 prggmr\handle(function($name){
     echo "Hello $name";
