@@ -1,215 +1,75 @@
-prggmr is a [complex event engine](http://en.wikipedia.org/wiki/Complex_event_processing), 
-it has been developed to provide real-time signals, events and asynchronous i/o 
-in the PHP language.
+Real-time signals, events and asynchronous non-blocking i/o for PHP.
 
-prggmr is designed to put no limits on its capabilities other than what the
-programmer developing the system is capable of.
+## Run'n Gun Install
 
-Have Fun!
+Run the following command and enter your pa$$w0rd!
 
-## Usage
+    $ curl prggmr.org/prggmr | sh
+    $ prggmr -v
 
-### Registering handles
+This will download and install the latest stable release of prggmr.
 
-```php
-<?php
-prggmr\handle('light.green', function(){
-    echo "The light is green go!";
-});
-```
+## Set intervals and timeouts
 
-### Dispatching signals
+    \prggmr\load_model('time');
 
-```php
-<?php
-prggmr\signal('light.green');
-```
+    \prggmr\module\time\interval(10, function(){ 
+        echo "10 milliseconds"; 
+    });
 
-### Asynchronous Network I/O
+## Signal and handle events
 
-```php
-<?php
-/**
- * Non-Blocking Server
- */
-prggmr\load_module('socket');
+    <?php
 
-$server = new prggmr\signal\socket\Server("0.0.0.0:1337");
+    prggmr\handle('light.green', function(){
+        echo "The light is green GO GO GO!"
+    });
 
-// On Connect
-$server->on_connect(function(){
-    echo "New Connection".PHP_EOL;
-    $this->write("Hello".PHP_EOL);
-});
+    prggmr\signal('light.green');
 
-// On Disconnect
-$server->on_disconnect(function(){
-    echo "Disconnecting".PHP_EOL;
-    $this->write("Goodbye".PHP_EOL);
-});
+## Handle interruption
 
-// Register the server
-prggmr\handle(function(){
-    echo "Server is running at ".$this->get_address().PHP_EOL;
-}, $server);
-```
+    <?php
 
-To connect
+    prggmr\handle('light.green', function(){
+        echo "The ".$this->car." car is moving";
+        $this->car_speed = 100;
+    });
 
-```ssh
-telnet 127.0.0.1 1337
-```
+    prggmr\signal_interrupt('light.green', function(){
+        $this->car = 'Honda S2000';
+    });
 
-Or open your browser to http://127.0.0.1:1337
+    prggmr\signal_interrupt('light.green', function(){
+        echo "The ".$this->car." is going ".$this->car_speed."MPH!!";
+    }, \prggmr\Engine::INTERRUPT_POST);
 
-### Cron Jobs
+    prggmr\signal('light.green');
 
-prggmr supports CRONTAB style expressions for signals.
+## Asynchronous server
 
-```php
-<?php
-prggmr\load_module('time');
-prggmr\signal\time\cron('*/15 * * * *', function(){
-    echo "Running this every 15 minutes!".PHP_EOL;
-});
-```
+    <?php
+    
+    prggmr\load_signal('socket');
 
-### Signal interruption before handle execution
+    $server = new prggmr\signal\socket\Server("0.0.0.0:1337");
 
-```php
-<?php
-prggmr\signal_interrupt(function(){
-    echo "Inserting some data into the event for handles..";
-    $this->data = "HelloWorld";
-}, 'light.green', prggmr\Engine::INTERRUPT_PRE);
-```
+    // On Connect
+    $server->on_connect(function(){
+        echo "New Connection".PHP_EOL;
+        $this->write("Hello".PHP_EOL);
+    });
 
-### Signal interruption after handle execution
+    // On Disconnect
+    $server->on_disconnect(function(){
+        echo "Disconnecting".PHP_EOL;
+        $this->write("Goodbye".PHP_EOL);
+    });
 
-```php
-<?php
-prggmr\signal_interrupt(function(){
-    echo "Checking what happened in the handle";
-}, 'light.green', prggmr\Engine::INTERRUPT_POST);
-```
-
-### Event history
-
-```php
-<?php
-var_dump(prggmr\event_history());
-```
-
-## Using a non-global engine
-
-### Registering a prggmr\Engine
-
-```php
-<?php
-$engine = new prggmr\Engine();
-```
-
-### Registering handles
-
-```php
-<?php
-$engine->handle(function(){
-    echo "The light is green go!";
-}, 'light.green');
-```
-
-### Dispatching signals
-
-```php
-<?php
-$engine->signal('light.green');
-```
-
-### Signal interruption before handle execution
-
-```php
-<?php
-$engine->signal_interrupt(function(){
-    echo "Inserting some data into the event for handles..";
-    $this->data = "HelloWorld";
-}, 'light.green', prggmr\Engine::INTERRUPT_PRE);
-```
-
-### Signal interruption after handle execution
-
-```php
-<?php
-$engine->signal_interrupt(function(){
-    echo "Checking what happened in the handle";
-}, 'light.green', prggmr\Engine::INTERRUPT_POST);
-```
-
-### Event history
-
-```php
-<?php
-var_dump($engine->event_history());
-```
-
-## Installation
-
-Depending on your needs prggmr can be installed using two different methods.
-
-### Recommended Method
-
-This is the recommended method
-
-Download the latest release and run the install file within prggmr.
-
-```ssh
-sudo ./install
-```
-
-The library will be installed to your PHP_INCLUDE_PATH
-
-
-```php
-<?php
-
-require_once 'prggmr/src/prggmr.php';
-```
-
-The prggmr executable will also be available.
-
-```ssh
-prggmr
-```
-
-### Composer
-
-Include the following in your ```composer.json``` file.
-
-```JSON
-{
-    "require": {
-        "prggmr/prggmr": "1.*.*"
-    }
-}
-```
-
-Just run the installer provided.
-
-```ssh
-$ curl -s http://getcomposer.org/installer | php
-$ php composer.phar install
-```
-
-And include the library
-
-```php
-<?php
-
-require_once 'vendor/prggmr/prggmr/src/prggmr.php';
-```
-
-## Documentation
-
-Documentation is available at [prggmr.org](http://www.prggmr.org)
+    // Register the server
+    prggmr\handle(function(){
+        echo "Server is running at ".$this->get_address().PHP_EOL;
+    }, $server);
 
 ## Mailing List
 
@@ -219,33 +79,9 @@ The prggmr mailing list is located here [mailing list](https://groups.google.com
 
 prggmr uses [semver](http://semver.org) you should too.
 
-## Supported Signals
+## Module Roadmap
 
-The current complex signals are supported,
-
-### HTTP
-
-HTTP signals allow you to signal HTTP requests using the requested URI into the engine, the intention is to allow for a completely event-driven website.
-
-### Time
-
-Time signals allow for signaling events based on time, this includes intervals and timeouts in seconds, milliseconds or microseconds or using the CRON syntax.
-
-### Sockets
-
-Socket signals allow for non-blocking signal driven i/o, currently prggmr supports server connections.
-
-### Unit Test
-
-The Unit test signal allows for unit testing using signals and events.
-
-### Process Control
-
-The process control signal allows for signaling when your PHP application recieves a system signal such as an interrupt.
-
-## Signals Roadmap
-
-The following signals are on the development roadmap.
+The following Modules are on the development roadmap.
 
 
 ### Event Stream Server
