@@ -124,7 +124,6 @@ class Handle {
         if (!$this->_isclosure) {
             array_unshift($params, $this->_bind);
         }
-        var_dump($this);
         $result = call_user_func_array($this->_function, $params);
         $this->_bind = null;
         $this->_params = null;

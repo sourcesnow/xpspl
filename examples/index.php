@@ -20,9 +20,7 @@ use prggmr\module\http as http;
  */
 prggmr\signal_interrupt('prggmr\module\http\Uri', function(){
     $this->db = new stdClass();
-    // echo "Here";
-    return false;
-}, null, true);
+});
 
 http\api\uri_request("/", function(){
     echo "Hello World";
@@ -30,7 +28,7 @@ http\api\uri_request("/", function(){
 });
 
 http\api\uri_request(['/dashboard/:param', ['param' => '.*']], function(){
-    echo 1111;
+    echo $this->param;
 });
 
 http\api\uri_request('/dashboard', function(){
@@ -42,7 +40,7 @@ http\api\uri_request('/dashboard', function(){
  */
 prggmr\signal_interrupt(new http\Uri("/user/:name"), function($name){
     echo "Performing pre-handle action on $name";
-}, null, null, true);
+});
 
 http\api\uri_request("/user/:name/:dog", function($name, $dog){
     echo "WHAT ".$this->name . " ". $this->dog;

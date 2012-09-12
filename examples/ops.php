@@ -7,21 +7,28 @@ class OPS extends prggmr\signal\Complex
 {
     public function routine($h = null) 
     {
-        return [null, ENGINE_ROUTINE_SIGNAL, 0];
+        $this->signal_this();
+        return true;
     }
 }
 
 $a = 0;
 // Handle an unlimited amount of Ops
-prggmr\handle(function() use (&$a) {
+prggmr\handle('op', new prggmr\Handle(function() use (&$a) {
     $a++;
-}, new Ops(), null, null);
+}, null));
+
+prggmr\load_module('time');
 
 // Run the test for 1 Second
-prggmr\timeout(function(){
+prggmr\module\time\timeout(10000, function(){
     prggmr\shutdown();
-}, 10000);
+});
 
-prggmr\handle(function() use (&$a){
+prggmr\module\time\interval(0, function(){
+    prggmr\signal('op');
+});
+
+prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function() use (&$a){
     echo "Ran $a Complex signal calcuations".PHP_EOL;
-}, prggmr\engine\Signals::LOOP_SHUTDOWN);
+});
