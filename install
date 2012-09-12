@@ -21,42 +21,18 @@ if [[ $INSTALL_PATH = "" ]]; then
     echo "Could not find your PHP include path";
     exit;
 fi
-SKIP=false
-while true; do
-    if [ $SKIP = false ]; then
-        read -p "Use $INSTALL_PATH for installation : " yn
-    else
-        yn="y" 
-    fi
-    case $yn in
-        [Yy]* )
-            install="$INSTALL_PATH/prggmr"
-            rm -rf "$install"
-            echo "Installing prggmr to $install"
-            mkdir $install
-            cp -Rf * "$install"
-            rm "$BINPATH/prggmr"
-            echo "Installing the executable prggmr file"
-            ln -s "$install/bin/prggmr" "$BINPATH"
-            prggmr -v
-            echo "Installed"
-            echo "Have fun with prggmr"
-            echo "Report bugs to https://github.com/nwhitingx/prggmr/issues"
-            echo "====================================="
-            prggmr -h
-            break;;
-        [Nn]* )
-            read -p "Where do you want to install : " INSTALL_PATH
-            echo "And the prggmr executable (default=$BINPATH)"
-            read -p "Leave blank for default : " TMP_BIN
-            case $TMP_BIN in
-                * )
-                if [[ $TMP_BIN != "" ]]; then
-                    BINPATH="$TMP_BIN"
-                fi
-                SKIP=true
-                ;;
-            esac;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
+install="$INSTALL_PATH/prggmr"
+rm -rf "$install"
+echo "Installing prggmr to $install"
+mkdir $install
+cp -Rf * "$install"
+rm "$BINPATH/prggmr"
+echo "Installing the executable prggmr file"
+ln -s "$install/bin/prggmr" "$BINPATH"
+prggmr -v
+echo "Installed"
+echo "Have fun with prggmr"
+echo "Report bugs to https://github.com/nwhitingx/prggmr/issues"
+echo "====================================="
+prggmr -h
+
