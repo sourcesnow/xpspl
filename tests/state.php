@@ -6,7 +6,7 @@
  */
 prggmr\load_module('unittest');
 
-use prggmr\signal\unittest as unittest;
+use prggmr\module\unittest as unittest;
 
 // tmp class for state test
 class Temp {

@@ -1,11 +1,11 @@
 <?php
 prggmr\load_module('unittest');
-use prggmr\signal\unittest as unittest;
+use prggmr\module\unittest as unittest;
 
 // Enable history
 prggmr\save_event_history(true);
 
-unittest\api\test(function(){
+unittest\test(function(){
     $this->true(true);
     $this->true(true);
     $this->true(true);
@@ -14,7 +14,7 @@ unittest\api\test(function(){
     $this->true(true);
 });
 
-unittest\api\suite(function(){
+unittest\suite(function(){
     $this->setup(function(){
         $this->a = 1;
         echo "SETUP";
@@ -32,14 +32,14 @@ unittest\api\suite(function(){
     });
 });
 
-prggmr\handle(function(){
+prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function(){
     $tests = 0;
     foreach (prggmr\event_history() as $_node) {
-        if ($_node[0] instanceof prggmr\signal\unittest\Event) {
+        if ($_node[0] instanceof prggmr\module\unittest\Event) {
             $tests++;
         }
     }
     echo PHP_EOL;
     echo "Ran $tests tests";
     echo PHP_EOL;
-}, new prggmr\engine\signal\Loop_Shutdown());
+});

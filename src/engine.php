@@ -647,7 +647,7 @@ class Engine {
      *
      * @return  object  Event
      */
-    protected function _execute($signal, $queue, $event, $interrupt = true)
+    private function _execute($signal, $queue, $event, $interrupt = true)
     {
         if ($event->has_expired()) {
             $this->signal(new engine_signals\Event_Expired(
@@ -659,6 +659,21 @@ class Engine {
         if ($interrupt) {
             $this->_interrupt($signal, self::INTERRUPT_PRE, $event);
         }
+        // execute the Queue
+        $this->_queue_execute($queue, $event);
+        // handle interupt functions
+        if ($interrupt) {
+            $this->_interrupt($signal, self::INTERRUPT_POST, $event);
+        }
+        $this->_event_exit($event);
+        return $event;
+    }
+
+    /**
+     * Executes a queue.
+     */
+    private function _queue_execute($queue, $event)
+    {
         // execute sig handlers
         $queue->sort();
         reset($queue->storage());
@@ -701,13 +716,8 @@ class Engine {
             }
             $_handle->set_state(STATE_EXITED);
         }
-        // handle interupt functions
-        if ($interrupt) {
-            $this->_interrupt($signal, self::INTERRUPT_POST, $event);
-        }
-        $this->_event_exit($event);
-        return $event;
     }
+    
 
     /**
      * Retrieves the event history.
@@ -804,12 +814,10 @@ class Engine {
      * @param  string|object  $signal
      * @param  object  $handle  Handle to execute
      * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
-     * @param  boolean  $class  Register the given signal as a class based interruption
-     *                          using the class instance.
      * 
      * @return  boolean  True|False false is failure
      */
-    public function signal_interrupt($signal, $handle, $interrupt = null, $class = false) 
+    public function signal_interrupt($signal, $handle, $interrupt = null) 
     {
         // Variable Checks
         if (!$handle instanceof Handle) {
@@ -841,20 +849,16 @@ class Engine {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
         }
         $storage =& $this->_storage[self::INTERRUPT_STORAGE][$interrupt];
-        if ($signal instanceof signal\Complex && !$class) {
+        if ($signal instanceof signal\Complex) {
             $storage[self::COMPLEX_STORAGE][] =  [
                 $signal, $handle
             ];
         } else {
-            if ($class) {
-                if (!$class instanceof signal\Standard) {
-                    $name = $signal;
-                } else {
-                    $name = get_class($signal);
-                }
+            if ($signal instanceof Signal) {
+                $name = $signal->get_info();
             } else {
-                if ($signal instanceof Signal) {
-                    $name = $signal->get_info();
+                if (is_object($signal)) {
+                    $name = get_class($signal);
                 } else {
                     $name = $signal;
                 }
@@ -894,7 +898,7 @@ class Engine {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
-                    $queue->enqueue($_node[1], $_node[2]);
+                    $queue->enqueue($_node[1], $_node[1]->get_priority());
                 }
             }
         }
@@ -915,7 +919,7 @@ class Engine {
             }
         }
         if (null !== $queue) {
-            $this->_execute($signal, $queue, $event, false);
+            $this->_queue_execute($queue, $event);
         }
     }
 

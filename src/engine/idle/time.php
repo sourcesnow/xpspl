@@ -230,7 +230,6 @@ class Time extends \prggmr\engine\Idle {
                     case self::MILLISECONDS:
                         $difference = ($this->_tts - milliseconds()) * 1000;
                         if ($difference <= ($time->get_time_until() - microseconds())) {
-                            echo $difference . ' is smaller than ' . ($time->get_time_until() - microseconds());
                             return true;
                         }
                         return false;

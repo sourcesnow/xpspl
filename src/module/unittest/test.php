@@ -34,21 +34,32 @@ class Test extends \prggmr\signal\Complex {
     {
         if (null !== $event && $event instanceof Event) {
             $this->_event = $event;
+        } else {
+            $this->_event = new Event();
         }
         $this->_info = $info;
         parent::__construct($info);
     }
 
     /**
-     * Routine evaluation.
+     * Routine calculation.
      */
     public function routine($event_history = null)
     {
-        if (null === $this->_event) {
-            $this->_event = new Event();
-        }
-        $this->signal_this();
+        // if (null === $this->_event) {
+        //     $this->_event = new Event();
+        // }
+        $this->signal_this($this->_event);
         // test signals always return to fire immediatly
         return true;
+    }
+
+    /**
+     * Evalute.
+     */
+    public function evaluate($signal = null)
+    {
+        if ($signal instanceof $this) return true;
+        return false;
     }
 }

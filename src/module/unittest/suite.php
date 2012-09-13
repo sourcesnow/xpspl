@@ -112,15 +112,15 @@ class Suite {
      */
     function test($function, $name = null) {
         $signal = new Test($name, $this->_event);
-        $handle = $this->_engine->handle($function, $signal);
+        $handle = $this->_engine->handle($signal, $function);
         if (null !== $this->_setup) {
             $this->_engine->signal_interrupt(
-                $this->_setup, $signal, \prggmr\Engine::INTERRUPT_PRE
+                $signal, clone $this->_setup, \prggmr\Engine::INTERRUPT_PRE
             );
         }
         if (null !== $this->_teardown) {
             $this->_engine->signal_interrupt(
-                $this->_teardown, $signal, \prggmr\Engine::INTERRUPT_POST
+                $signal, clone $this->_teardown, \prggmr\Engine::INTERRUPT_POST
             );
         }
         return [$signal, $handle];

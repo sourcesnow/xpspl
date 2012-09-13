@@ -8,7 +8,7 @@
 prggmr\load_module("unittest");
 
 // load the standard unittest output
-prggmr\signal\unittest\generate_output();
+prggmr\module\unittest\generate_output();
 
 foreach (glob('*.php') as $file)
 {

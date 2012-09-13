@@ -11,7 +11,7 @@ This will download and install the latest stable release of prggmr.
 
 ## Set intervals and timeouts
 
-    \prggmr\load_model('time');
+    \prggmr\load_module('time');
 
     \prggmr\module\time\interval(10, function(){ 
         echo "10 milliseconds"; 
