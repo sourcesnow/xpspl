@@ -106,9 +106,9 @@ class Server extends \prggmr\signal\Complex {
          * socket. This is done by passing the $server signal to the event
          * I'm currently pondering a better solution for now this works.
          */
-        // if (count($this->_routine->get_signals()) !== 0) {
-        //     return true;
-        // }
+        if (count($this->_routine->get_signals()) !== 0) {
+            return true;
+        }
         $this->_routine->set_idle(new \prggmr\engine\idle\Func(function($engine){
             $idle = $engine->get_routine()->get_idles_available();
             // 30 second default wait
