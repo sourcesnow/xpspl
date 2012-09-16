@@ -28,11 +28,4 @@ unittest\suite(function(){
         $this->equal($this->state->get_state(), STATE_DECLARED);
     }, 'Test default state');
 
-    $this->test(function(){
-        $this->exception('InvalidArgumentException', function(){
-            $this->state->set_state(8);
-        });
-        $this->state->set_state(STATE_ERROR);
-        $this->equal($this->state->get_state(), STATE_ERROR);
-    }, 'Test setting the state');
 });

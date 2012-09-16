@@ -46,18 +46,5 @@ unittest\suite(function(){
         $queue->next();
         $this->equal(2, $queue->current()[0]);
     }, "Queue Min Sort");
-
-    $this->test(function(){
-        $queue = new prggmr\Queue(QUEUE_MAX_HEAP);
-        $queue->enqueue(1, 10);
-        $queue->enqueue(2, 11);
-        $queue->enqueue(3, 9);
-        $queue->sort();
-        $this->equal(2, $queue->current()[0]);
-        $queue->next();
-        $this->equal(1, $queue->current()[0]);
-        $queue->next();
-        $this->equal(3, $queue->current()[0]);
-    }, "Queue Max Sort");
     
 });

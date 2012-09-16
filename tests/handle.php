@@ -32,15 +32,15 @@ unittest\suite(function(){
     $this->test(function(){
         $handle = new prggmr\Handle(function(){});
         $this->false($handle->is_exhausted());
-        $handle();
+        $handle->decrement_exhaust();
         $this->true($handle->is_exhausted());
         $handle = new prggmr\Handle(function(){}, 2);
-        $handle();
+        $handle->decrement_exhaust();
         $this->false($handle->is_exhausted());
-        $handle();
+        $handle->decrement_exhaust();
         $this->true($handle->is_exhausted());
         $handle = new prggmr\Handle(function(){}, null);
-        for ($i=0;$i!=5;$i++) { $handle(); }
+        for ($i=0;$i!=5;$i++) { $handle->decrement_exhaust(); }
         $this->false($handle->is_exhausted());
         $handle = new prggmr\Handle(function(){}, 0);
         $this->true($handle->is_exhausted());

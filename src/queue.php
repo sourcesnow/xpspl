@@ -100,7 +100,7 @@ class Queue {
     }
 
     /**
-     * Sorts the queue as a MIN or MAX heap.
+     * Sorts the queue.
      *
      * @return  void
      */

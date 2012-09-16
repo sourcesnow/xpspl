@@ -11,12 +11,11 @@ use prggmr\module\unittest as unittest;
 unittest\suite(function(){
 
     $this->setup(function(){
-        echo "SETUP";
         $this->event = new prggmr\Event();
     });
 
     $this->teardown(function(){
-        // unset($this->event);
+        unset($this->event);
     });
 
     $this->test(function(){
@@ -36,34 +35,34 @@ unittest\suite(function(){
         $this->false($this->event->get_result());
     }, "Event set/get result");
 
-    // $this->test(function(){
-    //     $this->equal($this->event->get_state(), STATE_DECLARED);
-    //     $this->event->halt();
-    //     $this->equal($this->event->get_state(), STATE_HALTED);
-    // }, "Event halt");
+    $this->test(function(){
+        $this->equal($this->event->get_state(), STATE_DECLARED);
+        $this->event->halt();
+        $this->equal($this->event->get_state(), STATE_HALTED);
+    }, "Event halt");
 
-    // $this->test(function(){
-    //     $parent = new prggmr\Event();
-    //     $this->false($this->event->is_child());
-    //     $this->event->set_parent($parent);
-    //     $this->true($this->event->is_child());
-    //     $this->equal($this->event->get_parent(), $parent);
-    //     $this->event->set_parent($this->event);
-    //     $this->equal($this->event->get_parent(), $this->event);
-    // }, "Event parent/children");
+    $this->test(function(){
+        $parent = new prggmr\Event();
+        $this->false($this->event->is_child());
+        $this->event->set_parent($parent);
+        $this->true($this->event->is_child());
+        $this->equal($this->event->get_parent(), $parent);
+        $this->event->set_parent($this->event);
+        $this->equal($this->event->get_parent(), $this->event);
+    }, "Event parent/children");
 
-    // $this->test(function(){
-    //     $this->exception('LogicException', function(){
-    //         $this->event->a++;
-    //     });
-    //     $this->event->a = "Test";
-    //     $this->true(isset($this->event->a));
-    //     $this->equal($this->event->a, "Test");
-    //     unset($this->event->a);
-    //     $this->false(isset($this->event->a));
-    //     $this->exception('LogicException', function(){
-    //         $this->event->a++;
-    //     });
-    // }, "Event set/get/unset/isset data");
+    $this->test(function(){
+        $this->exception('LogicException', function(){
+            $this->event->a++;
+        });
+        $this->event->a = "Test";
+        $this->true(isset($this->event->a));
+        $this->equal($this->event->a, "Test");
+        unset($this->event->a);
+        $this->false(isset($this->event->a));
+        $this->exception('LogicException', function(){
+            $this->event->a++;
+        });
+    }, "Event set/get/unset/isset data");
     
 });
