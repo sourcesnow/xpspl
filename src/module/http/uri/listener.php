@@ -1,35 +1,41 @@
 <?php
-namespace prggmr;
+namespace prggmr\module\http\uri;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
- 
+
+use \prggmr\module\http as http;
+
 /**
- * The listener allows to register itself in the engine having the engine
- * trigger the given methods within the object when they are signled.
+ * Allows for listening to URI signals.
  */
-class Listener {
-
+class Listener extends \prggmr\Listener 
+{
     /**
-     * Class members.
-     */
-    protected $_sig_handlers = [];
-
-    /**
-     * Constructs the listener.
+     * Constructs a new URI listener.
+     *
+     * @param  object  $event  Event to use
      *
      * @return  void
      */
-    public function __construct()
+    public function __construct($event = null) 
     {
         foreach (get_class_methods($this) as $_method) {
             // skip magic methods
             if (stripos('_', $_method) === 0) continue;
             if (stristr($_method, 'on_') === false) continue;
             if (isset($this->$_method)) {
-                $_signal = eval($this->{$_method});
+                $route = $this->{$_method};
+                if (is_array($route)) {
+                    $uri = $route[0];
+                    $method = $route[1];
+                } else {
+                    $uri = $route;
+                    $method = null;
+                }
+                $_signal = new http\Uri($uri, $method, $event);
             } else {
                 $_signal = str_replace('on_', '', $_method);
             }
@@ -38,23 +44,5 @@ class Listener {
                 $_signal
             ];
         }
-    }
-
-    /**
-     * Returns the sig handlers for this listener.
-     *
-     * @return  array
-     */
-    public function get_signal_handlers(/* ... */)
-    {
-        return $this->_sig_handlers;
-    }
-
-    /**
-     * Cleans the listener.
-     */
-    public function clean(/* ... */)
-    {
-        $this->_sig_handlers = null;
     }
 }

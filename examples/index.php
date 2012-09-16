@@ -67,4 +67,19 @@ http\api\uri_request("/admin/:id", function(){
     echo "Viewing ".$this->id;
 });
 
+/**
+ * Listen for the URI's
+ */
+class Homepage extends \prggmr\module\http\uri\Listener {
+
+    protected $on_index = '/test';
+
+    public function on_index($event)
+    {
+        echo "I am handling the index page";
+    }
+}
+
+prggmr\listen(new Homepage());
+
 prggmr\loop();

@@ -9,9 +9,11 @@ $server = new prggmr\module\socket\Server("0.0.0.0:1337");
 
 // On Connect
 $server->on_connect(new prggmr\Handle(function(){
+    $data_in = $this->read();
+    echo $data_in;
     $this->write("Hello".PHP_EOL);
     $this->write("You sent me the following".PHP_EOL);
-    $this->write($this->read());
+    $this->write($data_in);
 }, null));
 
 // // On Disconnect
