@@ -73,10 +73,16 @@ http\api\uri_request("/admin/:id", function(){
 class Homepage extends \prggmr\module\http\uri\Listener {
 
     protected $on_index = '/test';
+    protected $on_user_signup = '/user_signup/:name';
 
     public function on_index($event)
     {
         echo "I am handling the index page";
+    }
+
+    public function on_user_signup($event)
+    {
+        echo $event->name . " wants to sign up";
     }
 }
 
