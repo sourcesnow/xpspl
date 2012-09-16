@@ -22,12 +22,8 @@ use \Closure,
  * by default, this is done under the theory that any handle which
  * is registered is done so to run at least once, otherwise it wouldn't
  * exist.
- *
- * Handles are now also a stateful object inheriting the State trait.
  */
 class Handle {
-
-    use State;
 
     /**
      * The function that will execute when this handle is

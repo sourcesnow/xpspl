@@ -687,7 +687,6 @@ class Engine {
             if ($event->get_state() === STATE_HALTED) {
                 continue;
             }
-            $_handle->set_state(STATE_RUNNING);
             // bind event to allow use of "this"
             $_handle->bind($event);
             // set event as running
@@ -699,7 +698,6 @@ class Engine {
                     $result = $_handle();
                 } catch (\Exception $exception) {
                     $event->set_state(STATE_ERROR);
-                    $_handle->set_state(STATE_ERROR);
                     if ($exception instanceof Engine_Exception) {
                         throw $exception;
                     }
@@ -714,7 +712,6 @@ class Engine {
                     $event->halt();
                 }
             }
-            $_handle->set_state(STATE_EXITED);
         }
     }
     
@@ -918,7 +915,6 @@ class Engine {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
-                    echo "ADDING";
                     $queue->enqueue($_node[1], $_node[1]->get_priority());
                 }
             }

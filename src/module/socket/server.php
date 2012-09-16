@@ -72,6 +72,8 @@ class Server extends \prggmr\signal\Complex {
 
         if (null !== $engine && $engine instanceof \prggmr\Engine) {
             $this->_engine = $engine;
+        } else {
+            $this->_engine = \prggmr\prggmr();
         }
 
         // Disconnect the connection immediatly after connecting
@@ -84,7 +86,7 @@ class Server extends \prggmr\signal\Complex {
             stream_socket_shutdown($this->get_socket(), STREAM_SHUT_RDWR);
         }, PHP_MAX_INT, null);
 
-        parent::__construct(null);
+        parent::__construct();
 
         $this->_routine->add_signal(
             $this, new event\Server($this->_socket)
@@ -104,19 +106,32 @@ class Server extends \prggmr\signal\Complex {
          * socket. This is done by passing the $server signal to the event
          * I'm currently pondering a better solution for now this works.
          */
-        if (count($this->_routine->get_signals()) !== 0) {
-            return true;
-        }
-        $this->_routine->set_idle_function(function($engine){
-            $idle = $engine->get_routine()[1];
-            if ($)
-            if (false !== $socket = @stream_socket_accept($this->_socket, 30)) {
+        // if (count($this->_routine->get_signals()) !== 0) {
+        //     return true;
+        // }
+        $this->_routine->set_idle(new \prggmr\engine\idle\Func(function($engine){
+            $idle = $engine->get_routine()->get_idles_available();
+            // 30 second default wait
+            $time = 30;
+            if (count($idle) == 2) {
+                foreach ($idle as $_idle) {
+                    if ($_idle instanceof \prggmr\engine\idle\Time) {
+                        $time = round($_idle->convert_length(
+                            $_idle->get_time_left(), 
+                            \prggmr\engine\idle\Time::SECONDS
+                        ), 4);
+                        break;
+                    }
+                }
+                echo $time.PHP_EOL;
+            }
+            if (false !== $socket = @stream_socket_accept($this->_socket, $time)) {
                 $this->_routine->add_signal(
                     $this->_connect,
                     new event\Connect($socket, $this)
                 );
             }
-        });
+        }));
         return true;
     }
 
@@ -124,15 +139,13 @@ class Server extends \prggmr\signal\Complex {
      * Registers a new handle for new connections.
      *
      * @param  callable  $function  Function to call on connect.
-     * @param  integer|null  $priority  Priority of this function.
-     * @param  integer|null  $exhaust  Exhaustion of this function.
      *
      * @return  object
      */
-    public function on_connect($function, $priority = null, $exhaust = null)
+    public function on_connect($function)
     {
-        return $this->get_engine()->handle(
-            $function, $this->_connect, $priority, $exhaust
+        return $this->_engine->handle(
+            $this->_connect, $function
         );
     }
 
@@ -140,15 +153,13 @@ class Server extends \prggmr\signal\Complex {
      * Registers a new handle for disconnections.
      *
      * @param  callable  $function  Function to call on connect.
-     * @param  integer|null  $priority  Priority of this function.
-     * @param  integer|null  $exhaust  Exhaustion of this function.
      *
      * @return  object
      */
-    public function on_disconnect($function, $priority = null, $exhaust = null)
+    public function on_disconnect($function)
     {
-        return $this->get_engine()->handle(
-            $function, $this->_disconnect, $priority, $exhaust
+        return $this->_engine->handle(
+            $this->_disconnect, $function
         );
     }
 
@@ -161,6 +172,7 @@ class Server extends \prggmr\signal\Complex {
      */
     public function send_disconnect($socket)
     {
+        echo "SEND DISCONNECT";
         $this->_routine->add_signal(
             $this->_disconnect,
             new event\Disconnect($socket, $this)
@@ -174,10 +186,7 @@ class Server extends \prggmr\signal\Complex {
      */
     public function get_engine(/* ... */)
     {
-        if (null !== $this->_engine) {
-            return $this->_engine;
-        }
-        return \prggmr::instance();
+        return $this->_engine;
     }
 
     /**

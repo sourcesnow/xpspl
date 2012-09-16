@@ -11,11 +11,12 @@ class User extends \prggmr\Listener {
     {
         $user = new \allpro\models\User();
         $user->username = "Test";
+        
         $user->email = "prggmr@gmail.com";
         $user->save();
     }
 
-    public function on_load($event)
+    public function on_load(\prggmr\Event $event)
     {
         echo $event->injected;
     }

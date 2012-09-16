@@ -9,8 +9,7 @@ namespace prggmr\engine\idle;
 /**
  * Idles the engine for a specific amount of time.
  *
- * The amount of time can be specified in seconds, milliseconds, microseconds
- * or nanoseconds.
+ * The amount of time can be specified in seconds or milliseconds.
  */
 class Time extends \prggmr\engine\Idle {
 
@@ -19,14 +18,14 @@ class Time extends \prggmr\engine\Idle {
      */
     const SECONDS = 1;
     const MILLISECONDS = 2;
-    const MICROSECONDS = 3;
+    // const MICROSECONDS = 3;
 
     /**
-     * Amount of time to idle.
+     * Length of time to idle
      * 
      * @var  integer
      */
-    protected $_tti = null;
+    protected $_idle_length = null;
 
     /**
      * Instruction of sleep type.
@@ -40,7 +39,7 @@ class Time extends \prggmr\engine\Idle {
      *
      * @var  integer
      */
-    protected $_tts = null;
+    protected $_stop_time = null;
 
     /**
      * Priority of this idle function.
@@ -70,24 +69,24 @@ class Time extends \prggmr\engine\Idle {
                 "Invalid idle time instruction"
             );
         }
-        $this->_tti = $time;
+        $this->_idle_length = $time;
         $this->_instruction = $instruction;
         switch ($this->_instruction) {
             case self::SECONDS:
-                $this->_tts = $time + time();
+                $this->_stop_time = $time + time();
                 break;
             case self::MILLISECONDS:
-                $this->_tts = $time + milliseconds();
+                $this->_stop_time = $time + milliseconds();
                 break;
-            case self::MICROSECONDS:
-                $this->_tts = $time + microseconds();
-                break;
+            // case self::MICROSECONDS:
+            //     $this->_stop_time = $time + microseconds();
+            //     break;
         }
     }
 
     /**
-     * Runs the idle function, this will call either sleep, usleep or 
-     * time_nanosleep dependent upon the type.
+     * Runs the idle function, this will call either sleep or usleep
+     * depending upon the type.
      *
      * @return  void
      */
@@ -95,15 +94,14 @@ class Time extends \prggmr\engine\Idle {
     {
         switch ($this->_instruction) {
             case self::SECONDS:
-                sleep($this->_tti);
+                sleep($this->get_time_left());
                 break;
             case self::MILLISECONDS:
-                $tts = $this->_tti * 1000;
-                usleep($tts);
+                usleep($this->get_time_left() * 1000);
                 break;
-            case self::MICROSECONDS:
-                usleep($this->_tti);
-                break;
+            // case self::MICROSECONDS:
+            //     usleep($this->_idle_length);
+            //     break;
         }
     }
 
@@ -114,7 +112,7 @@ class Time extends \prggmr\engine\Idle {
      */
     public function get_length(/* ... */)
     {
-        return $this->_tti;
+        return $this->_idle_length;
     }
 
     /**
@@ -124,7 +122,7 @@ class Time extends \prggmr\engine\Idle {
      */
     public function get_time_until(/* ... */)
     {
-        return $this->_tts;
+        return $this->_stop_time;
     }
 
     /**
@@ -138,6 +136,71 @@ class Time extends \prggmr\engine\Idle {
     }
 
     /**
+     * Returns the amount of time left until the idle should stop.
+     *
+     * @return  integer|float
+     */
+    public function get_time_left()
+    {
+        switch ($this->_instruction) {
+            case self::SECONDS:
+                return $this->_stop_time - time();
+                break;
+            case self::MILLISECONDS:
+                return $this->_stop_time - milliseconds();
+                break;
+            // case self::MICROSECONDS:
+            //     return $this->_stop_time - microseconds();
+            //     break;
+        } 
+    }
+
+    /**
+     * Converts length of times from and to seconds, milliseconds and 
+     * microseconds.
+     *
+     * @param  integer|float  $length
+     * @param  integer  $to  To instruction
+     *
+     * @return  integer|float
+     */
+    public function convert_length($length, $to)
+    {
+        switch ($this->_instruction) {
+            case self::SECONDS:
+                switch($to) {
+                    case self::MILLISECONDS:
+                        return $length / 1000;
+                        break;
+                    // case self::MICROSECONDS:
+                    //     return $length / 1000000;
+                }
+                break;
+            case self::MILLISECONDS:
+                switch($to) {
+                    case self::SECONDS:
+                        return $length * .0001;
+                        break;
+                    // case self::MICROSECONDS:
+                    //     return $length / 1000;
+                    //     break;
+                }
+                break;
+            // case self::MICROSECONDS:
+            //     switch($to) {
+            //         case self::SECONDS:
+            //             return $length * 1e-6;
+            //             break;
+            //         case self::MILLISECONDS:
+            //             return $length * .0001;
+            //             break;
+            //     }
+            //     break;
+        }
+        return $length;
+    }
+
+    /**
      * Determines if the time to idle until has passed.
      *
      * @return  boolean
@@ -146,13 +209,10 @@ class Time extends \prggmr\engine\Idle {
     {
         switch ($this->_instruction) {
             case self::SECONDS:
-                return $this->_tts <= time();
+                return $this->_stop_time <= time();
                 break;
             case self::MILLISECONDS:
-                return $this->_tts <= milliseconds();
-                break;
-            case self::MICROSECONDS:
-                return $this->_tts <= microseconds();
+                return $this->_stop_time <= milliseconds();
                 break;
         }
     }
@@ -169,79 +229,14 @@ class Time extends \prggmr\engine\Idle {
         if ($this->has_time_passed()) {
             return true;
         }
-        $instruction = $time->get_instruction();
-        switch ($instruction) {
-            case self::SECONDS:
-                switch ($this->_instruction) {
-                    case self::SECONDS:
-                        if ($this->_tts <= $time->get_time_until()) {
-                            return false;
-                        }
-                        return true;
-                        break;
-                    case self::MILLISECONDS:
-                        $difference = ($this->_tts - milliseconds()) / 1000;
-                        if ($difference >= ($time->get_time_until() - time())) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                    case self::MICROSECONDS:
-                        $difference = ($this->_tts - microseconds()) / 1000000;
-                        if ($difference >= ($time->get_time_until() - time())) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                }
-                break;
-            case self::MILLISECONDS:
-                switch ($this->_instruction) {
-                    case self::SECONDS:
-                        $difference = ($this->_tts - time()) * 1000;
-                        if ($difference >= ($time->get_time_until() - milliseconds())) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                    case self::MILLISECONDS:
-                        if ($this->_tts >= ($time->get_time_until() - milliseconds())) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                    case self::MICROSECONDS:
-                        $difference = ($this->_tts - microseconds()) / 1000;
-                        if ($difference >= ($time->get_time_until() - milliseconds())) {
-                            return true;
-                        }
-                        return false;
-                }
-                break;
-            case self::MICROSECONDS:
-                switch ($this->_instruction) {
-                    case self::SECONDS:
-                        $difference = ($this->_tts - time()) * 1000000;
-                        if ($difference >= ($time->get_time_until() - microseconds())) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                    case self::MILLISECONDS:
-                        $difference = ($this->_tts - milliseconds()) * 1000;
-                        if ($difference <= ($time->get_time_until() - microseconds())) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                    case self::MICROSECONDS:
-                        if ($this->_tts >= $time->get_time_until()) {
-                            return true;
-                        }
-                        return false;
-                        break;
-                }
-                break;
-        }
+        $this_left = $this->convert_length(
+            $this->get_time_left(), 
+            self::SECONDS
+        );
+        $that_left = $time->convert_length(
+            $time->get_time_left(),
+            self::SECONDS
+        );
+        return $that_left < $this_left;
     }
 }

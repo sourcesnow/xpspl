@@ -14,6 +14,6 @@ prggmr\module\time\interval(10, function(){
     echo "10 seconds".PHP_EOL;
 }, prggmr\engine\idle\Time::SECONDS);
 
-prggmr\module\time\interval(1, function(){
+prggmr\module\time\interval(1000, function(){
     echo "1 millisecond".PHP_EOL;
 });

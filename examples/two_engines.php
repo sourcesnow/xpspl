@@ -4,13 +4,13 @@
 $engine1 = new prggmr\Engine();
 $engine2 = new prggmr\Engine();
 
-$engine1->handle(function(){
+$engine1->handle('test', function(){
     echo "This is engine #1".PHP_EOL;
-}, 'test');
+});
 
-$engine2->handle(function(){
+$engine2->handle('test', function(){
     echo "This is engine #2".PHP_EOL;
-}, 'test');
+});
 
 echo "Signal engine #1".PHP_EOL;
 $engine1->signal('test');

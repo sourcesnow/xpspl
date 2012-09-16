@@ -3,8 +3,9 @@
  * Non-Blocking Server
  */
 prggmr\load_module('socket');
+prggmr\load_module('time');
 
-$server = new prggmr\signal\socket\Server("0.0.0.0:1337");
+$server = new prggmr\module\socket\Server("0.0.0.0:1337");
 
 // On Connect
 $server->on_connect(function(){
@@ -15,10 +16,15 @@ $server->on_connect(function(){
 // On Disconnect
 $server->on_disconnect(function(){
     echo "Disconnecting".PHP_EOL;
-    $this->write("Goodbye".PHP_EOL);
 });
 
 // Register the server
-prggmr\handle(function(){
+// The server must have a null exhaust otherwise it will shutdown after 
+// it has handled the number of connections equal to the exhaust
+prggmr\handle($server, new prggmr\Handle(function(){
     echo "Server is running at ".$this->get_address().PHP_EOL;
-}, $server);
+}, null));
+
+prggmr\module\time\interval(15, function(){
+    echo "This still works :)";
+});

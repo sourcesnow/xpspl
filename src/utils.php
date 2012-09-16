@@ -33,7 +33,7 @@ spl_autoload_register(function($class){
  * @return  integer
  */
 function milliseconds(/* ... */) {
-    return microseconds() * 1000;
+    return round(microseconds() * 1000);
 }
 
 /**

@@ -133,7 +133,7 @@ function signal_interrupt($signal, $handle, $interrupt = null, $class = false)
 }
 
 /**
- * Returns the prggmr object instance.
+ * Returns the prggmr engine.
  * 
  * @return  object  prggmr\Engine
  */

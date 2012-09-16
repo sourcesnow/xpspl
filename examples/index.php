@@ -1,6 +1,5 @@
 <?php
 require '../src/prggmr.php';
-echo '<pre>';
 /**
  * This must run directly in your browser!
  * 
@@ -38,8 +37,8 @@ http\api\uri_request('/dashboard', function(){
 /**
  * Route to /user/:name
  */
-prggmr\signal_interrupt(new http\Uri("/user/:name"), function($name){
-    echo "Performing pre-handle action on $name";
+prggmr\signal_interrupt(new http\Uri("/user/:name"), function(){
+    echo "Performing pre-handle action on ".$this->name;
 });
 
 http\api\uri_request("/user/:name/:dog", function($name, $dog){
