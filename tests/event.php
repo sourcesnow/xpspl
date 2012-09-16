@@ -11,6 +11,7 @@ use prggmr\module\unittest as unittest;
 unittest\suite(function(){
 
     $this->setup(function(){
+        echo "SETUP";
         $this->event = new prggmr\Event();
     });
 
@@ -28,12 +29,12 @@ unittest\suite(function(){
         $this->equal($this->event->get_signal(), 'test_3');
     }, "Event set/get signal");
 
-    // $this->test(function(){
-    //     $this->event->set_result(true);
-    //     $this->true($this->event->get_result());
-    //     $this->event->set_result(false);
-    //     $this->false($this->event->get_result());
-    // }, "Event set/get result");
+    $this->test(function(){
+        $this->event->set_result(true);
+        $this->true($this->event->get_result());
+        $this->event->set_result(false);
+        $this->false($this->event->get_result());
+    }, "Event set/get result");
 
     // $this->test(function(){
     //     $this->equal($this->event->get_state(), STATE_DECLARED);

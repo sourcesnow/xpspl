@@ -56,7 +56,7 @@ class Test extends \prggmr\signal\Complex {
      */
     public function evaluate($signal = null)
     {
-        if ($signal instanceof $this) return true;
+        if ($signal === $this) return true;
         return false;
     }
 }
