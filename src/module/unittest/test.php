@@ -38,7 +38,7 @@ class Test extends \prggmr\signal\Complex {
             $this->_event = new Event();
         }
         $this->_info = $info;
-        parent::__construct($info);
+        parent::__construct();
     }
 
     /**
@@ -46,9 +46,6 @@ class Test extends \prggmr\signal\Complex {
      */
     public function routine($event_history = null)
     {
-        // if (null === $this->_event) {
-        //     $this->_event = new Event();
-        // }
         $this->signal_this($this->_event);
         // test signals always return to fire immediatly
         return true;

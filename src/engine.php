@@ -902,11 +902,15 @@ class Engine {
                 }
             }
         }
-        $lookup = [
-            (is_object($signal)) ? get_class($signal) : $signal
-        ];
+        $lookup = [];
+        $class_name = (is_object($signal)) ? get_class($signal) : $signal;
         if ($signal instanceof Signal) {
-            $lookup[] = $signal->get_info();
+            $info = $signal->get_info();
+            if ($info != $class_name) {
+                $lookup[] = $info;
+            }
+        } else {
+            $lookup[] = $class_name;
         }
         foreach ($lookup as $_index) {
             if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index])) {
@@ -914,6 +918,7 @@ class Engine {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
+                    echo "ADDING";
                     $queue->enqueue($_node[1], $_node[1]->get_priority());
                 }
             }

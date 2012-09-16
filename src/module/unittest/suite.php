@@ -84,7 +84,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_setup = $function->bindTo($this->_event);
+        $this->_setup = new \prggmr\Handle($function, null);
     }
 
     /**
@@ -101,7 +101,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_teardown = $function->bindTo($this->_event);
+        $this->_teardown = new \prggmr\Handle($function, null);
     }
 
     /**
@@ -115,12 +115,12 @@ class Suite {
         $handle = $this->_engine->handle($signal, $function);
         if (null !== $this->_setup) {
             $this->_engine->signal_interrupt(
-                $signal, clone $this->_setup, \prggmr\Engine::INTERRUPT_PRE
+                $signal, $this->_setup, \prggmr\Engine::INTERRUPT_PRE
             );
         }
         if (null !== $this->_teardown) {
             $this->_engine->signal_interrupt(
-                $signal, clone $this->_teardown, \prggmr\Engine::INTERRUPT_POST
+                $signal, $this->_teardown, \prggmr\Engine::INTERRUPT_POST
             );
         }
         return [$signal, $handle];

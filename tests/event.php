@@ -11,18 +11,14 @@ use prggmr\module\unittest as unittest;
 unittest\suite(function(){
 
     $this->setup(function(){
-        echo spl_object_hash($this).PHP_EOL;
         $this->event = new prggmr\Event();
     });
 
     $this->teardown(function(){
-        echo spl_object_hash($this).PHP_EOL;
         // unset($this->event);
     });
 
     $this->test(function(){
-        echo "HERE".PHP_EOL;
-        echo spl_object_hash($this).PHP_EOL;
         $this->event->set_signal('test');
         $this->equal($this->event->get_signal(), 'test');
         $this->event->set_state(STATE_RUNNING);

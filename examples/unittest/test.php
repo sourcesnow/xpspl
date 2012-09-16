@@ -5,29 +5,28 @@ use prggmr\module\unittest as unittest;
 // Enable history
 prggmr\save_event_history(true);
 
-unittest\test(function(){
-    $this->true(true);
-    $this->true(true);
-    $this->true(true);
-    $this->true(false);
-    $this->true(true);
-    $this->true(true);
-});
+// unittest\test(function(){
+//     echo "MEMEMEME";
+//     $this->true(true);
+//     $this->true(true);
+//     $this->true(true);
+//     $this->true(false);
+//     $this->true(true);
+//     $this->true(true);
+// });
 
 unittest\suite(function(){
     $this->setup(function(){
         $this->a = 1;
-        echo "SETUP";
     });
-    $this->teardown(function(){
-        echo "TEARDOWN";
-    });
+    // $this->teardown(function(){
+    //     echo "TEARDOWN";
+    // });
     $this->test(function(){
-        echo $this->a;
         $this->true(true);
+        $this->equal($this->a, 1);
     });
     $this->test(function(){
-        echo $this->a;
         $this->false(true);
     });
 });
