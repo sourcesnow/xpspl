@@ -9,7 +9,7 @@ $socket = stream_socket_server('tcp://127.0.0.1:5000', $errno, $errstr);
 stream_set_blocking($socket, 0);
 echo "START TIME".PHP_EOL;
 echo milliseconds().PHP_EOL;
-while(false !== $connect = @stream_socket_accept($socket, .0010)) {
+while(false !== $connect = @stream_socket_accept($socket, 0.01)) {
 }
 echo "END TIME".PHP_EOL;
 echo milliseconds().PHP_EOL;

@@ -80,7 +80,7 @@ final class Routine {
             );
         }
         foreach ($this->_idle as $_k => $_func) {
-            if (get_class($_func) === get_class($idle)) {
+            if ($_func instanceof $idle) {
                 if (!$_func->allow_override()) {
                     throw new \RuntimeException(sprintf(
                         "Idle class %s does not allow override",
@@ -98,16 +98,9 @@ final class Routine {
             usort($this->_idle, function($a, $b){
                 $a = $a->get_priority();
                 $b = $b->get_priority();
-                if (null === $a) {
-                    return -1;
-                }
-                if (null === $b) {
-                    return 1;
-                }
                 if ($a == $b) {
                     return 0;
                 }
-
                 return ($a < $b) ? -1 : 1;
             });
         }

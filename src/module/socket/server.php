@@ -6,6 +6,8 @@ namespace prggmr\module\socket;
  * that can be found in the LICENSE file.
  */
 
+use \prggmr\engine\idle as idle;
+
 /**
  * Socket stream server class.
  */
@@ -78,13 +80,13 @@ class Server extends \prggmr\signal\Complex {
 
         // Disconnect the connection immediatly after connecting
         // these are forced into the server
-        $this->on_connect(function(){
+        $this->on_connect(new \prggmr\Handle(function(){
             $this->disconnect();
-        }, PHP_MAX_INT, null);
+        }, null, PHP_MAX_INT));
 
-        $this->on_disconnect(function(){
+        $this->on_disconnect(new \prggmr\Handle(function(){
             stream_socket_shutdown($this->get_socket(), STREAM_SHUT_RDWR);
-        }, PHP_MAX_INT, null);
+        }, null, PHP_MAX_INT));
 
         parent::__construct();
 
@@ -101,29 +103,22 @@ class Server extends \prggmr\signal\Complex {
      */
     public function routine($history = null) 
     {
-        /**
-         * This allows for the signals to signal something within the server
-         * socket. This is done by passing the $server signal to the event
-         * I'm currently pondering a better solution for now this works.
-         */
-        if (count($this->_routine->get_signals()) !== 0) {
-            return true;
-        }
-        $this->_routine->set_idle(new \prggmr\engine\idle\Func(function($engine){
+        $this->_routine->set_idle(new idle\Func(function($engine){
             $idle = $engine->get_routine()->get_idles_available();
             // 30 second default wait
             $time = 30;
-            if (count($idle) == 2) {
+            if (count($this->_routine->get_signals()) !== 0) {
+                $time = 0;
+            } elseif (count($idle) == 2) {
                 foreach ($idle as $_idle) {
-                    if ($_idle instanceof \prggmr\engine\idle\Time) {
+                    if ($_idle instanceof idle\Time) {
                         $time = round($_idle->convert_length(
                             $_idle->get_time_left(), 
-                            \prggmr\engine\idle\Time::SECONDS
-                        ), 4);
+                            idle\Time::SECONDS
+                        ), 3);
                         break;
                     }
                 }
-                echo $time.PHP_EOL;
             }
             if (false !== $socket = @stream_socket_accept($this->_socket, $time)) {
                 $this->_routine->add_signal(
@@ -172,7 +167,6 @@ class Server extends \prggmr\signal\Complex {
      */
     public function send_disconnect($socket)
     {
-        echo "SEND DISCONNECT";
         $this->_routine->add_signal(
             $this->_disconnect,
             new event\Disconnect($socket, $this)

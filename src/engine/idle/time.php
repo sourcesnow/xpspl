@@ -92,6 +92,7 @@ class Time extends \prggmr\engine\Idle {
      */
     public function idle($engine)
     {
+        echo "RUNNING ME";
         switch ($this->_instruction) {
             case self::SECONDS:
                 sleep($this->get_time_left());
