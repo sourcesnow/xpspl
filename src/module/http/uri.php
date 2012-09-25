@@ -24,6 +24,11 @@ if (!defined('REQUEST_URI')) {
     define('REQUEST_URI', str_replace(BASE_URI, '', $request));
 }
 
+if(!defined('REQUEST_METHOD')) {
+    if (!isset($_SERVER['REQUEST_METHOD'])) $_SERVER['REQUEST_METHOD'] = 'GET';
+    define('REQUEST_METHOD', $_SERVER['REQUEST_METHOD']);
+}
+
  /**
   * Signal HTTP Request URI's to a handle.
   * URIs are matched using the "/path/:param" syntax.
