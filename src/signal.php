@@ -23,7 +23,7 @@ class Signal extends \prggmr\signal\Standard {
      *
      * @return  void
      */
-    public function __construct($info)
+    public function __construct($info = null)
     {
         if (!is_int($info) && !is_string($info)) {
             throw new \InvalidArgumentException(

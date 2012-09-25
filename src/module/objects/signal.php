@@ -18,7 +18,6 @@ namespace prggmr\module\objects;
  * java like eh :)
  */
 class Signal extends \prggmr\Signal {
-    
     /**
      * Sets the information as the class name.
      */

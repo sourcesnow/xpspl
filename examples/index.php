@@ -72,8 +72,8 @@ http\api\uri_request("/admin/:id", function(){
  */
 class Homepage extends \prggmr\module\http\uri\Listener {
 
-    protected $on_index = '/test';
-    protected $on_user_signup = '/user_signup/:name';
+    public $on_index = '/test';
+    public $on_user_signup = '/user_signup/:name';
 
     public function on_index($event)
     {
@@ -85,6 +85,11 @@ class Homepage extends \prggmr\module\http\uri\Listener {
         echo $event->name . " wants to sign up";
     }
 }
+
+prggmr\signal_interrupt(new http\Uri('/user_signup/:name'), function(){
+    $this->name = $this->name . ' the programmer';
+    return false;
+});
 
 prggmr\listen(new Homepage());
 

@@ -113,12 +113,6 @@ class Uri extends \prggmr\signal\Complex {
         } elseif (!is_array($method)) {
             $method = [$method];
         }
-        if (null !== $vars) {
-            if (!is_array($vars)) {
-                $vars = [$vars];
-            }
-            $this->_vars = $vars;
-        }
         // skip regex if method is not allowed
         if (!in_array($_SERVER['REQUEST_METHOD'], $method)) {
             return $this;

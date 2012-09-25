@@ -49,13 +49,6 @@ class Handle {
      * Is the handle function a closure.
      */
     protected $_isclosure = false;
-    
-    /**
-     * Array of additional parameters to pass the executing function.
-     *
-     * @var  array
-     */
-    protected $_params = null;
 
     /**
      * Object to bind the handle function, used only when not a closure.
@@ -104,25 +97,14 @@ class Handle {
      *
      * @return  mixed
      */
-    public function __invoke($params = null) 
+    public function __invoke() 
     {
-        # force array
-        if (null === $params) {
-            $params = [];
-        } elseif (!is_array($params)) {
-             $params = [$params];
-        }
-        
-        if (null !== $this->_params) {
-            $params = array_merge($params, $this->_params);
-        }
-
+        $param = null;
         if (!$this->_isclosure) {
-            array_unshift($params, $this->_bind);
+            $param = $this->_bind;
         }
-        $result = call_user_func_array($this->_function, $params);
+        $result = call_user_func($this->_function, $param);
         $this->_bind = null;
-        $this->_params = null;
         return $result;
     }
 
@@ -169,21 +151,6 @@ class Handle {
         }
 
         return false;
-    }
-    
-    /**
-     * Supply additional parameters to be passed to the handle.
-     *
-     * @param  mixed  $params  Array of parameters.
-     *
-     * @return  void
-     */
-    public function params($params)
-    {
-        if (!is_array($params)) {
-            $params = [$params];
-        }
-        $this->_params = array_merge((array) $this->_params, $params);
     }
 
     /**

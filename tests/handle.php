@@ -46,29 +46,4 @@ unittest\suite(function(){
         $this->true($handle->is_exhausted());
     }, "Handle exhaustion");
 
-    $this->test(function(){
-        $handle = new prggmr\Handle(function($a){
-            $this->equal($a, 'Two');
-        });
-        $handle->bind($this);
-        $a = "Two";
-        $this->equal($a, "Two");
-        $handle->params($a);
-        $handle();
-        $handle = new prggmr\Handle(function($zero, $one, $two){
-            $this->equal($zero, 0);
-            $this->equal($one, 1);
-            $this->equal($two, 2);
-        });
-        $handle->bind($this);
-        $handle->params([0, 1, 2]);
-        $handle();
-        $handle = new prggmr\Handle(function($array){
-            $this->equal($array, [0, 1, 2]);
-        });
-        $handle->bind($this);
-        $handle->params([[0, 1, 2]]);
-        $handle();
-    }, "Handle parameters");
-
 });
