@@ -5,11 +5,6 @@
 PHPPATH=$(php -r "echo get_include_path();") 
 INSTALLPATH=""
 BINPATH="/usr/bin"
-echo ""
-echo "======================================="
-echo "This will replace your existing install"
-echo "======================================="
-echo ""
 for x in $(echo $PHPPATH | tr ":" "\n")
 do
     if [ "$x" != "." ]; then
@@ -21,18 +16,22 @@ if [[ $INSTALL_PATH = "" ]]; then
     echo "Could not find your PHP include path";
     exit;
 fi
-install="$INSTALL_PATH/prggmr"
-rm -rf "$install"
-echo "Installing prggmr to $install"
-mkdir $install
-cp -Rf * "$install"
-rm "$BINPATH/prggmr"
+if [ -d "$INSTALL_PATH/prggmr" ]; then
+    rm -rf "$INSTALL_PATH/prggmr"
+fi;
+echo "Installing prggmr to $INSTALL_PATH/prggmr"
+mkdir $INSTALL_PATH/prggmr
+cp -Rf * "$INSTALL_PATH/prggmr"
+if [ -f "$BINPATH/prggmr" ]; then
+    rm "$BINPATH/prggmr"
+fi;
 echo "Installing the executable prggmr file"
-ln -s "$install/bin/prggmr" "$BINPATH"
+echo "Installed executable to $BINPATH/prggmr"
+ln -s "$INSTALL_PATH/prggmr/bin/prggmr" "$BINPATH"
 prggmr -v
 echo "Installed"
 echo "Have fun with prggmr"
-echo "Report bugs to https://github.com/nwhitingx/prggmr/issues"
+echo "Report bugs to https://github.com/prggmr/prggmr/issues"
 echo "====================================="
 prggmr -h
 
