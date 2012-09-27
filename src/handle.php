@@ -11,6 +11,11 @@ use \Closure,
     \RuntimeException;
 
 /**
+ * The default exhaustion rate.
+ */
+define('EXHUAST_DEFAULT', 1);
+
+/**
  * A handle is the function which will execute upon a signal call.
  *
  * Though attached to a signal the object itself contains no
@@ -66,7 +71,7 @@ class Handle {
      * 
      * @return  void
      */
-    public function __construct($function, $exhaust = 1, $priority = null)
+    public function __construct($function, $exhaust = EXHUAST_DEFAULT, $priority = null)
     {
         if (!$function instanceof Closure && !is_callable($function)) {
             throw new \InvalidArgumentException(sprintf(
