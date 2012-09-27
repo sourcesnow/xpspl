@@ -805,6 +805,34 @@ class Engine {
     }
 
     /**
+     * Registers a function to interrupt the signal stack before a signal fires,
+     * allowing for manipulation of the event beore it is passed to handles.
+     *
+     * @param  string|object  $signal  Signal instance or class name
+     * @param  object  $handle  Handle to execute
+     * 
+     * @return  boolean  True|False false is failure
+     */
+    public function before($signal, $handle)
+    {
+        return $this->_signal_interrupt($signal, $handle, self::INTERRUPT_PRE);
+    }
+
+    /**
+     * Registers a function to interrupt the signal stack after a signal fires,
+     * allowing for manipulation of the event after it is passed to handles.
+     *
+     * @param  string|object  $signal  Signal instance or class name
+     * @param  object  $handle  Handle to execute
+     * 
+     * @return  boolean  True|False false is failure
+     */
+    public function after($signal, $handle)
+    {
+        return $this->_signal_interrupt($signal, $handle, self::INTERRUPT_POST);
+    }
+
+    /**
      * Registers a function to interrupt the signal stack before or after a 
      * signal fires.
      *
@@ -814,7 +842,7 @@ class Engine {
      * 
      * @return  boolean  True|False false is failure
      */
-    public function signal_interrupt($signal, $handle, $interrupt = null) 
+    protected function _signal_interrupt($signal, $handle, $interrupt = null) 
     {
         // Variable Checks
         if (!$handle instanceof Handle) {

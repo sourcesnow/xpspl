@@ -1,5 +1,7 @@
 ## 2.0.0 TBD
 
+* Added API functions before, after
+* Removed signal_interrupt API function
 * search_signals now returns only the Queue object or null
 * Renamed load_module to load_module
 * Renamed src/signal to src/modules

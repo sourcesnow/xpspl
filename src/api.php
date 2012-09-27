@@ -116,20 +116,31 @@ function load_module($name, $dir = null)
 }
 
 /**
- * Registers a function to interupt the signal stack before or after a 
- * signal fires.
+ * Registers a function to interrupt the signal stack before a signal fires,
+ * allowing for manipulation of the event before it is passed to handles.
  *
- * @param  string|object  $signal
+ * @param  string|object  $signal  Signal instance or class name
  * @param  object  $handle  Handle to execute
- * @param  int|null  $place  Interruption location. prggmr\Engine::INTERRUPT_PRE|prggmr\Engine::INTERRUPT_POST
- * @param  boolean  $class  Register the given signal as a class based interruption
- *                          using the class instance.
  * 
  * @return  boolean  True|False false is failure
  */
-function signal_interrupt($signal, $handle, $interrupt = null, $class = false) 
+function before($signal, $handle)
 {
-    return \prggmr::instance()->signal_interrupt($signal, $handle, $interrupt, $class);
+    return \prggmr::instance()->before($signal, $handle);
+}
+
+/**
+ * Registers a function to interrupt the signal stack after a signal fires.
+ * allowing for manipulation of the event after it is passed to handles.
+ *
+ * @param  string|object  $signal  Signal instance or class name
+ * @param  object  $handle  Handle to execute
+ * 
+ * @return  boolean  True|False false is failure
+ */
+function after($signal, $handle)
+{
+    return \prggmr::instance()->after($signal, $handle);
 }
 
 /**
