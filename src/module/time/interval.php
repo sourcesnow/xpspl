@@ -34,6 +34,7 @@ class Interval extends \prggmr\module\time\Timeout {
     public function __construct($delay, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
     {
         parent::__construct($delay, $instruction);
+        $this->_event = new \prggmr\Event();
         $this->_delay = $delay;
     }
     
