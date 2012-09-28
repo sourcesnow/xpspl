@@ -11,11 +11,6 @@ define('PRGGMR_VERSION', '2.0.0-RC4');
 // The creator
 define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
-// dev mode
-if (defined('PRGGMR_DEV_MODE')) {
-    error_reporting(E_ALL);
-}
-
 // Add this to include path
 $prggmr_path = dirname(realpath(__FILE__));
 set_include_path($prggmr_path.'/../../' . PATH_SEPARATOR . get_include_path());
@@ -28,6 +23,11 @@ require $prggmr_path.'/api.php';
 // debugging mode disabled by default
 if (!defined('PRGGMR_DEBUG')) {
     define('PRGGMR_DEBUG', false);
+}
+
+// dev mode
+if (defined('PRGGMR_DEBUG')) {
+    error_reporting(E_ALL);
 }
 
 // evented exceptions disabled by default
