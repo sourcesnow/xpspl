@@ -37,4 +37,20 @@ class Event extends \prggmr\Event {
     {
         return $this->_uri;
     }
+
+    /**
+     * Returns a segment of the URI.
+     *
+     * @param  integer  $index  Index segment to return
+     * 
+     * @return  string|boolean
+     */
+    public function get_uri_segment($index)
+    {
+        $explode = explode("/", $this->_uri);
+        if (!isset($explode[$index])) {
+            return false;
+        }
+        return $explode[$index];
+    }
 }
