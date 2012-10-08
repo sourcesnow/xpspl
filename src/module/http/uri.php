@@ -16,7 +16,11 @@ if (!defined('BASE_URI')) {
 
 // Define the base REQUEST_URI
 if (!defined('REQUEST_URI')) {
-    $request = $_SERVER['REQUEST_URI'];
+    if (isset($_SERVER['REQUEST_URI'])) {
+        $request = $_SERVER['REQUEST_URI'];
+    } else {
+        $request = '/';
+    }
     $pos = strpos($request, '?');
     if ($pos) {
         $request = substr($request, 0, $pos);

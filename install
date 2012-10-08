@@ -2,6 +2,15 @@
 ########################
 # Installs prggmr to the php include path
 ########################
+VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
+if [ $VERSION != '1' ];
+then
+    echo "flames requires at least PHP 5.4"
+    echo "Found"
+    which php
+    php -v
+    exit;
+fi;
 PHPPATH=$(php -r "echo get_include_path();") 
 INSTALLPATH=""
 BINPATH="/usr/bin"
