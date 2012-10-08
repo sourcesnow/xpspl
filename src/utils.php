@@ -15,16 +15,33 @@
  * Prggmr autoloader
  */
 define('PRGGMR_AUTOLOADER', true);
-if (!defined('PRGGMR_AUTOLOAD_STRICT')) {
-    define('PRGGMR_AUTOLOAD_STRICT', true);
-}
 spl_autoload_register(function($class){
-    // remove prggmr name from class name
-    $paths = explode('\\', $class);
-    $lib = array_shift($paths);
-    $file = $lib.'/'.'src/'.strtolower(implode('/', $paths)).'.php';
-    if (!file_exists($file) && false === PRGGMR_AUTOLOAD_STRICT) return;
-    include $file;
+    if (strpos($class, '\\') !== false) {
+        $paths = explode('\\', $class);
+        $lib = array_shift($paths);
+        $file = strtolower(implode('/', $paths)).'.php';
+        $inc = stream_resolve_include_path(
+            str_replace('\\', '/', $class).'.php'
+        );
+        $src = stream_resolve_include_path(
+            strtolower($lib).'/src/'.$file
+        );
+        if (false !== $inc) {
+            include $inc;
+            return;
+        }
+        if (false !== $src) {
+            include $src;
+            return;
+        }
+    } else {
+        $file = stream_resolve_include_path(
+            strtolower($class).'.php'
+        );
+        if (false !== $file) {
+            include $file;
+        }
+    }
 });
 
 /**

@@ -9,11 +9,3 @@ $dir = dirname(realpath(__FILE__));
 /**
  * Autoload the socket signals.
  */
-require_once $dir.'/socket.php';
-require_once $dir.'/server/stream.php';
-require_once $dir.'/signal/connect.php';
-require_once $dir.'/signal/disconnect.php';
-require_once $dir.'/event/connect.php';
-require_once $dir.'/event/disconnect.php';
-require_once $dir.'/event/server.php';
-

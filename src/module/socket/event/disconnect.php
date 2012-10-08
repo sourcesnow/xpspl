@@ -18,7 +18,7 @@ class Disconnect extends Connect {
      * 
      * @return  void
      */
-    public function disconnect()
+    public function disconnect($how = STREAM_SHUT_RDWR)
     {
         throw new \LogicException(sprintf(
             "Socket %s is already disconnected",

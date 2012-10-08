@@ -23,7 +23,6 @@ class Server extends \prggmr\Event {
      */
     public function __construct($socket, $ttl = null)
     {
-        $this->signal_stream = $signal_stream;
         $this->_socket = $socket;
         return parent::__construct($ttl);
     }

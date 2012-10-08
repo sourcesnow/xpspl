@@ -10,7 +10,7 @@ use \prggmr\engine\idle as idle;
 use \prggmr\module\socket as socket;
 
 /**
- * Socket stream server class which that uses select.
+ * Socket stream server class that uses select.
  */
 class Select extends \prggmr\signal\Complex {
 
@@ -83,11 +83,11 @@ class Select extends \prggmr\signal\Complex {
         // these are forced into the server
         $this->on_connect(new \prggmr\Handle(function(){
             $this->disconnect();
-        }, null, PHP_MAX_INT));
+        }, null, PHP_INT_MAX));
 
         $this->on_disconnect(new \prggmr\Handle(function(){
             stream_socket_shutdown($this->get_socket(), STREAM_SHUT_RDWR);
-        }, null, PHP_MAX_INT));
+        }, null, PHP_INT_MAX));
 
         parent::__construct();
 
