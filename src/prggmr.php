@@ -6,7 +6,7 @@
  */
 
 // library version
-define('PRGGMR_VERSION', '2.0.0');
+define('PRGGMR_VERSION', '2.0.1');
 
 // The creator
 define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
@@ -23,6 +23,16 @@ require $prggmr_path.'/api.php';
 // debugging mode disabled by default
 if (!defined('PRGGMR_DEBUG')) {
     define('PRGGMR_DEBUG', false);
+}
+
+// have the engine throw exceptions on signal errors
+if (!defined('PRGGMR_ENGINE_EXCEPTIONS')) {
+    define('PRGGMR_ENGINE_EXCEPTIONS', true);
+}
+
+// event history original setting
+if (!defined('PRGGMR_EVENT_HISTORY')) {
+    define('PRGGMR_EVENT_HISTORY', false);
 }
 
 // dev mode
@@ -69,6 +79,11 @@ final class prggmr extends \prggmr\Engine {
         return PRGGMR_VERSION;
     }
 }
+
+/**
+ * Start the engine VROOOOOOM!
+ */
+prggmr::init(PRGGMR_EVENT_HISTORY, PRGGMR_ENGINE_EXCEPTIONS);
 
 /**
  * Enables prggmr to transform any errors and exceptions into a 

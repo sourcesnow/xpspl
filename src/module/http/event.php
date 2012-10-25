@@ -48,6 +48,9 @@ class Event extends \prggmr\Event {
     public function get_uri_segment($index)
     {
         $explode = explode("/", $this->_uri);
+        if ($explode[0] === '') {
+            array_shift($explode);
+        }
         if (!isset($explode[$index])) {
             return false;
         }

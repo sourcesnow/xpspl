@@ -128,7 +128,7 @@ class Uri extends \prggmr\signal\Complex {
         }
         $this->_routes = [];
         if (is_array($uri)) {
-            if (is_array($uri[0])) {
+            if (!is_array($uri[1])) {
                 foreach ($uri as $_route) {
                     $this->_routes[] = $this->_generate_regex($_route);
                 }

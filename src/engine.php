@@ -32,38 +32,6 @@ class Engine {
     use State, Storage;
 
     /**
-     * Returns of calling queue.
-     * 
-     * QUEUE_NEW
-     * A new empty queue was created.
-     * 
-     * QUEUE_EMPTY
-     * An empty queue was found.
-     * 
-     * QUEUE_NONEMPTY
-     * A non-empty queue was found.
-     */
-    const QUEUE_NEW = 0xA01;
-    const QUEUE_EMPTY = 0xA02;
-    const QUEUE_NONEMPTY = 0xA03;
-
-    /**
-     * Search Results
-     * 
-     * SEARCH_NULL
-     * Found no results
-     * 
-     * SEARCH_FOUND
-     * Found a single result
-     * 
-     * SEARCH_NOOP
-     * Search is non-operational (looking for non-searchable)
-     */
-    const SEARCH_NULL = 0xA04;
-    const SEARCH_FOUND = 0xA05;
-    const SEARCH_NOOP = 0xA06;
-
-    /**
      * Storage container node indices
      */
     const HASH_STORAGE = 0;
@@ -96,13 +64,6 @@ class Engine {
      * @var  object  \prggmr\Event
      */
     protected $_current_event = null;
-
-    /**
-     * Number of recursive event calls
-     * 
-     * @var  integer
-     */
-    protected $_event_recursive = 0;
 
     /**
      * Event children
@@ -153,8 +114,9 @@ class Engine {
      */
     public function __construct($event_history = true, $engine_exceptions = true)
     {
-        $this->_engine_exceptions = (bool) $engine_exceptions;
-        $this->_store_history = (bool) $event_history;
+        $this->_engine_exceptions = $engine_exceptions;
+        $this->_store_history = $event_history;
+        $this->set_state(STATE_DECLARED);
         $this->flush();
         if ($this->_engine_exceptions) {
            $this->_register_error_handler();
@@ -691,6 +653,7 @@ class Engine {
             $_handle->bind($event);
             // set event as running
             $event->set_state(STATE_RUNNING);
+            $result = null;
             if ($this->_engine_exceptions) {
                 $result = $_handle();
             } else {
@@ -698,12 +661,13 @@ class Engine {
                     $result = $_handle();
                 } catch (\Exception $exception) {
                     $event->set_state(STATE_ERROR);
+                    // We hit a recursive loop
                     if ($exception instanceof Engine_Exception) {
                         throw $exception;
                     }
                     $this->signal(new engine_signals\Handle_Exception(
                         "Exception occured during handle execution"
-                    ),  new engine\event\Error([$exception, $signal]));
+                    ),  new engine\event\Error([$exception, $event]));
                 }
             }
             if (null !== $result) {
@@ -1091,7 +1055,7 @@ class Engine_Exception extends \Exception {
     public function __construct($message, $signal, $args)
     {
         parent::__construct($message);
-        $this->_signal = $type;
+        $this->_signal = $signal;
         $this->_args = $args;
     }
 

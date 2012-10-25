@@ -26,9 +26,8 @@ class Signal extends \prggmr\signal\Standard {
     public function __construct($info = null)
     {
         if (!is_int($info) && !is_string($info)) {
-            throw new \InvalidArgumentException(
-                'Invalid signal type given'
-            );
+            $this->_info = strtolower(get_class($this));
+            return;
         }
         $this->_info = $info;
     }
