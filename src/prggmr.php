@@ -12,13 +12,15 @@ define('PRGGMR_VERSION', '2.0.1');
 define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
 // Add this to include path
-$prggmr_path = dirname(realpath(__FILE__));
-set_include_path($prggmr_path.'/../../' . PATH_SEPARATOR . get_include_path());
+if (!defined('PRGGMR_PATH')) {
+    define('PRGGMR_PATH', dirname(realpath(__FILE__));
+}
+set_include_path(PRGGMR_PATH . PATH_SEPARATOR . get_include_path());
 
 // start'er up
 // utils & traits
-require $prggmr_path.'/utils.php';
-require $prggmr_path.'/api.php';
+require PRGGMR_PATH.'/utils.php';
+require PRGGMR_PATH.'/api.php';
 
 // debugging mode disabled by default
 if (!defined('PRGGMR_DEBUG')) {
@@ -44,6 +46,19 @@ if (defined('PRGGMR_DEBUG')) {
 if (!defined('SIGNAL_ERRORS_EXCEPTIONS')) {
     define('SIGNAL_ERRORS_EXCEPTIONS', false);
 }
+
+// detect if using windows ...
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    define('WINDOWS', true);
+} else {
+    define('WINDOWS', false);
+}
+
+// directory for listerners being loaded
+if (!defined('LISTENER_PATH')) {
+    define('LISTENER_PATH', PRGGMR_PATH);
+}
+
 /**
  * The prggmr object works as the global instance used for managing the
  * global engine instance.

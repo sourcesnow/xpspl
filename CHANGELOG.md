@@ -1,4 +1,12 @@
-## 2.0.0 TBD
+## 2.0.2 TBD
+
+* Added the dir_include API function.
+
+## 2.0.1 102412
+
+* Signals now default to their class name if no information is provided.
+
+## 2.0.0 100812
 
 * Added API functions before, after
 * Removed signal_interrupt API function

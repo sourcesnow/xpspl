@@ -259,3 +259,47 @@ function listen($listener)
 {
     return \prggmr::instance()->listen($listener);
 }
+
+/**
+ * Performs a inclusion of the entire directories contents, including 
+ * subdirectories, with the option to start a listener once the file has been 
+ * included.
+ *
+ * @param  string  $dir  Directory to include.
+ * @param  boolean  $listen  Start listeners.
+ * @param  string  $path  Path to ignore when starting listeners.
+ *
+ * @return  void
+ */
+function dir_include($dir, $listen = false, $path = LISTENER_PATH)
+{
+    /**
+     * This is some pretty narly code but so far the fastest I have been able 
+     * to get this to run.
+     */
+    $dir = new \RegexIterator(
+        new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($path.'/events/')
+        ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
+    );
+    foreach ($dir as $_file) {
+        array_map(function($i) use ($path, $listen){
+            include $i;
+            if (!$listen) {
+                return false;
+            }
+            if (WINDOWS) {
+                $x = '\\';
+            } else {
+                $x = '/';
+            }
+            $data = explode($x, str_replace([$path.'/', '.php'], '', $i));
+            $namespace = implode('\\', $data);
+            $handle = $namespace.'\\'.ucfirst($class);
+            if (class_exists($handle, false) && 
+                is_subclass_of($handle, '\prggmr\Listener')) {
+                prggmr\listen(new $handle());
+            }
+        }, $_file);
+    }
+}
