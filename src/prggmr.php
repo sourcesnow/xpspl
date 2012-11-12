@@ -13,7 +13,7 @@ define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
 // Add this to include path
 if (!defined('PRGGMR_PATH')) {
-    define('PRGGMR_PATH', dirname(realpath(__FILE__));
+    define('PRGGMR_PATH', dirname(realpath(__FILE__)));
 }
 set_include_path(PRGGMR_PATH . PATH_SEPARATOR . get_include_path());
 
@@ -52,11 +52,6 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     define('WINDOWS', true);
 } else {
     define('WINDOWS', false);
-}
-
-// directory for listerners being loaded
-if (!defined('LISTENER_PATH')) {
-    define('LISTENER_PATH', PRGGMR_PATH);
 }
 
 /**
