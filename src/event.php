@@ -34,11 +34,6 @@ class Event {
     protected $_parent = null;
 
     /**
-     * Signal event represents.
-     */
-    protected $_signal = null;
-
-    /**
      * Event TTL
      */
     private $_ttl = null;
@@ -84,11 +79,13 @@ class Event {
      */
     public function set_signal($signal)
     {
-        if ($this->_state !== STATE_DECLARED &&
-            $this->_state !== STATE_RECYCLED) {
-            return false;
-        }
-        $this->_signal = $signal;
+        return;
+        // if ($this->_state !== STATE_DECLARED &&
+        //     $this->_state !== STATE_RECYCLED) {
+        //     return;
+        // }
+        // the signal is now returned directly from the engine
+        // $this->_signal = $signal;
     }
 
     /**
@@ -98,7 +95,7 @@ class Event {
      */
     public function get_signal(/* ... */)
     {
-        return $this->_signal;
+        return current_signal();
     }
 
     /**

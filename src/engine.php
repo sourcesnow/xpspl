@@ -45,7 +45,7 @@ class Engine {
     const INTERRUPT_POST = 1;
 
     /**
-     * Last sig handler added to the engine.
+     * Last signal added to the engine.
      * 
      * @var  object
      */
@@ -56,14 +56,14 @@ class Engine {
      * 
      * @var  array
      */
-    protected $_event_history = [];
+    protected $_history = [];
 
     /**
      * Current event in execution
      * 
      * @var  object  \prggmr\Event
      */
-    protected $_current_event = null;
+    protected $_event = [];
 
     /**
      * Event children
@@ -92,16 +92,14 @@ class Engine {
     private $_engine_exceptions = null;
 
     /**
-     * Maintain the event history.
-     *
-     * @var  boolean
-     */
-    private $_store_history = null;
-
-    /**
      * Signal registered for the engine exception signals.
      */
     private $_engine_handle_signal = null;
+
+    /**
+     * Currently executing signal.
+     */
+    private $_signal = [];
 
     /**
      * Starts the engine.
@@ -114,8 +112,10 @@ class Engine {
      */
     public function __construct($event_history = true, $engine_exceptions = true)
     {
-        $this->_engine_exceptions = $engine_exceptions;
-        $this->_store_history = $event_history;
+        $this->_engine_exceptions = (bool) $engine_exceptions;
+        if ($event_history === false) {
+            $this->_history = $event_history;
+        }
         $this->set_state(STATE_DECLARED);
         $this->flush();
         if ($this->_engine_exceptions) {
@@ -138,6 +138,8 @@ class Engine {
             }
         }
         $handle = new Handle(function(){
+            // TODO - FIX THIS DAMN MESS!!!!
+            var_dump($this);
             $args = func_get_args();
             $message = $this->get_signal()->get_error();
             $exception = $this->get_signal()->get_exception();
@@ -180,7 +182,7 @@ class Engine {
      */
     public function erase_history()
     {
-        $this->_event_history = [];
+        $this->_history = [];
     }
 
     /**
@@ -231,7 +233,7 @@ class Engine {
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
             try {
                 // Run the routine
-                $_routine = $_node[0]->routine($this->_event_history);
+                $_routine = $_node[0]->routine($this->_history);
                 // Did it return true
                 if (true === $_routine) {
                     $_routine = $_node[0]->get_routine();
@@ -342,7 +344,7 @@ class Engine {
     public function flush(/* ... */)
     {
         $this->_storage = [[], [], []];
-        $this->_event_history = [];
+        $this->_history = [];
         $this->set_state(STATE_DECLARED);
     }
 
@@ -521,18 +523,19 @@ class Engine {
                 $event->set_state(STATE_RECYCLED);
             }
         }
-        $event->set_signal($signal);
+        // keep track of the current event
+        $this->_event[] = $event;
+        // the event no longer knows of a signal
+        // $event->set_signal($signal);
         // are we keeping the history
-        if (!$this->_store_history) {
+        if (!$this->_history) {
             return $event;
         }
         // event history management
-        if (null !== $this->_current_event) {
-            $this->_event_children[] = $this->_current_event;
-            $event->set_parent($this->_current_event);
+        if (count($this->_event) > 1)  {
+            $event->set_parent($this->event(-1));
         }
-        $this->_current_event = $event;
-        $this->_event_history[] = [$event, $signal, milliseconds()];
+        $this->_history[] = [$event, $signal, milliseconds()];
         return $event;
     }
 
@@ -548,7 +551,7 @@ class Engine {
             $event->set_state(STATE_EXITED);
         }
         // are we keeping the history
-        if (!$this->_store_history) {
+        if (!$this->_history) {
             return null;
         }
         if (count($this->_event_children) !== 0) {
@@ -569,6 +572,8 @@ class Engine {
      */
     public function signal($signal, $event = null, $ttl = null)
     {
+        // store engine signal
+        $this->signal[] = $signal;
         // load engine event
         $event = $this->_event($signal, $event, $ttl);
         // locate sig handlers
@@ -581,6 +586,7 @@ class Engine {
         // evaluate complex signals
         $evalated = $this->evaluate_signals($signal);
         if (null !== $evalated) {
+            // TODO : CLEAN THIS
             array_walk($evalated, function($node) use ($queue) {
                 if (is_bool($node[1]) === false) {
                     $data = $node[1];
@@ -592,7 +598,11 @@ class Engine {
             });
         }
 
-        return $this->_execute($signal, $queue, $event);
+        $event = $this->_execute($signal, $queue, $event);
+        // Remove the last signal
+        array_pop($this->_signal);
+        // exit the signal
+        return $event;
     }
 
     /**
@@ -687,7 +697,7 @@ class Engine {
      */
     public function event_history(/* ... */)
     {
-        return $this->_event_history;
+        return $this->_history;
     }
 
     /**
@@ -710,7 +720,10 @@ class Engine {
      */
     public function event_analysis($output, $template = null)
     {
-        if (!$this->_store_history) return false;
+        /**
+         * TODO : GET ANALYSIS UP AND RUNNING
+         */
+        if (!$this->_history) return false;
         if (null === $template) {
             $template = 'html';
         }
@@ -989,27 +1002,27 @@ class Engine {
      */
     public function erase_signal_history($signal)
     {
-        if (!$this->_store_history || count($this->_event_history) == 0) {
+        if (!$this->_history) {
             return false;
         }
         // recursivly check if any events are a child of the given signal
         // because if the chicken doesn't exist neither does the egg ...
         // or does it?
-        $descend_destory = function($event) use ($signal, &$descend_destory) {
+        $descend_destory = function($_event, $_signal) use ($signal, &$descend_destory) {
             // child and not a child of itself
-            if ($event->is_child() && $event->get_parent() !== $event) {
-                return $descend_destory($event->get_parent());
+            if ($_event->is_child() && $_event->get_parent() !== $_event) {
+                return $descend_destory($_event->get_parent(), $_signal);
             }
-            if ($event->get_signal() === $signal) {
+            if ($_signal === $signal) {
                 return true;
             }
         };
-        foreach ($this->_event_history as $_key => $_node) {
+        foreach ($this->_history as $_key => $_node) {
             if ($_node[1] === $signal) {
-                unset($this->_event_history[$_key]);
+                unset($this->_history[$_key]);
             } elseif ($_node[0]->is_child() && $_node[0]->get_parent() !== $_node[0]) {
-                if ($descend_destory($_node[0]->get_parent())) {
-                    unset($this->_event_history[$_key]);
+                if ($descend_destory($_node[0]->get_parent(), $_node[1])) {
+                    unset($this->_history[$_key]);
                 }
             }
         }
@@ -1017,7 +1030,8 @@ class Engine {
 
     /**
      * Sets the flag for storing the event history.
-     * If disabling the history this does not clear the current.
+     *
+     * Note that this will delete the current if reset.
      *
      * @param  boolean  $flag
      *
@@ -1025,7 +1039,51 @@ class Engine {
      */
     public function save_event_history($flag)
     {
-        $this->_store_history = (bool) $flag;
+        if ((bool) $flag === true) {
+            if (!$this->_history) {
+                $this->_history = [];
+            }
+            return;
+        }
+        $this->_history = false;
+    }
+
+    /**
+     * Returns the current signal in execution.
+     *
+     * @param  integer  $hier  In memory hierarchy to assend.
+     *
+     * @return  object
+     */
+    public function current_signal($hier)
+    {
+        $count = count($this->_signal);
+        if ($count === 0) {
+            return null;
+        }
+        if ($count === 1) {
+            return $this->_signal[0];
+        }
+        return array_index_end($hier, $this->_signal);
+    }
+
+    /**
+     * Returns the current event.
+     *
+     * @param  integer  $hier  In memory hierarchy to assend.
+     *
+     * @return  object  \prggmr\Event
+     */
+    public function current_event($hier = 0)
+    {
+        $count = count($this->_event);
+        if ($count === 0) {
+            return null;
+        }
+        if ($count === 1) {
+            return $this->_event[0];
+        }
+        return array_index_end($hier, $this->_event);
     }
 }
 

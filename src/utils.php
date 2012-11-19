@@ -11,6 +11,20 @@
  * These are utility functions used within or in conjunction with prggmr.
  */
 
+// -------------------------------------------------------------------------- \\
+
+/**
+ * Checks if runkit is installed.
+ *
+ * @return  void
+ */
+function load_runkit(/* ... */)
+{
+    if (!function_exists('runkit_function_redefine')) {
+        defined('RUNKIT_DISALLOW',  true);
+    }
+}
+
 /**
  * Prggmr autoloader
  */
@@ -21,7 +35,7 @@ spl_autoload_register(function($class){
         $lib = array_shift($paths);
         $file = strtolower(implode('/', $paths)).'.php';
         $inc = stream_resolve_include_path(
-            str_replace('\\', '/', $class).'.php'
+            str_replace('\\', '/', strtolower($class)).'.php'
         );
         $src = stream_resolve_include_path(
             strtolower($lib).'/src/'.$file
@@ -44,6 +58,8 @@ spl_autoload_register(function($class){
     }
 });
 
+// -------------------------------------------------------------------------- \\
+
 /**
  * Returns the current time since epox in milliseconds.
  * 
@@ -53,6 +69,8 @@ function milliseconds(/* ... */) {
     return round(microseconds() * 1000);
 }
 
+// -------------------------------------------------------------------------- \\
+
 /**
  * Returns the current time since epox in microseonds.
  *
@@ -61,6 +79,8 @@ function milliseconds(/* ... */) {
 function microseconds(/* ... */) {
     return microtime(true);
 }
+
+// -------------------------------------------------------------------------- \\
 
 /**
  * Transforms PHP exceptions into a signal.
@@ -77,6 +97,8 @@ function signal_exceptions($exception) {
         new \prggmr\engine\event\Error($exception)
     );
 }
+
+// -------------------------------------------------------------------------- \\
 
 /**
  * Transforms PHP errors into a signal.
@@ -98,6 +120,8 @@ function signal_errors($errno, $errstr, $errfile, $errline) {
     ]));
 }
 
+// -------------------------------------------------------------------------- \\
+
 /**
  * Performs a binary search for the given node returning the index.
  * 
@@ -111,7 +135,7 @@ function signal_errors($errno, $errstr, $errfile, $errline) {
  * @param  array  $haystack  Hackstack
  * @param  closure  $compare  Comparison function
  * 
- * @return  null|int  integer index location, null locate failure
+ * @return  null|integer  index, null locate failure
  */
 function bin_search($needle, $haystack, $compare = null) {
     if (null === $compare) {
@@ -157,5 +181,27 @@ function bin_search($needle, $haystack, $compare = null) {
         }
     }
 
+    return null;
+}
+
+// -------------------------------------------------------------------------- \\
+
+/**
+ * Returns the current index counting from the end.
+ *
+ * @param  integer  $index
+ * @param  array  $array
+ *
+ * @return  null|php value
+ */
+function array_index_end($index, $array)
+{
+    $count = count($array) - 1;
+    for($i=$count;$i!=$heir;$i++) {
+        if ($heir === 0) {
+            return $array[$i];
+        }
+        $heir--;
+    }
     return null;
 }
