@@ -184,8 +184,6 @@ function bin_search($needle, $haystack, $compare = null) {
     return null;
 }
 
-// -------------------------------------------------------------------------- \\
-
 /**
  * Returns the current index counting from the end.
  *

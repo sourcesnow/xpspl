@@ -7,7 +7,7 @@
 
 // library version
 define('PRGGMR_VERSION', '2.0.2');
-echo '<pre>';
+
 // The creator
 define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
@@ -15,7 +15,7 @@ define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 if (!defined('PRGGMR_PATH')) {
     define('PRGGMR_PATH', dirname(realpath(__FILE__)));
 }
-set_include_path(PRGGMR_PATH . '/../../' . PATH_SEPARATOR . get_include_path());
+set_include_path(PRGGMR_PATH . PATH_SEPARATOR . get_include_path());
 
 // start'er up
 // utils & traits
