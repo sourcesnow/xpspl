@@ -48,10 +48,12 @@ if (!defined('SIGNAL_ERRORS_EXCEPTIONS')) {
 }
 
 // detect if using windows ...
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    define('WINDOWS', true);
-} else {
-    define('WINDOWS', false);
+if (!defined('WINDOWS')) {
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        define('WINDOWS', true);
+    } else {
+        define('WINDOWS', false);
+    }
 }
 
 /**
