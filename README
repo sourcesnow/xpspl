@@ -1,118 +1,162 @@
-Real-time signals, events and asynchronous non-blocking i/o for PHP.
+## Install
 
-## Run'n Gun Install
+Run the following command and enter your password.
 
-Run the following command and enter your pa$$w0rd!
-
-    $ curl prggmr.org/prggmr | sh
+    $ curl -s prggmr.org/prggmr | sh
     $ prggmr -v
 
-This will download and install the latest stable release of prggmr.
+__Updates are performed using the same command.__
 
-## Set intervals and timeouts
-
-    \prggmr\load_module('time');
-
-    \prggmr\module\time\interval(10, function(){ 
-        echo "10 milliseconds"; 
-    });
-
-## Signal and handle events
-
-    <?php
-
-    prggmr\handle('light.green', function(){
-        echo "The light is green GO GO GO!"
-    });
-
-    prggmr\signal('light.green');
-
-## Handle interruption
-
-    <?php
-
-    prggmr\handle('light.green', function(){
-        echo "The ".$this->car." car is moving";
-        $this->car_speed = 100;
-    });
-
-    prggmr\before('light.green', function(){
-        $this->car = 'Honda S2000';
-    });
-
-    prggmr\after('light.green', function(){
-        echo "The ".$this->car." is going ".$this->car_speed."MPH!!";
-    });
-
-    prggmr\signal('light.green');
-
-## Asynchronous server
-
-    <?php
-    
-    prggmr\load_signal('socket');
-
-    $server = new prggmr\signal\socket\Server("0.0.0.0:1337");
-
-    // On Connect
-    $server->on_connect(function(){
-        echo "New Connection".PHP_EOL;
-        $this->write("Hello".PHP_EOL);
-    });
-
-    // On Disconnect
-    $server->on_disconnect(function(){
-        echo "Disconnecting".PHP_EOL;
-        $this->write("Goodbye".PHP_EOL);
-    });
-
-    // Register the server
-    prggmr\handle(function(){
-        echo "Server is running at ".$this->get_address().PHP_EOL;
-    }, $server);
-
-## Mailing List
-
-The prggmr mailing list is located here [mailing list](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
-
-## Versions
-
-prggmr uses [semver](http://semver.org) you should too.
-
-## Module Roadmap
-
-The following Modules are on the development roadmap.
-
-
-### Event Stream Server
-
-W3C Event-Stream (Specs)[http://dev.w3.org/html5/eventsource/].
-
-#### Example
+## Including the library
 
 ```php
 <?php
 
-$socket = new \prggmr\signal\http\EventStream();
-
-handle($socket->read(), function($bytes){
-    // do something
-});
-
-handle($socket->write(), function($bytes){
-    // do something
-});
+require_once 'prggmr/src/prggmr.php';
 ```
 
-### prggmr Event Server
+## Options
 
-A real-time complex event event server.
+Options are defined in boolean constants before loading the library.
 
-### PEL - prggmr Event Language
+### PRGGMR_PATH
 
-An SQL language that can be used to communicate with the event server.
+Path to the library source.
 
-```sql
-SIGNAL weeding WHEN groom AND bride AND church_bells IF groom.tuxedo = black
-and bride.gown = white AND bride RECIEVED_AFTER groom
+### PRGGMR_EVENT_HISTORY
+
+Remember the event history.
+
+### PRGGMR_DEBUG
+
+Debug mode. ```error_reporting(E_ALL)```
+
+### SIGNAL_ERRORS_EXCEPTIONS
+
+Turn all php errors into a signal.
+
+*Currently this feature has a known problem and does not function*
+
+### WINDOWS
+
+Running windows OS.
+
+*Detected automatically*
+
+## Usage
+
+### Command
+
+prggmr ships with the ```prggmr``` command.
+
+```sh
+prggmr -h
+usage: prggmr [options...] file
+
+Current options:
+  -c/--config   Configuration file
+  -d            Used for the development of prggmr.
+  -h/--help     Show this help message.
+  -p/--passthru Pass the procedding arguments to the file
+  -t/--time     Length of time to run in milliseconds.
+  -u/--unittest Load the unit testing module.
+  -v/--version  Displays current prggmr version.
 ```
+
+## Examples
+
+### Time based functions
+
+Allow for executing functions based on past time.
+
+```php
+<?php
+\prggmr\load_module('time');
+    
+\prggmr\module\time\interval(10, function(){ 
+    echo "10 millisecond interval"; 
+});
+
+\prggmr\module\time\timeout(50, function(){
+    echo "50 second timeout";
+}, \prggmr\engine\idle\Time::SECONDS);
+```
+
+### Signal and Handle Events
+
+The most basic event procedure.
+
+```php
+<?php
+
+prggmr\handle('signal_name', function(){
+    echo "The ".\prggmr\current_signal()->get_name()." was trigged";
+});
+
+prggmr\signal('signal_name');
+```
+
+### Signal Interruption
+
+Direct the flow of an event using functions before and after the signal is trigged.
+
+```php
+<?php
+
+prggmr\handle('signal_name', function(){
+    echo "The ".\prggmr\current_signal()->get_name()." was trigged";
+});
+
+prggmr\before('signal_name', function(){
+    echo "Called before ".\prggmr\current_signal()->get_name()." was trigged";
+});
+
+prggmr\after('signal_name', function(){
+    echo "Called after ".\prggmr\current_signal()->get_name()." was trigged";
+});
+
+prggmr\signal('signal_name');
+```
+
+### Aynchronous TCP Connection
+
+```php
+<?php
+    
+prggmr\load_signal('socket');
+
+$server = new prggmr\signal\socket\Server("0.0.0.0:1337");
+
+// On Connect
+$server->on_connect(function(){
+    echo "New Connection".PHP_EOL;
+    $this->write("Hello".PHP_EOL);
+});
+
+// On Disconnect
+$server->on_disconnect(function(){
+    echo "Disconnecting".PHP_EOL;
+    $this->write("Goodbye".PHP_EOL);
+});
+
+// Register the server
+prggmr\handle(function(){
+    echo "Server is running at ".$this->get_address().PHP_EOL;
+}, $server);
+
+## Support
+
+### Mailing list
+
+[Google Group](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
+
+
+### IRC
+
+```#prggmr``` on ```irc.freenode.net```.
+
+*I am usually idle in the channel when available.*
+
+## Versioning
+
+prggmr uses [semver](http://semver.org).
