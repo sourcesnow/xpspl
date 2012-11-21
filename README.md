@@ -17,27 +17,37 @@ require_once 'prggmr/src/prggmr.php';
 
 ## Options
 
-Options are defined in boolean constants before loading the library.
+Options are defined in boolean or string constants before loading the library.
 
 ### PRGGMR_PATH
+
+*string*
 
 Path to the library source.
 
 ### PRGGMR_EVENT_HISTORY
 
+*bool*
+
 Remember the event history.
 
 ### PRGGMR_DEBUG
 
+*bool*
+
 Debug mode. ```error_reporting(E_ALL)```
 
 ### SIGNAL_ERRORS_EXCEPTIONS
+
+*bool*
 
 Turn all php errors into a signal.
 
 *Currently this feature has a known problem and does not function*
 
 ### WINDOWS
+
+*bool*
 
 Running windows OS.
 
