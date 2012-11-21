@@ -90,7 +90,7 @@ The most basic event procedure.
 <?php
 
 prggmr\handle('signal_name', function(){
-    echo "The ".\prggmr\current_signal()->get_name()." was trigged";
+    echo "The ".\prggmr\current_signal()->get_info()." was trigged";
 });
 
 prggmr\signal('signal_name');
@@ -104,15 +104,15 @@ Direct the flow of an event using functions before and after the signal is trigg
 <?php
 
 prggmr\handle('signal_name', function(){
-    echo "The ".\prggmr\current_signal()->get_name()." was trigged";
+    echo "The ".\prggmr\current_signal()->get_info()." was trigged";
 });
 
 prggmr\before('signal_name', function(){
-    echo "Called before ".\prggmr\current_signal()->get_name()." was trigged";
+    echo "Called before ".\prggmr\current_signal()->get_info()." was trigged";
 });
 
 prggmr\after('signal_name', function(){
-    echo "Called after ".\prggmr\current_signal()->get_name()." was trigged";
+    echo "Called after ".\prggmr\current_signal()->get_info()." was trigged";
 });
 
 prggmr\signal('signal_name');
@@ -143,6 +143,7 @@ $server->on_disconnect(function(){
 prggmr\handle(function(){
     echo "Server is running at ".$this->get_address().PHP_EOL;
 }, $server);
+```
 
 ## Support
 
