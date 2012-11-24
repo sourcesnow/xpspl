@@ -1,4 +1,4 @@
-*** Development ***
+# Development
 
 You are currently in a development branch.
 
