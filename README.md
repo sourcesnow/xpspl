@@ -12,11 +12,25 @@ exists.
 
 # Contribute
 
-Currently the engine has been for the most part now in support of 
-removal, all module transitioning is the current outstanding item.
+Currently the underlying structure for removal is in place.
 
-If you are looking to contribute this would be an excellent challenge.
+The problem that currently exists is keeping the engine self dependent so that 
+it is still possible to extend the engine into its own space without conflicts.
+
+If you are interested in contributing to the recursion contact me through one of 
+the support channels below.
 
 # Documentation & Support
 
 Documentation for this branch currently does not exist.
+
+## Mailing list
+
+[Google Group](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
+
+
+## IRC
+
+```#prggmr``` on ```irc.freenode.net```.
+
+*I am usually idle in the channel when available.*
