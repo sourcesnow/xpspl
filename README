@@ -1,55 +1,141 @@
-Real-time signals, events and asynchronous non-blocking i/o for PHP.
+# Welcome to prggmr
 
-## Run'n Gun Install
+The PHP Event Library.
 
-Run the following command and enter your pa$$w0rd!
+## Install
 
-    $ curl prggmr.org/prggmr | sh
+Run the following command and enter your password.
+
+    $ curl -s prggmr.org/prggmr | sh
     $ prggmr -v
 
-This will download and install the latest stable release of prggmr.
+__Updates are performed using the same command.__
 
-## Set intervals and timeouts
+## Including the library
 
+    <?php
+
+    require_once 'prggmr/src/prggmr.php';
+
+## Options
+
+Options are defined in boolean or string constants before loading the library.
+
+### PRGGMR_PATH
+
+*string*
+
+Path to the library source.
+
+### PRGGMR_EVENT_HISTORY
+
+*bool*
+
+Remember the event history.
+
+### PRGGMR_DEBUG
+
+*bool*
+
+Debug mode. ```error_reporting(E_ALL)```
+
+### SIGNAL_ERRORS_EXCEPTIONS
+
+*bool*
+
+Turn all php errors into a signal.
+
+*Currently this feature has a known problem and does not function*
+
+### WINDOWS
+
+*bool*
+
+Running windows OS.
+
+*Detected automatically*
+
+## Usage
+
+### Command
+
+prggmr ships with the ```prggmr``` command.
+
+    prggmr -h
+    usage: prggmr [options...] file
+
+    Current options:
+      -c/--config   Configuration file
+      -d            Used for the development of prggmr.
+      -h/--help     Show this help message.
+      -p/--passthru Pass the procedding arguments to the file
+      -t/--time     Length of time to run in milliseconds.
+      -u/--unittest Load the unit testing module.
+      -v/--version  Displays current prggmr version.
+
+### Event Loop
+
+Manually start the loop when running outside of the ```prggmr``` binary.
+
+    <?php
+    // Call at the end of the application
+    prggmr\loop();
+
+## Examples
+
+### Signal and Handle Events
+
+The most basic event procedure.
+
+    <?php
+
+    prggmr\handle('signal_name', function(){
+        echo "The ".\prggmr\current_signal()->get_info()." was trigged";
+    });
+
+    prggmr\signal('signal_name');
+
+### Signal Interruption
+
+Direct the flow of an event using functions before and after the signal is trigged.
+
+    <?php
+
+    prggmr\handle('signal_name', function(){
+        echo "The ".\prggmr\current_signal()->get_info()." was trigged";
+    });
+
+    prggmr\before('signal_name', function(){
+        echo "Called before ".\prggmr\current_signal()->get_info()." was trigged";
+    });
+
+    prggmr\after('signal_name', function(){
+        echo "Called after ".\prggmr\current_signal()->get_info()." was trigged";
+    });
+
+    prggmr\signal('signal_name');
+
+### Time based functions
+
+Allow for executing functions based on past time.
+
+    <?php
     \prggmr\load_module('time');
-
+        
     \prggmr\module\time\interval(10, function(){ 
-        echo "10 milliseconds"; 
+        echo "10 millisecond interval"; 
     });
 
-## Signal and handle events
+    \prggmr\module\time\timeout(50, function(){
+        echo "50 second timeout";
+    }, \prggmr\engine\idle\Time::SECONDS);
+
+### Asynchronous Non-Blocking TCP Connection
+
+Event driven networking
 
     <?php
-
-    prggmr\handle('light.green', function(){
-        echo "The light is green GO GO GO!"
-    });
-
-    prggmr\signal('light.green');
-
-## Handle interruption
-
-    <?php
-
-    prggmr\handle('light.green', function(){
-        echo "The ".$this->car." car is moving";
-        $this->car_speed = 100;
-    });
-
-    prggmr\before('light.green', function(){
-        $this->car = 'Honda S2000';
-    });
-
-    prggmr\after('light.green', function(){
-        echo "The ".$this->car." is going ".$this->car_speed."MPH!!";
-    });
-
-    prggmr\signal('light.green');
-
-## Asynchronous server
-
-    <?php
-    
+        
     prggmr\load_signal('socket');
 
     $server = new prggmr\signal\socket\Server("0.0.0.0:1337");
@@ -71,48 +157,60 @@ This will download and install the latest stable release of prggmr.
         echo "Server is running at ".$this->get_address().PHP_EOL;
     }, $server);
 
-## Mailing List
 
-The prggmr mailing list is located here [mailing list](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
+### Process Control
 
-## Versions
+Handle OS signals
 
-prggmr uses [semver](http://semver.org) you should too.
+    <?php
+    // Ticks must be enabled for PCNTL
+    declare(ticks = 10)
+    prggmr\load_module('pcntl');
 
-## Module Roadmap
+    prggmr\module\pcntl\interrupt(function(){
+        echo "Called on SIGINT (CTRL-C)"
+    });
 
-The following Modules are on the development roadmap.
+    prggmr\module\pcntl\terminate(function(){
+        echo "Called on SIGTERM";
+    });
+
+### Unit Testing
+
+Evented Unit testing
+
+    <?php
+
+    prggmr\load_module('unittest');
+
+    prggmr\module\unittest\suite(function(){
+
+        $this->test(function(){
+            $this->true(true);
+            $this->false(false);
+            $this->equal('a', 'a');
+            $this->exception(new \RuntimeException(), function(){
+                throw new \RuntimeException('This will pass');
+            });
+        }, 'test_name');
+
+    }, 'suite_name');
+
+    prggmr\module\unittest\generate_output();
+
+## Support
+
+### Mailing list
+
+[Google Group](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
 
 
-### Event Stream Server
+### IRC
 
-W3C Event-Stream (Specs)[http://dev.w3.org/html5/eventsource/].
+```#prggmr``` on ```irc.freenode.net```.
 
-#### Example
+*I am usually idle in the channel when available.*
 
-```php
-<?php
+## Versioning
 
-$socket = new \prggmr\signal\http\EventStream();
-
-handle($socket->read(), function($bytes){
-    // do something
-});
-
-handle($socket->write(), function($bytes){
-    // do something
-});
-```
-
-### prggmr Event Server
-
-A real-time complex event event server.
-
-### PEL - prggmr Event Language
-
-An SQL language that can be used to communicate with the event server.
-
-```sql
-SIGNAL weeding WHEN groom AND bride AND church_bells IF groom.tuxedo = black
-and bride.gown = white AND bride RECIEVED_AFTER groom
-```
+prggmr uses [semver](http://semver.org).
