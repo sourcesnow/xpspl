@@ -38,6 +38,13 @@ class Select extends \prggmr\signal\Complex {
     protected $_address = null;
 
     /**
+     * Type of connection.
+     *
+     * @var  string
+     */
+    protected $_type = null;
+
+    /**
      * Constructs a new network socket stream.
      *
      * @param  string  $address  Address to make the connection on.
@@ -47,37 +54,25 @@ class Select extends \prggmr\signal\Complex {
      */
     public function __construct($address, $type = 'tcp', $engine = null) 
     {
-        // Establish a connection
-        $errno = $errstr = null;
-        $this->_socket = stream_socket_server(sprintf(
-            '%s://%s',
-            $type, $address
-        ), $errno, $errstr);
-
-        if (0 !== $errno || "" !== $errstr) {
-            throw new \RuntimeException(sprintf(
-                "Could not connect to socket %s (%s) %s",
-                $address, $errno, $errstr
-            ));
-        }
-
         $this->_address = $address;
-
-        // prggmr forces non-blocking
-        stream_set_blocking($this->_socket, 0);
-
-        $this->_connect = new socket\signal\Connect(sprintf('%s_connect',
-            spl_object_hash($this)
-        ));
-        $this->_disconnect = new socket\signal\Disconnect(sprintf('%s_disconnect',
-            spl_object_hash($this)
-        ));
+        $this->_type = $type;
 
         if (null !== $engine && $engine instanceof \prggmr\Engine) {
             $this->_engine = $engine;
         } else {
             $this->_engine = \prggmr\prggmr();
         }
+
+        // connect
+        $this->_connect();
+
+        // connect/disconnect
+        $this->_connect = new socket\signal\Connect(sprintf('%s_connect',
+            spl_object_hash($this)
+        ));
+        $this->_disconnect = new socket\signal\Disconnect(sprintf('%s_disconnect',
+            spl_object_hash($this)
+        ));
 
         // Disconnect the connection immediatly after connecting
         // these are forced into the server
@@ -94,6 +89,54 @@ class Select extends \prggmr\signal\Complex {
         $this->_routine->add_signal(
             $this, new socket\event\Server($this->_socket)
         );
+    }
+
+    /**
+     * Establishes the connection to the socket.
+     *
+     * @return  void
+     */
+    protected function _connect(/* ... */)
+    {
+        // Establish a connection
+        $errno = $errstr = null;
+        $this->_socket = stream_socket_server(sprintf(
+            '%s://%s',
+            $this->_type, $this->_address
+        ), $errno, $errstr);
+
+        if (0 !== $errno || "" !== $errstr) {
+            throw new \RuntimeException(sprintf(
+                "Could not connect to socket %s (%s) %s",
+                $address, $errno, $errstr
+            ));
+        }
+
+        // force non-blocking
+        stream_set_blocking($this->_socket, 0);
+    }
+
+    /**
+     * Disconnects from the socket.
+     *
+     * @return  void
+     */
+    public function disconnect(/* ... */)
+    {
+        fclose($this->get_socket());
+    }
+    
+    /**
+     * Reconnects the socket.
+     *
+     * It will attempt to close before reconnecting.
+     *
+     * @return  void
+     */
+    public function reconnect(/* ... */)
+    {
+        $this->disconnect();
+        $this->_connect();
     }
 
     /**
