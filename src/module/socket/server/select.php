@@ -24,6 +24,13 @@ class Select extends \prggmr\signal\Complex {
     protected $_connect = null;
 
     /**
+     * Disconnect signal.
+     *
+     * @var  object
+     */
+    protected $_disconnect = null;
+
+    /**
      * Instance of an engine to use for signaling.
      *
      * @var  null|object
@@ -66,7 +73,7 @@ class Select extends \prggmr\signal\Complex {
         // connect
         $this->_connect();
 
-        // connect/disconnect
+        // connect/disconnect 
         $this->_connect = new socket\signal\Connect(sprintf('%s_connect',
             spl_object_hash($this)
         ));
@@ -123,7 +130,8 @@ class Select extends \prggmr\signal\Complex {
      */
     public function disconnect(/* ... */)
     {
-        fclose($this->get_socket());
+        fclose($this->_socket);
+        var_dump(stream_socket_shutdown($this->_socket, STREAM_SHUT_RDWR));
     }
     
     /**

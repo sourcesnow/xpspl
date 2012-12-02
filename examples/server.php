@@ -9,15 +9,20 @@ $server = new prggmr\module\socket\server\Select("0.0.0.0:1337");
 
 // On Connect
 $server->on_connect(new prggmr\Handle(function(){
-    var_dump($this->get_socket());
-    if (!isset($this->count)) {
-        $this->count = 0;
+    $server = $this->get_server();
+    if (!isset($this->server->count)) {
+        $this->server->count = 0;
     } else {
-        $this->count++;
-        if ($this->count() >= 500) {
-            $this->get_socket()->reconnect();
+        echo $this->server->count.PHP_EOL;
+        $this->server->count++;
+        if ($this->server->count >= 500) {
+            // If more than 500 after this
+            prggmr\after($this->get_signal(), function() use ($server){
+                $server->reconnect();
+                $server->count = 0;
+            });
         }
-        echo $this->count.PHP_EOL;
+        echo $this->server->count.PHP_EOL;
     }
     $this->write("You sent me the following".PHP_EOL);
     $this->write($this->read());

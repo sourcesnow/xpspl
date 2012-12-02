@@ -18,19 +18,20 @@ class Connect extends \prggmr\Event {
      *
      * @param  object
      */
-    public $signal_stream = null;
+    public $server = null;
 
     /**
      * Constructs a new connection event.
      *
      * @param  resource  $socket  Socket that connected
+     * @param  object  $server  Socket server object
      * @param  integer|null  $ttl  Time to live
      *
      * @return  void
      */
-    public function __construct($socket, $signal_stream, $ttl = null)
+    public function __construct($socket, $server, $ttl = null)
     {
-        $this->signal_stream = $signal_stream;
+        $this->server = $server;
         $this->_socket = $socket;
         return parent::__construct($ttl);
     }
@@ -44,6 +45,16 @@ class Connect extends \prggmr\Event {
      */
     public function disconnect($how = STREAM_SHUT_RDWR)
     {
-        $this->signal_stream->send_disconnect($this->get_socket());
+        $this->server->send_disconnect($this->get_socket());
+    }
+
+    /**
+     * Returns the server signal.
+     *
+     * @return  object
+     */
+    public function get_server(/* ... */)
+    {
+        return $this->server;
     }
 }
