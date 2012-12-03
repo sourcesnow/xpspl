@@ -47,4 +47,16 @@ unittest\suite(function(){
         $this->equal(2, $queue->current()[0]);
     }, "Queue Min Sort");
     
+    $this->test(function(){
+        $queue = new prggmr\Queue();
+        $queue->enqueue(1);
+        $queue->enqueue(2);
+        $queue->enqueue(3);
+        $i = 1;
+        foreach($queue->storage() as $_node) {
+            $this->equal($_node[0], $i);
+            $queue->dequeue($_node[0]);
+            $i++;
+        }
+    }, 'Queue dequeue reset');
 });

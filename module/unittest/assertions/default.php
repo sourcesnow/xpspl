@@ -134,3 +134,11 @@ api\create_assertion(function($object, $class){
     if (get_class($class) === $object) return true;
     return false;
 }, 'instanceof', '%s is not an instance of %s');
+
+/**
+ * Count of the array equals
+ */
+api\create_assertion(function($array, $count){
+    return count($array) === $count;
+    return false;
+}, 'count', 'Array %s count does not equal %s');

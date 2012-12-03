@@ -137,14 +137,54 @@ class Engine {
                 return true;
             }
         }
-        $handle = new Handle(function(){
+        $this->handle(function(){
             $args = func_get_args();
-            $message = $this->get_signal()->get_error();
             $exception = $this->get_signal()->get_exception();
-            $type = $this->get_signal();
-            throw new Engine_Exception($message, $type, $args);
-        }, null);
-        $this->handle($this->_engine_handle_signal, $handle);
+            if (null !== $exception) {
+                $trace = array_reverse($exception->getTrace());
+                $error = get_class_name($exception);
+                $message = $exception->getMessage();
+                $line = $exception->getLine();
+                $file = $exception->getFile();
+            } else {
+                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+                $stack = array_pop($trace);
+                $message = $this->get_signal()->get_error();
+                $error = get_class_name($this->get_signal());
+                $file = $stack['file'];
+                $line = $stack['line'];
+            }
+            $stacktrace = '';
+            $i=0;
+            foreach ($trace as $_trace) {
+                if (!isset($_trace['file']) 
+                    || strpos($_trace['file'], PRGGMR_PATH) === false) {
+                    $stacktrace .= sprintf(
+                        $i.': # %s:%s(%s)'.PHP_EOL,
+                        (isset($_trace['file'])) ? $_trace['file'] : '-',
+                        (isset($_trace['line'])) ? $_trace['line'] : '-',
+                        ((isset($_trace['class'])) 
+                            ? $_trace['class'] . $_trace['type'] : '') 
+                        . $_trace['function']
+                    );
+                    $i++;
+                }
+            }
+            echo sprintf(
+                'Exception: %s'.PHP_EOL.''
+                .'Message: %s'.PHP_EOL.''
+                .'Line: %s'.PHP_EOL.''
+                .'File: %s'.PHP_EOL.''
+                .'Trace:'.PHP_EOL.''
+                .'%s',
+                $error,
+                $message,
+                $line,
+                $file,
+                $stacktrace
+            );
+            exit(1);
+        }, $this->_engine_handle_signal);
     }
 
     /**
@@ -633,6 +673,9 @@ class Engine {
 
     /**
      * Executes a queue.
+     *
+     * If PRGGMR_EXHAUSTION_PURGE is true handles will be purged once they 
+     * reach exhaustion.
      */
     private function _queue_execute($queue, $event)
     {
@@ -641,14 +684,15 @@ class Engine {
         reset($queue->storage());
         foreach ($queue->storage() as $_node) {
             $_handle = $_node[0];
+            # Always check state first
+            if ($event->get_state() === STATE_HALTED) {
+                continue;
+            }
             # test for exhaustion
             if ($_handle->is_exhausted()) {
                 continue;
             }
             $_handle->decrement_exhaust();
-            if ($event->get_state() === STATE_HALTED) {
-                continue;
-            }
             // bind event to allow use of "this"
             $_handle->bind($event);
             // set event as running
@@ -676,6 +720,10 @@ class Engine {
                     $event->halt();
                 }
             }
+            // Remove exhausted handle
+            if (PRGGMR_PURGE_EXHAUSTED && $_handle->is_exhausted()) {
+                $queue->dequeue($_node);
+            }
         }
     }
     
@@ -701,35 +749,14 @@ class Engine {
     }
 
     /**
-     * Generates output for analyzing the system event architecture.
-     * 
-     * @param  string  $output  File to output analysis, null to return.
-     * @param  string  $template  Template to use for generation
-     * 
-     * @return  void
+     * Returns a json encoded array of the event history.
+     *
+     * @return  string
      */
-    public function event_analysis($output, $template = null)
+    public function event_analysis(/* ... */)
     {
         if (!$this->_store_history) return false;
-        if (null === $template) {
-            $template = 'html';
-        }
-        $path = dirname(realpath(__FILE__));
-        $template_file = sprintf(
-            '%s/%s/%s.php',
-            $path, 'templates', $template
-        );
-        if (!file_exists($template_file)) {
-            throw new \InvalidArgumentException(sprintf(
-                "Event analysis file %s does not exist",
-                $template_file
-            ));
-        }
-        ob_start();
-        include $template_file;
-        $output = ob_get_contents();
-        ob_end_clean();
-        file_put_contents($output);
+        return json_encode($this->_event_history());
     }
 
     /**
@@ -738,34 +765,38 @@ class Engine {
      * @param  string  $name  Module name.
      * @param  string|null  $dir  Location of the module. 
      * 
-     * @return  void
+     * @return  boolean
      */
     public function load_module($name, $dir = null) 
     {
         // already loaded
         if (isset($this->_module[$name])) return true;
         if ($dir === null) {
-            $dir = dirname(realpath(__FILE__)).'/module';
+            $dir = PRGGMR_MODULE_DIR;
         } else {
             if (!is_dir($dir)) {
-                $this->signal(new engine_signals\Signal_Library_Failure(
-                    "Invalid module"
-                ),  new engine\event\Error($dir));
+                $this->signal(new engine_signals\Signal_Library_Failure(sprintf(
+                    "Module directory %s does not exist", $dir
+                )),  new engine\event\Error($dir));
             }
         }
-
         if (is_dir($dir.'/'.$name)) {
             $path = $dir.'/'.$name;
             if (file_exists($path.'/__autoload.php')) {
                 // keep history of what has been loaded
                 $this->_module[$name] = true;
-                require_once $path.'/__autoload.php';
+                require $path.'/__autoload.php';
             } else {
                 $this->signal(new engine_signals\Signal_Library_Failure(
                     "Module does not have an __autoload file"
                 ),  new engine\event\Error([$name, $dir]));
             }
+        } else {
+            $this->signal(new engine_signals\Signal_Library_Failure(sprintf(
+                "Module %s does not exist", $name
+            )), new engine\event\Error());
         }
+        return true;
     }
 
     /**
@@ -907,7 +938,9 @@ class Engine {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
-                    $queue->enqueue($_node[1], $_node[1]->get_priority());
+                    if (!$_node[1]->is_exhausted()) {
+                        $queue->enqueue($_node[1], $_node[1]->get_priority());
+                    }
                 }
             }
         }
@@ -917,9 +950,9 @@ class Engine {
     }
 
     /**
-     * Cleans any exhausted signal queues from the engine.
+     * Cleans any exhausted signals from the engine.
      * 
-     * @param  boolean  $history  Erase any history of the signal the signals cleaned.
+     * @param  boolean  $history  Erase any history of the signals cleaned.
      * 
      * @return  void
      */

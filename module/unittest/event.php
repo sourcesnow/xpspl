@@ -7,7 +7,7 @@ namespace prggmr\module\unittest;
  */
 
 if (!defined('SKIP_TESTS_ON_FAILURE')) {
-    define('SKIP_TESTS_ON_FAILURE', false);
+    define('SKIP_TESTS_ON_FAILURE', true);
 }
 
 /**

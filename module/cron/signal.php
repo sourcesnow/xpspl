@@ -70,11 +70,9 @@ class Signal extends \prggmr\signal\Complex {
      */
     public function routine($history = null)
     {
-        $current = time();
-        $diff = $this->_next_run - $current;
+        $diff = $this->_next_run - time();
         if ($diff <= 0) {
             $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
-            // engine goes by milliseconds
             $this->signal_this();
         } else {
             $this->_routine->set_idle(new idle\Time($diff, idle\Time::SECONDS));

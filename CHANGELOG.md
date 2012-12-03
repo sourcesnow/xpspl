@@ -1,4 +1,16 @@
-## 2.0.0 TBD
+## 2.1.0 TBD
+
+* Added the "count" assertion method to the unittest module
+* module directory moved out of src.
+* Exhausted handles are now immediatly removed from the engine.
+* Added constants PRGGMR_MODULE_DIR and PRGGMR_PURGE_EXHAUSTED.
+* Added the dir_include API function.
+
+## 2.0.1 102412
+
+* Signals now default to their class name if no information is provided.
+
+## 2.0.0 100812
 
 * Added API functions before, after
 * Removed signal_interrupt API function
@@ -93,7 +105,7 @@
 
 ## 0.3.1.1 041012 
 * Added the composer.json file
-* prggmr bin now supports the *p, **passthru option
+* prggmr bin now supports the -p, --passthru option
 
 ## 0.3.1 041012 
 * The engine now generates and stores an event concurrently for recurring 

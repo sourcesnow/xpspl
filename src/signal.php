@@ -25,7 +25,7 @@ class Signal extends \prggmr\signal\Standard {
      */
     public function __construct($info = null)
     {
-        if (!is_int($info) && !is_string($info)) {
+        if (null === $info || !is_int($info) && !is_string($info)) {
             $this->_info = strtolower(get_class($this));
             return;
         }

@@ -88,7 +88,9 @@ class Queue {
     */
     public function dequeue($node)
     {
-        if ($this->count() === 0) return false;
+        if ($this->count() === 0) {
+            return false;
+        }
         reset($this->_storage);
         foreach ($this->_storage as $_key => $_node) {
             if ($_node[0] === $node) {

@@ -5,6 +5,8 @@
  * that can be found in the LICENSE file.
  */
 
+define('OUTPUT_COLORS', false);
+
 prggmr\load_module("unittest");
 
 // load the standard unittest output

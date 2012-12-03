@@ -19,7 +19,12 @@ unittest\suite(function(){
     });
 
     $this->test(function(){
-
-    });
+        $this->equal($this->engine->get_state(), STATE_DECLARED);
+    }, 'Engine Construction');
     
+    $this->test(function(){
+        $engine = new \prggmr\Engine(false);
+        $engine->signal('test');
+        $this->count($engine->event_history(), 0);
+    }, 'Test construction no history');
 });

@@ -131,7 +131,6 @@ class Select extends \prggmr\signal\Complex {
     public function disconnect(/* ... */)
     {
         fclose($this->_socket);
-        var_dump(stream_socket_shutdown($this->_socket, STREAM_SHUT_RDWR));
     }
     
     /**

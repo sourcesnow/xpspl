@@ -6,19 +6,19 @@
  */
 
 // library version
-define('PRGGMR_VERSION', '2.0.1');
+define('PRGGMR_VERSION', '2.1.0');
 
 // The creator
 define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
-// Add this to include path
-$prggmr_path = dirname(realpath(__FILE__));
-set_include_path($prggmr_path.'/../../' . PATH_SEPARATOR . get_include_path());
+// Path relative to this file
+define('PRGGMR_PATH', dirname(realpath(__FILE__)));
+set_include_path(PRGGMR_PATH.'/../../' . PATH_SEPARATOR . get_include_path());
 
 // start'er up
 // utils & traits
-require $prggmr_path.'/utils.php';
-require $prggmr_path.'/api.php';
+require PRGGMR_PATH.'/utils.php';
+require PRGGMR_PATH.'/api.php';
 
 // debugging mode disabled by default
 if (!defined('PRGGMR_DEBUG')) {
@@ -36,13 +36,24 @@ if (!defined('PRGGMR_EVENT_HISTORY')) {
 }
 
 // dev mode
-if (defined('PRGGMR_DEBUG')) {
+if (PRGGMR_DEBUG) {
     error_reporting(E_ALL);
+    define('SIGNAL_ERRORS_EXCEPTIONS', true);
 }
 
 // evented exceptions disabled by default
 if (!defined('SIGNAL_ERRORS_EXCEPTIONS')) {
-    define('SIGNAL_ERRORS_EXCEPTIONS', false);
+    define('SIGNAL_ERRORS_EXCEPTIONS', true);
+}
+
+// immediatly removes exhausted handles from the engine
+if (!defined('PRGGMR_PURGE_EXHAUSTED')) {
+    define('PRGGMR_PURGE_EXHAUSTED', true);
+}
+
+// modules directory
+if (!defined('PRGGMR_MODULE_DIR')) {
+    define('PRGGMR_MODULE_DIR', PRGGMR_PATH . '/../module');
 }
 /**
  * The prggmr object works as the global instance used for managing the
