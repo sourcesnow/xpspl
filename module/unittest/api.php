@@ -64,11 +64,11 @@ function generate_output() {
     // Startup
     \prggmr\handle(new \prggmr\engine\signal\Loop_Start(), function(){
         define('UNITTEST_START_TIME', milliseconds());
-        $output = unittest\Output::instance();
-        $output->send("prggmr unittest library " . PRGGMR_VERSION, 
-            unittest\Output::SYSTEM
-        );
-        $output->send_linebreak(unittest\Output::SYSTEM);
+        // $output = unittest\Output::instance();
+        // $output->send("prggmr unittest module " .  PRGGMR_VERSION, 
+        //     unittest\Output::SYSTEM
+        // );
+        // $output->send_linebreak(unittest\Output::SYSTEM);
     });
 
     // Shutdown

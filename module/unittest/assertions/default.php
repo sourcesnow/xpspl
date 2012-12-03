@@ -131,7 +131,13 @@ api\create_assertion(function($object){
  * Asserts the given object is an instance of the provided class.
  */
 api\create_assertion(function($object, $class){
-    if (get_class($class) === $object) return true;
+    if (!is_object($object)) {
+        return false;
+    }
+    if (is_object($class)) {
+        return $object instanceof $class;
+    }
+    if (get_class($object) === $class) return true;
     return false;
 }, 'instanceof', '%s is not an instance of %s');
 
@@ -140,5 +146,4 @@ api\create_assertion(function($object, $class){
  */
 api\create_assertion(function($array, $count){
     return count($array) === $count;
-    return false;
 }, 'count', 'Array %s count does not equal %s');

@@ -10,4 +10,4 @@ namespace prggmr\engine\signal;
 /**
  * The base for any engine signal.
  */
-class Base extends \prggmr\signal {}
+class Base extends \prggmr\Signal {}

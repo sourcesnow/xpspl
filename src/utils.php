@@ -72,10 +72,10 @@ function microseconds(/* ... */) {
  * @return void
  */
 function signal_exceptions($exception) {
-    \prggmr\signal(
-        new \prggmr\engine\signal\Error(), 
-        new \prggmr\engine\event\Error($exception)
-    );
+    // \prggmr\signal(
+    //     new \prggmr\engine\signal\Error(), 
+    //     new \prggmr\engine\event\Error($exception)
+    // );
 }
 
 /**
@@ -91,11 +91,11 @@ function signal_exceptions($exception) {
  * @return  void
  */
 function signal_errors($errno, $errstr, $errfile, $errline) {
-    \prggmr\signal(
-        new \prggmr\engine\signal\Error($errstr), 
-        new \prggmr\engine\event\Error([
-        $errstr, 0, $errno, $errfile, $errline
-    ]));
+    // \prggmr\signal(
+    //     new \prggmr\engine\signal\Error($errstr), 
+    //     new \prggmr\engine\event\Error([
+    //     $errstr, 0, $errno, $errfile, $errline
+    // ]));
 }
 
 /**

@@ -63,7 +63,12 @@ class Assertions {
             return true;
         }
         if (null !== $this->_storage[$name][1]) {
-            $sprintf = array_merge([$this->_storage[$name][1]], $vars);
+            $output = Output::instance();
+            $e_vars = [];
+            foreach ($vars as $_var) {
+                $e_vars[] = $output->variable($_var);
+            }
+            $sprintf = array_merge([$this->_storage[$name][1]], $e_vars);
             return call_user_func_array('sprintf', $sprintf);
         }
         return false;

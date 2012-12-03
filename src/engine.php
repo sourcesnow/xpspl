@@ -133,11 +133,12 @@ class Engine {
         if (null === $this->_engine_handle_signal) {
             $this->_engine_handle_signal = new \prggmr\engine\signal\Engine_Errors();
         } else {
-            if (null !== $this->search_signals($this->_engine_handle_signal)) {
+            $queue = $this->search_signals($this->_engine_handle_signal);
+            if ($queue->count() !== 0) {
                 return true;
             }
         }
-        $this->handle(function(){
+        $this->handle($this->_engine_handle_signal, function(){
             $args = func_get_args();
             $exception = $this->get_signal()->get_exception();
             if (null !== $exception) {
@@ -184,7 +185,7 @@ class Engine {
                 $stacktrace
             );
             exit(1);
-        }, $this->_engine_handle_signal);
+        });
     }
 
     /**
