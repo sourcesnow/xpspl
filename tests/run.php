@@ -5,14 +5,23 @@
  * that can be found in the LICENSE file.
  */
 
-define('OUTPUT_COLORS', false);
-
 prggmr\load_module("unittest");
 
 // load the standard unittest output
 prggmr\module\unittest\generate_output();
 
-foreach (glob('*.php') as $file)
-{
-    include_once ($file);
+/**
+ * Replace with the dir_load function
+ * @var [type]
+ */
+$dir = new \RegexIterator(
+    new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator(dirname(realpath(__FILE__)))
+    ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
+);
+foreach ($dir as $_file) {
+    array_map(function($i){
+        require_once $i;
+    }, $_file);
 }
+

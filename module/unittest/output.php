@@ -50,11 +50,6 @@ class Output {
      * Line break count
      */
     protected $_breakcount = 0;
-
-    /**
-     * Failed tests
-     */
-    protected $_fail = [];
     
     /**
      * Output message types.

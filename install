@@ -5,7 +5,7 @@
 VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
 if [ $VERSION != '1' ];
 then
-    echo "flames requires at least PHP 5.4"
+    echo "prggmr requires at least PHP 5.4"
     echo "Found"
     which php
     php -v
@@ -28,19 +28,15 @@ fi
 if [ -d "$INSTALL_PATH/prggmr" ]; then
     rm -rf "$INSTALL_PATH/prggmr"
 fi;
-echo "Installing prggmr to $INSTALL_PATH/prggmr"
 mkdir $INSTALL_PATH/prggmr
 cp -Rf * "$INSTALL_PATH/prggmr"
 if [ -f "$BINPATH/prggmr" ]; then
     rm "$BINPATH/prggmr"
 fi;
-echo "Installing the executable prggmr file"
+echo "Installed prggmr to $INSTALL_PATH/prggmr"
 echo "Installed executable to $BINPATH/prggmr"
 ln -s "$INSTALL_PATH/prggmr/bin/prggmr" "$BINPATH"
 prggmr -v
-echo "Installed"
-echo "Have fun with prggmr"
 echo "Report bugs to https://github.com/prggmr/prggmr/issues"
-echo "====================================="
-prggmr -h
-
+echo "Running Unit Tests"
+prggmr --test

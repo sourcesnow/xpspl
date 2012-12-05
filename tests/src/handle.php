@@ -26,7 +26,7 @@ unittest\suite(function(){
             $a = $this;
         });
         $handle();
-        $this->instanceof('stdClass', $a);
+        $this->instanceof(new \stdClass(), $a);
     }, "Handle binding");
 
     $this->test(function(){

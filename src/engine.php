@@ -614,15 +614,23 @@ class Engine {
         $event = $this->_event($signal, $event, $ttl);
         // locate sig handlers
         $queue = new Queue();
+        // purge exhausted queues
+        if (PRGGMR_PURGE_EXHAUSTED) {
+            $queues = [];
+        }
         // search for exact matches
         $searched = $this->search_signals($signal);
         if (null !== $searched) {
             $queue->merge($searched->storage());
+            if (PRGGMR_PURGE_EXHAUSTED) {
+                $queues[] = $searched;
+            }
         }
+
         // evaluate complex signals
         $evalated = $this->evaluate_signals($signal);
         if (null !== $evalated) {
-            array_walk($evalated, function($node) use ($queue) {
+            array_walk($evalated, function($node) use ($queue, $queues) {
                 if (is_bool($node[1]) === false) {
                     $data = $node[1];
                     $node[0][1]->walk(function($handle) use ($data){
@@ -630,10 +638,27 @@ class Engine {
                     });
                 }
                 $queue->merge($node[0][1]->storage());
+                if (PRGGMR_PURGE_EXHAUSTED) {
+                    $queues[] = $node[0][1];
+                }
             });
         }
 
-        return $this->_execute($signal, $queue, $event);
+        // execute the signal
+        $this->_execute($signal, $queue, $event);
+
+        // purge exhausted handles
+        if (PRGGMR_PURGE_EXHAUSTED) {
+            foreach ($queues as $_queue) {
+                foreach ($_queue->storage() as $_node) {
+                    if ($_node[0]->is_exhausted()) {
+                        $_queue->dequeue($_node[0]);
+                    }
+                }
+            }
+        }
+
+        return $event;
     }
 
     /**
@@ -648,7 +673,7 @@ class Engine {
      * @param  object  $event  Event instance.
      * @param  boolean  $interupt  Run the interrupt functions.
      *
-     * @return  object  Event
+     * @return  void
      */
     private function _execute($signal, $queue, $event, $interrupt = true)
     {
@@ -669,7 +694,6 @@ class Engine {
             $this->_interrupt($signal, self::INTERRUPT_POST, $event);
         }
         $this->_event_exit($event);
-        return $event;
     }
 
     /**
@@ -720,10 +744,6 @@ class Engine {
                 if (false === $result) {
                     $event->halt();
                 }
-            }
-            // Remove exhausted handle
-            if (PRGGMR_PURGE_EXHAUSTED && $_handle->is_exhausted()) {
-                $queue->dequeue($_node);
             }
         }
     }
@@ -989,6 +1009,7 @@ class Engine {
      */
     public function delete_signal($signal, $history = false)
     {
+        $info = false;
         if ($signal instanceof signal\Standard) {
             if ($signal instanceof signal\Complex) {
                 $obj = spl_object_hash($signal);
@@ -997,15 +1018,23 @@ class Engine {
                 }
                 unset($this->_storage[self::COMPLEX_STORAGE][$obj]);
             } else {
-                $signal = $signal->get_info();
+                $info = $signal->get_info();
             }
-        }
-
-        if (is_string($signal) || is_int($signal)) {
-            if (!isset($this->_storage[self::HASH_STORAGE][$signal])) {
+        } else {
+            if (!is_string($signal) && !is_int($signal)) {
+                $this->signal(new engine_signals\Invalid_Signal(
+                    "Delete signal"
+                ), new engine\event\Error($signal));
                 return false;
             }
-            unset($this->_storage[self::HASH_STORAGE][$signal]);
+            $info = $signal;
+        }
+
+        if (false !== $info) {
+            if (!isset($this->_storage[self::HASH_STORAGE][$info])) {
+                return false;
+            }
+            unset($this->_storage[self::HASH_STORAGE][$info]);
         }
 
         if ($history) {

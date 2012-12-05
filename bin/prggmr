@@ -3,31 +3,18 @@
 /**
  * Directly runs files in the prggmr event loop
  */
-$usage = "usage: prggmr [options...] file
-
-Current options:
-  -c/--config   Configuration file
-  -d            Used for the development of prggmr.
+$usage = 
+"usage: prggmr [-c|--config=<file>][-h|--help][-p|--passthru][--test]
+              [-t|--time=<time>][-v|--version]
+              <file>
+Options:
+  -c/--config   Load the giving file for configuration
   -h/--help     Show this help message.
-  -p/--passthru Pass the given arguments to the script.
-  -t/--time     Length of time to run in milliseconds.
-  -u/--unittest Load the unit testing signal library.
+  -p/--passthru Ignore any subsequent arguments and pass to <file>.
+  --test        Run the prggmr unit tests.
+  -t/--time     Run for the given amount of milliseconds.
   -v/--version  Displays current prggmr version.
 ";
-
-// $usage = "usage: prggmr [options...] file
-
-// Current options:
-//   -a/--analysis Generate event analysis output using default configuration.
-//   -c/--config   Configuration file
-//   -d            Used for the development of prggmr.
-//   -h/--help     Show this help message.
-//   -o/--output   Send the event analysis output to the specified file.
-//   -p/--passthru Pass the given arguments to the script.
-//   -t/--time     Length of time to run in milliseconds.
-//   -u/--unittest Load the unit testing signal library.
-//   -v/--version  Displays current prggmr version.
-// ";
 
 if (count($argv) == 1) {
     exit($usage);
@@ -37,10 +24,14 @@ $sync = false;
 $ttr = null;
 // last param is file
 $runfile = $argv[$argc - 1];
+// if - is first char ignore file
+if (strpos($runfile, '-') === 0) {
+    $runfile = false;
+}
 $options = getopt(
     'qwert:yuiopasdfghjklzxc:vbnm',
     array(
-        'help', 'config:', 'version', 'time:', 'unit'
+        'help', 'config:', 'version', 'time:', 'test'
     )
 );
 
@@ -77,8 +68,8 @@ foreach ($options as $_i => $_arg) {
         case 'd':
             define('PRGGMR_DEV_MODE', true);
             break;
-        case 'u':
-        case 'unittest':
+        case 'test':
+            define('OUTPUT_COLORS', false);
             $unittest = true;
             break;
         default:
@@ -92,10 +83,6 @@ foreach ($options as $_i => $_arg) {
     if ($break) break;
 }
 
-if (false === $runfile) {
-    exit($usage);
-}
-
 // load prggmr
 if (!class_exists('prggmr')) {
     require_once dirname(realpath(__FILE__)).'/../src/prggmr.php';
@@ -106,12 +93,15 @@ if (isset($showversion)) exit('prggmr version '.PRGGMR_VERSION."
 
 if (isset($unittest)) {
     prggmr\load_module('unittest');
+    require PRGGMR_PATH.'/../tests/run.php';
 }
 
-if (!file_exists($runfile)) {
-    die("Could not open $runfile\n");
-} else {
-    require_once $runfile;
+if (false !== $runfile) {
+    if (!file_exists($runfile)) {
+        die("Could not open $runfile\n");
+    } else {
+        require_once $runfile;
+    }
 }
 
 // start the loop!!
