@@ -62,7 +62,7 @@ class Event extends \prggmr\Event {
             $this->_output->assertion($this, $func, $args, null);
         } else {
             try {
-                $call = $this->_assertions->call_assertion($func, $args);
+                $call = $this->_assertions->call_assertion($func, $args, $this);
             } catch (\BadMethodCallException $e) {
                 $call = null;
                 $this->_output->unknown_assertion(

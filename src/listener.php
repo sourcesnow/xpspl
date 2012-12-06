@@ -7,36 +7,36 @@ namespace prggmr;
  */
  
 /**
- * The listener allows to register itself in the engine having the engine
- * trigger the given methods within the object when they are signled.
+ * Listener 
+ *
+ * Added in v2.0.0
+ * 
+ * The listener allows for registering a class into the engine establishing 
+ * handles for each publicly defined method name.
  */
 class Listener {
 
     /**
-     * Class members.
+     * Signals to listen for.
      */
-    protected $_sig_handlers = [];
+    protected $_signals = [];
 
     /**
      * Constructs the listener.
      *
      * @return  void
      */
-    public function __construct()
+    public function __construct(/* ... */)
     {
-        foreach (get_class_methods($this) as $_method) {
+        foreach (get_class_methods($this) as $_signal) {
             // skip magic methods
-            if (stripos('_', $_method) === 0) continue;
-            if (stristr($_method, 'on_') === false) continue;
-            if (isset($this->$_method)) {
-                $_signal = eval($this->{$_method});
-            } else {
-                $_signal = str_replace('on_', '', $_method);
+            if (stripos($_signal, '_') === 0) {
+                continue;
             }
-            $this->_sig_handlers[] = [
-                array($this, $_method),
-                $_signal
-            ];
+            if (isset($this->$_signal)) {
+                $_signal = eval($this->{$_signal});
+            }
+            $this->_signals[] = $_signal;
         }
     }
 
@@ -45,16 +45,8 @@ class Listener {
      *
      * @return  array
      */
-    public function get_signal_handlers(/* ... */)
+    public function _get_signals(/* ... */)
     {
-        return $this->_sig_handlers;
-    }
-
-    /**
-     * Cleans the listener.
-     */
-    public function clean(/* ... */)
-    {
-        $this->_sig_handlers = null;
+        return $this->_signals;
     }
 }

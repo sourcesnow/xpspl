@@ -184,7 +184,6 @@ class Engine {
                 $file,
                 $stacktrace
             );
-            exit(1);
         });
     }
 
@@ -334,22 +333,27 @@ class Engine {
     public function has_signal_exhausted($signal)
     {
         $queue = $this->search_signals($signal);
-        if (null === $queue) return true;
+        if (null === $queue) {
+            return true;
+        }
         return true === $this->queue_exhausted($queue);
     }
 
     /**
-     * Analysis a queue to determine if all handles are exhausted.
-     * 
+     * Determine if all queue handles are exhausted.
+     *
      * @param  object  $queue  \prggmr\Queue
      * 
      * @return  boolean
      */
     public function queue_exhausted($queue)
     {
+        if ($queue->count() === 0) {
+            return true;
+        }
         $queue->reset();
         while($queue->valid()) {
-            // if a non exhausted queue is found return false
+            // if a non exhausted handle is found return false
             if (!$queue->current()[0]->is_exhausted()) {
                 return false;
             }
@@ -396,10 +400,9 @@ class Engine {
      */
     public function listen(Listener $listener)
     {
-        foreach ($listener->get_signal_handlers() as $_sig_handle) {
-            $this->handle($_sig_handle[1], $_sig_handle[0]);
+        foreach ($listener->_get_signals() as $_signal) {
+            $this->handle($_signal, [$listener, $_signal]);
         }
-        $listener->clean();
     }
 
     /**

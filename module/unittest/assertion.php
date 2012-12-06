@@ -45,12 +45,13 @@ class Assertions {
      * 
      * @param  string  $name  Assertion function name
      * @param  array  $vars  Array of variables to pass the handler.
+     * @param  object  $test  \prggmr\module\unitest\Event
      * 
      * @return  boolean|string|int  True on success, False on failure|
      *                              String indicated failure message|
      *                              Integer on unknown assertion.
      */
-    public function call_assertion($name, $vars = null)
+    public function call_assertion($name, $vars, $event)
     {
         if (!isset($this->_storage[$name])) {
             throw new \BadMethodCallException;
@@ -58,7 +59,8 @@ class Assertions {
         if (!is_array($vars)) {
             $vars = [$vars];
         }
-        $test = call_user_func_array($this->_storage[$name][0], $vars);
+        $func = $this->_storage[$name][0]->bindTo($event);
+        $test = call_user_func_array($func, $vars);
         if ($test === true) {
             return true;
         }

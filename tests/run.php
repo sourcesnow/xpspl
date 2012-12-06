@@ -24,4 +24,16 @@ foreach ($dir as $_file) {
         require_once $i;
     }, $_file);
 }
-
+if (function_exists('xdebug_start_code_coverage')) {
+    // prggmr\handle(new prggmr\engine\signal\Loop_Start(), function(){
+    //     xdebug_start_code_coverage();
+    // });
+    // prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function(){
+    //     $coverage = xdebug_get_code_coverage();
+    //     foreach ($coverage as $_file => $_line) {
+    //         $_data = file_get_contents($_file);
+    //         var_dump(token_get_all($_data));
+    //         exit;
+    //     }
+    // });
+}

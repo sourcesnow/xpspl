@@ -76,6 +76,16 @@ api\create_assertion(function($var){
 }, 'null', '%s does not equal null');
 
 /**
+ * NotNull assertion
+ *
+ * Asserts the given expression results to null.
+ */
+api\create_assertion(function($var){
+    if ($var !== null) return true;
+    return false;
+}, 'notnull', '%s does equal null');
+
+/**
  * Array assertion
  *
  * Asserts the given variable is an array.

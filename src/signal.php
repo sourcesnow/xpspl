@@ -27,6 +27,9 @@ class Signal extends \prggmr\signal\Standard {
     {
         if (null === $info || !is_int($info) && !is_string($info)) {
             $this->_info = strtolower(get_class($this));
+            if ($this->_info == 'prggmr\signal') {
+                throw new \InvalidArgumentException;
+            }
             return;
         }
         $this->_info = $info;
