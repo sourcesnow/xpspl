@@ -225,6 +225,8 @@ class Engine {
 
     /**
      * Start the event loop.
+     *
+     * @todo unittest
      * 
      * @param  null|integer  $ttr  Number of milliseconds to run the loop.
      * 
@@ -259,6 +261,8 @@ class Engine {
 
     /**
      * Runs the complex signal routine for the engine loop.
+     *
+     * @todo unittest
      * 
      * @return  boolean|array
      */
@@ -315,6 +319,8 @@ class Engine {
 
     /**
      * Returns the current routine object.
+     *
+     * @todo unittest
      *
      * @return  null|object
      */
@@ -704,6 +710,11 @@ class Engine {
      *
      * If PRGGMR_EXHAUSTION_PURGE is true handles will be purged once they 
      * reach exhaustion.
+     *
+     * @param  object  $queue  prggmr\Queue
+     * @param  object  $event  prggmr\Event
+     *
+     * @return  void
      */
     private function _queue_execute($queue, $event)
     {
@@ -876,7 +887,7 @@ class Engine {
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
             $this->signal(new engine_signals\Ivalid_Signal(
-                "Invalid signal given for handle interruption"
+                "Invalid signal given for signal interruption"
             ), new engine\event\Error($signal));
             return false;
         }
@@ -942,7 +953,9 @@ class Engine {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
-                    $queue->enqueue($_node[1], $_node[1]->get_priority());
+                    if (!$_node[1]->is_exhausted()) {
+                        $queue->enqueue($_node[1], $_node[1]->get_priority());
+                    }
                 }
             }
         }

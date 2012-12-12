@@ -26,14 +26,14 @@ unittest\suite(function(){
         $engine = new \prggmr\Engine(false);
         $engine->signal('test');
         $this->count($engine->event_history(), 0);
-    }, 'Construction no history');
+    }, 'construct_no_history');
 
     $this->test(function(){
         $this->engine->signal('test');
         $this->count($this->engine->event_history(), 1);
         $this->engine->erase_history();
         $this->count($this->engine->event_history(), 0);
-    }, 'Engine history management');
+    }, 'erase_history');
 
     $this->test(function(){
         $this->engine->handle('test', function(){});
@@ -42,7 +42,7 @@ unittest\suite(function(){
         $queue = $this->engine->search_signals('test');
         $this->instanceof($queue, new \prggmr\Queue());
         $this->count($queue->storage(), 0);
-    }, 'Automatic exhaustion');
+    }, 'auto_remove_exhausted');
 
     $this->test(function(){
         // String based
@@ -97,7 +97,7 @@ unittest\suite(function(){
             }
         }
         $this->equal($count, 0);
-    }, 'Signal Delete');
+    }, 'delete_signal');
     
     $this->test(function(){
         $this->engine->enable_signaled_exceptions();
@@ -108,14 +108,14 @@ unittest\suite(function(){
         $this->engine_error_not_signaled('Invalid_Handle', function(){
             $this->engine->handle('test', null);
         });
-    }, 'Enable/Disable Signaled Exceptions');
+    }, 'enable_signaled_exceptions,disable_signaled_exceptions');
 
     $this->test(function(){
         $this->engine->handle('test', function(){});
         $this->false($this->engine->has_signal_exhausted('test'));
         $this->engine->signal('test');
         $this->true($this->engine->has_signal_exhausted('test'));
-    }, "Has a signal exhausted");
+    }, "has_signal_exhausted");
 
     $this->test(function(){
         $this->engine->handle('test', function(){});
@@ -124,7 +124,7 @@ unittest\suite(function(){
         $this->engine->signal('test');
         $this->true($this->engine->queue_exhausted($queue));
         $this->count($queue->storage(), 0);
-    }, 'queue exhausted');
+    }, 'queue_exhausted');
 
     $this->test(function(){
         $this->engine->handle('test', new prggmr\Handle(function(){}, null));
@@ -140,7 +140,7 @@ unittest\suite(function(){
         $this->equal($this->engine->get_state(), STATE_DECLARED);
         $this->null($this->engine->search_signals('test'));
         $this->count($this->engine->event_history(), 0);
-    }, 'Flush');
+    }, 'flush');
 
     $this->test(function(){
         $handle = $this->engine->handle('test', function(){});
@@ -151,7 +151,7 @@ unittest\suite(function(){
         $this->engine->handle_remove('test', $handle);
         $this->count($queue->storage(), 0);
         $this->true($this->engine->has_signal_exhausted('test'));
-    }, 'handle and handle remove');
+    }, 'handle,handle_remove');
 
     $this->test(function(){
         class TL extends prggmr\Listener {
@@ -168,7 +168,7 @@ unittest\suite(function(){
         $this->false($this->engine->has_signal_exhausted('test'));
         $event = $this->engine->signal('test');
         $this->true($event->test);
-    }, 'listeners');
+    }, 'listen');
 
     $this->test(function(){
         $this->engine_error_signaled('Invalid_Signal', function(){
@@ -226,6 +226,55 @@ unittest\suite(function(){
     }, 'evaluate_signals');
 
     $this->test(function(){
-        
-    }, 'event');
+        // Simple
+        $test = $this;
+        $this->engine->handle('test', function() use ($test){
+            $test->isset('count', $this);
+            $test->equal($this->count, 1);
+            $this->count++;
+        });
+        $this->engine->before('test', function() use ($test){
+            $this->count = 1;
+        });
+        $this->engine->after('test', function() use ($test){
+            $test->equal($this->count, 2);
+        });
+        $this->engine->after('test', function(){
+            $this->count++;
+        });
+        $event = $this->engine->signal('test');
+        $this->isset('count', $event);
+        $this->equal($event->count, 3);
+        // Complex
+        class CBA extends \prggmr\signal\Complex {
+            public function evalute($signal) {
+                var_dump($signal);
+            }
+        }
+        $this->engine->before(new CBA(), function(){
+            echo 'HAHA';
+        });
+        $this->engine->signal('test');
+    }, 'before,after');
+
+    $this->test(function(){
+        $this->engine->register('test');
+        $this->notnull($this->engine->search_signals('test'));
+        $this->instanceof(
+            $this->engine->search_signals('test'), 
+            new \prggmr\Queue()
+        );
+        $this->engine->clean();
+        $this->null($this->engine->search_signals('test'));
+        $this->engine->register('test');
+        $this->engine->handle('test', function(){});
+        $this->notnull($this->engine->search_signals('test'));
+        $this->false($this->engine->queue_exhausted(
+            $this->engine->search_signals('test')
+        ));
+        $this->engine->signal('test');
+        $this->engine->clean(true);
+        $this->null($this->engine->search_signals('test'));
+        $this->count($this->engine->event_history(), 0);
+    }, 'clean');
 });

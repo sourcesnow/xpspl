@@ -157,3 +157,16 @@ api\create_assertion(function($object, $class){
 api\create_assertion(function($array, $count){
     return count($array) === $count;
 }, 'count', 'Array %s count does not equal %s');
+
+/**
+ * If index or property is set.
+ */
+api\create_assertion(function($key, $var){
+    if (is_array($var)) {
+        return isset($var[$key]);
+    }
+    if (!is_object($var)) {
+        return false;
+    }
+    return isset($var->{$key});
+}, 'isset', '%s does not contain %s index or property');
