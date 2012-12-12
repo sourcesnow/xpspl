@@ -8,7 +8,9 @@
 prggmr\load_module("unittest");
 
 // load the standard unittest output
-prggmr\module\unittest\generate_output();
+prggmr\generate_unittest_output();
+
+prggmr\save_event_history(true);
 
 /**
  * Replace with the dir_load function
@@ -37,3 +39,4 @@ if (function_exists('xdebug_start_code_coverage')) {
     //     }
     // });
 }
+

@@ -6,9 +6,7 @@
  */
 prggmr\load_module('unittest');
 
-use prggmr\module\unittest as unittest;
-
-unittest\suite(function(){
+prggmr\suite(function(){
 
     $this->test(function(){
         $this->exception('InvalidArgumentException', function(){

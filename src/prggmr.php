@@ -11,9 +11,11 @@ define('PRGGMR_VERSION', '2.1.0');
 // The creator
 define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
-// Path relative to this file
-define('PRGGMR_PATH', dirname(realpath(__FILE__)));
-set_include_path(PRGGMR_PATH.'/../../' . PATH_SEPARATOR . get_include_path());
+// Add this to include path
+if (!defined('PRGGMR_PATH')) {
+    define('PRGGMR_PATH', dirname(realpath(__FILE__)));
+}
+set_include_path(PRGGMR_PATH . '/../../' . PATH_SEPARATOR . get_include_path());
 
 // start'er up
 // utils & traits
@@ -43,7 +45,7 @@ if (PRGGMR_DEBUG) {
 
 // evented exceptions disabled by default
 if (!defined('SIGNAL_ERRORS_EXCEPTIONS')) {
-    define('SIGNAL_ERRORS_EXCEPTIONS', true);
+    define('SIGNAL_ERRORS_EXCEPTIONS', false);
 }
 
 // immediatly removes exhausted handles from the engine
@@ -55,6 +57,16 @@ if (!defined('PRGGMR_PURGE_EXHAUSTED')) {
 if (!defined('PRGGMR_MODULE_DIR')) {
     define('PRGGMR_MODULE_DIR', PRGGMR_PATH . '/../module');
 }
+
+// detect if using windows ...
+if (!defined('WINDOWS')) {
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        define('WINDOWS', true);
+    } else {
+        define('WINDOWS', false);
+    }
+}
+
 /**
  * The prggmr object works as the global instance used for managing the
  * global engine instance.
@@ -101,6 +113,7 @@ prggmr::init(PRGGMR_EVENT_HISTORY, PRGGMR_ENGINE_EXCEPTIONS);
  * catchable signal.
  */
 if (SIGNAL_ERRORS_EXCEPTIONS === true) {
-    set_error_handler("signal_exceptions");
-    set_exception_handler("signal_errors");
+    // set_error_handler("signal_exceptions");
+    // set_exception_handler("signal_errors");
 }
+

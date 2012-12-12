@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\unittest;
+namespace prggmr;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -57,12 +57,13 @@ function suite($function, $event = null) {
  * 
  * @return  void
  */
-function generate_output() {
+function generate_unittest_output() {
+
     // enable the event history
     \prggmr\save_event_history(true);
 
     // Startup
-    \prggmr\handle(new \prggmr\engine\signal\Loop_Start(), function(){
+    \prggmr\on_start(function(){
         define('UNITTEST_START_TIME', milliseconds());
         // $output = unittest\Output::instance();
         // $output->send("prggmr unittest module " .  PRGGMR_VERSION, 
@@ -72,7 +73,7 @@ function generate_output() {
     });
 
     // Shutdown
-    \prggmr\handle(new \prggmr\engine\signal\Loop_Shutdown(), function(){
+    \prggmr\on_shutdown(function(){
         define('UNITTEST_END_TIME', milliseconds());
         $tests = 0;
         $pass = 0;

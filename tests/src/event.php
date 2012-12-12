@@ -6,9 +6,7 @@
  */
 prggmr\load_module('unittest');
 
-use prggmr\module\unittest as unittest;
-
-unittest\suite(function(){
+prggmr\suite(function(){
 
     $this->setup(function(){
         $this->event = new prggmr\Event();
@@ -19,27 +17,17 @@ unittest\suite(function(){
     });
 
     $this->test(function(){
-        $this->event->set_signal('test');
-        $this->equal($this->event->get_signal(), 'test');
-        $this->event->set_state(STATE_RUNNING);
-        $this->false($this->event->set_signal('test_2'));
-        $this->event->set_state(STATE_RECYCLED);
-        $this->event->set_signal('test_3');
-        $this->equal($this->event->get_signal(), 'test_3');
-    }, "Event set/get signal");
-
-    $this->test(function(){
         $this->event->set_result(true);
         $this->true($this->event->get_result());
         $this->event->set_result(false);
         $this->false($this->event->get_result());
-    }, "Event set/get result");
+    }, "event_result");
 
     $this->test(function(){
         $this->equal($this->event->get_state(), STATE_DECLARED);
         $this->event->halt();
         $this->equal($this->event->get_state(), STATE_HALTED);
-    }, "Event halt");
+    }, "event_halt");
 
     $this->test(function(){
         $parent = new prggmr\Event();
@@ -49,7 +37,7 @@ unittest\suite(function(){
         $this->equal($this->event->get_parent(), $parent);
         $this->event->set_parent($this->event);
         $this->equal($this->event->get_parent(), $this->event);
-    }, "Event parent/children");
+    }, "event_parent_child");
 
     $this->test(function(){
         $this->exception('LogicException', function(){
@@ -63,6 +51,6 @@ unittest\suite(function(){
         $this->exception('LogicException', function(){
             $this->event->a++;
         });
-    }, "Event set/get/unset/isset data");
+    }, "event_data");
     
 });

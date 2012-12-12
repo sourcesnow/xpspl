@@ -7,9 +7,7 @@
 
 prggmr\load_module('unittest');
 
-use prggmr\module\unittest as unittest;
-
-unittest\suite(function(){
+prggmr\suite(function(){
 
     $this->setup(function(){
         $this->engine = new prggmr\Engine(true, true);
@@ -24,8 +22,9 @@ unittest\suite(function(){
     
     $this->test(function(){
         $engine = new \prggmr\Engine(false);
+        $this->false($engine->event_history());
         $engine->signal('test');
-        $this->count($engine->event_history(), 0);
+        $this->false($engine->event_history());
     }, 'construct_no_history');
 
     $this->test(function(){

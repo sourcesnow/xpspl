@@ -6,14 +6,12 @@
  */
 prggmr\load_module('unittest');
 
-use prggmr\module\unittest as unittest;
-
 // tmp class for state test
 class Temp {
     use prggmr\State;
 }
 
-unittest\suite(function(){
+prggmr\suite(function(){
     /**
      * Setup and teardown function
      */

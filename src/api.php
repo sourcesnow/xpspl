@@ -259,3 +259,83 @@ function listen($listener)
 {
     return \prggmr::instance()->listen($listener);
 }
+
+/**
+ * Performs a inclusion of the entire directory content, including 
+ * subdirectories, with the option to start a listener once the file has been 
+ * included.
+ *
+ * @param  string  $dir  Directory to include.
+ * @param  boolean  $listen  Start listeners.
+ * @param  string  $path  Path to ignore when starting listeners.
+ *
+ * @return  void
+ */
+function dir_include($dir, $listen = false, $path = null)
+{
+    /**
+     * This is some pretty narly code but so far the fastest I have been able 
+     * to get this to run.
+     */
+    $iterator = new \RegexIterator(
+        new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($dir)
+        ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
+    );
+    var_dump($iterator);
+    foreach ($iterator as $_file) {
+        array_map(function($i) use ($path, $listen){
+            include $i;
+            if (!$listen) {
+                return false;
+            }
+            if (WINDOWS) {
+                $x = '\\';
+            } else {
+                $x = '/';
+            }
+            $data = explode($x, str_replace([$path, '.php'], '', $i));
+            $class = array_pop($data);
+            $namespace = implode('\\', $data);
+            $handle = $namespace.'\\'.ucfirst($class);
+            if (class_exists($handle, false) && 
+                is_subclass_of($handle, '\prggmr\Listener')) {
+                listen(new $handle());
+            }
+        }, $_file);
+    }
+}
+
+/**
+ * Returns the current signal in execution.
+ *
+ * @return  object
+ */
+function current_signal(/* ... */)
+{
+    return \prggmr::instance()->current_signal();
+}
+
+/**
+ * Call the provided function on engine shutdown.
+ * 
+ * @param  callable|object  $function  Function or handle object
+ * 
+ * @return  object  \prggmr\Handle
+ */
+function on_shutdown($function)
+{
+    return \prggmr\handle(new \prggmr\engine\signal\Loop_Shutdown(), $function);
+}
+
+/**
+ * Call the provided function on engine start.
+ * 
+ * @param  callable|object  $function  Function or handle object
+ * 
+ * @return  object  \prggmr\Handle
+ */
+function on_start($function)
+{
+    return \prggmr\handle(new \prggmr\engine\signal\Loop_Start(), $function);
+}

@@ -5,7 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-use prggmr\module\unittest as api;
+use prggmr as api;
 
 /**
  * Default assertions.

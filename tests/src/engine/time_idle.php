@@ -7,17 +7,15 @@
 
 prggmr\load_module('unittest');
 
-use prggmr\module\unittest as unittest;
+prggmr\suite(function(){
 
-unittest\suite(function(){
-
-    unittest\test(function(){
+    $this->test(function(){
         $time1 = new \prggmr\engine\idle\Time(1, \prggmr\engine\idle\Time::SECONDS);
         $time2 = new \prggmr\engine\idle\Time(1500, \prggmr\engine\idle\Time::MILLISECONDS);
         $this->true($time1->override($time2));
     }, 'Milliseconds more than seconds');
 
-    unittest\test(function(){
+    $this->test(function(){
         $time1 = new \prggmr\engine\idle\Time(2, \prggmr\engine\idle\Time::SECONDS);
         $time2 = new \prggmr\engine\idle\Time(1500, \prggmr\engine\idle\Time::MILLISECONDS);
         $this->true($time1->override($time2));

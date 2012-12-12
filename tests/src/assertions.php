@@ -5,14 +5,12 @@
  * that can be found in the LICENSE file.
  */
 
-use prggmr\module\unittest as api;
-
 /**
  * Engine Error Assertion
  *
  * Asserts the given engine error signal triggers.
  */
-api\create_assertion(function($signal, \Closure $function){
+prggmr\create_assertion(function($signal, \Closure $function){
     ob_start();
     $function = $function->bindTo($this);
     $function();
@@ -21,7 +19,7 @@ api\create_assertion(function($signal, \Closure $function){
     return stripos($contents, 'Exception: '.$signal) !== false;
 }, 'engine_error_signaled', 'Error %s was not signaled');
 
-api\create_assertion(function($signal, \Closure $function){
+prggmr\create_assertion(function($signal, \Closure $function){
     ob_start();
     $function = $function->bindTo($this);
     $function();

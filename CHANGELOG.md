@@ -4,7 +4,6 @@
 * module directory moved out of src.
 * Exhausted handles are now immediatly removed from the engine.
 * Added constants PRGGMR_MODULE_DIR and PRGGMR_PURGE_EXHAUSTED.
-* Added the dir_include API function.
 
 ## 2.0.1 102412
 
