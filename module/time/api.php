@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\time;
+namespace prggmr;
 
 /**
  * Calls a function at the specified intervals of time.
