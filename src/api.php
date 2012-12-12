@@ -309,11 +309,25 @@ function dir_include($dir, $listen = false, $path = null)
 /**
  * Returns the current signal in execution.
  *
+ * @param  integer  $offset  In memory hierarchy offset +/-.
+ *
  * @return  object
  */
-function current_signal(/* ... */)
+function current_signal($offset = 0)
 {
-    return \prggmr::instance()->current_signal();
+    return \prggmr::instance()->current_signal($offset);
+}
+
+/**
+ * Returns the current event in execution.
+ *
+ * @param  integer  $offset  In memory hierarchy offset +/-.
+ *
+ * @return  object
+ */
+function current_signal($offset = 0)
+{
+    return \prggmr::instance()->current_event($offset);
 }
 
 /**

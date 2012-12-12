@@ -1,5 +1,7 @@
 ## 2.1.0 TBD
 
+* Added the API function on_shutdown, on_start, current_event, current_signal
+  dir_include.
 * Added the "count" assertion method to the unittest module
 * module directory moved out of src.
 * Exhausted handles are now immediatly removed from the engine.
