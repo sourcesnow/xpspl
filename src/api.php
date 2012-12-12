@@ -325,7 +325,7 @@ function current_signal($offset = 0)
  *
  * @return  object
  */
-function current_signal($offset = 0)
+function current_event($offset = 0)
 {
     return \prggmr::instance()->current_event($offset);
 }
