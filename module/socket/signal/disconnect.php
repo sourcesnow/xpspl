@@ -7,6 +7,8 @@ namespace prggmr\module\socket\signal;
  */
 
 /**
- * Socket stream disconnect signal.
+ * Disconnect
+ * 
+ * Signaled when a socket disconnects
  */
 class Disconnect extends \prggmr\Signal {}

@@ -7,8 +7,8 @@ namespace prggmr\module\socket\signal;
  */
 
 /**
- * Connect
- * 
- * Signaled when a socket has connected.
+ * Write
+ *
+ * Signaled when a socket is ready to write
  */
-class Connect extends \prggmr\Signal {}
+class Write extends \prggmr\Signal {}

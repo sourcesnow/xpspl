@@ -10,6 +10,7 @@ prggmr\load_module("unittest");
 // load the standard unittest output
 prggmr\generate_unittest_output();
 
+// make sure we save the event history
 prggmr\save_event_history(true);
 
 /**
@@ -26,17 +27,83 @@ foreach ($dir as $_file) {
         require_once $i;
     }, $_file);
 }
-if (function_exists('xdebug_start_code_coverage')) {
-    // prggmr\handle(new prggmr\engine\signal\Loop_Start(), function(){
-    //     xdebug_start_code_coverage();
-    // });
-    // prggmr\handle(new prggmr\engine\signal\Loop_Shutdown(), function(){
-    //     $coverage = xdebug_get_code_coverage();
-    //     foreach ($coverage as $_file => $_line) {
-    //         $_data = file_get_contents($_file);
-    //         var_dump(token_get_all($_data));
-    //         exit;
-    //     }
-    // });
+
+if (defined('GENERATE_CODE_COVERAGE')) {
+
+    if (!function_exists('xdebug_start_code_coverage')) {
+        \prggmr\module\unittest\Output::send(
+            'Coverage skipped xdebug not installed', 
+            \prggmr\module\unittest\Output::ERROR, 
+            true
+        );
+    } else {
+
+    prggmr\on_start(function(){
+        xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
+    });
+
+    prggmr\on_shutdown(function(){
+        $exclude = [
+            '/api.php', '/prggmr.php'
+        ];
+        $coverage = xdebug_get_code_coverage();
+        xdebug_stop_code_coverage();
+        $dir = new \RegexIterator(
+            new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator(PRGGMR_PATH)
+            ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
+        );
+        $avg = [];
+        foreach ($dir as $_file) {
+            array_map(function($i) use ($coverage, &$avg, $exclude){
+                $file = trim(str_replace(PRGGMR_PATH, '', $i));
+                if (!in_array($file, $exclude) && isset($coverage[$i])) {
+                    $lines = count($coverage[$i]);
+                    $total = 0;
+                    foreach ($coverage[$i] as $_v) {
+                        if ($_v >= 1) {
+                            $total++;
+                        }
+                    }
+                    $avg[$file] = round(($total / $lines) * 100, 2);
+                }
+            }, $_file);
+        }
+        $total = 0.00;
+        foreach ($avg as $_c) {
+            $total += $_c;
+        }
+        \prggmr\module\unittest\Output::send(
+            '--------------------', 
+            \prggmr\module\unittest\Output::DEBUG, 
+            true
+        );
+        \prggmr\module\unittest\Output::send(sprintf(
+            'Total Test Coverage : %s%%',
+            round(($total / (count($avg) * 100)) * 100, 2)
+        ), \prggmr\module\unittest\Output::DEBUG, true);
+        \prggmr\module\unittest\Output::send(
+            '--------------------', 
+            \prggmr\module\unittest\Output::DEBUG, 
+            true
+        );
+        foreach ($avg as $_k => $_c) {
+            \prggmr\module\unittest\Output::send(sprintf(
+                'File : %s',
+                str_replace(PRGGMR_PATH, '', $_k)
+            ), \prggmr\module\unittest\Output::DEBUG, true);
+            \prggmr\module\unittest\Output::send(sprintf(
+                'Coverage : %s%%',
+                $_c
+            ), \prggmr\module\unittest\Output::DEBUG, true);
+            \prggmr\module\unittest\Output::send(
+                '--------------------', 
+                \prggmr\module\unittest\Output::DEBUG, 
+                true
+            );
+        }
+    });
+    
+    }
 }
 

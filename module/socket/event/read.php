@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\socket\signal;
+namespace prggmr\module\socket\event;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,8 +7,8 @@ namespace prggmr\module\socket\signal;
  */
 
 /**
- * Connect
+ * Read
  * 
- * Signaled when a socket has connected.
+ * Socket read event.
  */
-class Connect extends \prggmr\Signal {}
+class Read extends Base {}

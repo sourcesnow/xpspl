@@ -7,22 +7,22 @@ namespace prggmr\module\socket\event;
  */
 
 /**
- * Socket disconnection event.
+ * Disconnect
+ * 
+ * Socket disconnection.
  */
-class Disconnect extends Connect {
+class Disconnect extends Base {
 
     /**
      * Cannot disconnect a disconnect.
      *
-     * @throws  LogicException
-     * 
      * @return  void
      */
-    public function disconnect($how = STREAM_SHUT_RDWR)
+    public function disconnect(/* ... */)
     {
         throw new \LogicException(sprintf(
             "Socket %s is already disconnected",
-            stream_socket_get_name($this->get_socket(), true)
+            $this->get_address()
         ));
     }
 
