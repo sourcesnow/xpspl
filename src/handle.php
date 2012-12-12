@@ -31,43 +31,23 @@ define('EXHUAST_DEFAULT', 1);
 class Handle {
 
     /**
-     * The function that will execute when this handle is
-     * triggered.
+     * The function that will execute when this handle is called.
      */
     protected $_function = null;
 
     /**
-     * Count before a handle is exhausted.
+     * Handle is exhaustion.
      *
-     * @var  string
+     * @var  integer|null
      */
     protected $_exhaustion = null;
 
     /**
-     * Flag determining if the handle has exhausted.
+     * Handle priority.
      *
-     * @var  boolean
+     * @var  integer
      */
-    protected $_exhausted = null;
-
-    /**
-     * Is the handle function a closure.
-     */
-    protected $_isclosure = false;
-
-    /**
-     * Object to bind the handle function, used only when not a closure.
-     *
-     * @var  null|object
-     */
-    protected $_bind = null;
-
-    /**
-     * Array of additional parameters to pass the executing function.
-     *
-     * @var  array
-     */
-    protected $_params = null;
+    protected $_priority = null;
 
     /**
      * Constructs a new handle object.
@@ -157,47 +137,11 @@ class Handle {
             return false;
         }
 
-        if (true === $this->_exhausted) {
-            return true;
-        }
-
         if (0 >= $this->_exhaustion) {
-            $this->_exhausted = true;
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * Supply additional parameters to be passed to the handle.
-     *
-     * @param  mixed  $params  Array of parameters.
-     *
-     * @return  void
-     */
-    public function params($params)
-    {
-        if (!is_array($params)) {
-            $params = [$params];
-        }
-        $this->_params = array_merge((array) $this->_params, $params);
-    }
-
-    /**
-     * Binds the handle to the given object.
-     * 
-     * @param  object  $object  Object to bind handle to
-     * 
-     * @return  void
-     */
-    public function bind($object)
-    {
-        if (!$this->_isclosure) {
-            $this->_bind = $object;
-        } else {
-            $this->_function = $this->_function->bindTo($object);
-        }
     }
 
     /**
@@ -208,5 +152,15 @@ class Handle {
     public function get_priority(/* ... */)
     {
         return $this->_priority;
+    }
+
+    /**
+     * Returns the function for the handle.
+     *
+     * @return  closure|array
+     */
+    public function get_function(/* ... */)
+    {
+        return $this->_function;
     }
 }

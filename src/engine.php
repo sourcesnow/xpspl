@@ -642,9 +642,11 @@ class Engine {
             array_walk($evalated, function($node) use ($queue, $queues) {
                 if (is_bool($node[1]) === false) {
                     $data = $node[1];
-                    $node[0][1]->walk(function($handle) use ($data){
-                        $handle[0]->params($data);
-                    });
+                    if (is_array($data)) {
+                        foreach ($data as $_k => $_v) {
+                            $event->{$_k} = $_v;
+                        }
+                    }
                 }
                 $queue->merge($node[0][1]->storage());
                 if (PRGGMR_PURGE_EXHAUSTED) {
@@ -732,16 +734,18 @@ class Engine {
                 continue;
             }
             $_handle->decrement_exhaust();
-            // bind event to allow use of "this"
-            $_handle->bind($event);
-            // set event as running
-            $event->set_state(STATE_RUNNING);
             $result = null;
             if ($this->_engine_exceptions) {
-                $result = $_handle();
+                $result = $this->_func_exec(
+                    $_handle->get_function(),
+                    $event
+                );
             } else {
                 try {
-                    $result = $_handle();
+                    $result = $this->_func_exec(
+                        $_handle->get_function(),
+                        $event
+                    );
                 } catch (\Exception $exception) {
                     $event->set_state(STATE_ERROR);
                     // We hit a recursive loop
@@ -761,6 +765,28 @@ class Engine {
             }
         }
     }
+
+    /**
+     * Executes a callable engine function.
+     *
+     * @param  callable  $function  Function to execute
+     * @param  object  $event  Event context to execute within
+     * 
+     * @return  boolean
+     */
+    private function _func_exec($function, $event)
+    {
+        if ($function instanceof \Closure) {
+            $func = $function->bindTo($event);
+            return $func();
+        }
+        if (count($function) >= 2) {
+            $class = new $function[0];
+            return $class->$function[1]($event);
+        }
+        return $function[0]($event);
+    }
+    
     
 
     /**
@@ -948,7 +974,11 @@ class Engine {
                 $eval = $_node[0]->evaluate($signal);
                 if (false !== $eval) {
                     if (true !== $eval) {
-                        $_node[1]->params($eval);
+                        if (is_array($eval)) {
+                            foreach ($eval as $_k => $_v) {
+                                $event->{$_k} = $_v;
+                            }
+                        }
                     }
                     if (null === $queue) {
                         $queue = new Queue();
