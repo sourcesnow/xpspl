@@ -60,7 +60,7 @@ class Handle {
      */
     public function __construct($function, $exhaust = EXHUAST_DEFAULT, $priority = null)
     {
-        if (!$function instanceof Closure && !is_callable($function)) {
+        if (!is_callable($function)) {
             throw new \InvalidArgumentException(sprintf(
                 "handle requires a callable (%s) given",
                 (is_object($function)) ?
@@ -73,35 +73,12 @@ class Handle {
         }
         // unbind the closure if is
         if ($function instanceof \Closure) {
-            $this->_isclosure = true;
-            $this->_function = $function->bindTo(new \stdClass());
+            $this->_function = clone $function;
         } else {
             $this->_function = $function;
         }
         $this->_priority = $priority;
         $this->_exhaustion = $exhaust;
-    }
-
-    /**
-     * Invoke the handle.
-     * 
-     * @param  array|mixed  $params  Additional parameters to pass.
-     *
-     * @return  mixed
-     */
-    public function __invoke() 
-    {
-        $params = [];
-        if (null !== $this->_params) {
-            $params = array_merge($params, $this->_params);
-        }
-        if (!$this->_isclosure) {
-            array_unshift($params, $this->_bind);
-        }
-        $result = call_user_func_array($this->_function, $params);
-        $this->_bind = null;
-        $this->_params = null;
-        return $result;
     }
 
     /**

@@ -202,12 +202,12 @@ prggmr\suite(function(){
 
     $this->test(function(){
         class EVL extends prggmr\signal\Complex {
-            public function evaluate($signal) {
+            public function evaluate($signal = null) {
                 return true;
             }
         }
         class EVF extends prggmr\signal\Complex {
-            public function evaluate($signal) {
+            public function evaluate($signal = null) {
                 return false;
             }
         }
@@ -246,12 +246,10 @@ prggmr\suite(function(){
         $this->equal($event->count, 3);
         // Complex
         class CBA extends \prggmr\signal\Complex {
-            public function evalute($signal) {
-                var_dump($signal);
+            public function evalute($signal = null) {
             }
         }
         $this->engine->before(new CBA(), function(){
-            echo 'HAHA';
         });
         $this->engine->signal('test');
     }, 'before,after');

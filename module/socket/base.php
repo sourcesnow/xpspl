@@ -35,13 +35,6 @@ abstract class Base extends \prggmr\signal\Complex {
     protected $_address = null;
 
     /**
-     * Socket Port
-     *
-     * @var  integer
-     */
-    protected $_port = null;
-
-    /**
      * Options used for the socket.
      */
     protected $_options = [];
@@ -51,14 +44,8 @@ abstract class Base extends \prggmr\signal\Complex {
      */
     public function __construct()
     {
-        // connect/disconnect/read/write
-        $this->_on_connect = new signal\Connect(sprintf('%s_connect',
-            spl_object_hash($this)
-        ));
-        $this->_on_disconnect = new signal\Disconnect(sprintf('%s_disconnect',
-            spl_object_hash($this)
-        ));
-
+        $this->_on_connect = new signal\Connect();
+        $this->_on_disconnect = new signal\Disconnect();
         parent::__construct();
     }
 

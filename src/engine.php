@@ -781,7 +781,7 @@ class Engine {
     private function _func_exec($function, $event)
     {
         if ($function instanceof \Closure) {
-            $func = $function->bindTo($event);
+            $func = $function->bindTo($event, null);
             return $func();
         }
         if (count($function) >= 2) {

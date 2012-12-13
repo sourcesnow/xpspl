@@ -11,4 +11,4 @@ namespace prggmr\module\socket\signal;
  * 
  * Signaled when a socket has connected.
  */
-class Connect extends \prggmr\Signal {}
+class Connect extends Base {}

@@ -60,6 +60,7 @@ class Event extends \prggmr\Event {
         $this->_assertions_ran[] = $func;
         if ($this->_failed && SKIP_TESTS_ON_FAILURE) {
             $this->_output->assertion($this, $func, $args, null);
+            return false;
         } else {
             try {
                 $call = $this->_assertions->call_assertion($func, $args, $this);

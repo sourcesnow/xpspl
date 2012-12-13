@@ -25,22 +25,14 @@ abstract class Base extends \prggmr\Event {
     protected $_socket = null;
 
     /**
-     * Socket connection connected from.
-     *
-     * @var  resource
-     */
-    protected $_server = null;
-
-    /**
      * Constructs a new socket event.
      *
      * @param  resource  $socket  Socket that connected
-     * @param  object  $server  Socket connection connected from.
      * @param  integer|null  $ttl  Time to live
      *
      * @return  void
      */
-    public function __construct($socket, $server, $ttl = null)
+    public function __construct($socket, $ttl = null)
     {
         $this->_socket = $socket;
         $this->_server = $server;
@@ -58,13 +50,13 @@ abstract class Base extends \prggmr\Event {
     }
 
     /**
-     * Returns the socket this socket originated from.
+     * Returns the socket signal this event originated from.
      *
      * @return  object
      */
-    public function get_server(/* ... */)
+    public function get_socket_signal(/* ... */)
     {
-        return $this->_server;
+        return prggmr\current_signal(-1);
     }
 
     /**
@@ -99,7 +91,7 @@ abstract class Base extends \prggmr\Event {
         if (null !== $flags) {
             $r = null;
             if (false !== socket_recv(
-                $this->get_socket(), $r, $length, $flags) {
+                $this->get_socket(), $r, $length, $flags)) {
                 return $r;
             }
             return false;
@@ -116,7 +108,7 @@ abstract class Base extends \prggmr\Event {
      */
     public function disconnect(/* ... */)
     {
-        $this->get_server()->send_disconnect($this->get_socket());
+        $this->get_socket_signal()->send_disconnect($this->get_socket());
     }
 
     /**
@@ -126,7 +118,9 @@ abstract class Base extends \prggmr\Event {
      */
     public function get_address(/* ... */)
     {
-        $r = null
+        $r = null;
+        var_dump($this->get_socket());
         socket_getpeername($this->get_socket(), $r);
+        return $r;
     }
 }

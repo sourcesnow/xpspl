@@ -11,4 +11,4 @@ namespace prggmr\module\socket\signal;
  *
  * Signaled when a socket is ready to read
  */
-class Read extends \prggmr\Signal {}
+class Read extends Base {}

@@ -60,12 +60,8 @@ class Socket extends Base {
         $this->_connect();
 
         // used for when clients read/write
-        $this->_on_read = new signal\Read(sprintf('%s_read',
-            spl_object_hash($this)
-        ));
-        $this->_on_write = new signal\Write(sprintf('%s_write',
-            spl_object_hash($this)
-        ));
+        $this->_on_read = new signal\Read();
+        $this->_on_write = new signal\Write();
 
         $this->on_disconnect(new \prggmr\Handle(function(){
             fclose($this->get_socket());
@@ -74,8 +70,8 @@ class Socket extends Base {
         parent::__construct();
 
         // add the routine for this signal
-        $this->_routine->add_signal(
-            $this, new signal\Connect($this->_socket, null)
+        $this->signal_this(
+            new event\Connect($this->_socket)
         );
     }
 
@@ -157,13 +153,13 @@ class Socket extends Base {
                             socket_set_nonblock($socket);
                             $this->_routine->add_signal(
                                 $this->_connect,
-                                new event\Connect($socket, $this)
+                                new event\Connect($socket)
                             );
                             $this->_clients[] = $socket;
                         } else {
                             $this->_routine->add_signal(
                                 $this->_read,
-                                new event\Read($_read, $this)
+                                new event\Read($_read)
                             );
                         }
                     }
@@ -172,7 +168,7 @@ class Socket extends Base {
                     foreach ($write as $_write) {
                         $this->_routine->add_signal(
                             $this->_write,
-                            new event\Write($_write, $this)
+                            new event\Write($_write)
                         );
                     }
                 }

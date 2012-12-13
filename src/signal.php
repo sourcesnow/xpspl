@@ -16,6 +16,15 @@ use \InvalidArgumentException;
  * \prggmr\signal\Complex object.
  */
 class Signal extends \prggmr\signal\Standard {
+
+    /**
+     * Unique signal object.
+     *
+     * @var  boolean
+     */
+    protected $_unique = false;
+    
+
     /**
      * Constructs a new standard signal.
      *
@@ -26,11 +35,13 @@ class Signal extends \prggmr\signal\Standard {
     public function __construct($info = null)
     {
         if (null === $info || !is_int($info) && !is_string($info)) {
-            $this->_info = strtolower(get_class($this));
-            if ($this->_info == 'prggmr\signal') {
+            $info = strtolower(get_class($this));
+            if ($info == 'prggmr\signal') {
                 throw new \InvalidArgumentException;
             }
-            return;
+            if ($this->_unique) {
+                $info = spl_object_hash($this);
+            }
         }
         $this->_info = $info;
     }

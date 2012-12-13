@@ -11,4 +11,4 @@ namespace prggmr\module\socket\signal;
  *
  * Signaled when a socket is ready to write
  */
-class Write extends \prggmr\Signal {}
+class Write extends Base {}

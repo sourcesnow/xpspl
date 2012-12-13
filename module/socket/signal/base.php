@@ -7,8 +7,15 @@ namespace prggmr\module\socket\signal;
  */
 
 /**
- * Disconnect
+ * Base
  * 
- * Signaled when a socket disconnects
+ * Base socket signal.
  */
-class Disconnect extends Base {}
+class Base extends \prggmr\Signal {
+    /**
+     * Socket Signals are unique
+     * 
+     * @var  boolean
+     */
+    protected $_unique = true;
+}

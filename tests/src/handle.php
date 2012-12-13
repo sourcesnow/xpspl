@@ -19,15 +19,6 @@ prggmr\suite(function(){
     }, "handle construction");
 
     $this->test(function(){
-        $a = null;
-        $handle = new prggmr\Handle(function() use (&$a){
-            $a = $this;
-        });
-        $handle();
-        $this->instanceof(new \stdClass(), $a);
-    }, "Handle binding");
-
-    $this->test(function(){
         $handle = new prggmr\Handle(function(){});
         $this->false($handle->is_exhausted());
         $handle->decrement_exhaust();

@@ -71,10 +71,13 @@ foreach ($options as $_i => $_arg) {
             define('PRGGMR_DEV_MODE', true);
             break;
         case 'test':
-            $unittest = true;
-            break;
         case 'test-cover':
             $unittest = true;
+            if (!defined('PRGGMR_DEBUG')) {
+                define('PRGGMR_DEBUG', true);
+            }
+            break;
+        case 'test-cover':
             define('GENERATE_CODE_COVERAGE', true);
             break;
         default:
