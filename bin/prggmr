@@ -17,17 +17,20 @@ Options:
   -v/--version  Displays current prggmr version.
 ";
 
-if (count($argv) == 1) {
-    exit($usage);
-}
-
 $sync = false;
 $ttr = null;
+$runfile = false;
+$it = false;
+if (count($argv) === 0) {
+    goto start;
+}
 // last param is file
 $runfile = $argv[$argc - 1];
 // if - is first char ignore file
 if (strpos($runfile, '-') === 0) {
     $runfile = false;
+} else {
+    $it = false;
 }
 $options = getopt(
     'qwert:yuiopasdfghjklzxc:vbnm',
@@ -35,7 +38,6 @@ $options = getopt(
         'help', 'config:', 'version', 'time:', 'test', 'test-cover'
     ]
 );
-
 $tmp = $argv;
 $unittesting = false;
 $coverage = false;
@@ -76,9 +78,10 @@ foreach ($options as $_i => $_arg) {
             if (!defined('PRGGMR_DEBUG')) {
                 define('PRGGMR_DEBUG', true);
             }
-            break;
-        case 'test-cover':
-            define('GENERATE_CODE_COVERAGE', true);
+            if ($_i === 'test-cover') {
+                define('GENERATE_CODE_COVERAGE', true);
+            }
+            $it = false;
             break;
         default:
             exit(sprintf(
@@ -91,6 +94,8 @@ foreach ($options as $_i => $_arg) {
     if ($break) break;
 }
 
+start:
+
 // load prggmr
 if (!class_exists('prggmr')) {
     require_once dirname(realpath(__FILE__)).'/../src/prggmr.php';
@@ -101,7 +106,7 @@ if (isset($showversion)) exit('prggmr version '.PRGGMR_VERSION."
 
 if (isset($unittest)) {
     prggmr\load_module('unittest');
-    require PRGGMR_PATH.'/../tests/run.php';
+    require PRGGMR_PATH.'/tests/run.php';
 }
 
 if (false !== $runfile) {
@@ -110,6 +115,19 @@ if (false !== $runfile) {
     } else {
         require_once $runfile;
     }
+} elseif($it) {
+    prggmr\load_module('socket');
+    $stdin = prggmr\socket(STDIN, [], function(){
+        $this->socket->write('~> ');
+    });
+    $stdin->on_read(function(){
+        ob_start();
+        eval($this->socket->read());
+        $content = ob_get_contents();
+        ob_end_clean();
+        $this->socket->write($content);
+        $this->socket->write('~> ');
+    });
 }
 
 // start the loop!!

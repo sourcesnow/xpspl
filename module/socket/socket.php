@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\socket;
+namespace prggmr\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -14,20 +14,6 @@ use \prggmr\engine\idle as idle;
  * Event driven I/O for files or networks.
  */
 class Socket extends Base {
-
-    /**
-     * Signal dispatched when a data becomes available.
-     *
-     * @var  object
-     */
-    protected $_on_read = null;
-
-    /**
-     * Signal dispatched when a data is written.
-     *
-     * @var  object
-     */
-    protected $_on_write = null;
 
     /**
      * Client sockets currently connected for read/write.
@@ -46,6 +32,8 @@ class Socket extends Base {
      */
     public function __construct($address, $options = []) 
     {
+        parent::__construct();
+
         $defaults = [
             'port' => null,
             'domain' => AF_INET,
@@ -59,19 +47,17 @@ class Socket extends Base {
 
         $this->_connect();
 
-        // used for when clients read/write
-        $this->_on_read = new signal\Read();
-        $this->_on_write = new signal\Write();
+        $clients &= $this->_clients;
 
-        $this->on_disconnect(new \prggmr\Handle(function(){
-            fclose($this->get_socket());
-        }, null, PHP_INT_MAX));
-
-        parent::__construct();
+        \prggmr\handle(new signal\Disconnect(), new \prggmr\Handle(function()use(&$clients){
+            if (isset($clients[$this->socket->get_resource()])) {
+                unset($clients[$this->socket->get_resource()]);
+            }
+        }, null));
 
         // add the routine for this signal
         $this->signal_this(
-            new event\Connect($this->_socket)
+            new event\Connect($this->socket)
         );
     }
 
@@ -83,36 +69,22 @@ class Socket extends Base {
     protected function _connect(/* ... */)
     {
         // Establish a connection
-        $this->_socket = socket_create(
+        $this->socket = new Connection(socket_create(
             $this->_options['domain'], 
             $this->_options['type'], 
             $this->_options['protocol']
-        );
-        $bind = socket_bind(
-            $this->_socket, $this->_address, $this->_options['port']
+        ));
+        $bind = @socket_bind(
+            $this->socket->get_resource(), 
+            $this->_address, 
+            $this->_options['port']
         );
         if (false === $bind) {
-            $code = socket_last_error();
-            $str = socket_strerror($code);
-            throw new \RuntimeException(sprintf(
-                'Could not connect to socket (%s) - %s',
-                $code, $str
-            ));
+            \prggmr\throw_socket_error();
         }
         // listen
-        socket_listen($this->_socket);
-        // force non-blocking
-        socket_set_nonblock($this->_socket);
-    }
-
-    /**
-     * Disconnects from the socket.
-     *
-     * @return  void
-     */
-    public function disconnect(/* ... */)
-    {
-        fclose($this->_socket);
+        socket_listen($this->socket->get_resource());
+        \prggmr\socket_set_nonblock($this->socket->get_resource());
     }
 
     /**
@@ -127,9 +99,11 @@ class Socket extends Base {
             $idle = $engine->get_routine()->get_idles_available();
             // 30 second default wait
             $time = 30;
+            // Determine if another function has requested to execute in x
+            // amount of time
             if (count($this->_routine->get_signals()) !== 0) {
                 $time = 0;
-            } elseif (count($idle) == 2) {
+            } elseif (count($idle) >= 2) {
                 foreach ($idle as $_idle) {
                     if ($_idle instanceof idle\Time) {
                         $time = round($_idle->convert_length(
@@ -140,26 +114,42 @@ class Socket extends Base {
                     }
                 }
             }
-            $read = array_merge([$this->_socket], $this->_clients);
-            // $read = [$this->_socket];
-            $write = $this->_clients;
-            $ex = null;
-            if (false !== $count = socket_select($read, $write, $ex, $time)) {
+            $re = $wr = $ex = [];
+            $re[] = $this->socket->get_resource();
+            foreach ($this->_clients as $_k => $_c) {
+                $_r = $_c->get_resource();
+                if (!is_resource($_r)) {
+                    \prggmr\signal(
+                        new signal\Disconnect($this),
+                        new event\Disconnect($_c)
+                    );
+                    unset($this->_clients[$_k]);
+                    continue;
+                }
+                $re[] = $_r;
+                $wr[] = $_r;
+                $ex[] = $_r;
+            }
+            if (false !== $count = socket_select($re, $write, $ex, $time)) {
                 if ($count == 0) return true;
-                if (count($read) !== 0) {
-                    foreach ($read as $_read) {
-                        if (!in_array($_read, $this->_clients, true)) {
-                            $socket = socket_accept($_read);
-                            socket_set_nonblock($socket);
+                if (count($re) !== 0) {
+                    foreach ($re as $_r) {
+                        if (!isset($this->_clients[$_r])) {
+                            $socket = @socket_accept($_r);
+                            if (false === $socket) {
+                                continue;
+                            }
+                            \prggmr\socket_set_nonblock($socket);
+                            $connection = new Connection($socket);
                             $this->_routine->add_signal(
-                                $this->_connect,
-                                new event\Connect($socket)
+                                new signal\Connect($this),
+                                new event\Connect($connection)
                             );
-                            $this->_clients[] = $socket;
+                            $this->_clients[$socket] = $connection;
                         } else {
                             $this->_routine->add_signal(
-                                $this->_read,
-                                new event\Read($_read)
+                                new signal\Read($this),
+                                new event\Read($this->_clients[$_r])
                             );
                         }
                     }
@@ -167,73 +157,16 @@ class Socket extends Base {
                 if (count($write) !== 0) {
                     foreach ($write as $_write) {
                         $this->_routine->add_signal(
-                            $this->_write,
-                            new event\Write($_write)
+                            new signal\Write($this),
+                            new event\Write($this->_clients[$_w])
                         );
                     }
                 }
+            } else {
+                \prggmr\throw_socket_error();
             }
         }));
         return true;
-    }
-
-    /**
-     * Registers a new handle for client read.
-     *
-     * @param  callable  $function  Function to call on connect.
-     *
-     * @return  object
-     */
-    public function on_read($function)
-    {
-        if (!$function instanceof \prggmr\Handle) {
-            $function = new \prggmr\Handle($function, null);
-        }
-        return \prggmr\handle(
-            $this->_read, $function
-        );
-    }
-
-    /**
-     * Registers a new handle for client write.
-     *
-     * @param  callable  $function  Function to call on connect.
-     *
-     * @return  object
-     */
-    public function on_write($function)
-    {
-        if (!$function instanceof \prggmr\Handle) {
-            $function = new \prggmr\Handle($function, null);
-        }
-        return \prggmr\handle(
-            $this->_write, $function
-        );
-    }
-
-    /**
-     * Sends the disconnection signal.
-     *
-     * @param  resource  $socket  Socket that disconnected
-     *
-     * @return  void
-     */
-    public function send_disconnect($socket)
-    {
-        $this->_routine->add_signal(
-            $this->_disconnect,
-            new socket\event\Disconnect($socket, $this)
-        );
-    }
-
-    /**
-     * Returns a new event for connection.
-     *
-     * @return  object
-     */
-    protected function _get_connection_event($socket)
-    {
-        return new socket\event\Connect($socket, $this);
     }
 
     /**

@@ -12,7 +12,7 @@ namespace prggmr;
  */
 function interval($delay, $callable, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
 {
-    $signal = new Interval($delay, $instruction);
+    $signal = new \prggmr\time\Interval($delay, $instruction);
     if (!$callable instanceof \prggmr\Handle) {
         $callable = new \prggmr\Handle($callable, null);
     }
@@ -31,7 +31,7 @@ function interval($delay, $callable, $instruction = \prggmr\engine\idle\Time::MI
  */
 function timeout($delay, $callable, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
 {
-    $signal = new Timeout($delay, $instruction);
+    $signal = new \prggmr\time\Timeout($delay, $instruction);
     if (!$callable instanceof \prggmr\Handle) {
         $callable = new \prggmr\Handle($callable, 1);
     }

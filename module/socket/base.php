@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\socket;
+namespace prggmr\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -14,18 +14,11 @@ namespace prggmr\module\socket;
 abstract class Base extends \prggmr\signal\Complex {
 
     /**
-     * Signal dispatched when a new connection is made.
+     * Socket connection object
      *
      * @var  object
      */
-    protected $_on_connect = null;
-
-    /**
-     * Signal dispatched when a socket connection is lost.
-     *
-     * @var  object
-     */
-    protected $_on_disconnect = null;
+    public $socket = null;
 
     /**
      * Socket Address
@@ -42,10 +35,8 @@ abstract class Base extends \prggmr\signal\Complex {
     /**
      * Constructs a new socket
      */
-    public function __construct()
+    public function __construct(/* ... */)
     {
-        $this->_on_connect = new signal\Connect();
-        $this->_on_disconnect = new signal\Disconnect();
         parent::__construct();
     }
 
@@ -58,13 +49,6 @@ abstract class Base extends \prggmr\signal\Complex {
     abstract protected function _connect(/* ... */);
 
     /**
-     * Disconnects from the socket.
-     *
-     * @return  void
-     */
-    abstract public function disconnect(/* ... */);
-
-    /**
      * Reconnects the socket.
      *
      * It will attempt to close before reconnecting.
@@ -73,7 +57,7 @@ abstract class Base extends \prggmr\signal\Complex {
      */
     public function reconnect(/* ... */)
     {
-        $this->disconnect();
+        $this->socket->disconnect();
         $this->_connect();
     }
 
@@ -100,7 +84,41 @@ abstract class Base extends \prggmr\signal\Complex {
             $function = new \prggmr\Handle($function, null);
         }
         return \prggmr\handle(
-            $this->_on_disconnect, $function
+            new signal\Disconnect($this), $function
+        );
+    }
+
+    /**
+     * Registers a new handle for client read.
+     *
+     * @param  callable  $function  Function to call on connect.
+     *
+     * @return  object
+     */
+    public function on_read($function)
+    {
+        if (!$function instanceof \prggmr\Handle) {
+            $function = new \prggmr\Handle($function, null);
+        }
+        return \prggmr\handle(
+            new signal\Read($this), $function
+        );
+    }
+
+    /**
+     * Registers a new handle for client write.
+     *
+     * @param  callable  $function  Function to call on connect.
+     *
+     * @return  object
+     */
+    public function on_write($function)
+    {
+        if (!$function instanceof \prggmr\Handle) {
+            $function = new \prggmr\Handle($function, null);
+        }
+        return \prggmr\handle(
+            new signal\Write($this), $function
         );
     }
 
@@ -117,7 +135,7 @@ abstract class Base extends \prggmr\signal\Complex {
             $function = new \prggmr\Handle($function, null);
         }
         return \prggmr\handle(
-            $this->_on_connect, $function
+            new signal\Connect($this), $function
         );
     }
 }

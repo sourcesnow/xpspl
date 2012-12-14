@@ -31,9 +31,9 @@ foreach ($dir as $_file) {
 if (defined('GENERATE_CODE_COVERAGE')) {
 
     if (!function_exists('xdebug_start_code_coverage')) {
-        \prggmr\module\unittest\Output::send(
+        \prggmr\unittest\Output::send(
             'Coverage skipped xdebug not installed', 
-            \prggmr\module\unittest\Output::ERROR, 
+            \prggmr\unittest\Output::ERROR, 
             true
         );
     } else {
@@ -73,32 +73,32 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         foreach ($avg as $_c) {
             $total += $_c;
         }
-        \prggmr\module\unittest\Output::send(
+        \prggmr\unittest\Output::send(
             '--------------------', 
-            \prggmr\module\unittest\Output::DEBUG, 
+            \prggmr\unittest\Output::DEBUG, 
             true
         );
-        \prggmr\module\unittest\Output::send(sprintf(
+        \prggmr\unittest\Output::send(sprintf(
             'Total Test Coverage : %s%%',
             round(($total / (count($avg) * 100)) * 100, 2)
-        ), \prggmr\module\unittest\Output::DEBUG, true);
-        \prggmr\module\unittest\Output::send(
+        ), \prggmr\unittest\Output::DEBUG, true);
+        \prggmr\unittest\Output::send(
             '--------------------', 
-            \prggmr\module\unittest\Output::DEBUG, 
+            \prggmr\unittest\Output::DEBUG, 
             true
         );
         foreach ($avg as $_k => $_c) {
-            \prggmr\module\unittest\Output::send(sprintf(
+            \prggmr\unittest\Output::send(sprintf(
                 'File : %s',
                 str_replace(PRGGMR_PATH, '', $_k)
-            ), \prggmr\module\unittest\Output::DEBUG, true);
-            \prggmr\module\unittest\Output::send(sprintf(
+            ), \prggmr\unittest\Output::DEBUG, true);
+            \prggmr\unittest\Output::send(sprintf(
                 'Coverage : %s%%',
                 $_c
-            ), \prggmr\module\unittest\Output::DEBUG, true);
-            \prggmr\module\unittest\Output::send(
+            ), \prggmr\unittest\Output::DEBUG, true);
+            \prggmr\unittest\Output::send(
                 '--------------------', 
-                \prggmr\module\unittest\Output::DEBUG, 
+                \prggmr\unittest\Output::DEBUG, 
                 true
             );
         }

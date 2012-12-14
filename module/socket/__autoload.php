@@ -10,5 +10,3 @@ $dir = dirname(realpath(__FILE__));
  * Autoload the socket signals.
  */
 require_once $dir.'/api.php';
-
-unset($dir);

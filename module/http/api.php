@@ -10,7 +10,7 @@ namespace prggmr;
  * API can be included to load the entire signal.
  */
 
-use \prggmr\module\http as http;
+use \prggmr\http as http;
 
 /**
  * Attaches a new handle to a URI request.
@@ -18,7 +18,7 @@ use \prggmr\module\http as http;
  * @param  string  $uri  URI of request to handle.
  * @param  object  $function  Closure function to execute
  * @param  string|array  $method  Request method type to handle.
- * @param  object  $event  prggmr\module\http\Event object
+ * @param  object  $event  prggmr\http\Event object
  * 
  * @return  object  prggmr\Handle
  */

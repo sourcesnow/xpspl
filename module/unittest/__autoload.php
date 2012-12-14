@@ -15,6 +15,6 @@ require_once $dir.'/assertions/default.php';
 
 
 // prggmr\handle(function(){
-//     prggmr\module\unittest\Output::instance()->send("prggmr unit testing loaded!", t\Output::SYSTEM, true);
-//     prggmr\module\unittest\Output::instance()->send("enjoy the greatness!", t\Output::SYSTEM, true);
+//     prggmr\unittest\Output::instance()->send("prggmr unit testing loaded!", t\Output::SYSTEM, true);
+//     prggmr\unittest\Output::instance()->send("enjoy the greatness!", t\Output::SYSTEM, true);
 // }, prggmr\engine\Signals::LOOP_START);

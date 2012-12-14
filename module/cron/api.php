@@ -1,7 +1,7 @@
 <?php
 namespace prggmr;
 
-use prggmr\module\cron\Signal;
+use prggmr\cron\Signal;
 
 /**
  * Setup a cron based signal.

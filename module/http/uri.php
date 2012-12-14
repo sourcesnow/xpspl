@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\http;
+namespace prggmr\http;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -110,7 +110,7 @@ class Uri extends \prggmr\signal\Complex {
      * 
      * @param  string  $uri  URI of request to handle.
      * @param  string|array  $method  Type of request to handle.
-     * @param  object  $event  prggmr\module\http\Event object
+     * @param  object  $event  prggmr\http\Event object
      */
     public function __construct($uri, $method = null, $event = null) 
     {

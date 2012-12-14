@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\socket\signal;
+namespace prggmr\socket\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -12,10 +12,20 @@ namespace prggmr\module\socket\signal;
  * Base socket signal.
  */
 class Base extends \prggmr\Signal {
+
     /**
-     * Socket Signals are unique
-     * 
-     * @var  boolean
+     * Constructs a new socket signal.
+     *
+     * @param  object  $connection  Socket connection object
      */
-    protected $_unique = true;
+    public function __construct($connection = null)
+    {
+        parent::__construct();
+
+        if (null === $info) {
+            return;
+        }
+
+        $this->_info = spl_object_hash($signal).$this->_info;
+    }
 }

@@ -16,7 +16,7 @@ namespace prggmr;
  */
 function interrupt($handle, $engine = null) 
 {
-    $signal = new Interrupt($engine);
+    $signal = new pcntl\Interrupt($engine);
     return [\prggmr\handle($signal, $handle), $signal];
 }
 
@@ -30,6 +30,6 @@ function interrupt($handle, $engine = null)
  */
 function terminate($handle, $engine = null) 
 {
-    $signal = new Terminate($engine);
+    $signal = new pcntl\Terminate($engine);
     return [\prggmr\handle($signal, $handle), $signal];
 }

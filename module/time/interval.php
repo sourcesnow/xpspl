@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\time;
+namespace prggmr\time;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,7 +13,7 @@ namespace prggmr\module\time;
  *
  * As of v2.0 intervals can be set on a second, millisecond or microsecond basis
  */
-class Interval extends \prggmr\module\time\Timeout {
+class Interval extends \prggmr\time\Timeout {
 
     /**
      * Delay before signaling.

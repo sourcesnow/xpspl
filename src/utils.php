@@ -34,16 +34,7 @@ spl_autoload_register(function($class){
         $paths = explode('\\', $class);
         $lib = array_shift($paths);
         $file = strtolower(implode('/', $paths)).'.php';
-        $inc = stream_resolve_include_path(
-            str_replace('\\', '/', strtolower($class)).'.php'
-        );
-        $src = stream_resolve_include_path(
-            strtolower($lib).'/src/'.$file
-        );
-        if (false !== $inc) {
-            include $inc;
-            return;
-        }
+        $src = stream_resolve_include_path($file);
         if (false !== $src) {
             include $src;
             return;

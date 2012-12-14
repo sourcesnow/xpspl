@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\unittest;
+namespace prggmr\unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,7 +13,7 @@ namespace prggmr\module\unittest;
  * 
  * Testing is performed as:
  * 
- * prggmr\module\unit_test\api\test(function(){
+ * prggmr\unit_test\api\test(function(){
  *     $this->true(true);
  *     $this->false(false);
  *     $this->null(null);
@@ -26,7 +26,7 @@ class Test extends \prggmr\signal\Complex {
      * Constructs a new test signal.
      * 
      * @param  string  $name  Name of the test.
-     * @param  object  $event  prggmr\module\unittest\Event
+     * @param  object  $event  prggmr\unittest\Event
      * 
      * @return  void
      */

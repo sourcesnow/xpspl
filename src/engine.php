@@ -237,7 +237,7 @@ class Engine {
             $engine = $this;
             $this->handle(function() use ($engine) {
                 $engine->shutdown();
-            }, new \prggmr\module\time\Timeout($ttr));
+            }, new \prggmr\time\Timeout($ttr));
         }
         $this->signal(new engine_signals\Loop_Start());
         while($this->_routine()) {
@@ -737,35 +737,13 @@ class Engine {
                 continue;
             }
             $_handle->decrement_exhaust();
-            $result = null;
-            if (!$this->_engine_exceptions) {
-                $result = $this->_func_exec(
-                    $_handle->get_function(),
-                    $event
-                );
-            } else {
-                try {
-                    $result = $this->_func_exec(
-                        $_handle->get_function(),
-                        $event
-                    );
-                } catch (\Exception $exception) {
-                    echo $error;
-                    $event->set_state(STATE_ERROR);
-                    // We hit a recursive loop
-                    if ($exception instanceof Engine_Exception) {
-                        throw $exception;
-                    }
-                    $this->signal(new engine_signals\Handle_Exception(
-                        "Exception occured during handle execution"
-                    ),  new engine\event\Error([$exception, $event]));
-                }
-            }
-            if (null !== $result) {
-                $event->set_result($result);
-                if (false === $result) {
-                    $event->halt();
-                }
+            $result = $this->_func_exec(
+                $_handle->get_function(),
+                $event
+            );
+            $event->set_result($result);
+            if (false === $result) {
+                $event->halt();
             }
         }
     }
@@ -784,11 +762,14 @@ class Engine {
             $func = $function->bindTo($event, null);
             return $func();
         }
-        if (count($function) >= 2) {
-            $class = new $function[0];
-            return $class->$function[1]($event);
+        if (is_array($function)) {
+            if (count($function) >= 2) {
+                $class = new $function[0];
+                return $class->$function[1]($event);
+            }
+            return $function[0]($event);
         }
-        return $function[0]($event);
+        return $function($event);
     }
     
     

@@ -13,14 +13,15 @@ define('PRGGMR_MASTERMIND', 'Nickolas Whiting');
 
 // Add this to include path
 if (!defined('PRGGMR_PATH')) {
-    define('PRGGMR_PATH', dirname(realpath(__FILE__)));
+    define('PRGGMR_PATH', dirname(realpath(__FILE__)).'/..');
 }
-set_include_path(PRGGMR_PATH . '/../../' . PATH_SEPARATOR . get_include_path());
+set_include_path(PRGGMR_PATH . '/src' . PATH_SEPARATOR . get_include_path());
+set_include_path(PRGGMR_PATH . '/module' . PATH_SEPARATOR . get_include_path());
 
 // start'er up
 // utils & traits
-require PRGGMR_PATH.'/utils.php';
-require PRGGMR_PATH.'/api.php';
+require PRGGMR_PATH.'/src/utils.php';
+require PRGGMR_PATH.'/src/api.php';
 
 // debugging mode disabled by default
 if (!defined('PRGGMR_DEBUG')) {
@@ -55,7 +56,7 @@ if (!defined('PRGGMR_PURGE_EXHAUSTED')) {
 
 // modules directory
 if (!defined('PRGGMR_MODULE_DIR')) {
-    define('PRGGMR_MODULE_DIR', PRGGMR_PATH . '/../module');
+    define('PRGGMR_MODULE_DIR', PRGGMR_PATH . '/module');
 }
 
 // detect if using windows ...

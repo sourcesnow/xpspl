@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\module\unittest;
+namespace prggmr\unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -16,7 +16,7 @@ class Suite {
     /**
      * Event used in the suite.
      * 
-     * @var  object  \prggmr\module\unittest
+     * @var  object  \prggmr\unittest
      */
     protected $_event = null;
 
@@ -46,7 +46,7 @@ class Suite {
      * 
      * @param  object  $function  Closure
      * @param  object  $engine  prggmr\Engine
-     * @param  object|null  $event  prggmr\module\unittest\Event
+     * @param  object|null  $event  prggmr\unittest\Event
      * 
      * @return  void
      */
@@ -63,7 +63,7 @@ class Suite {
             );
         }
         $this->_engine = $engine;
-        if (null === $event || !$event instanceof \prggmr\module\unitest\Event) {
+        if (null === $event || !$event instanceof \prggmr\unitest\Event) {
             $this->_event = new Event();
         }
         $function = $function->bindTo($this);

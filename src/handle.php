@@ -13,7 +13,7 @@ use \Closure,
 /**
  * The default exhaustion rate.
  */
-define('EXHUAST_DEFAULT', 1);
+define('EXHAUST_DEFAULT', 1);
 
 /**
  * A handle is the function which will execute upon a signal call.
@@ -58,14 +58,10 @@ class Handle {
      * 
      * @return  void
      */
-    public function __construct($function, $exhaust = EXHUAST_DEFAULT, $priority = null)
+    public function __construct($function, $exhaust = EXHAUST_DEFAULT, $priority = null)
     {
-        if (!is_callable($function)) {
-            throw new \InvalidArgumentException(sprintf(
-                "handle requires a callable (%s) given",
-                (is_object($function)) ?
-                get_class($function) : gettype($function)
-            ));
+        if (null === $function || is_int($function) || is_bool($function)) {
+            throw new \InvalidArgumentException;
         }
         # Invalid or negative exhausting sets the rate to 1.
         if (null !== $exhaust && (!is_int($exhaust) || $exhaust <= -1)) {

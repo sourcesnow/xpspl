@@ -10,7 +10,7 @@ namespace prggmr;
  * API can be included to load the entire signal.
  */
 
-use \prggmr\module\unittest as unittest;
+use \prggmr\unittest as unittest;
 
 /**
  * Add a new assertion function.
@@ -30,7 +30,7 @@ function create_assertion($function, $name, $message = null) {
  * 
  * @param  object  $function  Test function
  * @param  string  $name  Test name
- * @param  object  $event  prggmr\module\unittest\Event
+ * @param  object  $event  prggmr\unittest\Event
  * 
  * @return  array  [Handle, Signal]
  */
@@ -44,7 +44,7 @@ function test($function, $name = null, $event = null) {
  * Constructs a new unit testing suite.
  * 
  * @param  object  $function  Closure
- * @param  object|null  $event  prggmr\module\unittest\Event
+ * @param  object|null  $event  prggmr\unittest\Event
  * 
  * @return  void
  */
