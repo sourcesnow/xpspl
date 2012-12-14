@@ -47,8 +47,6 @@ class Socket extends Base {
 
         $this->_connect();
 
-        $clients &= $this->_clients;
-
         // add the routine for this signal
         $this->signal_this(
             new event\Connect($this->socket)
