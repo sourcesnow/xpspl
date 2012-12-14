@@ -49,12 +49,6 @@ class Socket extends Base {
 
         $clients &= $this->_clients;
 
-        \prggmr\handle(new signal\Disconnect(), new \prggmr\Handle(function()use(&$clients){
-            if (isset($clients[$this->socket->get_resource()])) {
-                unset($clients[$this->socket->get_resource()]);
-            }
-        }, null));
-
         // add the routine for this signal
         $this->signal_this(
             new event\Connect($this->socket)
