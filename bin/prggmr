@@ -20,7 +20,7 @@ Options:
 $sync = false;
 $ttr = null;
 $runfile = false;
-$it = false;
+$it = true;
 if (count($argv) === 0) {
     goto start;
 }
@@ -29,9 +29,12 @@ $runfile = $argv[$argc - 1];
 // if - is first char ignore file
 if (strpos($runfile, '-') === 0) {
     $runfile = false;
-} else {
-    $it = false;
 }
+
+if ($runfile != false) {
+    $runfile = false;
+}
+
 $options = getopt(
     'qwert:yuiopasdfghjklzxc:vbnm',
     [
@@ -101,8 +104,11 @@ if (!class_exists('prggmr')) {
     require_once dirname(realpath(__FILE__)).'/../src/prggmr.php';
 }
 
-if (isset($showversion)) exit('prggmr version '.PRGGMR_VERSION."
-");
+if (isset($showversion)) {
+    echo 'prggmr version '.PRGGMR_VERSION.PHP_EOL;
+    echo PRGGMR_MASTERMIND.PHP_EOL;
+    exit(0);
+}
 
 if (isset($unittest)) {
     prggmr\load_module('unittest');
@@ -115,9 +121,9 @@ if (false !== $runfile) {
     } else {
         require_once $runfile;
     }
-} elseif($it) {
+} else if ($it) {
     prggmr\load_module('socket');
-    $stdin = prggmr\socket(STDIN, [], function(){
+    $stdin = prggmr\socket(STDIN, ['address' => AF_UNIX], function(){
         $this->socket->write('~> ');
     });
     $stdin->on_read(function(){
