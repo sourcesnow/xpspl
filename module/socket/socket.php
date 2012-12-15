@@ -87,6 +87,7 @@ class Socket extends Base {
      */
     public function routine($history = null) 
     {
+        // Establish the system idle process
         $this->_routine->set_idle(new idle\Func(function($engine){
             $idle = $engine->get_routine()->get_idles_available();
             // 30 second default wait
@@ -106,10 +107,13 @@ class Socket extends Base {
                     }
                 }
             }
+            // establish sockets
             $re = $wr = $ex = [];
             $re[] = $this->socket->get_resource();
             foreach ($this->_clients as $_k => $_c) {
                 $_r = $_c->get_resource();
+                // test if socket is still connected
+                // send disconnect if disconnect detected
                 if (!is_resource($_r)) {
                     \prggmr\signal(
                         new signal\Disconnect($this),
@@ -127,17 +131,17 @@ class Socket extends Base {
                 if (count($re) !== 0) {
                     foreach ($re as $_r) {
                         if (!isset($this->_clients[$_r])) {
-                            $socket = @socket_accept($_r);
-                            if (false === $socket) {
+                            try {
+                                $client = new Client($_r);
+                            } catch (\RuntimeException $e) {
+                                // right now this silenty fails
                                 continue;
                             }
-                            \prggmr\socket_set_nonblock($socket);
-                            $connection = new Connection($socket);
                             $this->_routine->add_signal(
                                 new signal\Connect($this),
-                                new event\Connect($connection)
+                                new event\Connect($client)
                             );
-                            $this->_clients[$socket] = $connection;
+                            $this->_clients[$client->get_resource()] = $client;
                         } else {
                             $this->_routine->add_signal(
                                 new signal\Read($this),
@@ -155,6 +159,7 @@ class Socket extends Base {
                     }
                 }
             } else {
+                // socket error
                 \prggmr\throw_socket_error();
             }
         }));

@@ -115,6 +115,15 @@ class Connection {
         @socket_getsockname($this->get_resource(), $r);
         return $r;
     }
+
+    /**
+     * Establishes the socket connection.
+     *
+     * @return  void
+     */
+    protected function _connect(/* ... */) {
+        throw new \RuntimeException;
+    }
 }
 
 /**

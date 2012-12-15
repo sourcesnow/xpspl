@@ -14,6 +14,7 @@
 prggmr\load_module('socket');
 
 $socket = prggmr\socket('0.0.0.0', ['port' => '8000'], function(){
+    var_dump($this);
     echo "Server Running on " . $this->socket->get_address() . PHP_EOL;
 });
 
