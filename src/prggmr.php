@@ -104,10 +104,12 @@ final class prggmr extends \prggmr\Engine {
     }
 }
 
+global $PRGGMR;
+
 /**
  * Start the engine VROOOOOOM!
  */
-prggmr::init(PRGGMR_EVENT_HISTORY, PRGGMR_ENGINE_EXCEPTIONS);
+$PRGGMR = prggmr::init(PRGGMR_EVENT_HISTORY, PRGGMR_ENGINE_EXCEPTIONS);
 
 /**
  * Enables prggmr to transform any errors and exceptions into a 

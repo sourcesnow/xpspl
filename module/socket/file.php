@@ -6,35 +6,27 @@ namespace prggmr\socket;
  * that can be found in the LICENSE file.
  */
 
+use \prggmr\engine\idle as idle;
+
 /**
- * Socket
+ * File
  *
- * Event driven I/O for networks.
+ * Event driven I/O for files.
  */
-class Socket extends Base {
+class File extends Base {
 
     /**
-     * Constructs a new socket.
+     * Constructs a new file descriptor socket.
      *
-     * @param  string  $address  Address to make the connection on.
-     * @param  string  $options  Connection options
+     * @param  string  $address  File resource.
      *
      * @return  void
      */
-    public function __construct($address, $options = []) 
+    public function __construct($resource) 
     {
         parent::__construct();
 
-        $defaults = [
-            'port' => null,
-            'domain' => AF_INET,
-            'type' => SOCK_STREAM,
-            'protocol' => SOL_TCP
-        ];
-        $options += $defaults;
-
-        $this->_address = $address;
-        $this->_options = $options;
+        $this->_address = $resource;
 
         $this->_connect();
 
@@ -52,21 +44,16 @@ class Socket extends Base {
     protected function _connect(/* ... */)
     {
         // Establish a connection
-        $this->socket = new Connection(socket_create(
-            $this->_options['domain'], 
-            $this->_options['type'], 
-            $this->_options['protocol']
-        ));
+        $this->socket = new Connection($this->_address);
         $bind = @socket_bind(
             $this->socket->get_resource(), 
-            $this->_address, 
-            $this->_options['port']
+            $this->_address
         );
         if (false === $bind) {
             \prggmr\throw_socket_error();
         }
         // listen
         socket_listen($this->socket->get_resource());
-        \prggmr\socket_set_nonblock($this->socket->get_resource());
+        socket_set_nonblock($this->socket->get_resource());
     }
 }

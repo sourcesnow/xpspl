@@ -21,18 +21,19 @@ $sync = false;
 $ttr = null;
 $runfile = false;
 $it = true;
+array_shift($argv);
 if (count($argv) === 0) {
     goto start;
 }
 // last param is file
-$runfile = $argv[$argc - 1];
+$runfile = $argv[count($argv) - 1];
 // if - is first char ignore file
 if (strpos($runfile, '-') === 0) {
     $runfile = false;
 }
 
 if ($runfile != false) {
-    $runfile = false;
+    $it = false;
 }
 
 $options = getopt(
@@ -123,17 +124,32 @@ if (false !== $runfile) {
     }
 } else if ($it) {
     prggmr\load_module('socket');
-    $stdin = prggmr\socket(STDIN, ['address' => AF_UNIX], function(){
+    $stdin = new prggmr\socket\File(fopen('php://stdin', 'r'));
+    prggmr\handle($stdin, function(){
         $this->socket->write('~> ');
     });
     $stdin->on_read(function(){
-        ob_start();
-        eval($this->socket->read());
-        $content = ob_get_contents();
-        ob_end_clean();
-        $this->socket->write($content);
-        $this->socket->write('~> ');
+        eval(trim($this->socket->read()));
     });
+    // $stdin = prggmr\socket('php://stdin', ['address' => AF_UNIX], function(){
+    //     $this->socket->write('~> ');
+    // });
+    // $stdin->on_read(function(){
+    //     ob_start();
+    //     eval($this->socket->read());
+    //     $content = ob_get_contents();
+    //     ob_end_clean();
+    //     $this->socket->write($content);
+    //     $this->socket->write('~> ');
+    // });
+    $fp = fopen("php://stdin", "r");
+    $in = '';
+    while($in != "quit") {
+        echo "php> ";
+        $in=trim(fgets($fp));
+        eval ($in);
+        echo "\n";
+    }
 }
 
 // start the loop!!

@@ -16,7 +16,8 @@ namespace prggmr;
  */
 function handle($signal, $callable)
 {
-    return \prggmr::instance()->handle($signal, $callable);
+    global $PRGGMR;
+    return $PRGGMR->handle($signal, $callable);
 }
 
 /**
@@ -29,7 +30,8 @@ function handle($signal, $callable)
  */
 function handle_remove($signal, $handle)
 {
-    return \prggmr::instance()->handle_remove($signal, $handle);   
+    global $PRGGMR;
+    return $PRGGMR->handle_remove($signal, $handle);   
 }
 
 /**
@@ -43,7 +45,8 @@ function handle_remove($signal, $handle)
  */
 function signal($signal, $event = null)
 {
-    return \prggmr::instance()->signal($signal, $event);
+    global $PRGGMR;
+    return $PRGGMR->signal($signal, $event);
 }
 
 /**
@@ -53,7 +56,8 @@ function signal($signal, $event = null)
  */
 function event_history(/* ... */)
 {
-    return \prggmr::instance()->event_history();
+    global $PRGGMR;
+    return $PRGGMR->event_history();
 }
 
 /**
@@ -65,7 +69,8 @@ function event_history(/* ... */)
  */
 function register($signal)
 {
-    return \prggmr::instance()->register($signal);
+    global $PRGGMR;
+    return $PRGGMR->register($signal);
 }
 
 /**
@@ -79,7 +84,8 @@ function register($signal)
  */
 function search_signals($signal, $index = false) 
 {
-    return \prggmr::instance()->search_signals($signal, $index);
+    global $PRGGMR;
+    return $PRGGMR->search_signals($signal, $index);
 }
 
 /**
@@ -89,7 +95,8 @@ function search_signals($signal, $index = false)
  */
 function loop()
 {
-    return \prggmr::instance()->loop();
+    global $PRGGMR;
+    return $PRGGMR->loop();
 }
 
 /**
@@ -99,7 +106,8 @@ function loop()
  */
 function shutdown()
 {
-    return \prggmr::instance()->shutdown();
+    global $PRGGMR;
+    return $PRGGMR->shutdown();
 }
 
 /**
@@ -112,7 +120,8 @@ function shutdown()
  */
 function load_module($name, $dir = null) 
 {
-    return \prggmr::instance()->load_module($name, $dir);
+    global $PRGGMR;
+    return $PRGGMR->load_module($name, $dir);
 }
 
 /**
@@ -126,7 +135,8 @@ function load_module($name, $dir = null)
  */
 function before($signal, $handle)
 {
-    return \prggmr::instance()->before($signal, $handle);
+    global $PRGGMR;
+    return $PRGGMR->before($signal, $handle);
 }
 
 /**
@@ -140,7 +150,8 @@ function before($signal, $handle)
  */
 function after($signal, $handle)
 {
-    return \prggmr::instance()->after($signal, $handle);
+    global $PRGGMR;
+    return $PRGGMR->after($signal, $handle);
 }
 
 /**
@@ -150,7 +161,8 @@ function after($signal, $handle)
  */
 function prggmr()
 {
-    return \prggmr::instance();
+    global $PRGGMR;
+    return $PRGGMR;
 }
 
 /**
@@ -162,7 +174,8 @@ function prggmr()
  */
 function clean($history = false)
 {
-    return \prggmr::instance()->clean($history);
+    global $PRGGMR;
+    return $PRGGMR->clean($history);
 }
 
 /**
@@ -175,7 +188,8 @@ function clean($history = false)
  */
 function delete_signal($signal, $history = false)
 {
-    return \prggmr::instance()->delete_signal($storage, $history);
+    global $PRGGMR;
+    return $PRGGMR->delete_signal($storage, $history);
 }
 
 /**
@@ -187,21 +201,8 @@ function delete_signal($signal, $history = false)
  */
 function erase_signal_history($signal)
 {
-    return \prggmr::instance()->erase_signal_history($signal);
-}
-
-/**
- * Initialize the prggmr global engine.
- *
- * @param  boolean  $event_history  Store a history of all events.
- * @param  boolean  $engine_exceptions  Throw an exception when a error 
- *                                      signal is triggered.
- * 
- * @return  object  prggmr\Engine
- */
-function init($event_history = true, $engine_exceptions = true)
-{
-    return \prggmr::init($event_history, $engine_exceptions);
+    global $PRGGMR;
+    return $PRGGMR->erase_signal_history($signal);
 }
 
 /**
@@ -213,7 +214,8 @@ function init($event_history = true, $engine_exceptions = true)
  */
 function disable_signaled_exceptions($history = false)
 {
-    return \prggmr::instance()->disable_signaled_exceptions($history);
+    global $PRGGMR;
+    return $PRGGMR->disable_signaled_exceptions($history);
 }
 
 /**
@@ -223,7 +225,8 @@ function disable_signaled_exceptions($history = false)
  */
 function enable_signaled_exceptions()
 {
-    return \prggmr::instance()->enable_signaled_exceptions();
+    global $PRGGMR;
+    return $PRGGMR->enable_signaled_exceptions();
 }
 
 /**
@@ -233,7 +236,8 @@ function enable_signaled_exceptions()
  */
 function erase_history()
 {
-    return \prggmr::instance()->erase_history();
+    global $PRGGMR;
+    return $PRGGMR->erase_history();
 }
 
 /**
@@ -245,7 +249,8 @@ function erase_history()
  */
 function save_event_history($flag)
 {
-    return \prggmr::instance()->save_event_history($flag);
+    global $PRGGMR;
+    return $PRGGMR->save_event_history($flag);
 }
 
 /**
@@ -257,7 +262,8 @@ function save_event_history($flag)
  */
 function listen($listener)
 {
-    return \prggmr::instance()->listen($listener);
+    global $PRGGMR;
+    return $PRGGMR->listen($listener);
 }
 
 /**
@@ -315,7 +321,8 @@ function dir_include($dir, $listen = false, $path = null)
  */
 function current_signal($offset = 0)
 {
-    return \prggmr::instance()->current_signal($offset);
+    global $PRGGMR;
+    return $PRGGMR->current_signal($offset);
 }
 
 /**
@@ -327,7 +334,8 @@ function current_signal($offset = 0)
  */
 function current_event($offset = 0)
 {
-    return \prggmr::instance()->current_event($offset);
+    global $PRGGMR;
+    return $PRGGMR->current_event($offset);
 }
 
 /**
@@ -352,4 +360,15 @@ function on_shutdown($function)
 function on_start($function)
 {
     return \prggmr\handle(new \prggmr\engine\signal\Loop_Start(), $function);
+}
+
+/**
+ * Empties the storage, history and clears the current state.
+ *
+ * @return void
+ */
+function flush(/* ... */)
+{
+    global $PRGGMR;
+    return $PRGGMR->flush();
 }

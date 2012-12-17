@@ -32,6 +32,7 @@ class Client extends Connection {
      */
     public function __construct($socket)
     {
+        $this->_socket = $socket;
         if (false === $this->_connect()) {
             \prggmr\throw_socket_error();
         }

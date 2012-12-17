@@ -157,7 +157,7 @@ class Output {
      *
      * @return  void
      */
-    public static function send($string, $type = null, $newline = false)
+    public static function send($string, $type = null, $newline = true)
     {
         if (null === $type) {
             $type = self::MESSAGE;
