@@ -8,23 +8,25 @@ namespace prggmr\engine\event;
 
 
 /**
- * Error Event
+ * Error
+ * 
+ * Event used for errors which have occured during engine operation.
  */
 class Error extends \prggmr\Event {
 
     protected $_error_data = null;
 
     /**
-     * Construction allow for setting the event TTL.
+     * Generates a new error event.
      *
-     * @param  integer  $ttl  TTL in milliseconds for the event.
+     * @param  array  Multiple param values (UNEXPECTED)
      *
-     * @return  object  prggmr\Event
+     * @return  void
      */
-    public function __construct($data = null, $ttl = null)
+    public function __construct()
     {
-        $this->_error_data = $data;
-        parent::__construct($ttl);
+        $this->_error_data = func_get_args();
+        parent::__construct();
     }
 
     /**

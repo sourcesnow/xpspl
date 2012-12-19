@@ -8,6 +8,6 @@ namespace prggmr\engine\signal;
 
 
 /**
- * Failed to load a signal library
+ * Failed to load a prggmr module
  */
-class Signal_Library_Failure extends Error {}
+class Module_Load_Failure extends Error {}

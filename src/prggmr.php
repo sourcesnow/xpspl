@@ -41,12 +41,11 @@ if (!defined('PRGGMR_EVENT_HISTORY')) {
 // dev mode
 if (PRGGMR_DEBUG) {
     error_reporting(E_ALL);
-    define('SIGNAL_ERRORS_EXCEPTIONS', true);
 }
 
-// evented exceptions disabled by default
-if (!defined('SIGNAL_ERRORS_EXCEPTIONS')) {
-    define('SIGNAL_ERRORS_EXCEPTIONS', false);
+// signal exceptions not throw
+if (!defined('PRGGMR_SIGNAL_EXCEPTIONS')) {
+    define('PRGGMR_SIGNAL_EXCEPTIONS', false);
 }
 
 // immediatly removes exhausted handles from the engine
@@ -104,6 +103,9 @@ final class prggmr extends \prggmr\Engine {
     }
 }
 
+/**
+ * Thats right ... that says global.
+ */
 global $PRGGMR;
 
 /**
@@ -112,11 +114,10 @@ global $PRGGMR;
 $PRGGMR = prggmr::init(PRGGMR_EVENT_HISTORY, PRGGMR_ENGINE_EXCEPTIONS);
 
 /**
- * Enables prggmr to transform any errors and exceptions into a 
- * catchable signal.
+ * Turns ANY PHP error or exception into a signal (excluding fatal)
  */
-if (SIGNAL_ERRORS_EXCEPTIONS === true) {
-    // set_error_handler("signal_exceptions");
-    // set_exception_handler("signal_errors");
+if (PRGGMR_SIGNAL_EXCEPTIONS === true) {
+    set_error_handler("signal_exceptions");
+    set_exception_handler("signal_errors");
 }
 

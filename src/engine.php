@@ -11,6 +11,10 @@ use \Closure,
     \prggmr\engine\signal as engine_signals;
 
 /**
+ * Engine
+ *
+ * The brainpower of prggmr.
+ * 
  * As of v0.3.0 the loop is now run in respect to the currently available handles,
  * this prevents the engine from running contionusly forever when there isn't anything
  * that it needs to do.
@@ -18,9 +22,6 @@ use \Closure,
  * To achieve this the engine uses routines for calculating when to run and 
  * shutdowns when no more are available.
  *
- * The Engine uses the State and Storage traits, and will also attempt to
- * gracefully handle exceptions when ENGINE_EXCEPTIONS is turned off.
- * 
  * The queue storage has also been improved in 0.3.0, previously the storage used
  * a non-index and index based storage, the storage now uses only a single array.
  */
@@ -73,16 +74,11 @@ class Engine {
     private $_routines = [];
 
     /**
-     * Libraries loaded
-     */
-    protected $_module = [];
-
-    /**
-     * Throw exceptions encountered rather than a signal.
+     * Signal exceptions rather than throwing them.
      *
      * @var  boolean
      */
-    private $_engine_exceptions = null;
+    private $_signal_exception = null;
 
     /**
      * Signal registered for the engine exception signals.
@@ -98,20 +94,19 @@ class Engine {
      * Starts the engine.
      *
      * @param  boolean  $event_history  Store a history of all events.
-     * @param  boolean  $engine_exceptions  Throw an exception when a error 
-     *                                      signal is triggered.
+     * @param  boolean  $signal_exceptions  signal exception not throw
      * 
      * @return  void
      */
-    public function __construct($event_history = true, $engine_exceptions = true)
+    public function __construct($event_history = true, $signal_exception = true)
     {
-        $this->_engine_exceptions = (bool) $engine_exceptions;
+        $this->_signal_exception = (bool) $signal_exception;
         if ($event_history === false) {
             $this->_history = false;
         }
         $this->set_state(STATE_DECLARED);
         $this->flush();
-        if ($this->_engine_exceptions) {
+        if ($this->_signal_exception) {
            $this->_register_error_handler();
         }
     }
@@ -132,7 +127,7 @@ class Engine {
             }
         }
         // TODO allow for specifing a context for the event rather than the 
-        // event itself
+        // event itself and recieve it as the first parameter
         $engine = $this;
         $this->handle($this->_engine_handle_signal, function() use ($engine){
             $args = func_get_args();
@@ -181,32 +176,6 @@ class Engine {
                 $stacktrace
             );
         });
-    }
-
-    /**
-     * Disables the exception handler.
-     *
-     * @param  boolean  $history  Erase any history of exceptions signaled.
-     *
-     * @return  void
-     */
-    public function disable_signaled_exceptions($history = false)
-    {
-        $this->_engine_exceptions = false;
-        if (null !== $this->_engine_handle_signal) {
-            $this->delete_signal($this->_engine_handle_signal, $history);
-        }
-    }
-
-    /**
-     * Enables the exception handler.
-     *
-     * @return  void
-     */
-    public function enable_signaled_exceptions()
-    {
-        $this->_engine_exceptions = true;
-        $this->_register_error_handler();
     }
 
     /**
@@ -804,46 +773,7 @@ class Engine {
         if (!$this->_store_history) return false;
         return json_encode($this->_event_history());
     }
-
-    /**
-     * Loads a prggmr module.
-     * 
-     * @param  string  $name  Module name.
-     * @param  string|null  $dir  Location of the module. 
-     * 
-     * @return  boolean
-     */
-    public function load_module($name, $dir = null) 
-    {
-        // already loaded
-        if (isset($this->_module[$name])) return true;
-        if ($dir === null) {
-            $dir = PRGGMR_MODULE_DIR;
-        } else {
-            if (!is_dir($dir)) {
-                $this->signal(new engine_signals\Signal_Library_Failure(sprintf(
-                    "Module directory %s does not exist", $dir
-                )),  new engine\event\Error($dir));
-            }
-        }
-        if (is_dir($dir.'/'.$name)) {
-            $path = $dir.'/'.$name;
-            if (file_exists($path.'/__autoload.php')) {
-                // keep history of what has been loaded
-                $this->_module[$name] = true;
-                require $path.'/__autoload.php';
-            } else {
-                $this->signal(new engine_signals\Signal_Library_Failure(
-                    "Module does not have an __autoload file"
-                ),  new engine\event\Error([$name, $dir]));
-            }
-        } else {
-            $this->signal(new engine_signals\Signal_Library_Failure(sprintf(
-                "Module %s does not exist", $name
-            )), new engine\event\Error());
-        }
-        return true;
-    }
+    ;poollo
 
     /**
      * Registers a function to interrupt the signal stack before a signal fires,

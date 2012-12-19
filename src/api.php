@@ -121,7 +121,7 @@ function shutdown()
 function load_module($name, $dir = null) 
 {
     global $PRGGMR;
-    return $PRGGMR->load_module($name, $dir);
+    return Library::instance()->load_module($name, $dir);
 }
 
 /**
