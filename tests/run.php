@@ -5,13 +5,13 @@
  * that can be found in the LICENSE file.
  */
 
-prggmr\load_module("unittest");
+load_module("unittest");
 
 // load the standard unittest output
-prggmr\generate_unittest_output();
+unittest\generate_output();
 
 // make sure we save the event history
-prggmr\save_event_history(true);
+save_signal_history(true);
 
 /**
  * Replace with the dir_load function
@@ -31,32 +31,32 @@ foreach ($dir as $_file) {
 if (defined('GENERATE_CODE_COVERAGE')) {
 
     if (!function_exists('xdebug_start_code_coverage')) {
-        \prggmr\unittest\Output::send(
+        \xpspl\unittest\Output::send(
             'Coverage skipped xdebug not installed', 
-            \prggmr\unittest\Output::ERROR, 
+            \xpspl\unittest\Output::ERROR, 
             true
         );
     } else {
 
-    prggmr\on_start(function(){
+    on_start(function(){
         xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
     });
 
-    prggmr\on_shutdown(function(){
+    on_shutdown(function(){
         $exclude = [
-            '/api.php', '/prggmr.php'
+            '/api.php', '/xpspl.php'
         ];
         $coverage = xdebug_get_code_coverage();
         xdebug_stop_code_coverage();
         $dir = new \RegexIterator(
             new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator(PRGGMR_PATH)
+                new \RecursiveDirectoryIterator(XPSPL_PATH)
             ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
         );
         $avg = [];
         foreach ($dir as $_file) {
             array_map(function($i) use ($coverage, &$avg, $exclude){
-                $file = trim(str_replace(PRGGMR_PATH, '', $i));
+                $file = trim(str_replace(XPSPL_PATH, '', $i));
                 if (!in_array($file, $exclude) && isset($coverage[$i])) {
                     $lines = count($coverage[$i]);
                     $total = 0;
@@ -73,32 +73,32 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         foreach ($avg as $_c) {
             $total += $_c;
         }
-        \prggmr\unittest\Output::send(
+        \xpspl\unittest\Output::send(
             '--------------------', 
-            \prggmr\unittest\Output::DEBUG, 
+            \xpspl\unittest\Output::DEBUG, 
             true
         );
-        \prggmr\unittest\Output::send(sprintf(
+        \xpspl\unittest\Output::send(sprintf(
             'Total Test Coverage : %s%%',
             round(($total / (count($avg) * 100)) * 100, 2)
-        ), \prggmr\unittest\Output::DEBUG, true);
-        \prggmr\unittest\Output::send(
+        ), \xpspl\unittest\Output::DEBUG, true);
+        \xpspl\unittest\Output::send(
             '--------------------', 
-            \prggmr\unittest\Output::DEBUG, 
+            \xpspl\unittest\Output::DEBUG, 
             true
         );
         foreach ($avg as $_k => $_c) {
-            \prggmr\unittest\Output::send(sprintf(
+            \xpspl\unittest\Output::send(sprintf(
                 'File : %s',
-                str_replace(PRGGMR_PATH, '', $_k)
-            ), \prggmr\unittest\Output::DEBUG, true);
-            \prggmr\unittest\Output::send(sprintf(
+                str_replace(XPSPL_PATH, '', $_k)
+            ), \xpspl\unittest\Output::DEBUG, true);
+            \xpspl\unittest\Output::send(sprintf(
                 'Coverage : %s%%',
                 $_c
-            ), \prggmr\unittest\Output::DEBUG, true);
-            \prggmr\unittest\Output::send(
+            ), \xpspl\unittest\Output::DEBUG, true);
+            \xpspl\unittest\Output::send(
                 '--------------------', 
-                \prggmr\unittest\Output::DEBUG, 
+                \xpspl\unittest\Output::DEBUG, 
                 true
             );
         }

@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\signal;
+namespace xpspl\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -71,7 +71,7 @@ abstract class Complex extends Standard {
     /**
      * Returns the routine object for this complex signal.
      * 
-     * @return  object  prggmr\Routine
+     * @return  object  xpspl\Routine
      */
     final public function get_routine()
     {
@@ -102,8 +102,8 @@ abstract class Complex extends Standard {
     public function signal_this($event = null, $ttl = null)
     {
         if (null !== $event) {
-            if (!$event instanceof \prggmr\Event) {
-                $this->event(new \prggmr\Event($ttl));
+            if (!$event instanceof \xpspl\Event) {
+                $this->event(new \xpspl\Event($ttl));
             } else {
                 $this->event($event);
             }

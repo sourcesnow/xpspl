@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,9 +13,9 @@ use \InvalidArgumentException;
  * and integers. 
  * 
  * Other signal types are considered "complex" and use the 
- * \prggmr\signal\Complex object.
+ * \xpspl\signal\Complex object.
  */
-class Signal extends \prggmr\signal\Standard {
+class Signal extends \xpspl\signal\Standard {
 
     /**
      * Unique signal object.
@@ -36,7 +36,7 @@ class Signal extends \prggmr\signal\Standard {
     {
         if (null === $info || !is_int($info) && !is_string($info)) {
             $info = strtolower(get_class($this));
-            if ($info == 'prggmr\signal') {
+            if ($info == 'xpspl\signal') {
                 throw new \InvalidArgumentException;
             }
             if ($this->_unique) {

@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,12 +8,12 @@ namespace prggmr;
 
 use \Closure,
     \InvalidArgumentException,
-    \prggmr\engine\signal as engine_signals;
+    \xpspl\engine\signal as engine_signals;
 
 /**
  * Engine
  *
- * The brainpower of prggmr.
+ * The brainpower of xpspl.
  * 
  * As of v0.3.0 the loop is now run in respect to the currently available handles,
  * this prevents the engine from running contionusly forever when there isn't anything
@@ -62,7 +62,7 @@ class Engine {
     /**
      * Current event in execution and hierachy
      * 
-     * @var  object  \prggmr\Event
+     * @var  object  \xpspl\Event
      */
     protected $_event = [];
 
@@ -93,33 +93,31 @@ class Engine {
     /**
      * Starts the engine.
      *
-     * @param  boolean  $event_history  Store a history of all events.
-     * @param  boolean  $signal_exceptions  signal exception not throw
+     * @param  boolean  $signal_history  Store a history of all signals.
      * 
      * @return  void
      */
-    public function __construct($event_history = true, $signal_exception = true)
+    public function __construct($signal_history = true)
     {
-        $this->_signal_exception = (bool) $signal_exception;
-        if ($event_history === false) {
+        if ($signal_history === false) {
             $this->_history = false;
         }
         $this->set_state(STATE_DECLARED);
-        $this->flush();
-        if ($this->_signal_exception) {
-           $this->_register_error_handler();
-        }
+        $this->flush(); 
     }
 
     /**
      * Registers the engine error signal handler.
      *
+     * TODO
+     * Create a suitable error handler
+     * 
      * @return  void
      */
     protected function _register_error_handler()
     {
         if (null === $this->_engine_handle_signal) {
-            $this->_engine_handle_signal = new \prggmr\engine\signal\Engine_Errors();
+            $this->_engine_handle_signal = new \xpspl\engine\signal\Engine_Errors();
         } else {
             $queue = $this->search_signals($this->_engine_handle_signal);
             if ($queue->count() !== 0) {
@@ -150,7 +148,7 @@ class Engine {
             $i=0;
             foreach ($trace as $_trace) {
                 if (!isset($_trace['file']) 
-                    || strpos($_trace['file'], PRGGMR_PATH) === false) {
+                    || strpos($_trace['file'], XPSPL_PATH) === false) {
                     $stacktrace .= sprintf(
                         $i.': # %s:%s(%s)'.PHP_EOL,
                         (isset($_trace['file'])) ? $_trace['file'] : '-',
@@ -206,16 +204,16 @@ class Engine {
             $engine = $this;
             $this->handle(function() use ($engine) {
                 $engine->shutdown();
-            }, new \prggmr\time\Timeout($ttr));
+            }, new \xpspl\time\Timeout($ttr));
         }
-        $this->signal(new engine_signals\Loop_Start());
+        $this->emit(new engine_signals\Loop_Start());
         while($this->_routine()) {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
-                    $this->signal($_signal[0], $_signal[1]);
+                    $this->emit($_signal[0], $_signal[1]);
                 }
             }
             $idle = $this->_routine->get_idle();
@@ -224,7 +222,7 @@ class Engine {
                 $idle->idle($this);
             }
         }
-        $this->signal(new engine_signals\Loop_Shutdown());
+        $this->emit(new engine_signals\Loop_Shutdown());
     }
 
     /**
@@ -277,7 +275,7 @@ class Engine {
                 }
             // Catch any problems that happended and signal them
             } catch (\Exception $e) {
-                $this->signal(new engine_signals\Routine_Calculation_Error(
+                $this->emit(new engine_signals\Routine_Calculation_Error(
                     "An error has occured during a routine calculation"
                 ),  new engine\event\Error([$e, $_node]));
             }
@@ -316,7 +314,7 @@ class Engine {
     /**
      * Determine if all queue handles are exhausted.
      *
-     * @param  object  $queue  \prggmr\Queue
+     * @param  object  $queue  \xpspl\Queue
      * 
      * @return  boolean
      */
@@ -344,7 +342,7 @@ class Engine {
      * 
      * @return  void
      */
-    public function handle_remove($signal, $handle)
+    public function remove_handle($signal, $handle)
     {
         $queue = $this->search_signals($signal);
         if (null === $queue) {
@@ -370,14 +368,14 @@ class Engine {
     /**
      * Registers an object listener.
      *
-     * @param  object  $listener  prggmr\Listener
+     * @param  object  $listener  xpspl\Listener
      *
      * @return  void
      */
     public function listen(Listener $listener)
     {
         foreach ($listener->_get_signals() as $_signal) {
-            $this->handle($_signal, [$listener, $_signal]);
+            $this->signal($_signal, [$listener, $_signal]);
         }
     }
 
@@ -389,11 +387,11 @@ class Engine {
      *
      * @return  object|boolean  Handle, boolean if error
      */
-    public function handle($signal, $handle)
+    public function signal($signal, $handle)
     {
         if (!$handle instanceof Handle) {
             if (!is_callable($handle)) {
-                $this->signal(new engine_signals\Invalid_Handle(
+                $this->emit(new engine_signals\Invalid_Handle(
                        "Invalid handle given to the handle method" 
                     ), new engine\event\Error([func_get_args()])
                 );
@@ -401,7 +399,7 @@ class Engine {
             }
             $handle = new Handle($handle);
         }
-        $queue = $this->register($signal);
+        $queue = $this->register_signal($signal);
         if (false !== $queue) {
             if (is_array($queue)) {
                 $queue = $queue[0][0];
@@ -412,28 +410,21 @@ class Engine {
     }
 
     /**
-     * Registers or locates a signal queue in storage.
-     *
-     * Queues are stored using an array structure in the storage of
-     *
-     * [
-     *     0 => prggmr\Signal,
-     *     1 => prggmr\Queue
-     * ]
+     * Registers a signal a new signal
      *
      * @param  string|integer|object  $signal  Signal
      *
-     * @return  boolean|object  false|prggmr\Queue
+     * @return  boolean|object  false|xpspl\Queue
      */
-    public function register($signal)
+    public function register_signal($signal)
     {
         $queue = false;
 
-        if (!$signal instanceof \prggmr\signal\Standard) {
+        if (!$signal instanceof \xpspl\signal\Standard) {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
-                $this->signal(new engine_signals\Invalid_Signal(
+                $this->emit(new engine_signals\Invalid_Signal(
                     "Invalid signal given to register"
                 ),  new engine\event\Error([$exception, $signal]));
                 return false;
@@ -448,7 +439,7 @@ class Engine {
 
         if (!$queue) {
             $queue = new Queue();
-            if (!$signal instanceof \prggmr\signal\Complex) {
+            if (!$signal instanceof \xpspl\signal\Complex) {
                 $this->_storage[self::HASH_STORAGE][(string) $signal->get_info()] = [
                     $signal, $queue
                 ];
@@ -472,7 +463,7 @@ class Engine {
      */
     public function search_signals($signal, $index = false) 
     {
-        if ($signal instanceof \prggmr\signal\Complex) {
+        if ($signal instanceof \xpspl\signal\Complex) {
             $id = spl_object_hash($signal);
             if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
                 if ($index) return $id;
@@ -480,7 +471,7 @@ class Engine {
             }
             return null;
         }
-        if ($signal instanceof \prggmr\Signal) {
+        if ($signal instanceof \xpspl\Signal) {
             $signal = $signal->get_info();
         }
         $signal = (string) $signal;
@@ -521,17 +512,17 @@ class Engine {
      * Loads an event for the current signal.
      * 
      * @param  int|string|object  $signal
-     * @param  object  $event  \prggmr\Event
+     * @param  object  $event  \xpspl\Event
      * @param  int|null  $ttl  Event TTL
      * 
-     * @return  object  \prggmr\Event
+     * @return  object  \xpspl\Event
      */
     private function _event($signal, $event = null, $ttl = null)
     {
         // event creation
         if (!$event instanceof Event) {
             if (null !== $event) {
-                $this->signal(new engine_signals\Invalid_Event(
+                $this->emit(new engine_signals\Invalid_Event(
                     "Invalid event passed for execution"
                 ),  new engine\event\Error($event));
             }
@@ -558,7 +549,7 @@ class Engine {
     /**
      * Exits the event from the engine.
      * 
-     * @param  object  $event  \prggmr\Event
+     * @param  object  $event  \xpspl\Event
      */
     private function _event_exit($event)
     {
@@ -578,31 +569,33 @@ class Engine {
     }
 
     /**
-     * Signals an event.
+     * Emits a signal.
      *
      * @param  mixed  $signal  Signal instance or signal.
      *
-     * @param  object  $event  \prggmr\Event
+     * @param  object  $event  \xpspl\Event
      *
      * @return  object  Event
      */
-    public function signal($signal, $event = null, $ttl = null)
+    public function emit($signal, $event = null, $ttl = null)
     {
         // store engine signal
         $this->_signal[] = $signal;
+
         // load engine event
         $event = $this->_event($signal, $event, $ttl);
+
         // locate sig handlers
         $queue = new Queue();
         // purge exhausted queues
-        if (PRGGMR_PURGE_EXHAUSTED) {
+        if (XPSPL_PURGE_EXHAUSTED) {
             $queues = [];
         }
         // search for exact matches
         $searched = $this->search_signals($signal);
         if (null !== $searched) {
             $queue->merge($searched->storage());
-            if (PRGGMR_PURGE_EXHAUSTED) {
+            if (XPSPL_PURGE_EXHAUSTED) {
                 $queues[] = $searched;
             }
         }
@@ -620,7 +613,7 @@ class Engine {
                     }
                 }
                 $queue->merge($node[0][1]->storage());
-                if (PRGGMR_PURGE_EXHAUSTED) {
+                if (XPSPL_PURGE_EXHAUSTED) {
                     $queues[] = $node[0][1];
                 }
             });
@@ -630,7 +623,7 @@ class Engine {
         $this->_execute($signal, $queue, $event);
 
         // purge exhausted handles
-        if (PRGGMR_PURGE_EXHAUSTED) {
+        if (XPSPL_PURGE_EXHAUSTED) {
             foreach ($queues as $_queue) {
                 foreach ($_queue->storage() as $_node) {
                     if ($_node[0]->is_exhausted()) {
@@ -661,7 +654,7 @@ class Engine {
     private function _execute($signal, $queue, $event, $interrupt = true)
     {
         if ($event->has_expired()) {
-            $this->signal(new engine_signals\Event_Expired(
+            $this->emit(new engine_signals\Event_Expired(
                 "Event has expired"
             ),  new engine\event\Error([$event]));
             return $event;
@@ -682,11 +675,11 @@ class Engine {
     /**
      * Executes a queue.
      *
-     * If PRGGMR_EXHAUSTION_PURGE is true handles will be purged once they 
+     * If XPSPL_EXHAUSTION_PURGE is true handles will be purged once they 
      * reach exhaustion.
      *
-     * @param  object  $queue  prggmr\Queue
-     * @param  object  $event  prggmr\Event
+     * @param  object  $queue  xpspl\Queue
+     * @param  object  $event  xpspl\Event
      *
      * @return  void
      */
@@ -744,11 +737,11 @@ class Engine {
     
 
     /**
-     * Retrieves the event history.
+     * Retrieves the signal history.
      * 
      * @return  array
      */
-    public function event_history(/* ... */)
+    public function signal_history(/* ... */)
     {
         return $this->_history;
     }
@@ -773,7 +766,6 @@ class Engine {
         if (!$this->_store_history) return false;
         return json_encode($this->_event_history());
     }
-    ;poollo
 
     /**
      * Registers a function to interrupt the signal stack before a signal fires,
@@ -818,7 +810,7 @@ class Engine {
         // Variable Checks
         if (!$handle instanceof Handle) {
             if (!is_callable($handle)) {
-                $this->signal(new engine_signals\Invalid_Handle(
+                $this->emit(new engine_signals\Invalid_Handle(
                     "Invalid handle given for signal interruption"
                 ),  new engine\event\Error($handle));
                 return false;
@@ -827,7 +819,7 @@ class Engine {
             }
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
-            $this->signal(new engine_signals\Ivalid_Signal(
+            $this->emit(new engine_signals\Ivalid_Signal(
                 "Invalid signal given for signal interruption"
             ), new engine\event\Error($signal));
             return false;
@@ -837,7 +829,7 @@ class Engine {
         }
         if ($interrupt != self::INTERRUPT_PRE && 
             $interrupt != self::INTERRUPT_POST) {
-            $this->signal(new engine_signals\Invalid_Interrupt(
+            $this->emit(new engine_signals\Invalid_Interrupt(
                 "Invalid interruption location"
             ), new engine\event\Error($interrupt));
         }
@@ -983,7 +975,7 @@ class Engine {
             }
         } else {
             if (!is_string($signal) && !is_int($signal)) {
-                $this->signal(new engine_signals\Invalid_Signal(
+                $this->emit(new engine_signals\Invalid_Signal(
                     "Delete signal"
                 ), new engine\event\Error($signal));
                 return false;
@@ -1048,7 +1040,7 @@ class Engine {
      *
      * @return  void
      */
-    public function save_event_history($flag)
+    public function save_signal_history($flag)
     {
         if ($flag === true) {
             if (!$this->_history) {
@@ -1083,7 +1075,7 @@ class Engine {
      *
      * @param  integer  $offset  In memory hierarchy offset +/-.
      *
-     * @return  object  \prggmr\Event
+     * @return  object  \xpspl\Event
      */
     public function current_event($offset = 0)
     {

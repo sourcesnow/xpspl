@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,8 +9,6 @@ namespace prggmr;
 /**
  * API can be included to load the entire signal.
  */
-
-use \prggmr\unittest as unittest;
 
 /**
  * Add a new assertion function.
@@ -22,7 +20,7 @@ use \prggmr\unittest as unittest;
  * @return  void
  */
 function create_assertion($function, $name, $message = null) {
-    return unittest\Assertions::instance()->create_assertion($function, $name, $message);
+    return \xpspl\unittest\Assertions::instance()->create_assertion($function, $name, $message);
 }
 
 /**
@@ -30,13 +28,13 @@ function create_assertion($function, $name, $message = null) {
  * 
  * @param  object  $function  Test function
  * @param  string  $name  Test name
- * @param  object  $event  prggmr\unittest\Event
+ * @param  object  $event  xpspl\unittest\Event
  * 
  * @return  array  [Handle, Signal]
  */
 function test($function, $name = null, $event = null) {
-    $signal = new unittest\Test($name, $event);
-    $handle = \prggmr\handle($signal, $function);
+    $signal = new \xpspl\unittest\Test($name, $event);
+    $handle = signal($signal, $function);
     return [$handle, $signal];
 }
 
@@ -44,12 +42,12 @@ function test($function, $name = null, $event = null) {
  * Constructs a new unit testing suite.
  * 
  * @param  object  $function  Closure
- * @param  object|null  $event  prggmr\unittest\Event
+ * @param  object|null  $event  xpspl\unittest\Event
  * 
  * @return  void
  */
 function suite($function, $event = null) {
-    return new unittest\Suite($function, \prggmr\prggmr(), $event);
+    return new \xpspl\unittest\Suite($function, $event);
 }
 
 /**
@@ -57,38 +55,38 @@ function suite($function, $event = null) {
  * 
  * @return  void
  */
-function generate_unittest_output() {
+function generate_output() {
 
     // enable the event history
-    \prggmr\save_event_history(true);
+    save_signal_history(true);
 
     // Startup
-    \prggmr\on_start(function(){
+    on_start(function(){
         define('UNITTEST_START_TIME', milliseconds());
         // $output = unittest\Output::instance();
-        // $output->send("prggmr unittest module " .  PRGGMR_VERSION, 
+        // $output->send("xpspl unittest module " .  XPSPL_VERSION, 
         //     unittest\Output::SYSTEM
         // );
         // $output->send_linebreak(unittest\Output::SYSTEM);
     });
 
     // Shutdown
-    \prggmr\on_shutdown(function(){
+    on_shutdown(function(){
         define('UNITTEST_END_TIME', milliseconds());
         $tests = 0;
         $pass = 0;
         $fail = 0;
         $skip = 0;
-        $output = unittest\Output::instance();
+        $output = \xpspl\unittest\Output::instance();
         $tests_run = [];
-        foreach (\prggmr\event_history() as $_node) {
-            if ($_node[0] instanceof unittest\Event) {
+        foreach (signal_history() as $_node) {
+            if ($_node[0] instanceof \xpspl\unittest\Event) {
                 // suites
                 $tests++;
                 if (in_array($_node[0], $tests_run)) continue;
                 $tests_run[] = $_node[0];
                 $failures = [];
-                // Get passedprggmr 
+                // Get passedxpspl 
                 foreach ($_node[0]->get_assertion_results() as $_assertion) {
                     if ($_assertion[0] === true) {
                         $pass++;
@@ -101,20 +99,19 @@ function generate_unittest_output() {
                 }
 
                 if (count($failures) != 0) {
-                    $output->send_linebreak(unittest\Output::ERROR);
+                    $output->send_linebreak(\xpspl\unittest\Output::ERROR);
                     foreach ($failures as $_failure) {
-                        $output->send("FAILURE", unittest\Output::ERROR);
-                        $output->send_linebreak(unittest\Output::ERROR, true);
-                        $output->send("ASSERTION : " . $_failure[1], unittest\Output::ERROR, true);
-                        $output->send("MESSAGE : " . $_failure[0], unittest\Output::ERROR, true);
+                        $output->send("FAILURE", \xpspl\unittest\Output::ERROR);
+                        $output->send("ASSERTION : " . $_failure[1], \xpspl\unittest\Output::ERROR, true);
+                        $output->send("MESSAGE : " . $_failure[0], \xpspl\unittest\Output::ERROR, true);
                         $output->send(sprintf(
                             'ARGUMENTS : %s',
                             $output->variable($_failure[2])
-                        ), unittest\Output::ERROR, true);
+                        ), \xpspl\unittest\Output::ERROR, true);
                         $trace = $_failure[3][1];
-                        $output->send("FILE : " . $trace["file"], unittest\Output::ERROR, true);
-                        $output->send("LINE : " . $trace["line"], unittest\Output::ERROR);
-                        $output->send_linebreak(unittest\Output::ERROR);
+                        $output->send("FILE : " . $trace["file"], \xpspl\unittest\Output::ERROR, true);
+                        $output->send("LINE : " . $trace["line"], \xpspl\unittest\Output::ERROR);
+                        $output->send_linebreak(\xpspl\unittest\Output::ERROR);
                     }
                 }
             }
@@ -137,12 +134,12 @@ function generate_unittest_output() {
             $tests,
             UNITTEST_END_TIME - UNITTEST_START_TIME,
             $size(memory_get_peak_usage())
-        ), unittest\Output::SYSTEM, true);
+        ), \xpspl\unittest\Output::SYSTEM, true);
 
         $output->send(sprintf("%s Assertions: %s Passed, %s Failed, %s Skipped",
             $pass + $fail + $skip,
             $pass, $fail, $skip
-        ), unittest\Output::SYSTEM, true);
+        ), \xpspl\unittest\Output::SYSTEM, true);
 
     });
 }

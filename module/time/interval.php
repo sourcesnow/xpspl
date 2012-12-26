@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\time;
+namespace xpspl\time;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,7 +13,7 @@ namespace prggmr\time;
  *
  * As of v2.0 intervals can be set on a second, millisecond or microsecond basis
  */
-class Interval extends \prggmr\time\Timeout {
+class Interval extends \xpspl\time\Timeout {
 
     /**
      * Delay before signaling.
@@ -31,10 +31,10 @@ class Interval extends \prggmr\time\Timeout {
      *
      * @return  void
      */
-    public function __construct($delay, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+    public function __construct($delay, $instruction = \xpspl\engine\idle\Time::MILLISECONDS)
     {
         parent::__construct($delay, $instruction);
-        $this->_event = new \prggmr\Event();
+        $this->_event = new \xpspl\Event();
         $this->_delay = $delay;
     }
     
@@ -48,7 +48,7 @@ class Interval extends \prggmr\time\Timeout {
     public function routine($history = null)
     {
         if ($this->_idle->has_time_passed()) {
-            $this->_idle = new \prggmr\engine\idle\Time($this->_delay, $this->_instruction);
+            $this->_idle = new \xpspl\engine\idle\Time($this->_delay, $this->_instruction);
             $this->signal_this();
         }
         $this->_routine->set_idle($this->_idle);

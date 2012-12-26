@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\socket;
+namespace xpspl\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -63,10 +63,10 @@ class Socket extends Base {
             $this->_options['port']
         );
         if (false === $bind) {
-            \prggmr\throw_socket_error();
+            \xpspl\throw_socket_error();
         }
         // listen
         socket_listen($this->socket->get_resource());
-        \prggmr\socket_set_nonblock($this->socket->get_resource());
+        \xpspl\socket_set_nonblock($this->socket->get_resource());
     }
 }

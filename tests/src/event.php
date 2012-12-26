@@ -4,12 +4,12 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-prggmr\load_module('unittest');
+load_module('unittest');
 
-prggmr\suite(function(){
+unittest\suite(function(){
 
     $this->setup(function(){
-        $this->event = new prggmr\Event();
+        $this->event = new xpspl\Event();
     });
 
     $this->teardown(function(){
@@ -30,7 +30,7 @@ prggmr\suite(function(){
     }, "event_halt");
 
     $this->test(function(){
-        $parent = new prggmr\Event();
+        $parent = new xpspl\Event();
         $this->false($this->event->is_child());
         $this->event->set_parent($parent);
         $this->true($this->event->is_child());

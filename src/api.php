@@ -1,5 +1,4 @@
 <?php
-namespace prggmr;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -14,10 +13,10 @@ namespace prggmr;
  *
  * @return  object|boolean  Handle, boolean if error
  */
-function handle($signal, $callable)
+function signal($signal, $callable)
 {
-    global $PRGGMR;
-    return $PRGGMR->handle($signal, $callable);
+    global $XPSPL;
+    return $XPSPL->signal($signal, $callable);
 }
 
 /**
@@ -28,10 +27,10 @@ function handle($signal, $callable)
  *
  * @return  void
  */
-function handle_remove($signal, $handle)
+function remove_handle($signal, $handle)
 {
-    global $PRGGMR;
-    return $PRGGMR->handle_remove($signal, $handle);   
+    global $XPSPL;
+    return $XPSPL->remove_handle($signal, $handle);   
 }
 
 /**
@@ -41,23 +40,23 @@ function handle_remove($signal, $handle)
  * @param  array  $vars  Array of variables to pass the handles.
  * @param  object  $event  Event
  *
- * @return  object  \prggmr\Event
+ * @return  object  \xpspl\Event
  */
-function signal($signal, $event = null)
+function emit($signal, $event = null)
 {
-    global $PRGGMR;
-    return $PRGGMR->signal($signal, $event);
+    global $XPSPL;
+    return $XPSPL->emit($signal, $event);
 }
 
 /**
- * Returns the event history.
+ * Returns the signal history.
  * 
  * @return  array
  */
-function event_history(/* ... */)
+function signal_history(/* ... */)
 {
-    global $PRGGMR;
-    return $PRGGMR->event_history();
+    global $XPSPL;
+    return $XPSPL->signal_history();
 }
 
 /**
@@ -67,10 +66,10 @@ function event_history(/* ... */)
  *
  * @return  object  Queue
  */
-function register($signal)
+function register_signal($signal)
 {
-    global $PRGGMR;
-    return $PRGGMR->register($signal);
+    global $XPSPL;
+    return $XPSPL->register_signal($signal);
 }
 
 /**
@@ -84,19 +83,19 @@ function register($signal)
  */
 function search_signals($signal, $index = false) 
 {
-    global $PRGGMR;
-    return $PRGGMR->search_signals($signal, $index);
+    global $XPSPL;
+    return $XPSPL->search_signals($signal, $index);
 }
 
 /**
- * Starts the prggmr event loop.
+ * Starts the xpspl loop.
  *
  * @return  void
  */
 function loop()
 {
-    global $PRGGMR;
-    return $PRGGMR->loop();
+    global $XPSPL;
+    return $XPSPL->loop();
 }
 
 /**
@@ -106,8 +105,8 @@ function loop()
  */
 function shutdown()
 {
-    global $PRGGMR;
-    return $PRGGMR->shutdown();
+    global $XPSPL;
+    return $XPSPL->shutdown();
 }
 
 /**
@@ -120,8 +119,7 @@ function shutdown()
  */
 function load_module($name, $dir = null) 
 {
-    global $PRGGMR;
-    return Library::instance()->load_module($name, $dir);
+    return \xpspl\Library::instance()->load($name, $dir);
 }
 
 /**
@@ -135,8 +133,8 @@ function load_module($name, $dir = null)
  */
 function before($signal, $handle)
 {
-    global $PRGGMR;
-    return $PRGGMR->before($signal, $handle);
+    global $XPSPL;
+    return $XPSPL->before($signal, $handle);
 }
 
 /**
@@ -150,19 +148,19 @@ function before($signal, $handle)
  */
 function after($signal, $handle)
 {
-    global $PRGGMR;
-    return $PRGGMR->after($signal, $handle);
+    global $XPSPL;
+    return $XPSPL->after($signal, $handle);
 }
 
 /**
- * Returns the prggmr engine.
+ * Returns the xpspl engine.
  * 
- * @return  object  prggmr\Engine
+ * @return  object  xpspl\Engine
  */
-function prggmr()
+function xpspl()
 {
-    global $PRGGMR;
-    return $PRGGMR;
+    global $XPSPL;
+    return $XPSPL;
 }
 
 /**
@@ -174,8 +172,8 @@ function prggmr()
  */
 function clean($history = false)
 {
-    global $PRGGMR;
-    return $PRGGMR->clean($history);
+    global $XPSPL;
+    return $XPSPL->clean($history);
 }
 
 /**
@@ -188,8 +186,8 @@ function clean($history = false)
  */
 function delete_signal($signal, $history = false)
 {
-    global $PRGGMR;
-    return $PRGGMR->delete_signal($storage, $history);
+    global $XPSPL;
+    return $XPSPL->delete_signal($storage, $history);
 }
 
 /**
@@ -201,8 +199,8 @@ function delete_signal($signal, $history = false)
  */
 function erase_signal_history($signal)
 {
-    global $PRGGMR;
-    return $PRGGMR->erase_signal_history($signal);
+    global $XPSPL;
+    return $XPSPL->erase_signal_history($signal);
 }
 
 /**
@@ -214,19 +212,8 @@ function erase_signal_history($signal)
  */
 function disable_signaled_exceptions($history = false)
 {
-    global $PRGGMR;
-    return $PRGGMR->disable_signaled_exceptions($history);
-}
-
-/**
- * Enables the exception handler.
- *
- * @return  void
- */
-function enable_signaled_exceptions()
-{
-    global $PRGGMR;
-    return $PRGGMR->enable_signaled_exceptions();
+    global $XPSPL;
+    return $XPSPL->disable_signaled_exceptions($history);
 }
 
 /**
@@ -236,8 +223,8 @@ function enable_signaled_exceptions()
  */
 function erase_history()
 {
-    global $PRGGMR;
-    return $PRGGMR->erase_history();
+    global $XPSPL;
+    return $XPSPL->erase_history();
 }
 
 /**
@@ -247,10 +234,10 @@ function erase_history()
  *
  * @return  void
  */
-function save_event_history($flag)
+function save_signal_history($flag)
 {
-    global $PRGGMR;
-    return $PRGGMR->save_event_history($flag);
+    global $XPSPL;
+    return $XPSPL->save_signal_history($flag);
 }
 
 /**
@@ -262,8 +249,8 @@ function save_event_history($flag)
  */
 function listen($listener)
 {
-    global $PRGGMR;
-    return $PRGGMR->listen($listener);
+    global $XPSPL;
+    return $XPSPL->listen($listener);
 }
 
 /**
@@ -305,7 +292,7 @@ function dir_include($dir, $listen = false, $path = null)
             $namespace = implode('\\', $data);
             $handle = $namespace.'\\'.ucfirst($class);
             if (class_exists($handle, false) && 
-                is_subclass_of($handle, '\prggmr\Listener')) {
+                is_subclass_of($handle, '\xpspl\Listener')) {
                 listen(new $handle());
             }
         }, $_file);
@@ -321,8 +308,8 @@ function dir_include($dir, $listen = false, $path = null)
  */
 function current_signal($offset = 0)
 {
-    global $PRGGMR;
-    return $PRGGMR->current_signal($offset);
+    global $XPSPL;
+    return $XPSPL->current_signal($offset);
 }
 
 /**
@@ -334,8 +321,8 @@ function current_signal($offset = 0)
  */
 function current_event($offset = 0)
 {
-    global $PRGGMR;
-    return $PRGGMR->current_event($offset);
+    global $XPSPL;
+    return $XPSPL->current_event($offset);
 }
 
 /**
@@ -343,11 +330,11 @@ function current_event($offset = 0)
  * 
  * @param  callable|object  $function  Function or handle object
  * 
- * @return  object  \prggmr\Handle
+ * @return  object  \xpspl\Handle
  */
 function on_shutdown($function)
 {
-    return \prggmr\handle(new \prggmr\engine\signal\Loop_Shutdown(), $function);
+    return signal(new \xpspl\engine\signal\Loop_Shutdown(), $function);
 }
 
 /**
@@ -355,11 +342,11 @@ function on_shutdown($function)
  * 
  * @param  callable|object  $function  Function or handle object
  * 
- * @return  object  \prggmr\Handle
+ * @return  object  \xpspl\Handle
  */
 function on_start($function)
 {
-    return \prggmr\handle(new \prggmr\engine\signal\Loop_Start(), $function);
+    return signal(new \xpspl\engine\signal\Loop_Start(), $function);
 }
 
 /**
@@ -367,8 +354,8 @@ function on_start($function)
  *
  * @return void
  */
-function flush(/* ... */)
+function xpspl_flush(/* ... */)
 {
-    global $PRGGMR;
-    return $PRGGMR->flush();
+    global $XPSPL;
+    return $XPSPL->flush();
 }

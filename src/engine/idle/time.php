@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\engine\idle;
+namespace xpspl\engine\idle;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,7 +11,7 @@ namespace prggmr\engine\idle;
  *
  * The amount of time can be specified in seconds or milliseconds.
  */
-class Time extends \prggmr\engine\Idle {
+class Time extends \xpspl\engine\Idle {
 
     /**
      * Idle time instruction declarations

@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\engine;
+namespace xpspl\engine;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,6 +7,8 @@ namespace prggmr\engine;
  */
 
 /**
+ * Idle
+ * 
  * The idle class is used for idling the engine, the base provides no 
  * functionality in itself and must be extended.
  *

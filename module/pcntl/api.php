@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -10,26 +10,26 @@ namespace prggmr;
  * Registers a function to be called on the SIGINT signal. (CTRL-C)
  *
  * @param  callable  $handle  Function to be called.
- * @param  object|null  $engine  prggmr Engine instance to assign the handle.
+ * @param  object|null  $engine  xpspl Engine instance to assign the handle.
  *
  * @return  array  [signal, handle]
  */
 function interrupt($handle, $engine = null) 
 {
     $signal = new pcntl\Interrupt($engine);
-    return [\prggmr\handle($signal, $handle), $signal];
+    return [\xpspl\handle($signal, $handle), $signal];
 }
 
 /**
  * Registers a function to be called on the SIGTERM signal.
  *
  * @param  callable  $handle  Function to be called.
- * @param  object|null  $engine  prggmr Engine instance to assign the handle.
+ * @param  object|null  $engine  xpspl Engine instance to assign the handle.
  *
  * @return  array  [signal, handle]
  */
 function terminate($handle, $engine = null) 
 {
     $signal = new pcntl\Terminate($engine);
-    return [\prggmr\handle($signal, $handle), $signal];
+    return [\xpspl\handle($signal, $handle), $signal];
 }

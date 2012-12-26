@@ -1,13 +1,13 @@
 <?php
-namespace prggmr\socket;
+namespace xpspl\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \prggmr\engine\idle as idle,
-    \prggmr\Handle;
+use \xpspl\engine\idle as idle,
+    \xpspl\Handle;
 
 /**
  * Connection
@@ -72,7 +72,7 @@ class Connection {
      *
      * @return  string
      */
-    public function read($length = PRGGMR_SOCKET_READ_LENGTH, $flags = null) 
+    public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = null) 
     {   
         if (null !== $flags) {
             $r = null;
@@ -94,7 +94,7 @@ class Connection {
      */
     public function disconnect(/* ... */)
     {
-        return \prggmr\signal(
+        return \xpspl\signal(
             new signal\Disconnect(), 
             new event\Disconnect($this)
         );
@@ -146,7 +146,7 @@ function on_disconnect(event\Disconnect $event)
  * Though it should be noted that pushing content to a disconnected socket might 
  * not get the data.
  */
-\prggmr\handle(
+\xpspl\handle(
     new signal\Disconnect(), 
-    new Handle('\prggmr\socket\on_disconnect', null, PHP_INT_MAX)
+    new Handle('\xpspl\socket\on_disconnect', null, PHP_INT_MAX)
 );

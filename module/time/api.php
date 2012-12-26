@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 
 /**
  * Calls a function at the specified intervals of time.
@@ -10,13 +10,13 @@ namespace prggmr;
  *
  * @return  array  [signal, handle]
  */
-function interval($delay, $callable, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+function interval($delay, $callable, $instruction = \xpspl\engine\idle\Time::MILLISECONDS)
 {
-    $signal = new \prggmr\time\Interval($delay, $instruction);
-    if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, null);
+    $signal = new \xpspl\time\Interval($delay, $instruction);
+    if (!$callable instanceof \xpspl\Handle) {
+        $callable = new \xpspl\Handle($callable, null);
     }
-    $handle = \prggmr::instance()->handle($signal, $callable);
+    $handle = \xpspl::instance()->handle($signal, $callable);
     return [$signal, $handle];
 }
 
@@ -29,12 +29,12 @@ function interval($delay, $callable, $instruction = \prggmr\engine\idle\Time::MI
  *
  * @return  array  [signal, handle]
  */
-function timeout($delay, $callable, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+function timeout($delay, $callable, $instruction = \xpspl\engine\idle\Time::MILLISECONDS)
 {
-    $signal = new \prggmr\time\Timeout($delay, $instruction);
-    if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, 1);
+    $signal = new \xpspl\time\Timeout($delay, $instruction);
+    if (!$callable instanceof \xpspl\Handle) {
+        $callable = new \xpspl\Handle($callable, 1);
     }
-    $handle = \prggmr::instance()->handle($signal, $callable);
+    $handle = \xpspl::instance()->handle($signal, $callable);
     return [$signal, $handle];
 }

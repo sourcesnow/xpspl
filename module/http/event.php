@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\http;
+namespace xpspl\http;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,7 +9,7 @@ namespace prggmr\http;
 /**
  * An HTTP Event.
  */
-class Event extends \prggmr\Event {
+class Event extends \xpspl\Event {
 
     /**
      * Requested URI

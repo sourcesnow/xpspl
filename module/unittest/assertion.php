@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\unittest;
+namespace xpspl\unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,7 +13,7 @@ namespace prggmr\unittest;
  */
 class Assertions {
 
-    use \prggmr\Storage, \prggmr\Singleton;
+    use \xpspl\Storage, \xpspl\Singleton;
 
     /**
      * Adds a new assertion function.
@@ -45,7 +45,7 @@ class Assertions {
      * 
      * @param  string  $name  Assertion function name
      * @param  array  $vars  Array of variables to pass the handler.
-     * @param  object  $test  \prggmr\unitest\Event
+     * @param  object  $test  \xpspl\unitest\Event
      * 
      * @return  boolean|string|int  True on success, False on failure|
      *                              String indicated failure message|

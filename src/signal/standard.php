@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\signal;
+namespace xpspl\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,7 +9,7 @@ namespace prggmr\signal;
 /**
  * Standard Signal
  * 
- * Base class for all prggmr signals.
+ * Base class for all xpspl signals.
  */
 abstract class Standard {
 

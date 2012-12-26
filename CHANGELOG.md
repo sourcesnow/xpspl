@@ -1,5 +1,7 @@
-## 2.1.0 TBD
+## 3.0.0
 
+* Moved API functions into global namespace.
+* Project renamed to XPSPL
 * Added the API function on_shutdown, on_start, current_event, current_signal
   dir_include.
 * Added the "count" assertion method to the unittest module

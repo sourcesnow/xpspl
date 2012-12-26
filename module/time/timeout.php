@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\time;
+namespace xpspl\time;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,7 +13,7 @@ namespace prggmr\time;
  *
  * As of v2.0 timeouts can be set on a second, millisecond or microsecond basis
  */
-class Timeout extends \prggmr\signal\Complex {
+class Timeout extends \xpspl\signal\Complex {
 
     /**
      * The time instruction.
@@ -36,7 +36,7 @@ class Timeout extends \prggmr\signal\Complex {
      *
      * @return  void
      */
-    public function __construct($delay, $instruction = \prggmr\engine\idle\Time::MILLISECONDS)
+    public function __construct($delay, $instruction = \xpspl\engine\idle\Time::MILLISECONDS)
     {
         if ((!is_int($delay) || !is_float($delay)) && $delay < 0) {
             throw new \InvalidArgumentException(
@@ -44,7 +44,7 @@ class Timeout extends \prggmr\signal\Complex {
             );
         }
         $this->_instruction = $instruction;
-        $this->_idle = new \prggmr\engine\idle\Time($delay, $instruction);
+        $this->_idle = new \xpspl\engine\idle\Time($delay, $instruction);
         parent::__construct();
     }
     

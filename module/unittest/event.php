@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\unittest;
+namespace xpspl\unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -15,7 +15,7 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
  * 
  * The event object contains the test information and assertion functions.
  */
-class Event extends \prggmr\Event {
+class Event extends \xpspl\Event {
     
     /**
      * Assertion functions

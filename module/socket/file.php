@@ -1,12 +1,12 @@
 <?php
-namespace prggmr\socket;
+namespace xpspl\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \prggmr\engine\idle as idle;
+use \xpspl\engine\idle as idle;
 
 /**
  * File
@@ -50,7 +50,7 @@ class File extends Base {
             $this->_address
         );
         if (false === $bind) {
-            \prggmr\throw_socket_error();
+            \xpspl\throw_socket_error();
         }
         // listen
         socket_listen($this->socket->get_resource());

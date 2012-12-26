@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\engine;
+namespace xpspl\engine;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,6 +7,8 @@ namespace prggmr\engine;
  */
 
 /**
+ * Routine
+ * 
  * The routine class is used by the engine during the routine calculation for
  * storing the idle functions and the signals which should be triggered in the
  * loop.
@@ -76,7 +78,7 @@ final class Routine {
     {
         if (!$idle instanceof Idle) {
             throw new \InvalidArgumentException(
-                "Idle must be an instance of prggmr\engine\Idle"
+                "Idle must be an instance of xpspl\engine\Idle"
             );
         }
         foreach ($this->_idle as $_k => $_func) {

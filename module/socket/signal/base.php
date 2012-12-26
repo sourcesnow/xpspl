@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\socket\signal;
+namespace xpspl\socket\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,7 +11,7 @@ namespace prggmr\socket\signal;
  * 
  * Base socket signal.
  */
-class Base extends \prggmr\Signal {
+class Base extends \xpspl\Signal {
 
     /**
      * Constructs a new socket signal.

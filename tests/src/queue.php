@@ -4,18 +4,18 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-prggmr\load_module('unittest');
+load_module('unittest');
 
-prggmr\suite(function(){
+unittest\suite(function(){
 
     $this->test(function(){
-        $queue = new prggmr\Queue();
+        $queue = new xpspl\Queue();
         $queue->enqueue(0);
         $this->equal($queue->count(), 1);
     }, "Queue Enqueue");
 
     $this->test(function(){
-        $queue = new prggmr\Queue();
+        $queue = new xpspl\Queue();
         $queue->enqueue(0);
         $queue->enqueue(1);
         $this->equal($queue->count(), 2);
@@ -25,7 +25,7 @@ prggmr\suite(function(){
 
     $this->test(function(){
         $this->exception('OverflowException', function(){
-            $queue = new prggmr\Queue();
+            $queue = new xpspl\Queue();
             for ($i=0;$i!=QUEUE_MAX_SIZE+5;$i++) {
                 $queue->enqueue(0);
             }
@@ -33,7 +33,7 @@ prggmr\suite(function(){
     }, "Queue Max Size Overflow exception");
 
     $this->test(function(){
-        $queue = new prggmr\Queue();
+        $queue = new xpspl\Queue();
         $queue->enqueue(1, 10);
         $queue->enqueue(2, 11);
         $queue->enqueue(3, 9);
@@ -46,7 +46,7 @@ prggmr\suite(function(){
     }, "Queue Min Sort");
     
     $this->test(function(){
-        $queue = new prggmr\Queue();
+        $queue = new xpspl\Queue();
         $queue->enqueue(1);
         $queue->enqueue(2);
         $queue->enqueue(3);

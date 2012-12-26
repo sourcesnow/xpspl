@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\signal;
+namespace xpspl\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -70,9 +70,9 @@ final class Routine {
      */
     public function set_idle($idle)
     {
-        if (!$idle instanceof \prggmr\engine\Idle) {
+        if (!$idle instanceof \xpspl\engine\Idle) {
             throw new \InvalidArgumentException(
-                "Idle must be an instance of prggmr\engine\Idle"
+                "Idle must be an instance of xpspl\engine\Idle"
             );
         }
         $this->_idle = $idle;

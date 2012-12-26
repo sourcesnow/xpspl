@@ -1,12 +1,12 @@
 <?php
-namespace prggmr\cron;
+namespace xpspl\cron;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
  
-use \prggmr\engine\idle as idle;
+use \xpspl\engine\idle as idle;
 
 if (!class_exists('\Cron\CronExpression', false)) {
     $file = dirname(realpath(__FILE__)).'/../../../vendor/mtdowling/cron-expression/build/cron.phar';
@@ -25,7 +25,7 @@ if (!class_exists('\Cron\CronExpression', false)) {
  *
  * Signal event based on the UNIX cron definition
  */
-class Signal extends \prggmr\signal\Complex {
+class Signal extends \xpspl\signal\Complex {
 
     /**
      * Cron-Expression object

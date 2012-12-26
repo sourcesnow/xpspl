@@ -1,7 +1,7 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 
-use prggmr\cron\Signal;
+use xpspl\cron\Signal;
 
 /**
  * Setup a cron based signal.
@@ -13,9 +13,9 @@ use prggmr\cron\Signal;
  */
 function cron($expression, $callable) {
     $signal = new Signal($expression);
-    if (!$callable instanceof \prggmr\Handle) {
-        $callable = new \prggmr\Handle($callable, null);
+    if (!$callable instanceof \xpspl\Handle) {
+        $callable = new \xpspl\Handle($callable, null);
     }
-    $handle = \prggmr\handle($signal, $callable);
+    $handle = \xpspl\handle($signal, $callable);
     return [$signal, $handle];
 }

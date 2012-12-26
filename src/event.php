@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,7 +11,7 @@ define('EVENT_SELF_PARENT', -0xE4E);
 /**
  * Event
  *
- * Represents an executed/executable prggmr event signal.
+ * Represents an executed/executable xpspl event signal.
  *
  * As of v0.3.0 the event now inherits the State and Storage traits.
  */
@@ -43,7 +43,7 @@ class Event {
      *
      * @param  integer  $ttl  TTL in milliseconds for the event.
      *
-     * @return  object  prggmr\Event
+     * @return  object  xpspl\Event
      */
     public function __construct($ttl = null)
     {
@@ -68,24 +68,6 @@ class Event {
     {
         if (null === $this->_ttl) return false;
         return milliseconds() >= $this->_ttl;
-    }
-
-    /**
-     * Sets the signal for the event.
-     * 
-     * @param  string|int|object
-     * 
-     * @return  void
-     */
-    public function set_signal($signal)
-    {
-        return;
-        // if ($this->_state !== STATE_DECLARED &&
-        //     $this->_state !== STATE_RECYCLED) {
-        //     return;
-        // }
-        // the signal is now returned directly from the engine
-        // $this->_signal = $signal;
     }
 
     /**
@@ -141,7 +123,7 @@ class Event {
     /**
      * Sets the parent event.
      * 
-     * @param  object  $event  \prggmr\Event
+     * @param  object  $event  \xpspl\Event
      * 
      * @return  void
      */

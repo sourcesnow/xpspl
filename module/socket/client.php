@@ -1,13 +1,13 @@
 <?php
-namespace prggmr\socket;
+namespace xpspl\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \prggmr\engine\idle as idle,
-    \prggmr\Handle;
+use \xpspl\engine\idle as idle,
+    \xpspl\Handle;
 
 /**
  * Client
@@ -34,7 +34,7 @@ class Client extends Connection {
     {
         $this->_socket = $socket;
         if (false === $this->_connect()) {
-            \prggmr\throw_socket_error();
+            \xpspl\throw_socket_error();
         }
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace prggmr;
+namespace xpspl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -12,14 +12,14 @@ use engine\signal\Module_Load_Failure,
 /**
  * Library
  * 
- * Loads and tracks prggmr modules.
+ * Loads and tracks xpspl modules.
  */
 class Library {
 
     use Storage, Singleton;
 
     /**
-     * Loads a library module.
+     * Loads a XPSPL module.
      * 
      * @param  string  $name  Module name.
      * @param  string|null  $dir  Location of the module. 
@@ -31,12 +31,12 @@ class Library {
         // already loaded
         if (isset($this->_storage[$name])) return true;
         if ($dir === null) {
-            $dir = PRGGMR_MODULE_DIR;
+            $dir = XPSPL_MODULE_DIR;
         } else {
             if (!is_dir($dir)) {
-                signal(new Module_Load_Failure(),  new engine\event\Error(
+                emit(new Module_Load_Failure(),  new Error(sprintf(
                     "Module directory %s does not exist", $dir
-                ));
+                )));
             }
         }
         if (is_dir($dir.'/'.$name)) {
@@ -46,14 +46,14 @@ class Library {
                 $this->_storage[$name] = true;
                 require $path.'/__autoload.php';
             } else {
-                $this->signal(new engine_signals\Signal_Library_Failure(
+                emit(new Module_Load_Failure(), new Error(
                     "Module does not have an __autoload file"
-                ),  new engine\event\Error([$name, $dir]));
+                ));
             }
         } else {
-            $this->signal(new engine_signals\Signal_Library_Failure(sprintf(
+            emit(new Module_Load_Failure(), new Error(sprintf(
                 "Module %s does not exist", $name
-            )), new engine\event\Error());
+            )));
         }
         return true;
     }

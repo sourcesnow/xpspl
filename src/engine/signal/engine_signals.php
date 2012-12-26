@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\engine\signal;
+namespace xpspl\engine\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -10,9 +10,9 @@ namespace prggmr\engine\signal;
 /**
  * Catches all engine signals that trigger.
  */
-class Engine_Signals extends \prggmr\signal\Complex {
+class Engine_Signals extends \xpspl\signal\Complex {
 
-    public function evaluate($signal)
+    public function evaluate($signal = null)
     {
         if ($signal instanceof Base) {
             return true;

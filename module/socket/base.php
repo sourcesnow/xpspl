@@ -1,19 +1,19 @@
 <?php
-namespace prggmr\socket;
+namespace xpspl\socket;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \prggmr\engine\idle\Func;
+use \xpspl\engine\idle\Func;
 
 /**
  * Base
  *
  * Base signal for a socket.
  */
-abstract class Base extends \prggmr\signal\Complex {
+abstract class Base extends \xpspl\signal\Complex {
 
     /**
      * Socket connection object
@@ -81,10 +81,10 @@ abstract class Base extends \prggmr\signal\Complex {
      */
     public function on_disconnect($function)
     {
-        if (!$function instanceof \prggmr\Handle) {
-            $function = new \prggmr\Handle($function, null);
+        if (!$function instanceof \xpspl\Handle) {
+            $function = new \xpspl\Handle($function, null);
         }
-        return \prggmr\handle(
+        return \xpspl\handle(
             new signal\Disconnect($this), $function
         );
     }
@@ -98,10 +98,10 @@ abstract class Base extends \prggmr\signal\Complex {
      */
     public function on_read($function)
     {
-        if (!$function instanceof \prggmr\Handle) {
-            $function = new \prggmr\Handle($function, null);
+        if (!$function instanceof \xpspl\Handle) {
+            $function = new \xpspl\Handle($function, null);
         }
-        return \prggmr\handle(
+        return \xpspl\handle(
             new signal\Read($this), $function
         );
     }
@@ -115,10 +115,10 @@ abstract class Base extends \prggmr\signal\Complex {
      */
     public function on_write($function)
     {
-        if (!$function instanceof \prggmr\Handle) {
-            $function = new \prggmr\Handle($function, null);
+        if (!$function instanceof \xpspl\Handle) {
+            $function = new \xpspl\Handle($function, null);
         }
-        return \prggmr\handle(
+        return \xpspl\handle(
             new signal\Write($this), $function
         );
     }
@@ -132,10 +132,10 @@ abstract class Base extends \prggmr\signal\Complex {
      */
     public function on_connect($function)
     {
-        if (!$function instanceof \prggmr\Handle) {
-            $function = new \prggmr\Handle($function, null);
+        if (!$function instanceof \xpspl\Handle) {
+            $function = new \xpspl\Handle($function, null);
         }
-        return \prggmr\handle(
+        return \xpspl\handle(
             new signal\Connect($this), $function
         );
     }
@@ -177,7 +177,7 @@ abstract class Base extends \prggmr\signal\Complex {
                 // test if socket is still connected
                 // send disconnect if disconnect detected
                 if (!is_resource($_r)) {
-                    \prggmr\signal(
+                    \xpspl\signal(
                         new signal\Disconnect($this),
                         new event\Disconnect($_c)
                     );
@@ -222,7 +222,7 @@ abstract class Base extends \prggmr\signal\Complex {
                 }
             } else {
                 // socket error
-                \prggmr\throw_socket_error();
+                \xpspl\throw_socket_error();
             }
         }));
         return true;

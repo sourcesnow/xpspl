@@ -8,7 +8,7 @@
 /**
  * Utilities
  * 
- * These are utility functions used within or in conjunction with prggmr.
+ * These are utility functions used within or in conjunction with xpspl.
  */
 
 // -------------------------------------------------------------------------- \\
@@ -28,7 +28,7 @@ function load_runkit(/* ... */)
 /**
  * Prggmr autoloader
  */
-define('PRGGMR_AUTOLOADER', true);
+define('XPSPL_AUTOLOADER', true);
 spl_autoload_register(function($class){
     if (strpos($class, '\\') !== false) {
         $paths = explode('\\', $class);
@@ -36,7 +36,7 @@ spl_autoload_register(function($class){
         $file = strtolower(implode('/', $paths)).'.php';
         $src = stream_resolve_include_path($file);
         if (false !== $src) {
-            include $src;
+            include_once $src;
             return;
         }
     } else {
@@ -44,7 +44,7 @@ spl_autoload_register(function($class){
             strtolower($class).'.php'
         );
         if (false !== $file) {
-            include $file;
+            include_once $file;
         }
     }
 });
@@ -76,16 +76,16 @@ function microseconds(/* ... */) {
 /**
  * Transforms PHP exceptions into a signal.
  * 
- * The signal fired is \prggmr\engine\Signal::GLOBAL_EXCEPTION
+ * The signal fired is \xpspl\engine\Signal::GLOBAL_EXCEPTION
  * 
  * @param  object  $exception  \Exception
  * 
  * @return void
  */
 function signal_exceptions($exception) {
-    // \prggmr\signal(
-    //     new \prggmr\engine\signal\Error(), 
-    //     new \prggmr\engine\event\Error($exception)
+    // \xpspl\signal(
+    //     new \xpspl\engine\signal\Error(), 
+    //     new \xpspl\engine\event\Error($exception)
     // );
 }
 
@@ -94,7 +94,7 @@ function signal_exceptions($exception) {
 /**
  * Transforms PHP errors into a signal.
  * 
- * The signal fired is \prggmr\engine\Signal::GLOBAL_ERROR
+ * The signal fired is \xpspl\engine\Signal::GLOBAL_ERROR
  * 
  * @param  int  $errno
  * @param  string  $errstr
@@ -104,9 +104,9 @@ function signal_exceptions($exception) {
  * @return  void
  */
 function signal_errors($errno, $errstr, $errfile, $errline) {
-    // \prggmr\signal(
-    //     new \prggmr\engine\signal\Error($errstr), 
-    //     new \prggmr\engine\event\Error([
+    // \xpspl\signal(
+    //     new \xpspl\engine\signal\Error($errstr), 
+    //     new \xpspl\engine\event\Error([
     //     $errstr, 0, $errno, $errfile, $errline
     // ]));
 }

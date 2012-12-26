@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\unittest;
+namespace xpspl\unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -39,7 +39,7 @@ if (!defined('VERBOSITY_LEVEL')) {
  */
 class Output {
 
-    use \prggmr\Singleton;
+    use \xpspl\Singleton;
 
     /**
      * Max recursion depth.

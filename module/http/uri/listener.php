@@ -1,17 +1,17 @@
 <?php
-namespace prggmr\http\uri;
+namespace xpspl\http\uri;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \prggmr\http as http;
+use \xpspl\http as http;
 
 /**
  * Allows for listening to URI signals.
  */
-class Listener extends \prggmr\Listener 
+class Listener extends \xpspl\Listener 
 {
     /**
      * Constructs a new URI listener.

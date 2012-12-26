@@ -1,13 +1,13 @@
 <?php
-namespace prggmr\socket\event;
+namespace xpspl\socket\event;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-if (!defined('PRGGMR_SOCKET_READ_LENGTH')) {
-    define('PRGGMR_SOCKET_READ_LENGTH', 1048576);
+if (!defined('XPSPL_SOCKET_READ_LENGTH')) {
+    define('XPSPL_SOCKET_READ_LENGTH', 1048576);
 }
 
 /**
@@ -15,7 +15,7 @@ if (!defined('PRGGMR_SOCKET_READ_LENGTH')) {
  * 
  * Base socket event for reading/writing and disconnecting a socket.
  */
-abstract class Base extends \prggmr\Event {
+abstract class Base extends \xpspl\Event {
 
     /**
      * Socket connection object

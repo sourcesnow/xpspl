@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\engine\event;
+namespace xpspl\engine\event;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -12,7 +12,7 @@ namespace prggmr\engine\event;
  * 
  * Event used for errors which have occured during engine operation.
  */
-class Error extends \prggmr\Event {
+class Error extends \xpspl\Event {
 
     protected $_error_data = null;
 

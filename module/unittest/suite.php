@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\unittest;
+namespace xpspl\unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -16,14 +16,14 @@ class Suite {
     /**
      * Event used in the suite.
      * 
-     * @var  object  \prggmr\unittest
+     * @var  object  \xpspl\unittest
      */
     protected $_event = null;
 
     /**
      * Engine in use.
      * 
-     * @var  object  \prggmr\Engine
+     * @var  object  \xpspl\Engine
      */
     protected $_engine = null;
 
@@ -45,25 +45,18 @@ class Suite {
      * Constructs a new unit testing suite.
      * 
      * @param  object  $function  Closure
-     * @param  object  $engine  prggmr\Engine
-     * @param  object|null  $event  prggmr\unittest\Event
+     * @param  object|null  $event  xpspl\unittest\Event
      * 
      * @return  void
      */
-    public function __construct($function, $engine, $event = null)
+    public function __construct($function, $event = null)
     {
         if (!$function instanceof \Closure) {
             throw new \InvalidArgumentException(
                 "Suite requires instance of a Closure"
             );
         }
-        if (!$engine instanceof \prggmr\Engine) {
-            throw new \InvalidArgumentException(
-                "Suite requires instance of a prggmr\Engine"
-            );
-        }
-        $this->_engine = $engine;
-        if (null === $event || !$event instanceof \prggmr\unitest\Event) {
+        if (null === $event || !$event instanceof \xpspl\unitest\Event) {
             $this->_event = new Event();
         }
         $function = $function->bindTo($this);
@@ -84,7 +77,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_setup = new \prggmr\Handle($function, null);
+        $this->_setup = new \xpspl\Handle($function, null);
     }
 
     /**
@@ -101,7 +94,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_teardown = new \prggmr\Handle($function, null);
+        $this->_teardown = new \xpspl\Handle($function, null);
     }
 
     /**
@@ -112,14 +105,14 @@ class Suite {
      */
     function test($function, $name = null) {
         $signal = new Test($name, $this->_event);
-        $handle = $this->_engine->handle($signal, $function);
+        $handle = signal($signal, $function);
         if (null !== $this->_setup) {
-            $this->_engine->before(
+            before(
                 $signal, $this->_setup
             );
         }
         if (null !== $this->_teardown) {
-            $this->_engine->after(
+            after(
                 $signal, $this->_teardown
             );
         }

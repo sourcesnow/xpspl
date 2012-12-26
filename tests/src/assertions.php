@@ -10,7 +10,7 @@
  *
  * Asserts the given engine error signal triggers.
  */
-prggmr\create_assertion(function($signal, \Closure $function){
+unittest\create_assertion(function($signal, \Closure $function){
     ob_start();
     $function = $function->bindTo($this);
     $function();
@@ -19,7 +19,7 @@ prggmr\create_assertion(function($signal, \Closure $function){
     return stripos($contents, 'Exception: '.$signal) !== false;
 }, 'engine_error_signaled', 'Error %s was not signaled');
 
-prggmr\create_assertion(function($signal, \Closure $function){
+unittest\create_assertion(function($signal, \Closure $function){
     ob_start();
     $function = $function->bindTo($this);
     $function();

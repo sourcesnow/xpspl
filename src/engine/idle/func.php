@@ -1,5 +1,5 @@
 <?php
-namespace prggmr\engine\idle;
+namespace xpspl\engine\idle;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,7 +9,7 @@ namespace prggmr\engine\idle;
 /**
  * Idles the engine using a function.
  */
-class Func extends \prggmr\engine\Idle 
+class Func extends \xpspl\engine\Idle 
 {
     /**
      * Priority of this idle function.
