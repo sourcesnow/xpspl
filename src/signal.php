@@ -26,7 +26,7 @@ class Signal extends \xpspl\signal\Standard {
     
 
     /**
-     * Constructs a new standard signal.
+     * Constructs a new signal.
      *
      * @param  string|integer  $info  Signal information
      *
@@ -35,12 +35,13 @@ class Signal extends \xpspl\signal\Standard {
     public function __construct($info = null)
     {
         if (null === $info || !is_int($info) && !is_string($info)) {
-            $info = strtolower(get_class($this));
-            if ($info == 'xpspl\signal') {
-                throw new \InvalidArgumentException;
-            }
             if ($this->_unique) {
                 $info = spl_object_hash($this);
+            } else {
+                $info = get_class($this);
+                if ($info === 'xpspl\Signal') {
+                    throw new \InvalidArgumentException;
+                }
             }
         }
         $this->_info = $info;

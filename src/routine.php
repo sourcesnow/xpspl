@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine;
+namespace xpspl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -68,13 +68,13 @@ final class Routine {
     }
 
     /**
-     * Adds a new function to idle the engine.
+     * Sets a new function to idle the engine.
      *
      * @param  object  $idle  Idle
      *
      * @return  void
      */
-    public function add_idle($idle)
+    public function set_idle($idle)
     {
         if (!$idle instanceof Idle) {
             throw new \InvalidArgumentException(
@@ -116,5 +116,16 @@ final class Routine {
     public function add_signal($signal, $vars = null, $event = null)
     {
         return $this->_signals[] = [$signal, $vars, $event];
+    }
+
+    /**
+     * Resets the routine after the engine has used it.
+     *
+     * @return  void
+     */
+    public function reset()
+    {
+        $this->_idle = null;
+        $this->_signals = null;
     }
 }

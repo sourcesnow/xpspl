@@ -11,11 +11,6 @@ use \Closure,
     \RuntimeException;
 
 /**
- * The default exhaustion rate.
- */
-define('EXHAUST_DEFAULT', 1);
-
-/**
  * A handle is the function which will execute upon a signal call.
  *
  * Though attached to a signal the object itself contains no
@@ -40,7 +35,7 @@ class Handle {
      *
      * @var  integer|null
      */
-    protected $_exhaustion = null;
+    protected $_exhaustion = 1;
 
     /**
      * Handle priority.
@@ -63,18 +58,16 @@ class Handle {
         if (null === $function || is_int($function) || is_bool($function)) {
             throw new \InvalidArgumentException;
         }
-        # Invalid or negative exhausting sets the rate to 1.
-        if (null !== $exhaust && (!is_int($exhaust) || $exhaust <= -1)) {
-            $exhaust = 1;
-        }
+        // set exhaust rate
+        $this->set_exhaust($exhaust);
+        // set priority
+        $this->set_priority($priority);
         // unbind the closure if is
         if ($function instanceof \Closure) {
             $this->_function = clone $function;
         } else {
             $this->_function = $function;
         }
-        $this->_priority = $priority;
-        $this->_exhaustion = $exhaust;
     }
 
     /**
@@ -135,5 +128,37 @@ class Handle {
     public function get_function(/* ... */)
     {
         return $this->_function;
+    }
+
+    /**
+     * Sets the handle exhaust rate.
+     *
+     * @param  integer  $rate  Exhaust rate
+     * 
+     * @return  void
+     */
+    public function set_exhaust($rate)
+    {
+        # Invalid or negative exhausting sets the rate to 1.
+        if (null !== $rate && (!is_int($rate) || $rate <= -1)) {
+            return;
+        }
+        $this->_exhaustion = $rate;
+    }
+
+    /**
+     * Sets the handle priority.
+     *
+     * @param  integer  $priority  Integer Priority
+     * 
+     * @return  void
+     */
+    public function set_priority($priority)
+    {
+        # Invalid or negative exhausting sets the rate to 1.
+        if (null !== $priority && !is_int($priority)) {
+            return;
+        }
+        $this->_priority = $priority;
     }
 }

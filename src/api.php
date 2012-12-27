@@ -20,6 +20,39 @@ function signal($signal, $callable)
 }
 
 /**
+ * Creates a never exhausting signal handler.
+ *
+ * @param  callable|handle  $handle  PHP Callable or \prggmr\Handle object.
+ *
+ * @return  object  Handle
+ */
+function null_exhaust($handle)
+{
+    if (!$handle instanceof \prggmr\Handle) {
+        $handle = new \prggmr\Handle($handle, null);
+        return $handle;
+    }
+    $handle->set_exhaust(null);
+    return $handle;
+}
+
+/**
+ * Creates or sets a handles priority.
+ *
+ * @param  callable|handle  $handle  PHP Callable or \prggmr\Handle object.
+ *
+ * @return  object  Handle
+ */
+function high_priority($handle, $priority)
+{
+    if (!$handle instanceof \prggmr\Handle) {
+        $handle = new \prggmr\Handle($handle);
+    }
+    $handle->set_priority(null);
+    return $handle;
+}
+
+/**
  * Remove a sig handler.
  *
  * @param  string|integer|object  $signal  Signal handle is attached to.

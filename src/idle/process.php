@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine\idle;
+namespace xpspl\idle;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,9 +7,9 @@ namespace xpspl\engine\idle;
  */
 
 /**
- * Idles the engine using a function.
+ * Idles the engine using a function process.
  */
-class Func extends \xpspl\engine\Idle 
+class Process extends \xpspl\Idle 
 {
     /**
      * Priority of this idle function.
@@ -23,7 +23,7 @@ class Func extends \xpspl\engine\Idle
      *
      * @var  boolean
      */
-    protected $_function = true;
+    protected $_function = null;
     
 
     /**

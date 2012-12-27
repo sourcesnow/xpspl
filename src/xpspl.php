@@ -22,49 +22,11 @@ set_include_path(XPSPL_PATH . '/module' . PATH_SEPARATOR . get_include_path());
 // utils & traits
 require XPSPL_PATH.'/src/utils.php';
 require XPSPL_PATH.'/src/api.php';
-
-// debugging mode disabled by default
-if (!defined('XPSPL_DEBUG')) {
-    define('XPSPL_DEBUG', false);
-}
-
-// have the engine throw exceptions on signal errors
-if (!defined('XPSPL_ENGINE_EXCEPTIONS')) {
-    define('XPSPL_ENGINE_EXCEPTIONS', true);
-}
-
-// event history original setting
-if (!defined('XPSPL_EVENT_HISTORY')) {
-    define('XPSPL_EVENT_HISTORY', false);
-}
+require XPSPL_PATH.'/src/const.php';
 
 // dev mode
 if (XPSPL_DEBUG) {
     error_reporting(E_ALL);
-}
-
-// signal exceptions not throw
-if (!defined('XPSPL_SIGNAL_EXCEPTIONS')) {
-    define('XPSPL_SIGNAL_EXCEPTIONS', false);
-}
-
-// immediatly removes exhausted handles from the engine
-if (!defined('XPSPL_PURGE_EXHAUSTED')) {
-    define('XPSPL_PURGE_EXHAUSTED', true);
-}
-
-// modules directory
-if (!defined('XPSPL_MODULE_DIR')) {
-    define('XPSPL_MODULE_DIR', XPSPL_PATH . '/module');
-}
-
-// detect if using windows ...
-if (!defined('WINDOWS')) {
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-        define('WINDOWS', true);
-    } else {
-        define('WINDOWS', false);
-    }
 }
 
 /**
@@ -109,13 +71,4 @@ global $XPSPL;
 /**
  * Start the engine VROOOOOOM!
  */
-$XPSPL = XPSPL::init(XPSPL_EVENT_HISTORY, XPSPL_ENGINE_EXCEPTIONS);
-
-/**
- * Turns ANY PHP error or exception into a signal (excluding fatal)
- */
-if (XPSPL_SIGNAL_EXCEPTIONS === true) {
-    set_error_handler("signal_exceptions");
-    set_exception_handler("signal_errors");
-}
-
+$XPSPL = XPSPL::init(XPSPL_SIGNAL_HISTORY);

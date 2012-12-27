@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine\idle;
+namespace xpspl\idle;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,14 +11,7 @@ namespace xpspl\engine\idle;
  *
  * The amount of time can be specified in seconds or milliseconds.
  */
-class Time extends \xpspl\engine\Idle {
-
-    /**
-     * Idle time instruction declarations
-     */
-    const SECONDS = 1;
-    const MILLISECONDS = 2;
-    // const MICROSECONDS = 3;
+class Time extends \xpspl\Idle {
 
     /**
      * Length of time to idle
@@ -28,7 +21,7 @@ class Time extends \xpspl\engine\Idle {
     protected $_idle_length = null;
 
     /**
-     * Instruction of sleep type.
+     * Time instruction type.
      *
      * @var  integer
      */
@@ -72,15 +65,12 @@ class Time extends \xpspl\engine\Idle {
         $this->_idle_length = $time;
         $this->_instruction = $instruction;
         switch ($this->_instruction) {
-            case self::SECONDS:
+            case TIME_SECONDS:
                 $this->_stop_time = $time + time();
                 break;
-            case self::MILLISECONDS:
+            case TIME_MILLISECONDS:
                 $this->_stop_time = $time + milliseconds();
                 break;
-            // case self::MICROSECONDS:
-            //     $this->_stop_time = $time + microseconds();
-            //     break;
         }
     }
 
@@ -93,15 +83,12 @@ class Time extends \xpspl\engine\Idle {
     public function idle($engine)
     {
         switch ($this->_instruction) {
-            case self::SECONDS:
+            case TIME_SECONDS:
                 sleep($this->get_time_left());
                 break;
-            case self::MILLISECONDS:
+            case TIME_MILLISECONDS:
                 usleep($this->get_time_left() * 1000);
                 break;
-            // case self::MICROSECONDS:
-            //     usleep($this->_idle_length);
-            //     break;
         }
     }
 
@@ -143,15 +130,12 @@ class Time extends \xpspl\engine\Idle {
     public function get_time_left()
     {
         switch ($this->_instruction) {
-            case self::SECONDS:
+            case TIME_SECONDS:
                 return $this->_stop_time - time();
                 break;
-            case self::MILLISECONDS:
+            case TIME_MILLISECONDS:
                 return $this->_stop_time - milliseconds();
                 break;
-            // case self::MICROSECONDS:
-            //     return $this->_stop_time - microseconds();
-            //     break;
         } 
     }
 
@@ -167,35 +151,20 @@ class Time extends \xpspl\engine\Idle {
     public function convert_length($length, $to)
     {
         switch ($this->_instruction) {
-            case self::SECONDS:
+            case TIME_SECONDS:
                 switch($to) {
-                    case self::MILLISECONDS:
+                    case TIME_MILLISECONDS:
                         return $length / 1000;
                         break;
-                    // case self::MICROSECONDS:
-                    //     return $length / 1000000;
                 }
                 break;
-            case self::MILLISECONDS:
+            case TIME_MILLISECONDS:
                 switch($to) {
-                    case self::SECONDS:
+                    case TIME_SECONDS:
                         return $length * .0001;
                         break;
-                    // case self::MICROSECONDS:
-                    //     return $length / 1000;
-                    //     break;
                 }
                 break;
-            // case self::MICROSECONDS:
-            //     switch($to) {
-            //         case self::SECONDS:
-            //             return $length * 1e-6;
-            //             break;
-            //         case self::MILLISECONDS:
-            //             return $length * .0001;
-            //             break;
-            //     }
-            //     break;
         }
         return $length;
     }
@@ -208,10 +177,10 @@ class Time extends \xpspl\engine\Idle {
     public function has_time_passed(/* ... */)
     {
         switch ($this->_instruction) {
-            case self::SECONDS:
+            case TIME_SECONDS:
                 return $this->_stop_time <= time();
                 break;
-            case self::MILLISECONDS:
+            case TIME_MILLISECONDS:
                 return $this->_stop_time <= milliseconds();
                 break;
         }
@@ -231,11 +200,11 @@ class Time extends \xpspl\engine\Idle {
         }
         $this_left = $this->convert_length(
             $this->get_time_left(), 
-            self::SECONDS
+            TIME_SECONDS
         );
         $that_left = $time->convert_length(
             $time->get_time_left(),
-            self::SECONDS
+            TIME_SECONDS
         );
         return $that_left < $this_left;
     }
