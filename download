@@ -1,0 +1,31 @@
+#!/bin/bash
+
+install() {
+    echo "Downloading XPSPL"
+    wget -O- https://nodeload.github.com/prggmr/xpspl/zip/master >> /tmp/xpspl.zip
+    cd /tmp
+    echo "Inflating"
+    unzip xpspl.zip
+    cd xpspl-master
+    echo "Running installation"
+    sudo chmod +x install
+    sudo ./install
+    echo "Install finished"
+    echo "Cleaning up"
+    cd ..
+    sudo rm -rf /tmp/xpspl-master
+    sudo rm /tmp/xpspl.zip
+    echo "Done"
+}
+
+#
+# Handle execution
+#
+main() {
+
+    # Start installation
+    install
+    exit 0
+}
+
+main
