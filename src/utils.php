@@ -11,32 +11,18 @@
  * These are utility functions used within or in conjunction with xpspl.
  */
 
-// -------------------------------------------------------------------------- \\
-
 /**
- * Checks if runkit is installed.
- *
- * @return  void
- */
-function load_runkit(/* ... */)
-{
-    if (!function_exists('runkit_function_redefine')) {
-        defined('RUNKIT_DISALLOW',  true);
-    }
-}
-
-/**
- * Prggmr autoloader
+ * Autoloader
  */
 define('XPSPL_AUTOLOADER', true);
 spl_autoload_register(function($class){
     if (strpos($class, '\\') !== false) {
         $paths = explode('\\', $class);
         $lib = array_shift($paths);
-        $file = strtolower(implode('/', $paths)).'.php';
+        $file = $lib.'/src/'.strtolower(implode('/', $paths)).'.php';
         $src = stream_resolve_include_path($file);
         if (false !== $src) {
-            include_once $src;
+            require_once $src;
             return;
         }
     } else {
@@ -44,7 +30,7 @@ spl_autoload_register(function($class){
             strtolower($class).'.php'
         );
         if (false !== $file) {
-            include_once $file;
+            require_once $file;
         }
     }
 });

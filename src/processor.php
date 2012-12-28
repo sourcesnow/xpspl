@@ -379,8 +379,9 @@ class Processor {
     public function listen(Listener $listener)
     {
         foreach ($listener->_get_signals() as $_signal) {
-            $this->signal($_signal, [$listener, $_signal]);
+            $this->signal($_signal[0], $_signal[1]);
         }
+        $listener->reset();
     }
 
     /**
@@ -732,7 +733,11 @@ class Processor {
         }
         if (is_array($function)) {
             if (count($function) >= 2) {
-                $class = new $function[0];
+                if (is_object($function[0])) {
+                    $class = $function[0];
+                } else {
+                    $class = new $function[0];
+                }
                 return $class->$function[1]($event);
             }
             return $function[0]($event);
@@ -1093,56 +1098,5 @@ class Processor {
             return $this->_event[0];
         }
         return array_slice($this->_event, $offset, 1)[0];
-    }
-}
-
-class Processor_Exception extends \Exception {
-
-    /**
-     * The signal that occured.
-     * 
-     * @var  object
-     */
-    protected $_signal = null;
-
-    /**
-     * Arguments associated with the exception
-     * 
-     * @var  null|array
-     */
-    protected $_args = null;
-
-    /**
-     * Constructs a new processor exception.
-     * 
-     * @param  string|null  $message  Exception message if given
-     * @param  object  $signal  Error signal
-     * @param  array  $args  Arguments present for exception
-     */
-    public function __construct($message, $signal, $args)
-    {
-        parent::__construct($message);
-        $this->_signal = $signal;
-        $this->_args = $args;
-    }
-
-    /**
-     * Returns exception arguments.
-     * 
-     * @return  array
-     */
-    public function get_args(/* ... */)
-    {
-        return $this->_args;
-    }
-
-    /**
-     * Returns processor exception code.
-     * 
-     * @return  integer
-     */
-    public function get_signal(/* ... */)
-    {
-        return $this->_signal;
     }
 }

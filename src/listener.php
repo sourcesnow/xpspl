@@ -49,4 +49,14 @@ class Listener {
     {
         return $this->_signals;
     }
+
+    /**
+     * Resets the object.
+     *
+     * @return  void
+     */
+    public function reset(/* ... */)
+    {
+        $this->_signals = null;
+    }
 }

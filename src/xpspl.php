@@ -15,7 +15,7 @@ define('XPSPL_MASTERMIND', 'Nickolas Whiting');
 if (!defined('XPSPL_PATH')) {
     define('XPSPL_PATH', dirname(realpath(__FILE__)).'/..');
 }
-set_include_path(XPSPL_PATH . '/src' . PATH_SEPARATOR . get_include_path());
+set_include_path(XPSPL_PATH . '/..' . PATH_SEPARATOR . get_include_path());
 set_include_path(XPSPL_PATH . '/module' . PATH_SEPARATOR . get_include_path());
 
 // start'er up
