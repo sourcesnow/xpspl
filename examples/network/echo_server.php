@@ -11,14 +11,14 @@
  * This example demonstrates a simple echo server that spits back anything that
  * was sent and then disconnects.
  */
-import('socket');
+import('network');
 
-$socket = prggmr\socket('0.0.0.0', ['port' => '80'], function(){
+$socket = network\connect('0.0.0.0', ['port' => '1337'], function(){
     echo "Server Running on " . $this->socket->get_address() . PHP_EOL;
 });
 
-$socket->on_connect(function(){
+$socket->on_client(null_exhaust(function(){
     echo "Connection " . PHP_EOL;
     $this->socket->write($this->socket->read());
     $this->socket->disconnect();
-});
+}));

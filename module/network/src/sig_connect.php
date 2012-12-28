@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket\event;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,8 +7,8 @@ namespace xpspl\socket\event;
  */
 
 /**
- * Disconnect
+ * Connect
  * 
- * Socket disconnection.
+ * Signaled when a socket has connected.
  */
-class Disconnect extends Base {}
+class SIG_Connect extends SIG_Base {}

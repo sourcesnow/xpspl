@@ -70,8 +70,8 @@ function low_priority($handle)
  */
 function priority($handle, $priority)
 {
-    if (!$handle instanceof \prggmr\Handle) {
-        $handle = new \prggmr\Handle($handle);
+    if (!$handle instanceof \xpspl\Handle) {
+        $handle = new \xpspl\Handle($handle);
     }
     $handle->set_priority($priority);
     return $handle;

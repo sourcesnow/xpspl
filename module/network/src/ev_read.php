@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket\event;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,8 +7,8 @@ namespace xpspl\socket\event;
  */
 
 /**
- * Write
+ * Read
  * 
- * Socket write event.
+ * Socket read event.
  */
-class Write extends Base {}
+class EV_Read extends EV_Base {}

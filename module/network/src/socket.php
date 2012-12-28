@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,9 +9,9 @@ namespace xpspl\socket;
 /**
  * Socket
  *
- * Event driven I/O for networks.
+ * Event driven I/O.
  */
-class Socket extends Base {
+class Socket extends Socket_Base {
 
     /**
      * Constructs a new socket.
@@ -40,8 +40,10 @@ class Socket extends Base {
 
         // add the routine for this signal
         $this->signal_this(
-            new event\Connect($this->socket)
+            new EV_Connect($this->connection)
         );
+
+        $this->_register_idle_process();
     }
 
     /**
@@ -52,21 +54,21 @@ class Socket extends Base {
     protected function _connect(/* ... */)
     {
         // Establish a connection
-        $this->socket = new Connection(socket_create(
+        $this->connection = new Connection(socket_create(
             $this->_options['domain'], 
             $this->_options['type'], 
             $this->_options['protocol']
         ));
         $bind = @socket_bind(
-            $this->socket->get_resource(), 
+            $this->connection->get_resource(), 
             $this->_address, 
             $this->_options['port']
         );
         if (false === $bind) {
-            \xpspl\throw_socket_error();
+            throw_socket_error();
         }
         // listen
-        socket_listen($this->socket->get_resource());
-        \xpspl\socket_set_nonblock($this->socket->get_resource());
+        socket_listen($this->connection->get_resource());
+        socket_set_nonblock($this->connection->get_resource());
     }
 }

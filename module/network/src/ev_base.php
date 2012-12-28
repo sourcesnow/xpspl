@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket\event;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -15,7 +15,7 @@ if (!defined('XPSPL_SOCKET_READ_LENGTH')) {
  * 
  * Base socket event for reading/writing and disconnecting a socket.
  */
-abstract class Base extends \xpspl\Event {
+abstract class EV_Base extends \xpspl\Event {
 
     /**
      * Socket connection object

@@ -11,14 +11,13 @@
  * This example demonstrates how to build a simple TCP chat server which can
  * be connected using telnet.
  */
-import('socket');
+import('network');
 
-$socket = prggmr\socket('0.0.0.0', ['port' => '8000'], function(){
-    var_dump($this);
+$socket = network\connect('0.0.0.0', ['port' => '8000'], function(){
     echo "Server Running on " . $this->socket->get_address() . PHP_EOL;
 });
 
-$socket->on_connect(function() use ($socket){
+$socket->on_client(function() use ($socket){
     $this->socket->write("Welcome to the prggmr chat server".PHP_EOL);
     $this->socket->write("Enter your username : ");
 });

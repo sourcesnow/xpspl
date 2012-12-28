@@ -9,4 +9,9 @@ $dir = dirname(realpath(__FILE__));
 /**
  * Autoload the socket signals.
  */
-require_once $dir.'/api.php';
+require_once $dir.'/src/api.php';
+set_include_path(
+    dirname(realpath(__FILE__)).'/src' .
+    PATH_SEPARATOR . 
+    get_include_path()
+);

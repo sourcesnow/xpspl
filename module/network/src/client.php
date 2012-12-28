@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -17,13 +17,6 @@ use \xpspl\processor\idle as idle,
 class Client extends Connection {
 
     /**
-     * Socket that is connected.
-     *
-     * @var  resource
-     */
-    protected $_socket = null;
-
-    /**
      * Constructs a new client connection.
      *
      * @param  resource  $socket  Socket connection.
@@ -32,9 +25,9 @@ class Client extends Connection {
      */
     public function __construct($socket)
     {
-        $this->_socket = $socket;
+        parent::__construct($socket);
         if (false === $this->_connect()) {
-            \xpspl\throw_socket_error();
+            throw_socket_error();
         }
     }
 
@@ -45,7 +38,8 @@ class Client extends Connection {
      */
     protected function _connect(/* ... */) 
     {
-        if (false === @socket_accept($this->_socket)) {
+        $this->_socket = @socket_accept($this->_socket);
+        if (false === $this->_socket) {
             return false;
         }
         socket_set_nonblock($this->_socket);

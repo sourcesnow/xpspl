@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket\signal;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,12 +11,12 @@ namespace xpspl\socket\signal;
  * 
  * Base socket signal.
  */
-class Base extends \xpspl\Signal {
+class SIG_Base extends \xpspl\Signal {
 
     /**
-     * Constructs a new socket signal.
-     *
-     * @param  object  $connection  Socket connection object
+     * Socket signals use the connection and socket hash
+     * 
+     * @return  void
      */
     public function __construct($connection = null)
     {
@@ -28,4 +28,5 @@ class Base extends \xpspl\Signal {
 
         $this->_info = spl_object_hash($signal).$this->_info;
     }
+
 }

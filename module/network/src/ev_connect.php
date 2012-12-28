@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket\signal;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,8 +7,8 @@ namespace xpspl\socket\signal;
  */
 
 /**
- * Write
- *
- * Signaled when a socket is ready to write
+ * Connect
+ * 
+ * Socket connection event.
  */
-class Write extends Base {}
+class EV_Connect extends EV_Base {}

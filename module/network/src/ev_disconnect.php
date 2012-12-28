@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\socket\signal;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,8 +7,8 @@ namespace xpspl\socket\signal;
  */
 
 /**
- * Connect
+ * Disconnect
  * 
- * Signaled when a socket has connected.
+ * Socket disconnection.
  */
-class Connect extends Base {}
+class EV_Disconnect extends EV_Base {}

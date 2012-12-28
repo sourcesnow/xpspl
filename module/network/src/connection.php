@@ -1,13 +1,12 @@
 <?php
-namespace xpspl\socket;
+namespace network;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\processor\idle as idle,
-    \xpspl\Handle;
+use \xpspl\Idle as idle;
 
 /**
  * Connection
@@ -94,9 +93,9 @@ class Connection {
      */
     public function disconnect(/* ... */)
     {
-        return \xpspl\signal(
-            new signal\Disconnect(), 
-            new event\Disconnect($this)
+        return emit(
+            new SIG_Disconnect(), 
+            new EV_Disconnect($this)
         );
     }
 
@@ -133,7 +132,7 @@ class Connection {
  * 
  * @return  void
  */
-function on_disconnect(event\Disconnect $event) 
+function sys_disconnect(EV_Disconnect $event) 
 {
     @socket_close($event->socket->get_resource());
 }
@@ -146,7 +145,7 @@ function on_disconnect(event\Disconnect $event)
  * Though it should be noted that pushing content to a disconnected socket might 
  * not get the data.
  */
-\xpspl\handle(
-    new signal\Disconnect(), 
-    new Handle('\xpspl\socket\on_disconnect', null, PHP_INT_MAX)
+signal(
+    new SIG_Disconnect(), 
+    low_priority(null_exhaust('\socket\sys_disconnect'))
 );
