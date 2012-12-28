@@ -1,11 +1,11 @@
 #!/bin/bash
 ########################
-# Installs prggmr to the php include path
+# Installs XPSPL to the php include path
 ########################
 VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
 if [ $VERSION != '1' ];
 then
-    echo "prggmr requires at least PHP 5.4"
+    echo "XPSPL requires at least PHP 5.4"
     echo "Found"
     which php
     php -v
@@ -25,18 +25,19 @@ if [[ $INSTALL_PATH = "" ]]; then
     echo "Could not find your PHP include path";
     exit;
 fi
-if [ -d "$INSTALL_PATH/prggmr" ]; then
-    rm -rf "$INSTALL_PATH/prggmr"
+if [ -d "$INSTALL_PATH/xpspl" ]; then
+    rm -rf "$INSTALL_PATH/xpspl"
 fi;
-mkdir $INSTALL_PATH/prggmr
-cp -Rf * "$INSTALL_PATH/prggmr"
-if [ -f "$BINPATH/prggmr" ]; then
-    rm "$BINPATH/prggmr"
+mkdir $INSTALL_PATH/xpspl
+cp -Rf * "$INSTALL_PATH/xpspl"
+if [ -f "$BINPATH/xpspl" ]; then
+    rm "$BINPATH/xpspl"
 fi;
-echo "Installed prggmr to $INSTALL_PATH/prggmr"
-echo "Installed executable to $BINPATH/prggmr"
-ln -s "$INSTALL_PATH/prggmr/bin/prggmr" "$BINPATH"
-prggmr -v
-echo "Report bugs to https://github.com/prggmr/prggmr/issues"
+echo "Installed XPSPL to $INSTALL_PATH/xpspl"
+echo "Installed executable to $BINPATH/xpspl"
+ln -s "$INSTALL_PATH/xpspl/bin/xpspl" "$BINPATH"
+xpspl -v
+echo "Report bugs to https://github.com/prggmr/xpspl/issues"
 echo "Running Unit Tests"
-prggmr --test
+xpspl --test
+echo "Enjoy"
