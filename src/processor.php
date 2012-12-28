@@ -8,24 +8,24 @@ namespace xpspl;
 
 use \Closure,
     \InvalidArgumentException,
-    \xpspl\engine\signal as engine_signals;
+    \xpspl\processor\signal as processor_signals;
 
 /**
- * Engine
+ * Processor
  *
  * The brainpower of xpspl.
  * 
  * As of v0.3.0 the loop is now run in respect to the currently available handles,
- * this prevents the engine from running contionusly forever when there isn't anything
+ * this prevents the processor from running contionusly forever when there isn't anything
  * that it needs to do.
  *
- * To achieve this the engine uses routines for calculating when to run and 
+ * To achieve this the processor uses routines for calculating when to run and 
  * shutdowns when no more are available.
  *
  * The queue storage has also been improved in 0.3.0, previously the storage used
  * a non-index and index based storage, the storage now uses only a single array.
  */
-class Engine {
+class Processor {
 
     /**
      * Statefull object
@@ -46,7 +46,7 @@ class Engine {
     const INTERRUPT_POST = 1;
 
     /**
-     * Last signal added to the engine.
+     * Last signal added to the processor.
      * 
      * @var  object
      */
@@ -81,9 +81,9 @@ class Engine {
     private $_signal_exception = null;
 
     /**
-     * Signal registered for the engine exception signals.
+     * Signal registered for the processor exception signals.
      */
-    private $_engine_handle_signal = null;
+    private $_processor_handle_signal = null;
 
     /**
      * Currently executing signal and hierachy
@@ -91,7 +91,7 @@ class Engine {
     private $_signal = [];
 
     /**
-     * Starts the engine.
+     * Starts the processor.
      *
      * @param  boolean  $signal_history  Store a history of all signals.
      * 
@@ -102,12 +102,13 @@ class Engine {
         if ($signal_history === false) {
             $this->_history = false;
         }
+        $this->_register_error_handler();
         $this->set_state(STATE_DECLARED);
         $this->flush(); 
     }
 
     /**
-     * Registers the engine error signal handler.
+     * Registers the processor error signal handler.
      *
      * TODO
      * Create a suitable error handler
@@ -116,20 +117,19 @@ class Engine {
      */
     protected function _register_error_handler()
     {
-        if (null === $this->_engine_handle_signal) {
-            $this->_engine_handle_signal = new \xpspl\engine\signal\Engine_Errors();
+        if (null === $this->_processor_handle_signal) {
+            $this->_processor_handle_signal = new \xpspl\processor\signal\Processor_Errors();
         } else {
-            $queue = $this->search_signals($this->_engine_handle_signal);
+            $queue = $this->search_signals($this->_processor_handle_signal);
             if ($queue->count() !== 0) {
                 return true;
             }
         }
         // TODO allow for specifing a context for the event rather than the 
         // event itself and recieve it as the first parameter
-        $engine = $this;
-        $this->handle($this->_engine_handle_signal, function() use ($engine){
-            $args = func_get_args();
-            $exception = $engine->current_signal()->get_exception();
+        $processor = $this;
+        $this->signal($this->_processor_handle_signal, function() use ($processor){
+            $exception = $processor->current_signal()->get_exception();
             if (null !== $exception) {
                 $trace = array_reverse($exception->getTrace());
                 $error = get_class_name($exception);
@@ -139,8 +139,8 @@ class Engine {
             } else {
                 $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
                 $stack = array_pop($trace);
-                $message = $engine->current_signal()->get_error();
-                $error = get_class_name($engine->current_signal());
+                $message = $processor->current_signal()->get_error();
+                $error = get_class_name($processor->current_signal());
                 $file = $stack['file'];
                 $line = $stack['line'];
             }
@@ -201,12 +201,16 @@ class Engine {
     public function loop($ttr = null)
     {
         if (null !== $ttr) {
-            $engine = $this;
-            $this->handle(function() use ($engine) {
-                $engine->shutdown();
-            }, new \xpspl\time\Timeout($ttr));
+            $processor = $this;
+            $awake_func = function() use ($processor) {
+                $processor->shutdown();
+            };
+            $this->signal(
+                new \xpspl\time\SIG_Awake($ttr, TIME_MILLISECONDS), 
+                $awake_func
+            );
         }
-        $this->emit(new engine_signals\Loop_Start());
+        $this->emit(new processor\SIG_Startup());
         while($this->_routine()) {
             // check state
             if ($this->get_state() === STATE_HALTED) break;
@@ -218,15 +222,15 @@ class Engine {
             }
             $idle = $this->_routine->get_idle();
             // check for idle function
-            if (false !== $idle) {
+            if (null !== $idle) {
                 $idle->idle($this);
             }
         }
-        $this->emit(new engine_signals\Loop_Shutdown());
+        $this->emit(new processor\SIG_Shutdown());
     }
 
     /**
-     * Runs the complex signal routine for the engine loop.
+     * Runs the complex signal routine for the processor loop.
      *
      * @todo unittest
      * 
@@ -235,7 +239,7 @@ class Engine {
     private function _routine()
     {
         $return = false;
-        $this->_routine = new engine\Routine();
+        $this->_routine = new Routine();
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
@@ -246,7 +250,7 @@ class Engine {
                 if (true === $_routine) {
                     $_routine = $_node[0]->get_routine();
                     // Is the routine a routine?
-                    if (!$_routine instanceof signal\Routine) {
+                    if (!$_routine instanceof Routine) {
                         throw new \Exception(sprintf(
                             "%s did not return a routine",
                             get_class($_node[0])
@@ -275,9 +279,9 @@ class Engine {
                 }
             // Catch any problems that happended and signal them
             } catch (\Exception $e) {
-                $this->emit(new engine_signals\Routine_Calculation_Error(
+                $this->emit(new processor_signals\Routine_Calculation_Error(
                     "An error has occured during a routine calculation"
-                ),  new engine\event\Error([$e, $_node]));
+                ),  new processor\event\Error([$e, $_node]));
             }
         }
         return $return;
@@ -391,9 +395,9 @@ class Engine {
     {
         if (!$handle instanceof Handle) {
             if (!is_callable($handle)) {
-                $this->emit(new engine_signals\Invalid_Handle(
+                $this->emit(new processor_signals\Invalid_Handle(
                        "Invalid handle given to the handle method" 
-                    ), new engine\event\Error([func_get_args()])
+                    ), new processor\event\Error([func_get_args()])
                 );
                 return false;
             }
@@ -424,9 +428,9 @@ class Engine {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
-                $this->emit(new engine_signals\Invalid_Signal(
+                $this->emit(new processor_signals\Invalid_Signal(
                     "Invalid signal given to register"
-                ),  new engine\event\Error([$exception, $signal]));
+                ),  new processor\event\Error([$exception, $signal]));
                 return false;
             }
         }
@@ -522,9 +526,9 @@ class Engine {
         // event creation
         if (!$event instanceof Event) {
             if (null !== $event) {
-                $this->emit(new engine_signals\Invalid_Event(
+                $this->emit(new processor_signals\Invalid_Event(
                     "Invalid event passed for execution"
-                ),  new engine\event\Error($event));
+                ),  new processor\event\Error($event));
             }
             $event = new Event($ttl);
         } else {
@@ -547,7 +551,7 @@ class Engine {
     }
 
     /**
-     * Exits the event from the engine.
+     * Exits the event from the processor.
      * 
      * @param  object  $event  \xpspl\Event
      */
@@ -579,18 +583,20 @@ class Engine {
      */
     public function emit($signal, $event = null, $ttl = null)
     {
-        // store engine signal
+        // store processor signal
         $this->_signal[] = $signal;
 
-        // load engine event
+        // load processor event
         $event = $this->_event($signal, $event, $ttl);
 
         // locate sig handlers
         $queue = new Queue();
+
         // purge exhausted queues
         if (XPSPL_PURGE_EXHAUSTED) {
             $queues = [];
         }
+
         // search for exact matches
         $searched = $this->search_signals($signal);
         if (null !== $searched) {
@@ -654,9 +660,9 @@ class Engine {
     private function _execute($signal, $queue, $event, $interrupt = true)
     {
         if ($event->has_expired()) {
-            $this->emit(new engine_signals\Event_Expired(
+            $this->emit(new processor_signals\Event_Expired(
                 "Event has expired"
-            ),  new engine\event\Error([$event]));
+            ),  new processor\event\Error([$event]));
             return $event;
         }
         // handle pre interupt functions
@@ -711,7 +717,7 @@ class Engine {
     }
 
     /**
-     * Executes a callable engine function.
+     * Executes a callable processor function.
      *
      * @param  callable  $function  Function to execute
      * @param  object  $event  Event context to execute within
@@ -747,7 +753,7 @@ class Engine {
     }
 
     /**
-     * Sends the engine the shutdown signal.
+     * Sends the processor the shutdown signal.
      *
      * @return  void
      */
@@ -810,18 +816,18 @@ class Engine {
         // Variable Checks
         if (!$handle instanceof Handle) {
             if (!is_callable($handle)) {
-                $this->emit(new engine_signals\Invalid_Handle(
+                $this->emit(new processor_signals\Invalid_Handle(
                     "Invalid handle given for signal interruption"
-                ),  new engine\event\Error($handle));
+                ),  new processor\event\Error($handle));
                 return false;
             } else {
                 $handle = new Handle($handle);
             }
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
-            $this->emit(new engine_signals\Ivalid_Signal(
+            $this->emit(new processor_signals\Ivalid_Signal(
                 "Invalid signal given for signal interruption"
-            ), new engine\event\Error($signal));
+            ), new processor\event\Error($signal));
             return false;
         }
         if (null === $interrupt) {
@@ -829,9 +835,9 @@ class Engine {
         }
         if ($interrupt != self::INTERRUPT_PRE && 
             $interrupt != self::INTERRUPT_POST) {
-            $this->emit(new engine_signals\Invalid_Interrupt(
+            $this->emit(new processor_signals\Invalid_Interrupt(
                 "Invalid interruption location"
-            ), new engine\event\Error($interrupt));
+            ), new processor\event\Error($interrupt));
         }
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
@@ -924,7 +930,7 @@ class Engine {
     }
 
     /**
-     * Cleans any exhausted signals from the engine.
+     * Cleans any exhausted signals from the processor.
      * 
      * @param  boolean  $history  Erase any history of the signals cleaned.
      * 
@@ -953,7 +959,7 @@ class Engine {
     }
 
     /**
-     * Delete a signal from the engine.
+     * Delete a signal from the processor.
      * 
      * @param  string|object|int  $signal  Signal to delete.
      * @param  boolean  $history  Erase any history of the signal.
@@ -975,9 +981,9 @@ class Engine {
             }
         } else {
             if (!is_string($signal) && !is_int($signal)) {
-                $this->emit(new engine_signals\Invalid_Signal(
+                $this->emit(new processor_signals\Invalid_Signal(
                     "Delete signal"
-                ), new engine\event\Error($signal));
+                ), new processor\event\Error($signal));
                 return false;
             }
             $info = $signal;
@@ -1090,7 +1096,7 @@ class Engine {
     }
 }
 
-class Engine_Exception extends \Exception {
+class Processor_Exception extends \Exception {
 
     /**
      * The signal that occured.
@@ -1107,7 +1113,7 @@ class Engine_Exception extends \Exception {
     protected $_args = null;
 
     /**
-     * Constructs a new engine exception.
+     * Constructs a new processor exception.
      * 
      * @param  string|null  $message  Exception message if given
      * @param  object  $signal  Error signal
@@ -1131,7 +1137,7 @@ class Engine_Exception extends \Exception {
     }
 
     /**
-     * Returns engine exception code.
+     * Returns processor exception code.
      * 
      * @return  integer
      */

@@ -14,8 +14,8 @@ exists.
 
 Currently the underlying structure for removal is in place.
 
-The problem that currently exists is keeping the engine self dependent so that 
-it is still possible to extend the engine into its own space without conflicts.
+The problem that currently exists is keeping the processor self dependent so that 
+it is still possible to extend the processor into its own space without conflicts.
 
 If you are interested in contributing to the recursion contact me through one of 
 the support channels below.

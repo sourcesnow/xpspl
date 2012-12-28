@@ -6,9 +6,9 @@
  */
 
 /**
- * Engine Error Assertion
+ * Processor Error Assertion
  *
- * Asserts the given engine error signal triggers.
+ * Asserts the given processor error signal triggers.
  */
 unittest\create_assertion(function($signal, \Closure $function){
     ob_start();
@@ -17,7 +17,7 @@ unittest\create_assertion(function($signal, \Closure $function){
     $contents = ob_get_contents();
     ob_end_clean();
     return stripos($contents, 'Exception: '.$signal) !== false;
-}, 'engine_error_signaled', 'Error %s was not signaled');
+}, 'processor_error_signaled', 'Error %s was not signaled');
 
 unittest\create_assertion(function($signal, \Closure $function){
     ob_start();
@@ -26,4 +26,4 @@ unittest\create_assertion(function($signal, \Closure $function){
     $contents = ob_get_contents();
     ob_end_clean();
     return stripos($contents, 'Exception: '.$signal) === false;
-}, 'engine_error_not_signaled', 'Error %s was signaled');
+}, 'processor_error_not_signaled', 'Error %s was signaled');

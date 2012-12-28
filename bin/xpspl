@@ -112,7 +112,7 @@ if (isset($showversion)) {
 }
 
 if (isset($unittest)) {
-    load_module('unittest');
+    import('unittest');
     require XPSPL_PATH.'/tests/run.php';
 }
 

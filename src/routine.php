@@ -9,7 +9,7 @@ namespace xpspl;
 /**
  * Routine
  * 
- * The routine class is used by the engine during the routine calculation for
+ * The routine class is used by the processor during the routine calculation for
  * storing the idle functions and the signals which should be triggered in the
  * loop.
  *
@@ -46,7 +46,7 @@ final class Routine {
     }
 
     /**
-     * Returns the object to idle the engine.
+     * Returns the object to idle the processor.
      *
      * This will only return a single object which has the greatest priority.
      *
@@ -54,11 +54,11 @@ final class Routine {
      */
     public function get_idle(/* ... */)
     {
-        return (isset($this->_idle[0])) ? $this->_idle[0] : false;
+        return (isset($this->_idle[0])) ? $this->_idle[0] : null;
     }
 
     /**
-     * Returns the objects createed to idle the engine.
+     * Returns the objects createed to idle the processor.
      *
      * @return  integer
      */
@@ -68,7 +68,49 @@ final class Routine {
     }
 
     /**
-     * Sets a new function to idle the engine.
+     * Adds a new function to idle the engine.
+     *
+     * @param  object  $idle  Idle
+     *
+     * @return  void
+     */
+    public function add_idle($idle)
+    {
+        if (!$idle instanceof Idle) {
+            throw new \InvalidArgumentException(sprintf(
+                "Idle must be an instance of Idle (%s)",
+                get_class($idle)
+            ));
+        }
+        foreach ($this->_idle as $_k => $_func) {
+            if ($_func instanceof $idle) {
+                if (!$_func->allow_override()) {
+                    throw new \RuntimeException(sprintf(
+                        "Idle class %s does not allow override",
+                        get_class($_func)
+                    ));
+                }
+                if ($_func->override($idle)) {
+                    $this->_idle[$_k] = $idle;
+                }
+                return;
+            }
+        }
+        $this->_idle[] = $idle;
+        if (count($this->_idle) >= 2) {
+            usort($this->_idle, function($a, $b){
+                $a = $a->get_priority();
+                $b = $b->get_priority();
+                if ($a == $b) {
+                    return 0;
+                }
+                return ($a < $b) ? -1 : 1;
+            });
+        }
+    }
+
+    /**
+     * Sets a new function to idle the processor.
      *
      * @param  object  $idle  Idle
      *
@@ -78,7 +120,7 @@ final class Routine {
     {
         if (!$idle instanceof Idle) {
             throw new \InvalidArgumentException(
-                "Idle must be an instance of xpspl\engine\Idle"
+                "Idle must be an instance of xpspl\processor\Idle"
             );
         }
         foreach ($this->_idle as $_k => $_func) {
@@ -119,13 +161,12 @@ final class Routine {
     }
 
     /**
-     * Resets the routine after the engine has used it.
+     * Resets the routine after the processor has used it.
      *
      * @return  void
      */
     public function reset()
     {
-        $this->_idle = null;
         $this->_signals = null;
     }
 }

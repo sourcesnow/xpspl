@@ -76,7 +76,7 @@ function microseconds(/* ... */) {
 /**
  * Transforms PHP exceptions into a signal.
  * 
- * The signal fired is \xpspl\engine\Signal::GLOBAL_EXCEPTION
+ * The signal fired is \xpspl\processor\Signal::GLOBAL_EXCEPTION
  * 
  * @param  object  $exception  \Exception
  * 
@@ -84,8 +84,8 @@ function microseconds(/* ... */) {
  */
 function signal_exceptions($exception) {
     // \xpspl\signal(
-    //     new \xpspl\engine\signal\Error(), 
-    //     new \xpspl\engine\event\Error($exception)
+    //     new \xpspl\processor\signal\Error(), 
+    //     new \xpspl\processor\event\Error($exception)
     // );
 }
 
@@ -94,7 +94,7 @@ function signal_exceptions($exception) {
 /**
  * Transforms PHP errors into a signal.
  * 
- * The signal fired is \xpspl\engine\Signal::GLOBAL_ERROR
+ * The signal fired is \xpspl\processor\Signal::GLOBAL_ERROR
  * 
  * @param  int  $errno
  * @param  string  $errstr
@@ -105,8 +105,8 @@ function signal_exceptions($exception) {
  */
 function signal_errors($errno, $errstr, $errfile, $errline) {
     // \xpspl\signal(
-    //     new \xpspl\engine\signal\Error($errstr), 
-    //     new \xpspl\engine\event\Error([
+    //     new \xpspl\processor\signal\Error($errstr), 
+    //     new \xpspl\processor\event\Error([
     //     $errstr, 0, $errno, $errfile, $errline
     // ]));
 }

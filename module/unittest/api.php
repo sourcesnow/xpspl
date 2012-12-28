@@ -63,11 +63,6 @@ function generate_output() {
     // Startup
     on_start(function(){
         define('UNITTEST_START_TIME', milliseconds());
-        // $output = unittest\Output::instance();
-        // $output->send("xpspl unittest module " .  XPSPL_VERSION, 
-        //     unittest\Output::SYSTEM
-        // );
-        // $output->send_linebreak(unittest\Output::SYSTEM);
     });
 
     // Shutdown

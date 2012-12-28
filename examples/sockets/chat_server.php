@@ -11,7 +11,7 @@
  * This example demonstrates how to build a simple TCP chat server which can
  * be connected using telnet.
  */
-prggmr\load_module('socket');
+import('socket');
 
 $socket = prggmr\socket('0.0.0.0', ['port' => '8000'], function(){
     var_dump($this);

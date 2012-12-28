@@ -7,7 +7,7 @@ namespace xpspl\idle;
  */
 
 /**
- * Idles the engine for a specific amount of time.
+ * Idles the processor for a specific amount of time.
  *
  * The amount of time can be specified in seconds or milliseconds.
  */
@@ -45,7 +45,7 @@ class Time extends \xpspl\Idle {
      * Allow override of this function.
      *
      * When set to true the "override" method will be called otherwise the 
-     * engine will signal a Idle_Function_Overflow.
+     * processor will signal a Idle_Function_Overflow.
      *
      * @var  boolean
      */
@@ -80,7 +80,7 @@ class Time extends \xpspl\Idle {
      *
      * @return  void
      */
-    public function idle($engine)
+    public function idle($processor)
     {
         switch ($this->_instruction) {
             case TIME_SECONDS:

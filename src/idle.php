@@ -9,7 +9,7 @@ namespace xpspl;
 /**
  * Idle
  * 
- * The idle class is used for idling the engine, the base provides no 
+ * The idle class is used for idling the processor, the base provides no 
  * functionality in itself and must be extended.
  *
  * What it does provide is a base for writing an idle object, with this it
@@ -33,34 +33,34 @@ abstract class Idle {
      * Allow override of this function.
      *
      * When set to true the "override" method will be called otherwise the 
-     * engine will signal a Idle_Function_Overflow.
+     * processor will signal a Idle_Function_Overflow.
      *
      * @var  boolean
      */
     protected $_allow_override = false;
 
     /**
-     * Idle's the engine.
+     * Idle's the processor.
      *
-     * This function is purely responsible for providing the engine the ability
+     * This function is purely responsible for providing the processor the ability
      * to idle, typically this will be done through either a call to sleep or a
      * wait with a specific timeout.
      *
-     * This method is provided an instance of the engine which is wishing to 
-     * idle and should respect the engines current specifications for the amount
+     * This method is provided an instance of the processor which is wishing to 
+     * idle and should respect the processors current specifications for the amount
      * of time that it needs to idle, if set.
      *
      * You have been warned that,
      *
      * Creating a function that does not properly idle, does not respect the
-     * engine specs or is poorly designed will result in terrible performance, 
+     * processor specs or is poorly designed will result in terrible performance, 
      * unexpected results and damage to your system ... use caution.
      * 
-     * @param  object  $engine  The engine that wishes to idle.
+     * @param  object  $processor  The processor that wishes to idle.
      *
      * @return  void
      */
-    public function idle($engine)
+    public function idle($processor)
     {
         throw new \BadMethodCallException(sprintf(
             "Idle function for %s has not been implemented"
@@ -89,7 +89,7 @@ abstract class Idle {
     }
 
     /**
-     * Returns if the given function can override this in the engine.
+     * Returns if the given function can override this in the processor.
      *
      * @param  object  $idle  Idle function object
      *

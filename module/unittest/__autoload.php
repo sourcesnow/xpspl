@@ -17,4 +17,4 @@ require_once $dir.'/assertions/default.php';
 // xpspl\handle(function(){
 //     xpspl\unittest\Output::instance()->send("xpspl unit testing loaded!", t\Output::SYSTEM, true);
 //     xpspl\unittest\Output::instance()->send("enjoy the greatness!", t\Output::SYSTEM, true);
-// }, xpspl\engine\Signals::LOOP_START);
+// }, xpspl\processor\Signals::LOOP_START);

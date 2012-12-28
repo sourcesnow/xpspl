@@ -6,7 +6,7 @@ namespace xpspl\cron;
  * that can be found in the LICENSE file.
  */
  
-use \xpspl\engine\idle as idle;
+use \xpspl\processor\idle as idle;
 
 if (!class_exists('\Cron\CronExpression', false)) {
     $file = dirname(realpath(__FILE__)).'/../../../vendor/mtdowling/cron-expression/build/cron.phar';
@@ -64,7 +64,7 @@ class Signal extends \xpspl\signal\Complex {
     
     /**
      * Determines when the time signal should fire, otherwise returning
-     * the engine to idle until it will.
+     * the processor to idle until it will.
      * 
      * @return  integer
      */

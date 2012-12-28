@@ -6,7 +6,7 @@ namespace xpspl\socket;
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\engine\idle\Func;
+use \xpspl\processor\idle\Func;
 
 /**
  * Base
@@ -149,8 +149,8 @@ abstract class Base extends \xpspl\signal\Complex {
     public function routine($history = null) 
     {
         // Establish the system idle process
-        $this->_routine->set_idle(new Func(function($engine){
-            $idle = $engine->get_routine()->get_idles_available();
+        $this->_routine->set_idle(new Func(function($processor){
+            $idle = $processor->get_routine()->get_idles_available();
             // 30 second default wait
             $time = 30;
             // Determine if another function has requested to execute in x

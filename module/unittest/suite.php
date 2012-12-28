@@ -21,11 +21,11 @@ class Suite {
     protected $_event = null;
 
     /**
-     * Engine in use.
+     * Processor in use.
      * 
-     * @var  object  \xpspl\Engine
+     * @var  object  \xpspl\Processor
      */
-    protected $_engine = null;
+    protected $_processor = null;
 
     /**
      * Setup function.

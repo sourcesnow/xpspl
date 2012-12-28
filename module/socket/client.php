@@ -6,7 +6,7 @@ namespace xpspl\socket;
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\engine\idle as idle,
+use \xpspl\processor\idle as idle,
     \xpspl\Handle;
 
 /**

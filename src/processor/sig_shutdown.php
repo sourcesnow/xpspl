@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine\signal;
+namespace xpspl\processor;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,6 +8,8 @@ namespace xpspl\engine\signal;
 
 
 /**
- * Invalid handle signal.
+ * SIG_Shutdown
+ * 
+ * Shutdown of XPSPL.
  */
-class Invalid_Handle extends Error {}
+class SIG_Shutdown extends \xpspl\Signal {}

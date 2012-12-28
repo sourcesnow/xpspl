@@ -31,18 +31,18 @@ if (XPSPL_DEBUG) {
 
 /**
  * The xpspl object works as the global instance used for managing the
- * global engine instance.
+ * global processor instance.
  */
-final class XPSPL extends \xpspl\Engine {
+final class XPSPL extends \xpspl\Processor {
 
     use xpspl\Singleton;
 
     /**
-     * Initialise the global engine instance.
+     * Initialise the global processor instance.
      *
      * @param  boolean  $event_history  Store a history of all events.
      * 
-     * @return  object  xpspl\Engine
+     * @return  object  xpspl\Processor
      */
     final public static function init($event_history = true) 
     {
@@ -69,6 +69,6 @@ final class XPSPL extends \xpspl\Engine {
 global $XPSPL;
 
 /**
- * Start the engine VROOOOOOM!
+ * Start the processor VROOOOOOM!
  */
 $XPSPL = XPSPL::init(XPSPL_SIGNAL_HISTORY);

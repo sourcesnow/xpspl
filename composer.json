@@ -1,7 +1,7 @@
 {
     "name": "prggmr/prggmr",
     "description": "The event library that will change the way you write PHP forever...",
-    "keywords": ["event-dispatcher", "event-engine", "complex-event-engine", "signal-library", "signals", "events"],
+    "keywords": ["event-dispatcher", "event-processor", "complex-event-processor", "signal-library", "signals", "events"],
     "license": "Apache 2.0",
     "authors": [
         {

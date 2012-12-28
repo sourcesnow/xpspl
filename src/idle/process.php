@@ -7,7 +7,7 @@ namespace xpspl\idle;
  */
 
 /**
- * Idles the engine using a function process.
+ * Idles the processor using a function process.
  */
 class Process extends \xpspl\Idle 
 {
@@ -42,8 +42,8 @@ class Process extends \xpspl\Idle
     /**
      * Run the idle function.
      */
-    public function idle($engine) 
+    public function idle($processor) 
     {
-        return call_user_func_array($this->_function, [$engine]);
+        return call_user_func_array($this->_function, [$processor]);
     }
 }

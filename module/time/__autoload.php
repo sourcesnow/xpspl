@@ -5,6 +5,5 @@
  * that can be found in the LICENSE file.
  */
 $dir = dirname(realpath(__FILE__));
-require_once $dir.'/src/const.php';
 require_once $dir.'/src/sig_awake.php';
 require_once $dir.'/src/api.php';

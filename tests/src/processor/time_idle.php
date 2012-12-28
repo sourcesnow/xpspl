@@ -5,19 +5,21 @@
  * that can be found in the LICENSE file.
  */
 
-load_module('unittest');
+import('unittest');
+
+use xpspl\idle\Time;
 
 unittest\suite(function(){
 
     $this->test(function(){
-        $time1 = new \xpspl\engine\idle\Time(1, \xpspl\engine\idle\Time::SECONDS);
-        $time2 = new \xpspl\engine\idle\Time(1500, \xpspl\engine\idle\Time::MILLISECONDS);
+        $time1 = new Time(1, TIME_SECONDS);
+        $time2 = new Time(1500, TIME_MILLISECONDS);
         $this->true($time1->override($time2));
     }, 'Milliseconds more than seconds');
 
     $this->test(function(){
-        $time1 = new \xpspl\engine\idle\Time(2, \xpspl\engine\idle\Time::SECONDS);
-        $time2 = new \xpspl\engine\idle\Time(1500, \xpspl\engine\idle\Time::MILLISECONDS);
+        $time1 = new Time(2, TIME_SECONDS);
+        $time2 = new Time(1500, TIME_MILLISECONDS);
         $this->true($time1->override($time2));
     }, 'Seconds more than milliseconds');
 

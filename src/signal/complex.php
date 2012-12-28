@@ -25,7 +25,7 @@ abstract class Complex extends Standard {
     protected $_event = null;
 
     /**
-     * The routine object that will be returned to the engine.
+     * The routine object that will be returned to the processor.
      */
     protected $_routine = null;
 
@@ -55,8 +55,8 @@ abstract class Complex extends Standard {
     /**
      * Runs the routine calculations which allows for a complex signal to 
      * analyze the event history or perform any other computable algorithm
-     * for determining when a signal should trigger, the engine should idle or
-     * the engine run the given function for a certain amount of time.
+     * for determining when a signal should trigger, the processor should idle or
+     * the processor run the given function for a certain amount of time.
      * 
      * The goal of running routine calculations is to allow for complex event
      * processing.

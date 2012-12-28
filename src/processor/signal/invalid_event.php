@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine\signal;
+namespace xpspl\processor\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,6 +8,6 @@ namespace xpspl\engine\signal;
 
 
 /**
- * Event loop start
+ * Invalid event encountered by the processor.
  */
-class Loop_Start extends Base {}
+class Invalid_Event extends Error {}

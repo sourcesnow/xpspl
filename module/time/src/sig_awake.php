@@ -1,12 +1,12 @@
 <?php
-namespace xpspl\time;
+namespace time;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\idle\Time;
+use xpspl\idle\Time;
 
  /**
  * Awake Signal
@@ -46,6 +46,8 @@ class SIG_Awake extends \xpspl\signal\Complex {
             );
         }
         parent::__construct();
+        $this->_time = $time;
+        $this->_instruction = $instruction;
         $this->_routine->set_idle(new Time($time, $instruction));
     }
     
@@ -59,13 +61,12 @@ class SIG_Awake extends \xpspl\signal\Complex {
      */
     public function routine($history = null)
     {
-        if ($this->_routine->has_time_passed()) {
+        if ($this->_routine->get_idle()->has_time_passed()) {
             $this->signal_this();
-            $this->_idle = null;
-        } else {
-            $this->_routine->set_idle($this->_idle);
+            $this->_routine->set_idle(new Time(
+                $this->_time, $this->_instruction
+            ));
         }
-        $this->_routine->set_idle(new Time($time, $instruction));
         return true;
     }
 }

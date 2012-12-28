@@ -1,8 +1,6 @@
 <?php
 ini_set('memory_limit', -1);
 
-prggmr\load_module('unittest');
-
 if (function_exists('xdebug_start_code_coverage')) {
     exit('xdebug code coverage detected disable to run performance tests');
 }

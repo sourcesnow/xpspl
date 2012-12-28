@@ -14,7 +14,7 @@ if (!defined('XPSPL_DEBUG')) {
     define('XPSPL_DEBUG', false);
 }
 
-// have the engine throw exceptions on signal errors
+// have the processor throw exceptions on signal errors
 if (!defined('XPSPL_ENGINE_EXCEPTIONS')) {
     define('XPSPL_ENGINE_EXCEPTIONS', true);
 }
@@ -29,7 +29,7 @@ if (!defined('XPSPL_SIGNAL_EXCEPTIONS')) {
     define('XPSPL_SIGNAL_EXCEPTIONS', false);
 }
 
-// immediatly removes exhausted handles from the engine
+// immediatly removes exhausted handles from the processor
 if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     define('XPSPL_PURGE_EXHAUSTED', true);
 }

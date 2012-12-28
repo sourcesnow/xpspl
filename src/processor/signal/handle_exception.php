@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine\signal;
+namespace xpspl\processor\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,6 +8,6 @@ namespace xpspl\engine\signal;
 
 
 /**
- * Exception occured during a routine calculation.
+ * Exception encountered during handle execution
  */
-class Routine_Calculation_Error extends Error {}
+class Handle_Exception extends Error {}

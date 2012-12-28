@@ -5,7 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-load_module("unittest");
+import("unittest");
 
 // load the standard unittest output
 unittest\generate_output();
@@ -15,7 +15,6 @@ save_signal_history(true);
 
 /**
  * Replace with the dir_load function
- * @var [type]
  */
 $dir = new \RegexIterator(
     new \RecursiveIteratorIterator(

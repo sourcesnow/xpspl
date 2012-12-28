@@ -4,7 +4,7 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-load_module('unittest');
+import('unittest');
 
 unittest\suite(function(){
 

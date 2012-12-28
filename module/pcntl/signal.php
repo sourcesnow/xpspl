@@ -22,12 +22,12 @@ class Signal extends \xpspl\signal\Complex
      */
     protected $_sig = null;
     
-    public function __construct($engine = null) {
-        pcntl_signal(SIGTERM, function() use ($engine){
-            if (null === $engine) {
+    public function __construct($processor = null) {
+        pcntl_signal(SIGTERM, function() use ($processor){
+            if (null === $processor) {
                 \xpspl\signal($this);
             } else {
-                $engine->signal($this);
+                $processor->signal($this);
             }
             exit(0);
             return true;

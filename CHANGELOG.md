@@ -1,5 +1,10 @@
 ## 3.0.0
 
+* Routine reset no longer resets the idle object.
+* Idle and Routine objects are now in the global XPSPL namespace.
+* Renamed engine\signal\* to processor\SIG_*
+* All signal object now prepend SIG_.
+* Engine renamed to processor
 * Moved API functions into global namespace.
 * Project renamed to XPSPL
 * Added the API function on_shutdown, on_start, current_event, current_signal

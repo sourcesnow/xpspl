@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\engine\event;
+namespace xpspl\processor\event;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -10,7 +10,7 @@ namespace xpspl\engine\event;
 /**
  * Error
  * 
- * Event used for errors which have occured during engine operation.
+ * Event used for errors which have occured during processor operation.
  */
 class Error extends \xpspl\Event {
 

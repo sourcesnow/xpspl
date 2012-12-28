@@ -11,7 +11,7 @@ namespace xpspl;
  *
  * Added in v2.0.0
  * 
- * The listener allows for registering a class into the engine establishing 
+ * The listener allows for registering a class into the processor establishing 
  * handles for each publicly defined method name.
  */
 class Listener {

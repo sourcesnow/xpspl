@@ -10,13 +10,13 @@ namespace xpspl;
  * Registers a function to be called on the SIGINT signal. (CTRL-C)
  *
  * @param  callable  $handle  Function to be called.
- * @param  object|null  $engine  xpspl Engine instance to assign the handle.
+ * @param  object|null  $processor  xpspl Processor instance to assign the handle.
  *
  * @return  array  [signal, handle]
  */
-function interrupt($handle, $engine = null) 
+function interrupt($handle, $processor = null) 
 {
-    $signal = new pcntl\Interrupt($engine);
+    $signal = new pcntl\Interrupt($processor);
     return [\xpspl\handle($signal, $handle), $signal];
 }
 
@@ -24,12 +24,12 @@ function interrupt($handle, $engine = null)
  * Registers a function to be called on the SIGTERM signal.
  *
  * @param  callable  $handle  Function to be called.
- * @param  object|null  $engine  xpspl Engine instance to assign the handle.
+ * @param  object|null  $processor  xpspl Processor instance to assign the handle.
  *
  * @return  array  [signal, handle]
  */
-function terminate($handle, $engine = null) 
+function terminate($handle, $processor = null) 
 {
-    $signal = new pcntl\Terminate($engine);
+    $signal = new pcntl\Terminate($processor);
     return [\xpspl\handle($signal, $handle), $signal];
 }

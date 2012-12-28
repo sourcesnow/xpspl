@@ -22,14 +22,14 @@ function signal($signal, $callable)
 /**
  * Creates a never exhausting signal handler.
  *
- * @param  callable|handle  $handle  PHP Callable or \prggmr\Handle object.
+ * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
  *
  * @return  object  Handle
  */
 function null_exhaust($handle)
 {
-    if (!$handle instanceof \prggmr\Handle) {
-        $handle = new \prggmr\Handle($handle, null);
+    if (!$handle instanceof \xpspl\Handle) {
+        $handle = new \xpspl\Handle($handle, null);
         return $handle;
     }
     $handle->set_exhaust(null);
@@ -37,20 +37,46 @@ function null_exhaust($handle)
 }
 
 /**
- * Creates or sets a handles priority.
+ * Creates or sets a handle with high priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \prggmr\Handle object.
+ * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
  *
  * @return  object  Handle
  */
-function high_priority($handle, $priority)
+function high_priority($handle)
+{
+    return priority($handle, 0);
+}
+
+/**
+ * Creates or sets a handle with low priority.
+ *
+ * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
+ *
+ * @return  object  Handle
+ */
+function low_priority($handle)
+{
+    return priority($handle, PHP_INT_MAX);
+}
+
+/**
+ * Sets a handle priority.
+ *
+ * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
+ * @param  integer  $priority  Priority
+ *
+ * @return  object  Handle
+ */
+function priority($handle, $priority)
 {
     if (!$handle instanceof \prggmr\Handle) {
         $handle = new \prggmr\Handle($handle);
     }
-    $handle->set_priority(null);
+    $handle->set_priority($priority);
     return $handle;
 }
+
 
 /**
  * Remove a sig handler.
@@ -93,7 +119,7 @@ function signal_history(/* ... */)
 }
 
 /**
- * Registers a signal in the engine.
+ * Registers a signal in the processor.
  * 
  * @param  string|integer|object  $signal  Signal
  *
@@ -143,14 +169,14 @@ function shutdown()
 }
 
 /**
- * Load a module.
+ * Import a module.
  * 
  * @param  string  $name  Module name.
  * @param  string|null  $dir  Location of the module. 
  * 
  * @return  void
  */
-function load_module($name, $dir = null) 
+function import($name, $dir = null) 
 {
     return \xpspl\Library::instance()->load($name, $dir);
 }
@@ -186,9 +212,9 @@ function after($signal, $handle)
 }
 
 /**
- * Returns the xpspl engine.
+ * Returns the xpspl processor.
  * 
- * @return  object  xpspl\Engine
+ * @return  object  xpspl\Processor
  */
 function xpspl()
 {
@@ -197,7 +223,7 @@ function xpspl()
 }
 
 /**
- * Cleans any exhausted signal queues from the engine.
+ * Cleans any exhausted signal queues from the processor.
  * 
  * @param  boolean  $history  Erase any history of the signals cleaned.
  * 
@@ -210,7 +236,7 @@ function clean($history = false)
 }
 
 /**
- * Delete a signal from the engine.
+ * Delete a signal from the processor.
  * 
  * @param  string|object|int  $signal  Signal to delete.
  * @param  boolean  $history  Erase any history of the signal.
@@ -274,7 +300,7 @@ function save_signal_history($flag)
 }
 
 /**
- * Registers a new event listener object in the engine.
+ * Registers a new event listener object in the processor.
  * 
  * @param  object  $listener  The event listening object
  * 
@@ -359,7 +385,7 @@ function current_event($offset = 0)
 }
 
 /**
- * Call the provided function on engine shutdown.
+ * Call the provided function on processor shutdown.
  * 
  * @param  callable|object  $function  Function or handle object
  * 
@@ -367,11 +393,11 @@ function current_event($offset = 0)
  */
 function on_shutdown($function)
 {
-    return signal(new \xpspl\engine\signal\Loop_Shutdown(), $function);
+    return signal(new \xpspl\processor\SIG_Shutdown(), $function);
 }
 
 /**
- * Call the provided function on engine start.
+ * Call the provided function on processor start.
  * 
  * @param  callable|object  $function  Function or handle object
  * 
@@ -379,7 +405,7 @@ function on_shutdown($function)
  */
 function on_start($function)
 {
-    return signal(new \xpspl\engine\signal\Loop_Start(), $function);
+    return signal(new \xpspl\processor\SIG_Startup(), $function);
 }
 
 /**
