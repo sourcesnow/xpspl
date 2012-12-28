@@ -6,4 +6,5 @@
  */
 $dir = dirname(realpath(__FILE__));
 require_once $dir.'/src/sig_awake.php';
+require_once $dir.'/src/sig_cron.php';
 require_once $dir.'/src/api.php';

@@ -10,13 +10,27 @@ namespace time;
  * Wakes the system loop and runs the provided function.
  *
  * @param  integer  $time  Time to wake in.
- * @param  callable  $callable  Callable function.
+ * @param  callable  $callback  Callable function.
  * @param  integer  $instruction  The time instruction. Default = Milliseconds
  *
  * @return  array  [signal, handle]
  */
-function awake($time, $callable, $instruction = TIME_SECONDS)
+function awake($time, $callback, $instruction = TIME_SECONDS)
 {
     $signal = new SIG_Awake($time, $instruction);
-    return [$signal, signal($signal, $callable)];
+    return [$signal, signal($signal, $callback)];
+}
+
+/**
+ * Wakes the system using CRON expressions.
+ *
+ * @param  string  $cron  CRON Expression
+ * @param  callable  $callback  Callback function to run
+ *
+ * @return  array [signal, handle]
+ */
+function CRON($cron, $callback)
+{
+    $signal = new SIG_CRON($cron);
+    return [$signal, signal($signal, $callback)];
 }

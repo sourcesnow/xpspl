@@ -1,15 +1,15 @@
 <?php
-namespace xpspl\cron;
+namespace time;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
  
-use \xpspl\processor\idle as idle;
+use \xpspl\idle\Time;
 
 if (!class_exists('\Cron\CronExpression', false)) {
-    $file = dirname(realpath(__FILE__)).'/../../../vendor/mtdowling/cron-expression/build/cron.phar';
+    $file = dirname(realpath(__FILE__)).'/cron/cron.phar';
     if (file_exists($file)) {
         require_once $file;
         define('HAS_CRONEXPRESSION', true);
@@ -25,7 +25,7 @@ if (!class_exists('\Cron\CronExpression', false)) {
  *
  * Signal event based on the UNIX cron definition
  */
-class Signal extends \xpspl\signal\Complex {
+class SIG_CRON extends \xpspl\signal\Complex {
 
     /**
      * Cron-Expression object
@@ -75,7 +75,7 @@ class Signal extends \xpspl\signal\Complex {
             $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
             $this->signal_this();
         } else {
-            $this->_routine->set_idle(new idle\Time($diff, idle\Time::SECONDS));
+            $this->_routine->set_idle(new Time($diff, TIME_SECONDS));
         }
         return true;
     }
