@@ -1,43 +1,68 @@
 #!/bin/bash
-########################
-# Installs XPSPL to the php include path
-########################
-VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
-if [ $VERSION != '1' ];
-then
-    echo "XPSPL requires at least PHP 5.4"
-    echo "Found"
-    which php
-    php -v
-    exit;
-fi;
-PHPPATH=$(php -r "echo get_include_path();") 
-INSTALLPATH=""
-BINPATH="/usr/bin"
-for x in $(echo $PHPPATH | tr ":" "\n")
-do
-    if [ "$x" != "." ]; then
-        INSTALL_PATH="$x"
-        break
+
+install() {
+    VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
+    if [ $VERSION != '1' ];
+    then
+        echo "XPSPL requires at least PHP 5.4"
+        echo "Found"
+        which php
+        php -v
+        exit;
+    fi;
+    echo "Downloading XPSPL"
+    curl -L -o /tmp/xpspl.zip https://github.com/prggmr/xpspl/archive/master.zip
+    cd /tmp
+    echo "Inflating"
+    unzip xpspl.zip
+    cd xpspl-master
+    echo "Running installation"
+    PHPPATH=$(php -r "echo get_include_path();") 
+    INSTALLPATH=""
+    BINPATH="/usr/bin"
+    for x in $(echo $PHPPATH | tr ":" "\n")
+    do
+        if [ "$x" != "." ]; then
+            INSTALL_PATH="$x"
+            break
+        fi
+    done
+    if [[ $INSTALL_PATH = "" ]]; then
+        echo "Could not find your PHP include path";
+        exit;
     fi
-done
-if [[ $INSTALL_PATH = "" ]]; then
-    echo "Could not find your PHP include path";
-    exit;
-fi
-if [ -d "$INSTALL_PATH/xpspl" ]; then
-    rm -rf "$INSTALL_PATH/xpspl"
-fi;
-mkdir $INSTALL_PATH/xpspl
-cp -Rf * "$INSTALL_PATH/xpspl"
-if [ -f "$BINPATH/xpspl" ]; then
-    rm "$BINPATH/xpspl"
-fi;
-echo "Installed XPSPL to $INSTALL_PATH/xpspl"
-echo "Installed executable to $BINPATH/xpspl"
-ln -s "$INSTALL_PATH/xpspl/bin/xpspl" "$BINPATH"
-xpspl -v
-echo "Report bugs to https://github.com/prggmr/xpspl/issues"
-echo "Running Unit Tests"
-xpspl --test
-echo "Enjoy"
+    if [ -d "$INSTALL_PATH/xpspl" ]; then
+        rm -rf "$INSTALL_PATH/xpspl"
+    fi;
+    mkdir $INSTALL_PATH/xpspl
+    cp -Rf * "$INSTALL_PATH/xpspl"
+    if [ -f "$BINPATH/xpspl" ]; then
+        rm "$BINPATH/xpspl"
+    fi;
+    echo "Installed XPSPL to $INSTALL_PATH/xpspl"
+    echo "Installed executable to $BINPATH/xpspl"
+    ln -s "$INSTALL_PATH/xpspl/bin/xpspl" "$BINPATH"
+    xpspl -v
+    echo "Report bugs to https://github.com/prggmr/xpspl/issues"
+    echo "Running Unit Tests"
+    xpspl --test
+    echo "Enjoy"
+    echo "Install finished"
+    echo "Cleaning up"
+    cd ..
+    rm -rf /tmp/xpspl-master
+    rm /tmp/xpspl.zip
+    echo "Done"
+}
+
+#
+# Handle execution
+#
+main() {
+
+    # Start installation
+    install
+    exit 0
+}
+
+main
