@@ -379,9 +379,9 @@ class Processor {
     public function listen(Listener $listener)
     {
         foreach ($listener->_get_signals() as $_signal) {
-            $this->signal($_signal[0], $_signal[1]);
+            $this->signal($_signal, [$listener, $_signal]);
         }
-        $listener->reset();
+        $listener->_reset();
     }
 
     /**

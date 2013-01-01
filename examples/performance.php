@@ -5,16 +5,18 @@ if (function_exists('xdebug_start_code_coverage')) {
     exit('xdebug code coverage detected disable to run performance tests');
 }
 
-$output = prggmr\unittest\Output::instance();
+import('unittest');
+
+$output = unittest\Output::instance();
 
 $tests = [
-    'Handle Registration' =>
+    'Signal Installation' =>
     function($i){
-        prggmr\handle($i, function(){}); 
+        signal($i, function(){}); 
     },
-    'Signal Trigger' => 
+    'Signal Emit' => 
     function($i){
-        prggmr\signal($i);
+        emit($i);
     },
 ];
 
@@ -28,8 +30,10 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, 5
         ));
-        for($a=0;$a<10;$a++) {
-            $tc = pow($a, 5);
+        for($a=1;$a<(1 << 16);) {
+            $a = $a << 1;
+            $output::send('Test Size : ' . $a);
+            $tc = $a;
             $start = microtime(true);
             if (!isset($results[$_test][$tc])) {
                 $results[$_test][$tc] = [];
@@ -39,7 +43,7 @@ foreach ($tests as $_test => $_func) {
             }
             $end = microtime(true);
             $results[$_test][$tc][] = $end - $start;
-            prggmr\flush();
+            xpspl_flush();
         }
     }
     $output::send(sprintf(
@@ -47,7 +51,29 @@ foreach ($tests as $_test => $_func) {
         $_test
     ));
 }
-var_dump($results);
+$avg = function($array) {
+    $total = 0.00;
+    foreach ($array as $_c) { $total += $_c; }
+    return round(count($array) / $total, 8);
+};
+$output->send_linebreak();
+foreach ($results as $_test => $_results) {
+    $output::send(sprintf(
+        'Test %s results',
+        $_test
+    ));
+    $output->send_linebreak();
+    foreach ($_results as $_size => $_total) {
+        $output::send(sprintf(
+            'Size : %s',
+            $_size
+        ));
+        $output::send(sprintf(
+            'Time : %s',
+            $avg($_total)
+        ));
+    }
+}
 // $time = microtime(true);
 // echo "Start".PHP_EOL;;
 // for ($i=0;$i!=1000;$i++){

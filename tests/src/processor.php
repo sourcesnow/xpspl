@@ -160,10 +160,18 @@ unittest\suite(function(){
         }
         $this->processor->listen(new TL());
         $queue = $this->processor->search_signals('test');
-        $this->notnull($queue);
-        $this->instanceof($queue, 'xpspl\Queue');
-        // var_dump($this->processor);
-        $this->count($queue->storage(), 1);
+        if (!$this->notnull($queue)) {
+            $this->mark_skipped(4);
+            return;
+        }
+        if (!$this->instanceof($queue, 'xpspl\Queue')) {
+            $this->mark_skipped(3);
+            return;
+        }
+        if (!$this->count($queue->storage(), 1)) {
+            $this->mark_skipped(2);
+            return;
+        }
         $this->false($this->processor->has_signal_exhausted('test'));
         $event = $this->processor->emit('test');
         $this->true($event->test);

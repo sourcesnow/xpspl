@@ -20,7 +20,7 @@ namespace unittest;
  * @return  void
  */
 function create_assertion($function, $name, $message = null) {
-    return \xpspl\unittest\Assertions::instance()->create_assertion($function, $name, $message);
+    return Assertions::instance()->create_assertion($function, $name, $message);
 }
 
 /**
@@ -33,7 +33,7 @@ function create_assertion($function, $name, $message = null) {
  * @return  array  [Handle, Signal]
  */
 function test($function, $name = null, $event = null) {
-    $signal = new \xpspl\unittest\Test($name, $event);
+    $signal = new Test($name, $event);
     $handle = signal($signal, $function);
     return [$handle, $signal];
 }
@@ -47,7 +47,7 @@ function test($function, $name = null, $event = null) {
  * @return  void
  */
 function suite($function, $event = null) {
-    return new \xpspl\unittest\Suite($function, $event);
+    return new Suite($function, $event);
 }
 
 /**
@@ -72,10 +72,10 @@ function generate_output() {
         $pass = 0;
         $fail = 0;
         $skip = 0;
-        $output = \xpspl\unittest\Output::instance();
+        $output = Output::instance();
         $tests_run = [];
         foreach (signal_history() as $_node) {
-            if ($_node[0] instanceof \xpspl\unittest\Event) {
+            if ($_node[0] instanceof Event) {
                 // suites
                 $tests++;
                 if (in_array($_node[0], $tests_run)) continue;
@@ -94,19 +94,19 @@ function generate_output() {
                 }
 
                 if (count($failures) != 0) {
-                    $output->send_linebreak(\xpspl\unittest\Output::ERROR);
+                    $output->send_linebreak(Output::ERROR);
                     foreach ($failures as $_failure) {
-                        $output->send("FAILURE", \xpspl\unittest\Output::ERROR);
-                        $output->send("ASSERTION : " . $_failure[1], \xpspl\unittest\Output::ERROR, true);
-                        $output->send("MESSAGE : " . $_failure[0], \xpspl\unittest\Output::ERROR, true);
+                        $output->send("FAILURE", Output::ERROR);
+                        $output->send("ASSERTION : " . $_failure[1], Output::ERROR, true);
+                        $output->send("MESSAGE : " . $_failure[0], Output::ERROR, true);
                         $output->send(sprintf(
                             'ARGUMENTS : %s',
                             $output->variable($_failure[2])
-                        ), \xpspl\unittest\Output::ERROR, true);
+                        ), Output::ERROR, true);
                         $trace = $_failure[3][1];
-                        $output->send("FILE : " . $trace["file"], \xpspl\unittest\Output::ERROR, true);
-                        $output->send("LINE : " . $trace["line"], \xpspl\unittest\Output::ERROR);
-                        $output->send_linebreak(\xpspl\unittest\Output::ERROR);
+                        $output->send("FILE : " . $trace["file"], Output::ERROR, true);
+                        $output->send("LINE : " . $trace["line"], Output::ERROR);
+                        $output->send_linebreak(Output::ERROR);
                     }
                 }
             }
@@ -129,12 +129,12 @@ function generate_output() {
             $tests,
             UNITTEST_END_TIME - UNITTEST_START_TIME,
             $size(memory_get_peak_usage())
-        ), \xpspl\unittest\Output::SYSTEM, true);
+        ), Output::SYSTEM, true);
 
         $output->send(sprintf("%s Assertions: %s Passed, %s Failed, %s Skipped",
             $pass + $fail + $skip,
             $pass, $fail, $skip
-        ), \xpspl\unittest\Output::SYSTEM, true);
+        ), Output::SYSTEM, true);
 
     });
 }

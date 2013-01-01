@@ -6,9 +6,11 @@
  */
 
 /**
- * Processor Error Assertion
- *
- * Asserts the given processor error signal triggers.
+ * Processor Error Assertions
+ */
+
+/**
+ * Asserts the given processor error signal emits.
  */
 unittest\create_assertion(function($signal, \Closure $function){
     ob_start();
@@ -17,8 +19,11 @@ unittest\create_assertion(function($signal, \Closure $function){
     $contents = ob_get_contents();
     ob_end_clean();
     return stripos($contents, 'Exception: '.$signal) !== false;
-}, 'processor_error_signaled', 'Error %s was not signaled');
+}, 'processor_error_emit', 'Error %s was not signaled');
 
+/**
+ * Asserts the given processor error signal was not emitted.
+ */
 unittest\create_assertion(function($signal, \Closure $function){
     ob_start();
     $function = $function->bindTo($this);
@@ -26,4 +31,4 @@ unittest\create_assertion(function($signal, \Closure $function){
     $contents = ob_get_contents();
     ob_end_clean();
     return stripos($contents, 'Exception: '.$signal) === false;
-}, 'processor_error_not_signaled', 'Error %s was signaled');
+}, 'processor_error_not_emit', 'Error %s was signaled');

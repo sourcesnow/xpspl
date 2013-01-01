@@ -55,7 +55,7 @@ class Listener {
      *
      * @return  void
      */
-    public function reset(/* ... */)
+    public function _reset(/* ... */)
     {
         $this->_signals = null;
     }

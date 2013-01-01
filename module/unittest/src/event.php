@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\unittest;
+namespace unittest;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -79,7 +79,7 @@ class Event extends \xpspl\Event {
         $this->_assertion_results[] = [
             $call, $func, $args, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)
         ];
-        return true;
+        return $call;
     }
 
     /**
@@ -110,5 +110,19 @@ class Event extends \xpspl\Event {
     public function failed()
     {
         return $this->_failed;
+    }
+
+    /**
+     * Sets X number of assertions skipped.
+     *
+     * @param  integer  $number  Number of assertions skipped
+     *
+     * @return  void
+     */
+    public function mark_skipped_assertions($number = 1)
+    {
+        for ($i=0;$i<$number;$i++) {
+            $this->_output->assertion($this, null, null, null);
+        }
     }
 }
