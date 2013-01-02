@@ -9,7 +9,7 @@ import('unittest');
 unittest\suite(function(){
 
     $this->setup(function(){
-        $this->event = new xpspl\Event();
+        $this->event = new XPSPL\Event();
     });
 
     $this->teardown(function(){
@@ -30,7 +30,7 @@ unittest\suite(function(){
     }, "event_halt");
 
     $this->test(function(){
-        $parent = new xpspl\Event();
+        $parent = new XPSPL\Event();
         $this->false($this->event->is_child());
         $this->event->set_parent($parent);
         $this->true($this->event->is_child());

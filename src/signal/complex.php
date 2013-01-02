@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\signal;
+namespace XPSPL\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -7,7 +7,7 @@ namespace xpspl\signal;
  */
 
 use \LogicException,
-    \xpspl\Routine;
+    \XPSPL\Routine;
 
 /**
  * Added in v0.3.0
@@ -72,7 +72,7 @@ abstract class Complex extends Standard {
     /**
      * Returns the routine object for this complex signal.
      * 
-     * @return  object  xpspl\Routine
+     * @return  object  XPSPL\Routine
      */
     final public function get_routine()
     {
@@ -103,8 +103,8 @@ abstract class Complex extends Standard {
     public function signal_this($event = null, $ttl = null)
     {
         if (null !== $event) {
-            if (!$event instanceof \xpspl\Event) {
-                $this->event(new \xpspl\Event($ttl));
+            if (!$event instanceof \XPSPL\Event) {
+                $this->event(new \XPSPL\Event($ttl));
             } else {
                 $this->event($event);
             }

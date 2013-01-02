@@ -1,20 +1,20 @@
 #!/usr/bin/env php
 <?php
 /**
- * Directly runs files in the xpspl event loop
+ * Directly runs files in the XPSPL event loop
  */
 $usage = 
-"usage: xpspl [-c|--config=<file>][-h|--help][-p|--passthru][--test]
+"usage: XPSPL [-c|--config=<file>][-h|--help][-p|--passthru][--test]
               [--test-cover][-t|--time=<time>][-v|--version]
               <file>
 Options:
   -c/--config   Load the giving file for configuration
   -h/--help     Show this help message.
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
-  --test        Run the xpspl unit tests.
+  --test        Run the XPSPL unit tests.
   --test-cover  Run unit tests and generate code coverage.
   -t/--time     Run for the given amount of milliseconds.
-  -v/--version  Displays current xpspl version.
+  -v/--version  Displays current XPSPL version.
 ";
 
 $sync = false;
@@ -100,9 +100,9 @@ foreach ($options as $_i => $_arg) {
 
 start:
 
-// load xpspl
-if (!class_exists('xpspl')) {
-    require_once dirname(realpath(__FILE__)).'/../src/xpspl.php';
+// load XPSPL
+if (!class_exists('XPSPL')) {
+    require_once dirname(realpath(__FILE__)).'/../src/XPSPL.php';
 }
 
 if (isset($showversion)) {

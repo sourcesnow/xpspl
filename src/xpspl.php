@@ -30,19 +30,19 @@ if (XPSPL_DEBUG) {
 }
 
 /**
- * The xpspl object works as the global instance used for managing the
+ * The XPSPL object works as the global instance used for managing the
  * global processor instance.
  */
-final class XPSPL extends \xpspl\Processor {
+final class XPSPL extends \XPSPL\Processor {
 
-    use xpspl\Singleton;
+    use XPSPL\Singleton;
 
     /**
      * Initialise the global processor instance.
      *
      * @param  boolean  $event_history  Store a history of all events.
      * 
-     * @return  object  xpspl\Processor
+     * @return  object  XPSPL\Processor
      */
     final public static function init($event_history = true) 
     {

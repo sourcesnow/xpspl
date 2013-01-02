@@ -1,5 +1,5 @@
 <?php
-namespace xpspl;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -10,7 +10,7 @@ namespace xpspl;
  * API can be included to load the entire signal.
  */
 
-use \xpspl\http as http;
+use \XPSPL\http as http;
 
 /**
  * Attaches a new handle to a URI request.
@@ -18,12 +18,12 @@ use \xpspl\http as http;
  * @param  string  $uri  URI of request to handle.
  * @param  object  $function  Closure function to execute
  * @param  string|array  $method  Request method type to handle.
- * @param  object  $event  xpspl\http\Event object
+ * @param  object  $event  XPSPL\http\Event object
  * 
- * @return  object  xpspl\Handle
+ * @return  object  XPSPL\Handle
  */
 function uri_request($uri, $function, $method = null, $event = null) { 
-    return \xpspl\handle(new http\Uri(
+    return \XPSPL\handle(new http\Uri(
         $uri, $method, $event
     ), $function);
 }

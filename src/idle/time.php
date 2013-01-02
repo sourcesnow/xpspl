@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\idle;
+namespace XPSPL\idle;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,7 +11,7 @@ namespace xpspl\idle;
  *
  * The amount of time can be specified in seconds or milliseconds.
  */
-class Time extends \xpspl\Idle {
+class Time extends \XPSPL\Idle {
 
     /**
      * Length of time to idle

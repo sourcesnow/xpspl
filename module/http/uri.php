@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\http;
+namespace XPSPL\http;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -88,7 +88,7 @@ if(!defined('REQUEST_METHOD')) {
   * /post/user/1234
   * 
   */
-class Uri extends \xpspl\signal\Complex {
+class Uri extends \XPSPL\signal\Complex {
 
     /**
      * Flag if the URI matches the requested URI.
@@ -110,7 +110,7 @@ class Uri extends \xpspl\signal\Complex {
      * 
      * @param  string  $uri  URI of request to handle.
      * @param  string|array  $method  Type of request to handle.
-     * @param  object  $event  xpspl\http\Event object
+     * @param  object  $event  XPSPL\http\Event object
      */
     public function __construct($uri, $method = null, $event = null) 
     {

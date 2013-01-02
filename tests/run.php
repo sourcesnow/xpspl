@@ -30,9 +30,9 @@ foreach ($dir as $_file) {
 if (defined('GENERATE_CODE_COVERAGE')) {
 
     if (!function_exists('xdebug_start_code_coverage')) {
-        \xpspl\unittest\Output::send(
+        \XPSPL\unittest\Output::send(
             'Coverage skipped xdebug not installed', 
-            \xpspl\unittest\Output::ERROR, 
+            \XPSPL\unittest\Output::ERROR, 
             true
         );
     } else {
@@ -43,7 +43,7 @@ if (defined('GENERATE_CODE_COVERAGE')) {
 
     on_shutdown(function(){
         $exclude = [
-            '/api.php', '/xpspl.php'
+            '/api.php', '/XPSPL.php'
         ];
         $coverage = xdebug_get_code_coverage();
         xdebug_stop_code_coverage();
@@ -72,32 +72,32 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         foreach ($avg as $_c) {
             $total += $_c;
         }
-        \xpspl\unittest\Output::send(
+        \XPSPL\unittest\Output::send(
             '--------------------', 
-            \xpspl\unittest\Output::DEBUG, 
+            \XPSPL\unittest\Output::DEBUG, 
             true
         );
-        \xpspl\unittest\Output::send(sprintf(
+        \XPSPL\unittest\Output::send(sprintf(
             'Total Test Coverage : %s%%',
             round(($total / (count($avg) * 100)) * 100, 2)
-        ), \xpspl\unittest\Output::DEBUG, true);
-        \xpspl\unittest\Output::send(
+        ), \XPSPL\unittest\Output::DEBUG, true);
+        \XPSPL\unittest\Output::send(
             '--------------------', 
-            \xpspl\unittest\Output::DEBUG, 
+            \XPSPL\unittest\Output::DEBUG, 
             true
         );
         foreach ($avg as $_k => $_c) {
-            \xpspl\unittest\Output::send(sprintf(
+            \XPSPL\unittest\Output::send(sprintf(
                 'File : %s',
                 str_replace(XPSPL_PATH, '', $_k)
-            ), \xpspl\unittest\Output::DEBUG, true);
-            \xpspl\unittest\Output::send(sprintf(
+            ), \XPSPL\unittest\Output::DEBUG, true);
+            \XPSPL\unittest\Output::send(sprintf(
                 'Coverage : %s%%',
                 $_c
-            ), \xpspl\unittest\Output::DEBUG, true);
-            \xpspl\unittest\Output::send(
+            ), \XPSPL\unittest\Output::DEBUG, true);
+            \XPSPL\unittest\Output::send(
                 '--------------------', 
-                \xpspl\unittest\Output::DEBUG, 
+                \XPSPL\unittest\Output::DEBUG, 
                 true
             );
         }

@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\http;
+namespace XPSPL\http;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,7 +9,7 @@ namespace xpspl\http;
 /**
  * An HTTP Event.
  */
-class Event extends \xpspl\Event {
+class Event extends \XPSPL\Event {
 
     /**
      * Requested URI

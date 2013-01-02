@@ -7,7 +7,7 @@
 
 import('unittest');
 
-use xpspl\idle\Time;
+use XPSPL\idle\Time;
 
 unittest\suite(function(){
 

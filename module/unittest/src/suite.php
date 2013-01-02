@@ -16,14 +16,14 @@ class Suite {
     /**
      * Event used in the suite.
      * 
-     * @var  object  \xpspl\unittest
+     * @var  object  \XPSPL\unittest
      */
     protected $_event = null;
 
     /**
      * Processor in use.
      * 
-     * @var  object  \xpspl\Processor
+     * @var  object  \XPSPL\Processor
      */
     protected $_processor = null;
 
@@ -45,7 +45,7 @@ class Suite {
      * Constructs a new unit testing suite.
      * 
      * @param  object  $function  Closure
-     * @param  object|null  $event  xpspl\unittest\Event
+     * @param  object|null  $event  XPSPL\unittest\Event
      * 
      * @return  void
      */
@@ -56,7 +56,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        if (null === $event || !$event instanceof \xpspl\unitest\Event) {
+        if (null === $event || !$event instanceof \XPSPL\unitest\Event) {
             $this->_event = new Event();
         }
         $function = $function->bindTo($this);
@@ -77,7 +77,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_setup = new \xpspl\Handle($function, null);
+        $this->_setup = new \XPSPL\Handle($function, null);
     }
 
     /**
@@ -94,7 +94,7 @@ class Suite {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_teardown = new \xpspl\Handle($function, null);
+        $this->_teardown = new \XPSPL\Handle($function, null);
     }
 
     /**

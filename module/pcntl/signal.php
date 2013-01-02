@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\pcntl;
+namespace XPSPL\pcntl;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,7 +13,7 @@ namespace xpspl\pcntl;
  /**
   * Allow for handling script interruption.
   */
-class Signal extends \xpspl\signal\Complex 
+class Signal extends \XPSPL\signal\Complex 
 {
     /**
      * The system signal to catch.
@@ -25,7 +25,7 @@ class Signal extends \xpspl\signal\Complex
     public function __construct($processor = null) {
         pcntl_signal(SIGTERM, function() use ($processor){
             if (null === $processor) {
-                \xpspl\signal($this);
+                \XPSPL\signal($this);
             } else {
                 $processor->signal($this);
             }

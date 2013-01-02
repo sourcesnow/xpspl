@@ -1,5 +1,5 @@
 <?php
-namespace xpspl;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -12,7 +12,7 @@ use processor\signal\Module_Load_Failure,
 /**
  * Library
  * 
- * Loads and tracks xpspl modules.
+ * Loads and tracks XPSPL modules.
  */
 class Library {
 

@@ -6,8 +6,8 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\processor\idle as idle,
-    \xpspl\Handle;
+use \XPSPL\processor\idle as idle,
+    \XPSPL\Handle;
 
 /**
  * Client

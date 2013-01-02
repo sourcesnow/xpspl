@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\idle;
+namespace XPSPL\idle;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,7 +9,7 @@ namespace xpspl\idle;
 /**
  * Idles the processor using a function process.
  */
-class Process extends \xpspl\Idle 
+class Process extends \XPSPL\Idle 
 {
     /**
      * Priority of this idle function.

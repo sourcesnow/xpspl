@@ -44,7 +44,7 @@ foreach ($tests as $_test => $_func) {
             }
             $end = microtime(true);
             $results[$_test][$tc][] = $end - $start;
-            xpspl_flush();
+            XPSPL_flush();
         }
     }
     $output::send(sprintf(

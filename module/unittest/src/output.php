@@ -39,7 +39,7 @@ if (!defined('VERBOSITY_LEVEL')) {
  */
 class Output {
 
-    use \xpspl\Singleton;
+    use \XPSPL\Singleton;
 
     /**
      * Max recursion depth.

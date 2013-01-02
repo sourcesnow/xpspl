@@ -6,14 +6,14 @@ namespace time;
  * that can be found in the LICENSE file.
  */
 
-use xpspl\idle\Time;
+use XPSPL\idle\Time;
 
  /**
  * Awake Signal
  *
  * Sends an awake signal after a specified amount of time has passed.
  */
-class SIG_Awake extends \xpspl\signal\Complex {
+class SIG_Awake extends \XPSPL\signal\Complex {
 
     /**
      * Time to awake in.

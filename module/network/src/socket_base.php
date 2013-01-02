@@ -6,15 +6,15 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\idle\Process,
-    \xpspl\idle\Time;
+use \XPSPL\idle\Process,
+    \XPSPL\idle\Time;
 
 /**
  * Base
  *
  * Base signal for a socket.
  */
-abstract class Socket_Base extends \xpspl\signal\Complex {
+abstract class Socket_Base extends \XPSPL\signal\Complex {
 
     /**
      * Socket connection object

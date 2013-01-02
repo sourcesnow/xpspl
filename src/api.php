@@ -22,14 +22,14 @@ function signal($signal, $callable)
 /**
  * Creates a never exhausting signal handler.
  *
- * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
+ * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
  *
  * @return  object  Handle
  */
 function null_exhaust($handle)
 {
-    if (!$handle instanceof \xpspl\Handle) {
-        $handle = new \xpspl\Handle($handle, null);
+    if (!$handle instanceof \XPSPL\Handle) {
+        $handle = new \XPSPL\Handle($handle, null);
         return $handle;
     }
     $handle->set_exhaust(null);
@@ -39,7 +39,7 @@ function null_exhaust($handle)
 /**
  * Creates or sets a handle with high priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
+ * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
  *
  * @return  object  Handle
  */
@@ -51,7 +51,7 @@ function high_priority($handle)
 /**
  * Creates or sets a handle with low priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
+ * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
  *
  * @return  object  Handle
  */
@@ -63,15 +63,15 @@ function low_priority($handle)
 /**
  * Sets a handle priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \xpspl\Handle object.
+ * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
  * @param  integer  $priority  Priority
  *
  * @return  object  Handle
  */
 function priority($handle, $priority)
 {
-    if (!$handle instanceof \xpspl\Handle) {
-        $handle = new \xpspl\Handle($handle);
+    if (!$handle instanceof \XPSPL\Handle) {
+        $handle = new \XPSPL\Handle($handle);
     }
     $handle->set_priority($priority);
     return $handle;
@@ -99,7 +99,7 @@ function remove_handle($signal, $handle)
  * @param  array  $vars  Array of variables to pass the handles.
  * @param  object  $event  Event
  *
- * @return  object  \xpspl\Event
+ * @return  object  \XPSPL\Event
  */
 function emit($signal, $event = null)
 {
@@ -147,7 +147,7 @@ function search_signals($signal, $index = false)
 }
 
 /**
- * Starts the xpspl loop.
+ * Starts the XPSPL loop.
  *
  * @return  void
  */
@@ -178,7 +178,7 @@ function shutdown()
  */
 function import($name, $dir = null) 
 {
-    return \xpspl\Library::instance()->load($name, $dir);
+    return \XPSPL\Library::instance()->load($name, $dir);
 }
 
 /**
@@ -212,11 +212,11 @@ function after($signal, $handle)
 }
 
 /**
- * Returns the xpspl processor.
+ * Returns the XPSPL processor.
  * 
- * @return  object  xpspl\Processor
+ * @return  object  XPSPL\Processor
  */
-function xpspl()
+function XPSPL()
 {
     global $XPSPL;
     return $XPSPL;
@@ -351,7 +351,7 @@ function dir_include($dir, $listen = false, $path = null)
             $namespace = implode('\\', $data);
             $handle = $namespace.'\\'.ucfirst($class);
             if (class_exists($handle, false) && 
-                is_subclass_of($handle, '\xpspl\Listener')) {
+                is_subclass_of($handle, '\XPSPL\Listener')) {
                 listen(new $handle());
             }
         }, $_file);
@@ -389,11 +389,11 @@ function current_event($offset = 0)
  * 
  * @param  callable|object  $function  Function or handle object
  * 
- * @return  object  \xpspl\Handle
+ * @return  object  \XPSPL\Handle
  */
 function on_shutdown($function)
 {
-    return signal(new \xpspl\processor\SIG_Shutdown(), $function);
+    return signal(new \XPSPL\processor\SIG_Shutdown(), $function);
 }
 
 /**
@@ -401,11 +401,11 @@ function on_shutdown($function)
  * 
  * @param  callable|object  $function  Function or handle object
  * 
- * @return  object  \xpspl\Handle
+ * @return  object  \XPSPL\Handle
  */
 function on_start($function)
 {
-    return signal(new \xpspl\processor\SIG_Startup(), $function);
+    return signal(new \XPSPL\processor\SIG_Startup(), $function);
 }
 
 /**
@@ -413,7 +413,7 @@ function on_start($function)
  *
  * @return void
  */
-function xpspl_flush(/* ... */)
+function XPSPL_flush(/* ... */)
 {
     global $XPSPL;
     return $XPSPL->flush();

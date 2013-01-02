@@ -1,5 +1,5 @@
 <?php
-namespace xpspl;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -120,7 +120,7 @@ final class Routine {
     {
         if (!$idle instanceof Idle) {
             throw new \InvalidArgumentException(
-                "Idle must be an instance of xpspl\processor\Idle"
+                "Idle must be an instance of XPSPL\processor\Idle"
             );
         }
         foreach ($this->_idle as $_k => $_func) {

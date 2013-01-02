@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\processor;
+namespace XPSPL\processor;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -12,4 +12,4 @@ namespace xpspl\processor;
  * 
  * Shutdown of XPSPL.
  */
-class SIG_Shutdown extends \xpspl\Signal {}
+class SIG_Shutdown extends \XPSPL\Signal {}

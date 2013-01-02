@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\signal;
+namespace XPSPL\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -9,7 +9,7 @@ namespace xpspl\signal;
 /**
  * Standard Signal
  * 
- * Base class for all xpspl signals.
+ * Base class for all XPSPL signals.
  */
 abstract class Standard {
 

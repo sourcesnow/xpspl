@@ -9,13 +9,13 @@ import('unittest');
 unittest\suite(function(){
 
     $this->test(function(){
-        $queue = new xpspl\Queue();
+        $queue = new XPSPL\Queue();
         $queue->enqueue(0);
         $this->equal($queue->count(), 1);
     }, "Queue Enqueue");
 
     $this->test(function(){
-        $queue = new xpspl\Queue();
+        $queue = new XPSPL\Queue();
         $queue->enqueue(0);
         $queue->enqueue(1);
         $this->equal($queue->count(), 2);
@@ -25,7 +25,7 @@ unittest\suite(function(){
 
     $this->test(function(){
         $this->exception('OverflowException', function(){
-            $queue = new xpspl\Queue();
+            $queue = new XPSPL\Queue();
             for ($i=0;$i!=QUEUE_MAX_SIZE+5;$i++) {
                 $queue->enqueue(0);
             }
@@ -33,7 +33,7 @@ unittest\suite(function(){
     }, "Queue Max Size Overflow exception");
 
     $this->test(function(){
-        $queue = new xpspl\Queue();
+        $queue = new XPSPL\Queue();
         $queue->enqueue(1, 10);
         $queue->enqueue(2, 11);
         $queue->enqueue(3, 9);
@@ -46,7 +46,7 @@ unittest\suite(function(){
     }, "Queue Min Sort");
     
     $this->test(function(){
-        $queue = new xpspl\Queue();
+        $queue = new XPSPL\Queue();
         $queue->enqueue(1);
         $queue->enqueue(2);
         $queue->enqueue(3);

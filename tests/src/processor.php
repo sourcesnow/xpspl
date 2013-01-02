@@ -10,7 +10,7 @@ import('unittest');
 unittest\suite(function(){
 
     $this->setup(function(){
-        $this->processor = new xpspl\Processor(true, true);
+        $this->processor = new XPSPL\Processor(true, true);
     });
 
     $this->teardown(function(){
@@ -21,7 +21,7 @@ unittest\suite(function(){
     }, 'Processor Construction');
     
     $this->test(function(){
-        $processor = new \xpspl\Processor(false);
+        $processor = new \XPSPL\Processor(false);
         $this->false($processor->signal_history());
         $processor->emit('test');
         $this->false($processor->signal_history());
@@ -39,7 +39,7 @@ unittest\suite(function(){
         $this->false($this->processor->has_signal_exhausted('test'));
         $this->processor->emit('test');
         $queue = $this->processor->search_signals('test');
-        $this->instanceof($queue, new \xpspl\Queue());
+        $this->instanceof($queue, new \XPSPL\Queue());
         $this->count($queue->storage(), 0);
     }, 'auto_remove_exhausted');
 
@@ -49,16 +49,16 @@ unittest\suite(function(){
         $queue = $this->processor->search_signals('test');
         $this->instanceof(
             $this->processor->search_signals('test'), 
-            new \xpspl\Queue()
+            new \XPSPL\Queue()
         );
         $this->processor->delete_signal('test');
         $this->null($this->processor->search_signals('test'));
         // Class Based
-        $signal = new \xpspl\Signal('test');
+        $signal = new \XPSPL\Signal('test');
         $this->processor->register_signal($signal);
         $this->instanceof(
             $this->processor->search_signals($signal), 
-            new \xpspl\Queue()
+            new \XPSPL\Queue()
         );
         $this->processor->delete_signal($signal);
         $this->null($this->processor->search_signals($signal));
@@ -126,13 +126,13 @@ unittest\suite(function(){
     }, 'queue_exhausted');
 
     $this->test(function(){
-        $this->processor->signal('test', new xpspl\Handle(function(){}, null));
+        $this->processor->signal('test', new XPSPL\Handle(function(){}, null));
         $this->processor->emit('test');
         $this->equal($this->processor->get_state(), STATE_DECLARED);
         $this->count($this->processor->signal_history(), 1);
         $this->instanceof(
             $this->processor->search_signals('test'), 
-            new xpspl\Queue()
+            new XPSPL\Queue()
         );
         $this->false($this->processor->has_signal_exhausted('test'));
         $this->processor->flush();
@@ -143,7 +143,7 @@ unittest\suite(function(){
 
     $this->test(function(){
         $handle = $this->processor->signal('test', function(){});
-        $this->instanceof($handle, 'xpspl\Handle');
+        $this->instanceof($handle, 'XPSPL\Handle');
         $queue = $this->processor->search_signals('test');
         $this->count($queue->storage(), 1);
         $this->false($this->processor->has_signal_exhausted('test'));
@@ -153,7 +153,7 @@ unittest\suite(function(){
     }, 'handle,handle_remove');
 
     $this->test(function(){
-        class TL extends xpspl\Listener {
+        class TL extends XPSPL\Listener {
             public function test($event) {
                 $event->test = true;
             }
@@ -164,7 +164,7 @@ unittest\suite(function(){
             $this->mark_skipped(4);
             return;
         }
-        if (!$this->instanceof($queue, 'xpspl\Queue')) {
+        if (!$this->instanceof($queue, 'XPSPL\Queue')) {
             $this->mark_skipped(3);
             return;
         }
@@ -186,7 +186,7 @@ unittest\suite(function(){
     //     });
     //     $queue = $this->processor->register_signal('test');
     //     $this->notnull($queue);
-    //     $this->instanceof($queue, 'xpspl\Queue');
+    //     $this->instanceof($queue, 'XPSPL\Queue');
     // }, 'register');
 
     $this->test(function(){
@@ -194,27 +194,27 @@ unittest\suite(function(){
         $this->notnull($this->processor->search_signals('test'));
         $this->instanceof(
             $this->processor->search_signals('test'),
-            'xpspl\Queue'
+            'XPSPL\Queue'
         );
-        class CMP extends xpspl\signal\Complex {}
+        class CMP extends XPSPL\signal\Complex {}
         $cmp = new CMP();
         $this->processor->register_signal($cmp);
         $this->notnull($this->processor->search_signals($cmp));
         $this->instanceof(
             $this->processor->search_signals($cmp),
-            'xpspl\Queue'
+            'XPSPL\Queue'
         );
         $index = $this->processor->search_signals($cmp, true);
         $this->string($index);
     }, 'search_signals');
 
     $this->test(function(){
-        class EVL extends xpspl\signal\Complex {
+        class EVL extends XPSPL\signal\Complex {
             public function evaluate($signal = null) {
                 return true;
             }
         }
-        class EVF extends xpspl\signal\Complex {
+        class EVF extends XPSPL\signal\Complex {
             public function evaluate($signal = null) {
                 return false;
             }
@@ -253,7 +253,7 @@ unittest\suite(function(){
         $this->isset('count', $event);
         $this->equal($event->count, 3);
         // Complex
-        class CBA extends \xpspl\signal\Complex {
+        class CBA extends \XPSPL\signal\Complex {
             public function evalute($signal = null) {
             }
         }
@@ -267,7 +267,7 @@ unittest\suite(function(){
         $this->notnull($this->processor->search_signals('test'));
         $this->instanceof(
             $this->processor->search_signals('test'), 
-            new \xpspl\Queue()
+            new \XPSPL\Queue()
         );
         $this->processor->clean();
         $this->null($this->processor->search_signals('test'));

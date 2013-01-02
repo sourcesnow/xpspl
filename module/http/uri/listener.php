@@ -1,17 +1,17 @@
 <?php
-namespace xpspl\http\uri;
+namespace XPSPL\http\uri;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\http as http;
+use \XPSPL\http as http;
 
 /**
  * Allows for listening to URI signals.
  */
-class Listener extends \xpspl\Listener 
+class Listener extends \XPSPL\Listener 
 {
     /**
      * Constructs a new URI listener.

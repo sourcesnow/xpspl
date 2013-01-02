@@ -15,7 +15,7 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
  * 
  * The event object contains the test information and assertion functions.
  */
-class Event extends \xpspl\Event {
+class Event extends \XPSPL\Event {
     
     /**
      * Assertion functions

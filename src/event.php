@@ -1,5 +1,5 @@
 <?php
-namespace xpspl;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,7 +11,7 @@ define('EVENT_SELF_PARENT', -0xE4E);
 /**
  * Event
  *
- * Represents an executed/executable xpspl event signal.
+ * Represents an executed/executable XPSPL event signal.
  *
  * As of v0.3.0 the event now inherits the State and Storage traits.
  */
@@ -43,7 +43,7 @@ class Event {
      *
      * @param  integer  $ttl  TTL in milliseconds for the event.
      *
-     * @return  object  xpspl\Event
+     * @return  object  XPSPL\Event
      */
     public function __construct($ttl = null)
     {
@@ -123,7 +123,7 @@ class Event {
     /**
      * Sets the parent event.
      * 
-     * @param  object  $event  \xpspl\Event
+     * @param  object  $event  \XPSPL\Event
      * 
      * @return  void
      */

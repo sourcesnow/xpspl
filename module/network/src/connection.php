@@ -6,7 +6,7 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
-use \xpspl\Idle as idle;
+use \XPSPL\Idle as idle;
 
 /**
  * Connection

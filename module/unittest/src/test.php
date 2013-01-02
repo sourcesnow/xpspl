@@ -13,20 +13,20 @@ namespace unittest;
  * 
  * Testing is performed as:
  * 
- * xpspl\unit_test\api\test(function(){
+ * XPSPL\unit_test\api\test(function(){
  *     $this->true(true);
  *     $this->false(false);
  *     $this->null(null);
  *     etc ...
  * });
  */
-class Test extends \xpspl\signal\Complex {
+class Test extends \XPSPL\signal\Complex {
 
     /**
      * Constructs a new test signal.
      * 
      * @param  string  $name  Name of the test.
-     * @param  object  $event  xpspl\unittest\Event
+     * @param  object  $event  XPSPL\unittest\Event
      * 
      * @return  void
      */

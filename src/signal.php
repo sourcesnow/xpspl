@@ -1,5 +1,5 @@
 <?php
-namespace xpspl;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -13,9 +13,9 @@ use \InvalidArgumentException;
  * and integers. 
  * 
  * Other signal types are considered "complex" and use the 
- * \xpspl\signal\Complex object.
+ * \XPSPL\signal\Complex object.
  */
-class Signal extends \xpspl\signal\Standard {
+class Signal extends \XPSPL\signal\Standard {
 
     /**
      * Unique signal object.
@@ -39,7 +39,7 @@ class Signal extends \xpspl\signal\Standard {
                 $info = spl_object_hash($this);
             } else {
                 $info = get_class($this);
-                if ($info === 'xpspl\Signal') {
+                if ($info === 'XPSPL\Signal') {
                     throw new \InvalidArgumentException;
                 }
             }

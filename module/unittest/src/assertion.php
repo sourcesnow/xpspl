@@ -13,7 +13,7 @@ namespace unittest;
  */
 class Assertions {
 
-    use \xpspl\Storage, \xpspl\Singleton;
+    use \XPSPL\Storage, \XPSPL\Singleton;
 
     /**
      * Adds a new assertion function.
@@ -45,7 +45,7 @@ class Assertions {
      * 
      * @param  string  $name  Assertion function name
      * @param  array  $vars  Array of variables to pass the handler.
-     * @param  object  $test  \xpspl\unitest\Event
+     * @param  object  $test  \XPSPL\unitest\Event
      * 
      * @return  boolean|string|int  True on success, False on failure|
      *                              String indicated failure message|

@@ -11,7 +11,7 @@ namespace network;
  * 
  * Base socket signal.
  */
-class SIG_Base extends \xpspl\Signal {
+class SIG_Base extends \XPSPL\Signal {
 
     /**
      * Socket signals use the connection and socket hash

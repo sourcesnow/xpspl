@@ -28,7 +28,7 @@ function create_assertion($function, $name, $message = null) {
  * 
  * @param  object  $function  Test function
  * @param  string  $name  Test name
- * @param  object  $event  xpspl\unittest\Event
+ * @param  object  $event  XPSPL\unittest\Event
  * 
  * @return  array  [Handle, Signal]
  */
@@ -42,7 +42,7 @@ function test($function, $name = null, $event = null) {
  * Constructs a new unit testing suite.
  * 
  * @param  object  $function  Closure
- * @param  object|null  $event  xpspl\unittest\Event
+ * @param  object|null  $event  XPSPL\unittest\Event
  * 
  * @return  void
  */
@@ -81,7 +81,7 @@ function generate_output() {
                 if (in_array($_node[0], $tests_run)) continue;
                 $tests_run[] = $_node[0];
                 $failures = [];
-                // Get passedxpspl 
+                // Get passedXPSPL 
                 foreach ($_node[0]->get_assertion_results() as $_assertion) {
                     if ($_assertion[0] === true) {
                         $pass++;

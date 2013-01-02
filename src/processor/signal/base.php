@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\processor\signal;
+namespace XPSPL\processor\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -10,4 +10,4 @@ namespace xpspl\processor\signal;
 /**
  * The base for any processor signal.
  */
-class Base extends \xpspl\Signal {}
+class Base extends \XPSPL\Signal {}

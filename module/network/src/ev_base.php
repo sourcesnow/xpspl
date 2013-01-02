@@ -15,7 +15,7 @@ if (!defined('XPSPL_SOCKET_READ_LENGTH')) {
  * 
  * Base socket event for reading/writing and disconnecting a socket.
  */
-abstract class EV_Base extends \xpspl\Event {
+abstract class EV_Base extends \XPSPL\Event {
 
     /**
      * Socket connection object

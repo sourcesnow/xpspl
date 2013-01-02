@@ -1,5 +1,5 @@
 <?php
-namespace xpspl\processor\signal;
+namespace XPSPL\processor\signal;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -10,7 +10,7 @@ namespace xpspl\processor\signal;
 /**
  * Catches all processor error signals that trigger.
  */
-class Processor_Errors extends \xpspl\signal\Complex {
+class Processor_Errors extends \XPSPL\signal\Complex {
 
     public function evaluate($signal = null)
     {

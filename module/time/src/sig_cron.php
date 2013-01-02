@@ -6,7 +6,7 @@ namespace time;
  * that can be found in the LICENSE file.
  */
  
-use \xpspl\idle\Time;
+use \XPSPL\idle\Time;
 
 if (!class_exists('\Cron\CronExpression', false)) {
     $file = dirname(realpath(__FILE__)).'/cron/cron.phar';
@@ -25,7 +25,7 @@ if (!class_exists('\Cron\CronExpression', false)) {
  *
  * Signal event based on the UNIX cron definition
  */
-class SIG_CRON extends \xpspl\signal\Complex {
+class SIG_CRON extends \XPSPL\signal\Complex {
 
     /**
      * Cron-Expression object

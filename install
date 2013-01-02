@@ -11,11 +11,11 @@ install() {
         exit;
     fi;
     echo "Downloading XPSPL"
-    curl -L -o /tmp/xpspl.zip https://github.com/prggmr/xpspl/archive/master.zip
+    curl -L -o /tmp/XPSPL.zip https://github.com/prggmr/XPSPL/archive/master.zip
     cd /tmp
     echo "Inflating"
-    unzip xpspl.zip
-    cd xpspl-master
+    unzip XPSPL.zip
+    cd XPSPL-master
     echo "Running installation"
     PHPPATH=$(php -r "echo get_include_path();") 
     INSTALLPATH=""
@@ -31,27 +31,27 @@ install() {
         echo "Could not find your PHP include path";
         exit;
     fi
-    if [ -d "$INSTALL_PATH/xpspl" ]; then
-        rm -rf "$INSTALL_PATH/xpspl"
+    if [ -d "$INSTALL_PATH/XPSPL" ]; then
+        rm -rf "$INSTALL_PATH/XPSPL"
     fi;
-    mkdir $INSTALL_PATH/xpspl
-    cp -Rf * "$INSTALL_PATH/xpspl"
-    if [ -f "$BINPATH/xpspl" ]; then
-        rm "$BINPATH/xpspl"
+    mkdir $INSTALL_PATH/XPSPL
+    cp -Rf * "$INSTALL_PATH/XPSPL"
+    if [ -f "$BINPATH/XPSPL" ]; then
+        rm "$BINPATH/XPSPL"
     fi;
-    echo "Installed XPSPL to $INSTALL_PATH/xpspl"
-    echo "Installed executable to $BINPATH/xpspl"
-    ln -s "$INSTALL_PATH/xpspl/bin/xpspl" "$BINPATH"
-    xpspl -v
-    echo "Report bugs to https://github.com/prggmr/xpspl/issues"
+    echo "Installed XPSPL to $INSTALL_PATH/XPSPL"
+    echo "Installed executable to $BINPATH/XPSPL"
+    ln -s "$INSTALL_PATH/XPSPL/bin/XPSPL" "$BINPATH"
+    XPSPL -v
+    echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
     echo "Running Unit Tests"
-    xpspl --test
+    XPSPL --test
     echo "Enjoy"
     echo "Install finished"
     echo "Cleaning up"
     cd ..
-    rm -rf /tmp/xpspl-master
-    rm /tmp/xpspl.zip
+    rm -rf /tmp/XPSPL-master
+    rm /tmp/XPSPL.zip
     echo "Done"
 }
 

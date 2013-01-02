@@ -8,7 +8,7 @@ import('unittest');
 
 // tmp class for state test
 class Temp {
-    use xpspl\State;
+    use XPSPL\State;
 }
 
 unittest\suite(function(){

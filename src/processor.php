@@ -1,5 +1,5 @@
 <?php
-namespace xpspl;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,12 +8,12 @@ namespace xpspl;
 
 use \Closure,
     \InvalidArgumentException,
-    \xpspl\processor\signal as processor_signals;
+    \XPSPL\processor\signal as processor_signals;
 
 /**
  * Processor
  *
- * The brainpower of xpspl.
+ * The brainpower of XPSPL.
  * 
  * As of v0.3.0 the loop is now run in respect to the currently available handles,
  * this prevents the processor from running contionusly forever when there isn't anything
@@ -55,7 +55,7 @@ class Processor {
     /**
      * Current event in execution and hierachy
      * 
-     * @var  object  \xpspl\Event
+     * @var  object  \XPSPL\Event
      */
     protected $_event = [];
 
@@ -112,7 +112,7 @@ class Processor {
     protected function _register_error_handler()
     {
         if (null === $this->_processor_handle_signal) {
-            $this->_processor_handle_signal = new \xpspl\processor\signal\Processor_Errors();
+            $this->_processor_handle_signal = new \XPSPL\processor\signal\Processor_Errors();
         } else {
             $queue = $this->search_signals($this->_processor_handle_signal);
             if ($queue->count() !== 0) {
@@ -200,7 +200,7 @@ class Processor {
                 $processor->shutdown();
             };
             $this->signal(
-                new \xpspl\time\SIG_Awake($ttr, TIME_MILLISECONDS), 
+                new \XPSPL\time\SIG_Awake($ttr, TIME_MILLISECONDS), 
                 $awake_func
             );
         }
@@ -312,7 +312,7 @@ class Processor {
     /**
      * Determine if all queue handles are exhausted.
      *
-     * @param  object  $queue  \xpspl\Queue
+     * @param  object  $queue  \XPSPL\Queue
      * 
      * @return  boolean
      */
@@ -367,7 +367,7 @@ class Processor {
     /**
      * Registers an object listener.
      *
-     * @param  object  $listener  xpspl\Listener
+     * @param  object  $listener  XPSPL\Listener
      *
      * @return  void
      */
@@ -414,13 +414,13 @@ class Processor {
      *
      * @param  string|integer|object  $signal  Signal
      *
-     * @return  boolean|object  false|xpspl\Queue
+     * @return  boolean|object  false|XPSPL\Queue
      */
     public function register_signal($signal)
     {
         $queue = false;
 
-        if (!$signal instanceof \xpspl\signal\Standard) {
+        if (!$signal instanceof \XPSPL\signal\Standard) {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
@@ -439,7 +439,7 @@ class Processor {
 
         if (!$queue) {
             $queue = new Queue();
-            if (!$signal instanceof \xpspl\signal\Complex) {
+            if (!$signal instanceof \XPSPL\signal\Complex) {
                 $this->_storage[self::HASH_STORAGE][(string) $signal->get_info()] = [
                     $signal, $queue
                 ];
@@ -462,7 +462,7 @@ class Processor {
      */
     public function search_signals($signal, $index = false) 
     {
-        if ($signal instanceof \xpspl\signal\Complex) {
+        if ($signal instanceof \XPSPL\signal\Complex) {
             $id = spl_object_hash($signal);
             if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
                 if ($index) return $id;
@@ -470,7 +470,7 @@ class Processor {
             }
             return null;
         }
-        if ($signal instanceof \xpspl\Signal) {
+        if ($signal instanceof \XPSPL\Signal) {
             $signal = $signal->get_info();
         }
         $signal = (string) $signal;
@@ -511,10 +511,10 @@ class Processor {
      * Loads an event for the current signal.
      * 
      * @param  int|string|object  $signal
-     * @param  object  $event  \xpspl\Event
+     * @param  object  $event  \XPSPL\Event
      * @param  int|null  $ttl  Event TTL
      * 
-     * @return  object  \xpspl\Event
+     * @return  object  \XPSPL\Event
      */
     private function _event($signal, $event = null, $ttl = null)
     {
@@ -548,7 +548,7 @@ class Processor {
     /**
      * Exits the event from the processor.
      * 
-     * @param  object  $event  \xpspl\Event
+     * @param  object  $event  \XPSPL\Event
      */
     private function _event_exit($event)
     {
@@ -572,7 +572,7 @@ class Processor {
      *
      * @param  mixed  $signal  Signal instance or signal.
      *
-     * @param  object  $event  \xpspl\Event
+     * @param  object  $event  \XPSPL\Event
      *
      * @return  object  Event
      */
@@ -679,8 +679,8 @@ class Processor {
      * If XPSPL_EXHAUSTION_PURGE is true handles will be purged once they 
      * reach exhaustion.
      *
-     * @param  object  $queue  xpspl\Queue
-     * @param  object  $event  xpspl\Event
+     * @param  object  $queue  XPSPL\Queue
+     * @param  object  $event  XPSPL\Event
      *
      * @return  void
      */
@@ -1080,7 +1080,7 @@ class Processor {
      *
      * @param  integer  $offset  In memory hierarchy offset +/-.
      *
-     * @return  object  \xpspl\Event
+     * @return  object  \XPSPL\Event
      */
     public function current_event($offset = 0)
     {
