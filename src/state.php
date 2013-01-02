@@ -87,6 +87,6 @@ trait State
      */
     public function set_state($state) 
     {
-        //$this->_state = $state;
+        $this->_state = $state;
     }
 }
