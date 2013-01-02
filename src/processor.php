@@ -46,13 +46,6 @@ class Processor {
     const INTERRUPT_POST = 1;
 
     /**
-     * Last signal added to the processor.
-     * 
-     * @var  object
-     */
-    protected $_last_sig_added = null;
-
-    /**
      * History of events
      * 
      * @var  array
@@ -102,6 +95,7 @@ class Processor {
         if ($signal_history === false) {
             $this->_history = false;
         }
+        // gc_enable();
         $this->_register_error_handler();
         $this->set_state(STATE_DECLARED);
         $this->flush(); 
@@ -367,6 +361,7 @@ class Processor {
             $this->_history = [];
         }
         $this->set_state(STATE_DECLARED);
+        // gc_collect_cycles();
     }
 
     /**
@@ -453,7 +448,6 @@ class Processor {
                 $this->_storage[self::COMPLEX_STORAGE][$id] = [$signal, $queue];
             }
         }
-        $this->_last_sig_added = $signal;
         return $queue;
     }
 

@@ -22,15 +22,16 @@ $tests = [
 
 $output::send('Beginning performance tests');
 $results = [];
+$average_perform = 10;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
-    for ($i=1;$i<6;$i++) {
+    for ($i=1;$i<$average_perform;$i++) {
         $output::send(sprintf(
             'Running %s test %s of %s',
             $_test,
-            $i, 5
+            $i, $average_perform
         ));
-        for($a=1;$a<(1 << 16);) {
+        for($a=1;$a<(1 << 12);) {
             $a = $a << 1;
             $output::send('Test Size : ' . $a);
             $tc = $a;
@@ -51,44 +52,32 @@ foreach ($tests as $_test => $_func) {
         $_test
     ));
 }
-$avg = function($array) {
-    $total = 0.00;
-    foreach ($array as $_c) { $total += $_c; }
-    return round(count($array) / $total, 8);
-};
-$output->send_linebreak();
-foreach ($results as $_test => $_results) {
-    $output::send(sprintf(
-        'Test %s results',
-        $_test
-    ));
-    $output->send_linebreak();
-    foreach ($_results as $_size => $_total) {
-        $output::send(sprintf(
-            'Size : %s',
-            $_size
-        ));
-        $output::send(sprintf(
-            'Time : %s',
-            $avg($_total)
-        ));
-    }
-}
-// $time = microtime(true);
-// echo "Start".PHP_EOL;;
-// for ($i=0;$i!=1000;$i++){
-//     prggmr\handle($i, function(){
-//     });
+ob_start();
+include dirname(realpath(__FILE__)).'/performance/chart.php';
+$data = ob_get_contents();
+ob_end_clean();
+file_put_contents('performance_chart.html', $data);
+echo "Performance chart in performance_chart.html".PHP_EOL;
+// $avg = function($array) {
+//     $total = 0.00;
+//     foreach ($array as $_c) { $total += $_c; }
+//     return round(count($array) / $total, 8);
+// };
+// $output->send_linebreak();
+// foreach ($results as $_test => $_results) {
+//     $output::send(sprintf(
+//         'Test %s results',
+//         $_test
+//     ));
+//     $output->send_linebreak();
+//     foreach ($_results as $_size => $_total) {
+//         $output::send(sprintf(
+//             'Size : %s',
+//             $_size
+//         ));
+//         $output::send(sprintf(
+//             'Time : %s',
+//             $avg($_total)
+//         ));
+//     }
 // }
-// echo "Handle Register".PHP_EOL;
-// echo microtime(true) - $time;
-// echo PHP_EOL;
-// $event = new \prggmr\Event();
-// $event->a = 1;
-// $time = microtime(true);
-// for ($i=0;$i!=1000;$i++){
-//     prggmr\signal($i, $event);
-// }
-// echo $event->a.PHP_EOL;
-// echo "Signal Calls".PHP_EOL;
-// echo microtime(true) - $time;

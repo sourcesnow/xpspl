@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var sig_inst = [['Time', 'Signals Installed']];
+        var sig_emit = [['Time', 'Signals Emitted']];
+        sig_emit.push([3.814697265625E-5, 2]);
+sig_emit.push([7.3909759521484E-5, 4]);
+sig_emit.push([0.00012803077697754, 8]);
+sig_emit.push([0.0073108673095703, 16]);
+sig_emit.push([0.00053906440734863, 32]);
+sig_emit.push([0.0010209083557129, 64]);
+sig_emit.push([0.002018928527832, 128]);
+sig_emit.push([0.0040440559387207, 256]);
+sig_emit.push([0.0080201625823975, 512]);
+sig_emit.push([0.016390800476074, 1024]);
+sig_emit.push([0.032379150390625, 2048]);
+sig_emit.push([0.10178184509277, 4096]);
+sig_inst.push([0.00014495849609375, 2]);
+sig_inst.push([8.5115432739258E-5, 4]);
+sig_inst.push([0.00015902519226074, 8]);
+sig_inst.push([0.00030612945556641, 16]);
+sig_inst.push([0.00059008598327637, 32]);
+sig_inst.push([0.0011448860168457, 64]);
+sig_inst.push([0.0023050308227539, 128]);
+sig_inst.push([0.0048670768737793, 256]);
+sig_inst.push([0.0099658966064453, 512]);
+sig_inst.push([0.020251035690308, 1024]);
+sig_inst.push([0.044739961624146, 2048]);
+sig_inst.push([0.093821048736572, 4096]);
+        var data_1 = google.visualization.arrayToDataTable(sig_emit);
+        var data_2 = google.visualization.arrayToDataTable(sig_inst);
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data_1, {title: 'Signal Emit'});
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+        chart.draw(data_2, {title: 'Signal Install'});
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="chart_div2" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
