@@ -53,13 +53,6 @@ class Processor {
     protected $_history = [];
 
     /**
-     * Current event in execution and hierachy
-     * 
-     * @var  object  \XPSPL\Event
-     */
-    protected $_event = [];
-
-    /**
      * Routine data.
      * 
      * @var  array
@@ -171,7 +164,7 @@ class Processor {
     }
 
     /**
-     * Cleans out the event history.
+     * Cleans out the signal history.
      *
      * @return  void
      */
@@ -257,11 +250,11 @@ class Processor {
                     // Check signals
                     if (null !== $_signals && count($_signals) != 0) {
                         foreach ($_signals as $__signal) {
-                            list($__sig, $__event) = $__signal;
+                            list($__sig, $__context) = $__signal;
                             // ensure it has not exhausted
                             if (false === $this->has_signal_exhausted($__sig)) {
                                 $return = true;
-                                $this->_routine->add_signal($__sig, $__event);
+                                $this->_routine->add_signal($__sig, $__context);
                             }
                         }
                     }
@@ -271,7 +264,7 @@ class Processor {
                         $this->_routine->add_idle($_idle);
                     }
                 }
-            // Catch any problems that happended and signal them
+            // Catch any problems that happended and emit them
             } catch (\Exception $e) {
                 $this->emit(new processor_signals\Routine_Calculation_Error(
                     "An error has occured during a routine calculation"
@@ -410,7 +403,7 @@ class Processor {
     }
 
     /**
-     * Registers a signal a new signal
+     * Registers a signal into the processor
      *
      * @param  string|integer|object  $signal  Signal
      *
@@ -571,21 +564,25 @@ class Processor {
      * Emits a signal.
      *
      * @param  mixed  $signal  Signal instance or signal.
-     *
-     * @param  object  $event  \XPSPL\Event
+     * @param  object|null  $context  Context to execute
      *
      * @return  object  Event
      */
-    public function emit($signal, $event = null, $ttl = null)
+    public function emit($signal, $context = null)
     {
         // store processor signal
         $this->_signal[] = $signal;
+        $queue = null;
 
-        // load processor event
-        $event = $this->_event($signal, $event, $ttl);
+        // Store the history of the signal
+        if (false !== $this->_history) {
+            $this->_history[] = [$signal, milliseconds()];
+        }
 
-        // locate sig handlers
-        $queue = new Queue();
+        // Signal history management
+        if (count($this->_signal) > 1)  {
+            $signal->set_parent($this->current_signal(-1));
+        }
 
         // purge exhausted queues
         if (XPSPL_PURGE_EXHAUSTED) {
@@ -595,6 +592,9 @@ class Processor {
         // search for exact matches
         $searched = $this->search_signals($signal);
         if (null !== $searched) {
+            if (null === $queue) {
+                $queue = new Queue();
+            }
             $queue->merge($searched->storage());
             if (XPSPL_PURGE_EXHAUSTED) {
                 $queues[] = $searched;
@@ -604,12 +604,15 @@ class Processor {
         // evaluate complex signals
         $evalated = $this->evaluate_signals($signal);
         if (null !== $evalated) {
+            if (null === $queue) {
+                $queue = new Queue();
+            }
             array_walk($evalated, function($node) use ($queue, $queues) {
                 if (is_bool($node[1]) === false) {
                     $data = $node[1];
                     if (is_array($data)) {
                         foreach ($data as $_k => $_v) {
-                            $event->{$_k} = $_v;
+                            $signal->{$_k} = $_v;
                         }
                     }
                 }
@@ -620,22 +623,24 @@ class Processor {
             });
         }
 
-        // execute the signal
-        $this->_execute($signal, $queue, $event);
+        if (null !== $queue) {
+            // execute the signal
+            $this->_execute((null === $context) ? $signal : $context, $queue);
 
-        // purge exhausted handles
-        if (XPSPL_PURGE_EXHAUSTED) {
-            foreach ($queues as $_queue) {
-                foreach ($_queue->storage() as $_node) {
-                    if ($_node[0]->is_exhausted()) {
-                        $_queue->dequeue($_node[0]);
+            // purge exhausted handles
+            if (XPSPL_PURGE_EXHAUSTED) {
+                foreach ($queues as $_queue) {
+                    foreach ($_queue->storage() as $_node) {
+                        if ($_node[0]->is_exhausted()) {
+                            $_queue->dequeue($_node[0]);
+                        }
                     }
                 }
             }
         }
         // Remove the last signal
         array_pop($this->_signal);
-        return $event;
+        return $signal;
     }
 
     /**
@@ -652,25 +657,18 @@ class Processor {
      *
      * @return  void
      */
-    private function _execute($signal, $queue, $event, $interrupt = true)
+    private function _execute($signal, $queue, $interrupt = true)
     {
-        if ($event->has_expired()) {
-            $this->emit(new processor_signals\Event_Expired(
-                "Event has expired"
-            ),  new processor\event\Error([$event]));
-            return $event;
-        }
         // handle pre interupt functions
         if ($interrupt) {
-            $this->_interrupt($signal, self::INTERRUPT_PRE, $event);
+            $this->_interrupt($signal, self::INTERRUPT_PRE);
         }
         // execute the Queue
-        $this->_queue_execute($queue, $event);
+        $this->_queue_execute($queue, $signal);
         // handle interupt functions
         if ($interrupt) {
-            $this->_interrupt($signal, self::INTERRUPT_POST, $event);
+            $this->_interrupt($signal, self::INTERRUPT_POST);
         }
-        $this->_event_exit($event);
     }
 
     /**
@@ -680,11 +678,11 @@ class Processor {
      * reach exhaustion.
      *
      * @param  object  $queue  XPSPL\Queue
-     * @param  object  $event  XPSPL\Event
+     * @param  object  $signal  XPSPL\Signal
      *
      * @return  void
      */
-    private function _queue_execute($queue, $event)
+    private function _queue_execute($queue, $signal)
     {
         // execute sig handlers
         $queue->sort();
@@ -692,7 +690,7 @@ class Processor {
         foreach ($queue->storage() as $_node) {
             $_handle = $_node[0];
             # Always check state first
-            if ($event->get_state() === STATE_HALTED) {
+            if ($signal->get_state() === STATE_HALTED) {
                 continue;
             }
             # test for exhaustion
@@ -702,11 +700,11 @@ class Processor {
             $_handle->decrement_exhaust();
             $result = $this->_func_exec(
                 $_handle->get_function(),
-                $event
+                $signal
             );
-            $event->set_result($result);
+            $signal->set_result($result);
             if (false === $result) {
-                $event->halt();
+                $signal->halt();
             }
         }
     }
@@ -715,14 +713,14 @@ class Processor {
      * Executes a callable processor function.
      *
      * @param  callable  $function  Function to execute
-     * @param  object  $event  Event context to execute within
+     * @param  object  $signal  Signal context to execute within
      * 
      * @return  boolean
      */
-    private function _func_exec($function, $event)
+    private function _func_exec($function, $signal)
     {
         if ($function instanceof \Closure) {
-            $func = $function->bindTo($event, null);
+            $func = $function->bindTo($signal, null);
             return $func();
         }
         if (is_array($function)) {
@@ -732,11 +730,11 @@ class Processor {
                 } else {
                     $class = new $function[0];
                 }
-                return $class->$function[1]($event);
+                return $class->$function[1]($signal);
             }
-            return $function[0]($event);
+            return $function[0]($signal);
         }
-        return $function($event);
+        return $function($signal);
     }
     
     
@@ -762,19 +760,8 @@ class Processor {
     }
 
     /**
-     * Returns a json encoded array of the event history.
-     *
-     * @return  string
-     */
-    public function event_analysis(/* ... */)
-    {
-        if (!$this->_store_history) return false;
-        return json_encode($this->_event_history());
-    }
-
-    /**
-     * Registers a function to interrupt the signal stack before a signal fires,
-     * allowing for manipulation of the event beore it is passed to handles.
+     * Registers a function to interrupt the signal stack before a signal emits,
+     * allowing for manipulation of the signal before it is passed to handles.
      *
      * @param  string|object  $signal  Signal instance or class name
      * @param  object  $handle  Handle to execute
@@ -787,8 +774,8 @@ class Processor {
     }
 
     /**
-     * Registers a function to interrupt the signal stack after a signal fires,
-     * allowing for manipulation of the event after it is passed to handles.
+     * Registers a function to interrupt the signal stack after a signal emits,
+     * allowing for manipulation of the signal after it is passed to handles.
      *
      * @param  string|object  $signal  Signal instance or class name
      * @param  object  $handle  Handle to execute
@@ -802,7 +789,7 @@ class Processor {
 
     /**
      * Registers a function to interrupt the signal stack before or after a 
-     * signal fires.
+     * signal emits.
      *
      * @param  string|object  $signal
      * @param  object  $handle  Handle to execute
@@ -874,7 +861,7 @@ class Processor {
      * 
      * @return  boolean
      */
-    private function _interrupt($signal, $type, $event)
+    private function _interrupt($signal, $type)
     {
         // do nothing no interrupts registered
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$type])) {
@@ -924,7 +911,7 @@ class Processor {
             }
         }
         if (null !== $queue) {
-            $this->_queue_execute($queue, $event);
+            $this->_queue_execute($queue, $signal);
         }
     }
 
@@ -1073,24 +1060,5 @@ class Processor {
             return $this->_signal[0];
         }
         return array_slice($this->_signal, $offset, 1)[0];
-    }
-
-    /**
-     * Returns the current event.
-     *
-     * @param  integer  $offset  In memory hierarchy offset +/-.
-     *
-     * @return  object  \XPSPL\Event
-     */
-    public function current_event($offset = 0)
-    {
-        $count = count($this->_event);
-        if ($count === 0) {
-            return null;
-        }
-        if ($count === 1) {
-            return $this->_event[0];
-        }
-        return array_slice($this->_event, $offset, 1)[0];
     }
 }

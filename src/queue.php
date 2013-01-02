@@ -9,13 +9,6 @@ namespace XPSPL;
 use \InvalidArgumentException;
 
 /**
- * Defines the maximum number of handlers allowed within a Queue.
- */
-if (!defined('QUEUE_MAX_SIZE')) {
-    define('QUEUE_MAX_SIZE', 24);
-}
-
-/**
  * Defines the default priority of queue nodes
  */
 if (!defined('QUEUE_DEFAULT_PRIORITY')) {
@@ -65,11 +58,6 @@ class Queue {
      */
     public function enqueue($node, $priority = null)
     {
-        if ($this->count() > QUEUE_MAX_SIZE) {
-            throw new \OverflowException(
-                'Queue max size reached'
-            );
-        }
         $this->_dirty = true;
         if (null === $priority || !is_int($priority)) {
             $priority = $this->_priority;

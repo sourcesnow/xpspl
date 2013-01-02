@@ -28,12 +28,11 @@ function create_assertion($function, $name, $message = null) {
  * 
  * @param  object  $function  Test function
  * @param  string  $name  Test name
- * @param  object  $event  XPSPL\unittest\Event
  * 
  * @return  array  [Handle, Signal]
  */
-function test($function, $name = null, $event = null) {
-    $signal = new Test($name, $event);
+function test($function, $name = null) {
+    $signal = new Test($name);
     $handle = signal($signal, $function);
     return [$handle, $signal];
 }
@@ -42,12 +41,13 @@ function test($function, $name = null, $event = null) {
  * Constructs a new unit testing suite.
  * 
  * @param  object  $function  Closure
- * @param  object|null  $event  XPSPL\unittest\Event
  * 
  * @return  void
  */
-function suite($function, $event = null) {
-    return new Suite($function, $event);
+function suite($function) {
+    $suite = new Suite();
+    signal($suite, $function);
+    return $suite;
 }
 
 /**
@@ -75,7 +75,8 @@ function generate_output() {
         $output = Output::instance();
         $tests_run = [];
         foreach (signal_history() as $_node) {
-            if ($_node[0] instanceof Event) {
+            var_dump($_node);
+            if ($_node[0] instanceof Test) {
                 // suites
                 $tests++;
                 if (in_array($_node[0], $tests_run)) continue;

@@ -155,9 +155,9 @@ final class Routine {
      *
      * @return  array
      */
-    public function add_signal($signal, $vars = null, $event = null)
+    public function add_signal($signal, $context = null)
     {
-        return $this->_signals[] = [$signal, $vars, $event];
+        return $this->_signals[] = [$signal, $context];
     }
 
     /**

@@ -6,6 +6,10 @@ namespace unittest;
  * that can be found in the LICENSE file.
  */
 
+if (!defined('SKIP_TESTS_ON_FAILURE')) {
+    define('SKIP_TESTS_ON_FAILURE', true);
+}
+
 /**
  * Unit testing signal
  * 
@@ -20,23 +24,32 @@ namespace unittest;
  *     etc ...
  * });
  */
-class Test extends \XPSPL\signal\Complex {
+class Test extends \XPSPL\Signal {
+
+    /**
+     * Assertion tests ran.
+     */
+    protected $_assertions_ran = []; 
+
+    /**
+     * Assertions run and their results.
+     */
+    protected $_assertion_results = [];
+
+    /**
+     * Quick indication of a failure.
+     */
+    protected $_failed = false;
 
     /**
      * Constructs a new test signal.
      * 
      * @param  string  $name  Name of the test.
-     * @param  object  $event  XPSPL\unittest\Event
      * 
      * @return  void
      */
-    public function __construct($info = null, $event = null)
+    public function __construct($info = null)
     {
-        if (null !== $event && $event instanceof Event) {
-            $this->_event = $event;
-        } else {
-            $this->_event = new Event();
-        }
         $this->_info = $info;
         parent::__construct();
     }
@@ -58,5 +71,81 @@ class Test extends \XPSPL\signal\Complex {
     {
         if ($signal === $this) return true;
         return false;
+    }
+
+    /**
+     * Calls an assertion function.
+     * 
+     * @return  boolean  true
+     */
+    public function __call($func, $args)
+    {
+        $this->_assertions_ran[] = $func;
+        if ($this->_failed && SKIP_TESTS_ON_FAILURE) {
+            Output::instance()->assertion($this, $func, $args, null);
+            return false;
+        } else {
+            try {
+                $call = Assertions::instance()->call_assertion($func, $args, $this);
+            } catch (\BadMethodCallException $e) {
+                $call = null;
+                Output::instance()->unknown_assertion(
+                    $this, $func, $args, $this->_assertions
+                );
+            }
+            if ($call !== true) {
+                $this->_failed = true;
+            }
+            Output::instance()->assertion($this, $func, $args, $call);
+        }
+        // Add call to results
+        $this->_assertion_results[] = [
+            $call, $func, $args, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)
+        ];
+        return $call;
+    }
+
+    /**
+     * Returns the assertion results.
+     * 
+     * @return  array
+     */
+    public function get_assertion_results()
+    {
+        return $this->_assertion_results;
+    }
+
+    /**
+     * Returns the assertions run.
+     * 
+     * @return  array
+     */
+    public function get_assertions_ran()
+    {
+        return $this->_assertions_ran;
+    }
+
+    /**
+     * Checks if the test failed.
+     * 
+     * @return  boolean
+     */
+    public function failed()
+    {
+        return $this->_failed;
+    }
+
+    /**
+     * Sets X number of assertions skipped.
+     *
+     * @param  integer  $number  Number of assertions skipped
+     *
+     * @return  void
+     */
+    public function mark_skipped_assertions($number = 1)
+    {
+        for ($i=0;$i<$number;$i++) {
+            Assertions::instance()->assertion($this, null, null, null);
+        }
     }
 }

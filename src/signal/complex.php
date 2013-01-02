@@ -100,15 +100,8 @@ abstract class Complex extends Standard {
      *
      * @return  void
      */
-    public function signal_this($event = null, $ttl = null)
+    public function signal_this($context = null)
     {
-        if (null !== $event) {
-            if (!$event instanceof \XPSPL\Event) {
-                $this->event(new \XPSPL\Event($ttl));
-            } else {
-                $this->event($event);
-            }
-        }
-        $this->_routine->add_signal($this, $this->event());
+        $this->_routine->add_signal($this, $context);
     }
 }

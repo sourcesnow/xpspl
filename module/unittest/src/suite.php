@@ -11,21 +11,14 @@ namespace unittest;
  * 
  * The suite is designed to run a group of tests together.
  */
-class Suite {
+class Suite extends \XPSPL\signal\Complex {
 
     /**
-     * Event used in the suite.
+     * Test context used in the suite.
      * 
-     * @var  object  \XPSPL\unittest
+     * @var  object  unittest\Test
      */
-    protected $_event = null;
-
-    /**
-     * Processor in use.
-     * 
-     * @var  object  \XPSPL\Processor
-     */
-    protected $_processor = null;
+    protected $_test = null;
 
     /**
      * Setup function.
@@ -45,22 +38,13 @@ class Suite {
      * Constructs a new unit testing suite.
      * 
      * @param  object  $function  Closure
-     * @param  object|null  $event  XPSPL\unittest\Event
      * 
      * @return  void
      */
-    public function __construct($function, $event = null)
+    public function __construct()
     {
-        if (!$function instanceof \Closure) {
-            throw new \InvalidArgumentException(
-                "Suite requires instance of a Closure"
-            );
-        }
-        if (null === $event || !$event instanceof \XPSPL\unitest\Event) {
-            $this->_event = new Event();
-        }
-        $function = $function->bindTo($this);
-        $function();
+        parent::__construct();
+        $this->_test = new Test();
     }
 
     /**
@@ -104,7 +88,10 @@ class Suite {
      * @param  string  $name  Test name
      */
     function test($function, $name = null) {
-        $signal = new Test($name, $this->_event);
+        $signal = new Test($name);
+        $this->_routine->add_signal(
+            $signal, $this->_test
+        );
         $handle = signal($signal, $function);
         if (null !== $this->_setup) {
             before(
@@ -117,5 +104,14 @@ class Suite {
             );
         }
         return [$signal, $handle];
+    }
+
+    /**
+     * Routine function
+     */
+    public function routine($history = null)
+    {
+        $this->signal_this();
+        return true;
     }
 }
