@@ -58,26 +58,3 @@ $data = ob_get_contents();
 ob_end_clean();
 file_put_contents('performance_chart.html', $data);
 echo "Performance chart in performance_chart.html".PHP_EOL;
-// $avg = function($array) {
-//     $total = 0.00;
-//     foreach ($array as $_c) { $total += $_c; }
-//     return round(count($array) / $total, 8);
-// };
-// $output->send_linebreak();
-// foreach ($results as $_test => $_results) {
-//     $output::send(sprintf(
-//         'Test %s results',
-//         $_test
-//     ));
-//     $output->send_linebreak();
-//     foreach ($_results as $_size => $_total) {
-//         $output::send(sprintf(
-//             'Size : %s',
-//             $_size
-//         ));
-//         $output::send(sprintf(
-//             'Time : %s',
-//             $avg($_total)
-//         ));
-//     }
-// }
