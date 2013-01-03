@@ -12,7 +12,7 @@ namespace XPSPL;
  * Added in v2.0.0
  * 
  * The listener allows for registering a class into the processor establishing 
- * handles for each publicly defined method name.
+ * handles for each publicly defined method names.
  */
 class Listener {
 
@@ -36,7 +36,7 @@ class Listener {
             if (isset($this->$_signal)) {
                 $_signal = eval($this->{$_signal});
             }
-            $this->_signals[] = $_signal;
+            $this->_signals[] = [$_signal, [$this, $_signal]];
         }
     }
 
