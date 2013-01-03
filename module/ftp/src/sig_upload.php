@@ -113,6 +113,10 @@ class SIG_Upload extends \XPSPL\signal\Complex {
             }
             // Cleanup once finished
             if (count($this->_uploading) == 0) {
+                emit(
+                    new SIG_Finished(), 
+                    new EV_Finished($this)
+                );
                 delete_signal($this);
                 delete_signal($this->_sig_complete);
                 delete_signal($this->_sig_failure);

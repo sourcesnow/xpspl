@@ -40,11 +40,11 @@ function upload($files, $options, $callback = null)
  * @param  object  $upload  Upload signal object.
  * @param  callable  $callable  Function to call.
  *
- * @return  void
+ * @return  object  Process
  */
 function complete(SIG_Upload $upload, $callback)
 {
-    signal($upload->SIG_Complete(), $callback);
+    return signal($upload->SIG_Complete(), $callback);
 }
 
 /**
@@ -53,9 +53,21 @@ function complete(SIG_Upload $upload, $callback)
  * @param  object  $upload  Upload signal object.
  * @param  callable  $callable  Function to call.
  *
- * @return  void
+ * @return  object  Process
  */
 function failure(SIG_Upload $upload, $callback)
 {
-    signal($upload->SIG_Failure(), $callback);
+    return signal($upload->SIG_Failure(), $callback);
+}
+
+/**
+ * Installs a process to run when an upload finishes completely.
+ *
+ * @param  callable  $callback  Callback function to call.
+ *
+ * @return  object  Process
+ */
+function finished($callback)
+{
+    return signal(new SIG_Finished, $callback);
 }
