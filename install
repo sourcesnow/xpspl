@@ -40,12 +40,12 @@ install() {
         rm "$BINPATH/XPSPL"
     fi;
     echo "Installed XPSPL to $INSTALL_PATH/XPSPL"
-    echo "Installed executable to $BINPATH/XPSPL"
-    ln -s "$INSTALL_PATH/XPSPL/bin/XPSPL" "$BINPATH"
-    XPSPL -v
+    echo "Installed executable to $BINPATH/xpspl"
+    ln -s "$INSTALL_PATH/XPSPL/bin/xpspl" "$BINPATH"
+    xpspl -v
     echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
     echo "Running Unit Tests"
-    XPSPL --test
+    xpspl --test
     echo "Enjoy"
     echo "Install finished"
     echo "Cleaning up"
