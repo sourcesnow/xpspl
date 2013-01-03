@@ -36,8 +36,8 @@ install() {
     fi;
     mkdir $INSTALL_PATH/XPSPL
     cp -Rf * "$INSTALL_PATH/XPSPL"
-    if [ -f "$BINPATH/XPSPL" ]; then
-        rm "$BINPATH/XPSPL"
+    if [ -f "$BINPATH/xpspl" ]; then
+        rm "$BINPATH/xpspl"
     fi;
     echo "Installed XPSPL to $INSTALL_PATH/XPSPL"
     echo "Installed executable to $BINPATH/xpspl"
