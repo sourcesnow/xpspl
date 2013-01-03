@@ -216,4 +216,14 @@ class SIG_Upload extends \XPSPL\signal\Complex {
     {
         return $this->_sig_failure;
     }
+
+    /**
+     * Returns the files that were uploaded.
+     *
+     * @return  array
+     */
+    public function get_uploaded_files(/* ... */)
+    {
+        return $this->_uploaded;
+    }
 }
