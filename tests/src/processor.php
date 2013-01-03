@@ -142,15 +142,15 @@ unittest\suite(function(){
     }, 'flush');
 
     $this->test(function(){
-        $handle = $this->processor->signal('test', function(){});
-        $this->instanceof($handle, 'XPSPL\Handle');
+        $process = $this->processor->signal('test', function(){});
+        $this->instanceof($process, 'XPSPL\Handle');
         $queue = $this->processor->search_signals('test');
         $this->count($queue->storage(), 1);
         $this->false($this->processor->has_signal_exhausted('test'));
-        $this->processor->remove_handle('test', $handle);
+        $this->processor->remove_process('test', $process);
         $this->count($queue->storage(), 0);
         $this->true($this->processor->has_signal_exhausted('test'));
-    }, 'handle,handle_remove');
+    }, 'process,process_remove');
 
     $this->test(function(){
         class TL extends XPSPL\Listener {

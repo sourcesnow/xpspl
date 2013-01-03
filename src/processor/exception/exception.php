@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\processor\signal;
+namespace XPSPL\processor\exception;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,9 +8,9 @@ namespace XPSPL\processor\signal;
 
 
 /**
- * The error event
+ * The Exception.
  */
-class Error extends Base  {
+class Exception extends Base  {
 
     /**
      * Error message

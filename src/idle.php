@@ -43,18 +43,17 @@ abstract class Idle {
      * Idle's the processor.
      *
      * This function is purely responsible for providing the processor the ability
-     * to idle, typically this will be done through either a call to sleep or a
-     * wait with a specific timeout.
+     * to idle.
      *
      * This method is provided an instance of the processor which is wishing to 
      * idle and should respect the processors current specifications for the amount
-     * of time that it needs to idle, if set.
+     * of time that it needs to idle if it knows.
      *
-     * You have been warned that,
+     * You have been warned ...
      *
      * Creating a function that does not properly idle, does not respect the
      * processor specs or is poorly designed will result in terrible performance, 
-     * unexpected results and damage to your system ... use caution.
+     * unexpected results and damaging to your system ... use caution.
      * 
      * @param  object  $processor  The processor that wishes to idle.
      *

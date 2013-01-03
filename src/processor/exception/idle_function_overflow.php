@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\processor\signal;
+namespace XPSPL\processor\exception;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,6 +8,6 @@ namespace XPSPL\processor\signal;
 
 
 /**
- * Exception encountered during handle execution
+ * Maximum number of idle functions exceeded.
  */
-class Handle_Exception extends Error {}
+class Idle_Function_Overflow extends Error {}

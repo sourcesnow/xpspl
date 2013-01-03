@@ -8,14 +8,14 @@ namespace XPSPL;
 
 use \Closure,
     \InvalidArgumentException,
-    \XPSPL\processor\signal as processor_signals;
+    \XPSPL\processor\exception as exceptions;
 
 /**
  * Processor
  *
  * The brainpower of XPSPL.
  * 
- * As of v0.3.0 the loop is now run in respect to the currently available handles,
+ * As of v0.3.0 the loop is now run in respect to the currently available processs,
  * this prevents the processor from running contionusly forever when there isn't anything
  * that it needs to do.
  *
@@ -60,18 +60,6 @@ class Processor {
     private $_routines = [];
 
     /**
-     * Signal exceptions rather than throwing them.
-     *
-     * @var  boolean
-     */
-    private $_signal_exception = null;
-
-    /**
-     * Signal registered for the processor exception signals.
-     */
-    private $_processor_handle_signal = null;
-
-    /**
      * Currently executing signal and hierachy
      */
     private $_signal = [];
@@ -88,79 +76,8 @@ class Processor {
         if ($signal_history === false) {
             $this->_history = false;
         }
-        // gc_enable();
-        $this->_register_error_handler();
         $this->set_state(STATE_DECLARED);
         $this->flush(); 
-    }
-
-    /**
-     * Registers the processor error signal handler.
-     *
-     * TODO
-     * Create a suitable error handler
-     * 
-     * @return  void
-     */
-    protected function _register_error_handler()
-    {
-        if (null === $this->_processor_handle_signal) {
-            $this->_processor_handle_signal = new \XPSPL\processor\signal\Processor_Errors();
-        } else {
-            $queue = $this->search_signals($this->_processor_handle_signal);
-            if ($queue->count() !== 0) {
-                return true;
-            }
-        }
-        // TODO allow for specifing a context for the event rather than the 
-        // event itself and recieve it as the first parameter
-        $processor = $this;
-        $this->signal($this->_processor_handle_signal, function() use ($processor){
-            $exception = $processor->current_signal()->get_exception();
-            if (null !== $exception) {
-                $trace = array_reverse($exception->getTrace());
-                $error = get_class_name($exception);
-                $message = $exception->getMessage();
-                $line = $exception->getLine();
-                $file = $exception->getFile();
-            } else {
-                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-                $stack = array_pop($trace);
-                $message = $processor->current_signal()->get_error();
-                $error = get_class_name($processor->current_signal());
-                $file = $stack['file'];
-                $line = $stack['line'];
-            }
-            $stacktrace = '';
-            $i=0;
-            foreach ($trace as $_trace) {
-                if (!isset($_trace['file']) 
-                    || strpos($_trace['file'], XPSPL_PATH) === false) {
-                    $stacktrace .= sprintf(
-                        $i.': # %s:%s(%s)'.PHP_EOL,
-                        (isset($_trace['file'])) ? $_trace['file'] : '-',
-                        (isset($_trace['line'])) ? $_trace['line'] : '-',
-                        ((isset($_trace['class'])) 
-                            ? $_trace['class'] . $_trace['type'] : '') 
-                        . $_trace['function']
-                    );
-                    $i++;
-                }
-            }
-            echo sprintf(
-                'Exception: %s'.PHP_EOL.''
-                .'Message: %s'.PHP_EOL.''
-                .'Line: %s'.PHP_EOL.''
-                .'File: %s'.PHP_EOL.''
-                .'Trace:'.PHP_EOL.''
-                .'%s',
-                $error,
-                $message,
-                $line,
-                $file,
-                $stacktrace
-            );
-        });
     }
 
     /**
@@ -230,45 +147,40 @@ class Processor {
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
         foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
-            try {
-                // Run the routine
-                $_routine = $_node[0]->routine($this->_history);
-                // Did it return true
-                if (true === $_routine) {
-                    $_routine = $_node[0]->get_routine();
-                    // Is the routine a routine?
-                    if (!$_routine instanceof Routine) {
-                        throw new \Exception(sprintf(
-                            "%s did not return a routine",
-                            get_class($_node[0])
-                        ));
-                    }
-                    // Get all required data and reset the routine
-                    $_signals = $_routine->get_signals();
-                    $_idle = $_routine->get_idle();
-                    $_routine->reset();
-                    // Check signals
-                    if (null !== $_signals && count($_signals) != 0) {
-                        foreach ($_signals as $__signal) {
-                            list($__sig, $__context) = $__signal;
-                            // ensure it has not exhausted
-                            if (false === $this->has_signal_exhausted($__sig)) {
-                                $return = true;
-                                $this->_routine->add_signal($__sig, $__context);
-                            }
+            // Run the routine
+            $_routine = $_node[0]->routine($this->_history);
+            // Did it return true
+            if (true === $_routine) {
+                $_routine = $_node[0]->get_routine();
+                // Is the routine a routine?
+                if (!$_routine instanceof Routine) {
+                    throw new \Exception(sprintf(
+                        "%s did not return a routine",
+                        get_class($_node[0])
+                    ));
+                }
+                // Get all required data and reset the routine
+                $_signals = $_routine->get_signals();
+                $_idle = $_routine->get_idle();
+                $_routine->reset();
+                // Check signals
+                if (null !== $_signals && count($_signals) != 0) {
+                    foreach ($_signals as $__signal) {
+                        list($__sig, $__context) = $__signal;
+                        if (!$return) {
+                            $return = true;
                         }
-                    }
-                    // Check for an idle function
-                    if (null !== $_idle) {
-                        $return = true;
-                        $this->_routine->add_idle($_idle);
+                        $this->_routine->add_signal(
+                            $__sig, 
+                            $__context
+                        );
                     }
                 }
-            // Catch any problems that happended and emit them
-            } catch (\Exception $e) {
-                $this->emit(new processor_signals\Routine_Calculation_Error(
-                    "An error has occured during a routine calculation"
-                ),  new processor\event\Error([$e, $_node]));
+                // Check for an idle function
+                if (null !== $_idle) {
+                    $return = true;
+                    $this->_routine->add_idle($_idle);
+                }
             }
         }
         return $return;
@@ -303,7 +215,7 @@ class Processor {
     }
 
     /**
-     * Determine if all queue handles are exhausted.
+     * Determine if all queue processs are exhausted.
      *
      * @param  object  $queue  \XPSPL\Queue
      * 
@@ -316,7 +228,7 @@ class Processor {
         }
         $queue->reset();
         while($queue->valid()) {
-            // if a non exhausted handle is found return false
+            // if a non exhausted process is found return false
             if (!$queue->current()[0]->is_exhausted()) {
                 return false;
             }
@@ -326,20 +238,20 @@ class Processor {
     }
 
     /**
-     * Removes a signal handler.
+     * Removes a signal processr.
      *
      * @param  mixed  $signal  Signal instance or signal.
-     * @param  mixed  $handle  Handle instance or identifier.
+     * @param  mixed  $process  Handle instance or identifier.
      * 
      * @return  void
      */
-    public function remove_handle($signal, $handle)
+    public function remove_process($signal, $process)
     {
         $queue = $this->search_signals($signal);
         if (null === $queue) {
             return;
         }
-        return $queue->dequeue($handle);
+        return $queue->dequeue($process);
     }
 
     /**
@@ -354,7 +266,6 @@ class Processor {
             $this->_history = [];
         }
         $this->set_state(STATE_DECLARED);
-        // gc_collect_cycles();
     }
 
     /**
@@ -373,33 +284,33 @@ class Processor {
     }
 
     /**
-     * Creates a new signal handler.
+     * Creates a new signal processr.
      *
-     * @param  string|int|object  $signal  Signal to attach the handle.
-     * @param  object  $callable  Signal handler
+     * @param  string|int|object  $signal  Signal to attach the process.
+     * @param  object  $callable  Signal processr
      *
      * @return  object|boolean  Handle, boolean if error
      */
-    public function signal($signal, $handle)
+    public function signal($signal, $process)
     {
-        if (!$handle instanceof Handle) {
-            if (!is_callable($handle)) {
-                $this->emit(new processor_signals\Invalid_Handle(
-                       "Invalid handle given to the handle method" 
+        if (!$process instanceof Handle) {
+            if (!is_callable($process)) {
+                $this->emit(new exceptions\Invalid_Handle(
+                       "Invalid process given to the process method" 
                     ), new processor\event\Error([func_get_args()])
                 );
                 return false;
             }
-            $handle = new Handle($handle);
+            $process = new Handle($process);
         }
         $queue = $this->register_signal($signal);
         if (false !== $queue) {
             if (is_array($queue)) {
                 $queue = $queue[0][0];
             }
-            $queue->enqueue($handle, $handle->get_priority());
+            $queue->enqueue($process, $process->get_priority());
         }
-        return $handle;
+        return $process;
     }
 
     /**
@@ -417,9 +328,10 @@ class Processor {
             try {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
-                $this->emit(new processor_signals\Invalid_Signal(
-                    "Invalid signal given to register"
-                ),  new processor\event\Error([$exception, $signal]));
+                throw new exceptions\Invalid_Signal(
+                    "Invalid signal given to register", 
+                    [$exception, $signal]
+                );
                 return false;
             }
         }
@@ -514,9 +426,10 @@ class Processor {
         // event creation
         if (!$event instanceof Event) {
             if (null !== $event) {
-                $this->emit(new processor_signals\Invalid_Event(
-                    "Invalid event passed for execution"
-                ),  new processor\event\Error($event));
+                throw new exceptions\Invalid_Event(
+                    "Invalid event passed for execution", 
+                    $event
+                );
             }
             $event = new Event($ttl);
         } else {
@@ -627,7 +540,7 @@ class Processor {
             // execute the signal
             $this->_execute((null === $context) ? $signal : $context, $queue);
 
-            // purge exhausted handles
+            // purge exhausted processs
             if (XPSPL_PURGE_EXHAUSTED) {
                 foreach ($queues as $_queue) {
                     foreach ($_queue->storage() as $_node) {
@@ -659,13 +572,13 @@ class Processor {
      */
     private function _execute($signal, $queue, $interrupt = true)
     {
-        // handle pre interupt functions
+        // process pre interupt functions
         if ($interrupt) {
             $this->_interrupt($signal, self::INTERRUPT_PRE);
         }
         // execute the Queue
         $this->_queue_execute($queue, $signal);
-        // handle interupt functions
+        // process interupt functions
         if ($interrupt) {
             $this->_interrupt($signal, self::INTERRUPT_POST);
         }
@@ -674,7 +587,7 @@ class Processor {
     /**
      * Executes a queue.
      *
-     * If XPSPL_EXHAUSTION_PURGE is true handles will be purged once they 
+     * If XPSPL_EXHAUSTION_PURGE is true processs will be purged once they 
      * reach exhaustion.
      *
      * @param  object  $queue  XPSPL\Queue
@@ -684,22 +597,22 @@ class Processor {
      */
     private function _queue_execute($queue, $signal)
     {
-        // execute sig handlers
+        // execute sig processrs
         $queue->sort();
         reset($queue->storage());
         foreach ($queue->storage() as $_node) {
-            $_handle = $_node[0];
+            $_process = $_node[0];
             # Always check state first
             if ($signal->get_state() === STATE_HALTED) {
                 continue;
             }
             # test for exhaustion
-            if ($_handle->is_exhausted()) {
+            if ($_process->is_exhausted()) {
                 continue;
             }
-            $_handle->decrement_exhaust();
+            $_process->decrement_exhaust();
             $result = $this->_func_exec(
-                $_handle->get_function(),
+                $_process->get_function(),
                 $signal
             );
             $signal->set_result($result);
@@ -761,30 +674,30 @@ class Processor {
 
     /**
      * Registers a function to interrupt the signal stack before a signal emits,
-     * allowing for manipulation of the signal before it is passed to handles.
+     * allowing for manipulation of the signal before it is passed to processs.
      *
      * @param  string|object  $signal  Signal instance or class name
-     * @param  object  $handle  Handle to execute
+     * @param  object  $process  Handle to execute
      * 
      * @return  boolean  True|False false is failure
      */
-    public function before($signal, $handle)
+    public function before($signal, $process)
     {
-        return $this->_signal_interrupt($signal, $handle, self::INTERRUPT_PRE);
+        return $this->_signal_interrupt($signal, $process, self::INTERRUPT_PRE);
     }
 
     /**
      * Registers a function to interrupt the signal stack after a signal emits,
-     * allowing for manipulation of the signal after it is passed to handles.
+     * allowing for manipulation of the signal after it is passed to processs.
      *
      * @param  string|object  $signal  Signal instance or class name
-     * @param  object  $handle  Handle to execute
+     * @param  object  $process  Handle to execute
      * 
      * @return  boolean  True|False false is failure
      */
-    public function after($signal, $handle)
+    public function after($signal, $process)
     {
-        return $this->_signal_interrupt($signal, $handle, self::INTERRUPT_POST);
+        return $this->_signal_interrupt($signal, $process, self::INTERRUPT_POST);
     }
 
     /**
@@ -792,28 +705,30 @@ class Processor {
      * signal emits.
      *
      * @param  string|object  $signal
-     * @param  object  $handle  Handle to execute
+     * @param  object  $process  Handle to execute
      * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
      * 
      * @return  boolean  True|False false is failure
      */
-    protected function _signal_interrupt($signal, $handle, $interrupt = null) 
+    protected function _signal_interrupt($signal, $process, $interrupt = null) 
     {
         // Variable Checks
-        if (!$handle instanceof Handle) {
-            if (!is_callable($handle)) {
-                $this->emit(new processor_signals\Invalid_Handle(
-                    "Invalid handle given for signal interruption"
-                ),  new processor\event\Error($handle));
+        if (!$process instanceof Handle) {
+            if (!is_callable($process)) {
+                throw new exceptions\Invalid_Handle(
+                    "Invalid process given for signal interruption", 
+                    $process
+                );
                 return false;
             } else {
-                $handle = new Handle($handle);
+                $process = new Handle($process);
             }
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
-            $this->emit(new processor_signals\Ivalid_Signal(
-                "Invalid signal given for signal interruption"
-            ), new processor\event\Error($signal));
+            throw new exceptions\Ivalid_Signal(
+                "Invalid signal given for signal interruption",
+                $signal
+            );
             return false;
         }
         if (null === $interrupt) {
@@ -821,9 +736,10 @@ class Processor {
         }
         if ($interrupt != self::INTERRUPT_PRE && 
             $interrupt != self::INTERRUPT_POST) {
-            $this->emit(new processor_signals\Invalid_Interrupt(
-                "Invalid interruption location"
-            ), new processor\event\Error($interrupt));
+            throw new exceptions\Invalid_Interrupt(
+                "Invalid interruption location",
+                $interrupt
+            );
         }
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
             $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
@@ -831,7 +747,7 @@ class Processor {
         $storage =& $this->_storage[self::INTERRUPT_STORAGE][$interrupt];
         if ($signal instanceof signal\Complex) {
             $storage[self::COMPLEX_STORAGE][] =  [
-                $signal, $handle
+                $signal, $process
             ];
         } else {
             if ($signal instanceof Signal) {
@@ -847,7 +763,7 @@ class Processor {
                 $storage[self::HASH_STORAGE][$name] = [];
             }
             $storage[self::HASH_STORAGE][$name][] = [
-                $signal, $handle
+                $signal, $process
             ];
         }
         return true;
@@ -967,9 +883,10 @@ class Processor {
             }
         } else {
             if (!is_string($signal) && !is_int($signal)) {
-                $this->emit(new processor_signals\Invalid_Signal(
-                    "Delete signal"
-                ), new processor\event\Error($signal));
+                throw new exceptions\Invalid_Signal(
+                    "Delete signal",
+                    $signal
+                );
                 return false;
             }
             $info = $signal;

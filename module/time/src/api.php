@@ -13,7 +13,7 @@ namespace time;
  * @param  callable  $callback  Callable function.
  * @param  integer  $instruction  The time instruction. Default = Milliseconds
  *
- * @return  array  [signal, handle]
+ * @return  array  [signal, process]
  */
 function awake($time, $callback, $instruction = TIME_SECONDS)
 {
@@ -27,7 +27,7 @@ function awake($time, $callback, $instruction = TIME_SECONDS)
  * @param  string  $cron  CRON Expression
  * @param  callable  $callback  Callback function to run
  *
- * @return  array [signal, handle]
+ * @return  array [signal, process]
  */
 function CRON($cron, $callback)
 {

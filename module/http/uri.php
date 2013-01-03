@@ -34,7 +34,7 @@ if(!defined('REQUEST_METHOD')) {
 }
 
  /**
-  * Signal HTTP Request URI's to a handle.
+  * Signal HTTP Request URI's to a process.
   * URIs are matched using the "/path/:param" syntax.
   * Parameters by default allow for any alphanumeric and _-+ chars.
   * 
@@ -63,7 +63,7 @@ if(!defined('REQUEST_METHOD')) {
   * -------
   * /blog/user/4564
   * 
-  * Multiple routes for a single handle
+  * Multiple routes for a single process
   * -------
   * Uri([
   *  '/blog/:user/:post',
@@ -75,7 +75,7 @@ if(!defined('REQUEST_METHOD')) {
   * /blog/username/this-is-a-post-title
   * /post/username/this-is-a-post-title
   * 
-  * Multiple routes for a single handle w/ custom regex parameters
+  * Multiple routes for a single process w/ custom regex parameters
   * -------
   * Uri([
   *  ['/blog/:user/:post', ['user'=>'[\w]{4,8}','post'=>'[\d]{1,8}']],
@@ -108,8 +108,8 @@ class Uri extends \XPSPL\signal\Complex {
     /**
      * Configures a new URI signal.
      * 
-     * @param  string  $uri  URI of request to handle.
-     * @param  string|array  $method  Type of request to handle.
+     * @param  string  $uri  URI of request to process.
+     * @param  string|array  $method  Type of request to process.
      * @param  object  $event  XPSPL\http\Event object
      */
     public function __construct($uri, $method = null, $event = null) 

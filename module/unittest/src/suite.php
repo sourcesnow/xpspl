@@ -92,7 +92,7 @@ class Suite extends \XPSPL\signal\Complex {
         $this->_routine->add_signal(
             $signal, $this->_test
         );
-        $handle = signal($signal, $function);
+        $process = signal($signal, $function);
         if (null !== $this->_setup) {
             before(
                 $signal, $this->_setup
@@ -103,7 +103,7 @@ class Suite extends \XPSPL\signal\Complex {
                 $signal, $this->_teardown
             );
         }
-        return [$signal, $handle];
+        return [$signal, $process];
     }
 
     /**

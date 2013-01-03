@@ -10,10 +10,10 @@ import('unittest');
 $output = unittest\Output::instance();
 
 $tests = [
-    'Signal Installation' =>
-    function($i){
-        signal($i, function(){}); 
-    },
+    // 'Signal Installation' =>
+    // function($i){
+    //     signal($i, function(){}); 
+    // },
     'Signal Emit' => 
     function($i){
         emit($i);
@@ -22,7 +22,7 @@ $tests = [
 
 $output::send('Beginning performance tests');
 $results = [];
-$average_perform = 10;
+$average_perform = 4;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     for ($i=1;$i<$average_perform;$i++) {
@@ -31,7 +31,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 14);) {
+        for($a=1;$a<(1 << 17);) {
             $a = $a << 1;
             $output::send('Test Size : ' . $a);
             $tc = $a;

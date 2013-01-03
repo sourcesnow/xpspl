@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\processor\signal;
+namespace XPSPL\processor\exception;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,6 +8,6 @@ namespace XPSPL\processor\signal;
 
 
 /**
- * Failed to load a XPSPL module
+ * Deprecated code
  */
-class Module_Load_Failure extends Error {}
+class Deprecated extends Error {}

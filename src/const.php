@@ -24,12 +24,7 @@ if (!defined('XPSPL_SIGNAL_HISTORY')) {
     define('XPSPL_SIGNAL_HISTORY', false);
 }
 
-// signal exceptions not throw
-if (!defined('XPSPL_SIGNAL_EXCEPTIONS')) {
-    define('XPSPL_SIGNAL_EXCEPTIONS', false);
-}
-
-// immediatly removes exhausted handles from the processor
+// immediatly removes an exhausted process from the processor
 if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     define('XPSPL_PURGE_EXHAUSTED', true);
 }
@@ -52,7 +47,7 @@ if (!defined('WINDOWS')) {
 define('TIME_SECONDS', 1);
 define('TIME_MILLISECONDS', 2);
 
-// Default handle exhaustion rate.
+// Default process exhaustion rate.
 if (!defined('EXHAUST_DEFAULT')) {
     define('EXHAUST_DEFAULT', 1);
 }

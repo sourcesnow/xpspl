@@ -13,17 +13,17 @@ namespace XPSPL;
 use \XPSPL\http as http;
 
 /**
- * Attaches a new handle to a URI request.
+ * Attaches a new process to a URI request.
  *
- * @param  string  $uri  URI of request to handle.
+ * @param  string  $uri  URI of request to process.
  * @param  object  $function  Closure function to execute
- * @param  string|array  $method  Request method type to handle.
+ * @param  string|array  $method  Request method type to process.
  * @param  object  $event  XPSPL\http\Event object
  * 
  * @return  object  XPSPL\Handle
  */
 function uri_request($uri, $function, $method = null, $event = null) { 
-    return \XPSPL\handle(new http\Uri(
+    return \XPSPL\process(new http\Uri(
         $uri, $method, $event
     ), $function);
 }

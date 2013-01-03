@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\processor\signal;
+namespace XPSPL\processor\exception;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -8,6 +8,6 @@ namespace XPSPL\processor\signal;
 
 
 /**
- * Expired event triggered for execution
+ * Invalid signal encountered by the processor.
  */
-class Event_Expired extends Error {}
+class Invalid_Signal extends Error {}

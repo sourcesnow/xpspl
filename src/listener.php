@@ -12,7 +12,7 @@ namespace XPSPL;
  * Added in v2.0.0
  * 
  * The listener allows for registering a class into the processor establishing 
- * handles for each publicly defined method name.
+ * processs for each publicly defined method name.
  */
 class Listener {
 
@@ -41,7 +41,7 @@ class Listener {
     }
 
     /**
-     * Returns the sig handlers for this listener.
+     * Returns the sig processrs for this listener.
      *
      * @return  array
      */

@@ -6,9 +6,9 @@
  */
 
 /**
- * Creates a new signal handler.
+ * Creates a new signal processr.
  *
- * @param  string|integer|object  $signal  Signal to attach the handle.
+ * @param  string|integer|object  $signal  Signal to attach the process.
  * @param  object  $callable  Callable
  *
  * @return  object|boolean  Handle, boolean if error
@@ -20,83 +20,83 @@ function signal($signal, $callable)
 }
 
 /**
- * Creates a never exhausting signal handler.
+ * Creates a never exhausting signal processr.
  *
- * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
  *
  * @return  object  Handle
  */
-function null_exhaust($handle)
+function null_exhaust($process)
 {
-    if (!$handle instanceof \XPSPL\Handle) {
-        $handle = new \XPSPL\Handle($handle, null);
-        return $handle;
+    if (!$process instanceof \XPSPL\Handle) {
+        $process = new \XPSPL\Handle($process, null);
+        return $process;
     }
-    $handle->set_exhaust(null);
-    return $handle;
+    $process->set_exhaust(null);
+    return $process;
 }
 
 /**
- * Creates or sets a handle with high priority.
+ * Creates or sets a process with high priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
  *
  * @return  object  Handle
  */
-function high_priority($handle)
+function high_priority($process)
 {
-    return priority($handle, 0);
+    return priority($process, 0);
 }
 
 /**
- * Creates or sets a handle with low priority.
+ * Creates or sets a process with low priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
  *
  * @return  object  Handle
  */
-function low_priority($handle)
+function low_priority($process)
 {
-    return priority($handle, PHP_INT_MAX);
+    return priority($process, PHP_INT_MAX);
 }
 
 /**
- * Sets a handle priority.
+ * Sets a process priority.
  *
- * @param  callable|handle  $handle  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
  * @param  integer  $priority  Priority
  *
  * @return  object  Handle
  */
-function priority($handle, $priority)
+function priority($process, $priority)
 {
-    if (!$handle instanceof \XPSPL\Handle) {
-        $handle = new \XPSPL\Handle($handle);
+    if (!$process instanceof \XPSPL\Handle) {
+        $process = new \XPSPL\Handle($process);
     }
-    $handle->set_priority($priority);
-    return $handle;
+    $process->set_priority($priority);
+    return $process;
 }
 
 
 /**
- * Remove a sig handler.
+ * Remove a sig processr.
  *
- * @param  string|integer|object  $signal  Signal handle is attached to.
- * @param  object  $handle  Handle instance.
+ * @param  string|integer|object  $signal  Signal process is attached to.
+ * @param  object  $process  Handle instance.
  *
  * @return  void
  */
-function remove_handle($signal, $handle)
+function remove_process($signal, $process)
 {
     global $XPSPL;
-    return $XPSPL->remove_handle($signal, $handle);   
+    return $XPSPL->remove_process($signal, $process);   
 }
 
 /**
  * Signals an event.
  *
  * @param  string|integer|object  $signal  Signal or a signal instance.
- * @param  array  $vars  Array of variables to pass the handles.
+ * @param  array  $vars  Array of variables to pass the processs.
  * @param  object  $event  Event
  *
  * @return  object  \XPSPL\Event
@@ -183,32 +183,32 @@ function import($name, $dir = null)
 
 /**
  * Registers a function to interrupt the signal stack before a signal fires,
- * allowing for manipulation of the event before it is passed to handles.
+ * allowing for manipulation of the event before it is passed to processs.
  *
  * @param  string|object  $signal  Signal instance or class name
- * @param  object  $handle  Handle to execute
+ * @param  object  $process  Handle to execute
  * 
  * @return  boolean  True|False false is failure
  */
-function before($signal, $handle)
+function before($signal, $process)
 {
     global $XPSPL;
-    return $XPSPL->before($signal, $handle);
+    return $XPSPL->before($signal, $process);
 }
 
 /**
  * Registers a function to interrupt the signal stack after a signal fires.
- * allowing for manipulation of the event after it is passed to handles.
+ * allowing for manipulation of the event after it is passed to processs.
  *
  * @param  string|object  $signal  Signal instance or class name
- * @param  object  $handle  Handle to execute
+ * @param  object  $process  Handle to execute
  * 
  * @return  boolean  True|False false is failure
  */
-function after($signal, $handle)
+function after($signal, $process)
 {
     global $XPSPL;
-    return $XPSPL->after($signal, $handle);
+    return $XPSPL->after($signal, $process);
 }
 
 /**
@@ -263,7 +263,7 @@ function erase_signal_history($signal)
 }
 
 /**
- * Disables the exception handler.
+ * Disables the exception processr.
  *
  * @param  boolean  $history  Erase any history of exceptions signaled.
  *
@@ -349,10 +349,10 @@ function dir_include($dir, $listen = false, $path = null)
             $data = explode($x, str_replace([$path, '.php'], '', $i));
             $class = array_pop($data);
             $namespace = implode('\\', $data);
-            $handle = $namespace.'\\'.ucfirst($class);
-            if (class_exists($handle, false) && 
-                is_subclass_of($handle, '\XPSPL\Listener')) {
-                listen(new $handle());
+            $process = $namespace.'\\'.ucfirst($class);
+            if (class_exists($process, false) && 
+                is_subclass_of($process, '\XPSPL\Listener')) {
+                listen(new $process());
             }
         }, $_file);
     }
@@ -387,7 +387,7 @@ function current_event($offset = 0)
 /**
  * Call the provided function on processor shutdown.
  * 
- * @param  callable|object  $function  Function or handle object
+ * @param  callable|object  $function  Function or process object
  * 
  * @return  object  \XPSPL\Handle
  */
@@ -399,7 +399,7 @@ function on_shutdown($function)
 /**
  * Call the provided function on processor start.
  * 
- * @param  callable|object  $function  Function or handle object
+ * @param  callable|object  $function  Function or process object
  * 
  * @return  object  \XPSPL\Handle
  */

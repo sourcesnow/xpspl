@@ -146,7 +146,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new handle for disconnections.
+     * Registers a new process for disconnections.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -158,7 +158,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new handle for client read.
+     * Registers a new process for client read.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -170,7 +170,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new handle for client write.
+     * Registers a new process for client write.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -182,7 +182,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new handle for new client connections.
+     * Registers a new process for new client connections.
      *
      * @param  callable  $function  Function to call on connect.
      *

@@ -40,7 +40,7 @@ final class XPSPL extends \XPSPL\Processor {
     /**
      * Initialise the global processor instance.
      *
-     * @param  boolean  $event_history  Store a history of all events.
+     * @param  boolean  $event_history  Store a history of all signals.
      * 
      * @return  object  XPSPL\Processor
      */
@@ -50,16 +50,6 @@ final class XPSPL extends \XPSPL\Processor {
             static::$_instance = new self($event_history);
         }
         return static::$_instance;
-    }
-
-    /**
-     * Returns the current version of XPSPL.
-     *
-     * @return  string
-     */
-    final public static function version(/* ... */)
-    {
-        return XPSPL_VERSION;
     }
 }
 

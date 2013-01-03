@@ -35,7 +35,57 @@ spl_autoload_register(function($class){
     }
 });
 
-// -------------------------------------------------------------------------- \\
+/**
+ * Exception Handler
+ */
+if (!XPSPL_DEBUG) {
+set_exception_handler(function($exception){
+    if (null !== $exception) {
+        $trace = array_reverse($exception->getTrace());
+        $error = get_class_name($exception);
+        $message = $exception->getMessage();
+        $line = $exception->getLine();
+        $file = $exception->getFile();
+    } else {
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $stack = array_pop($trace);
+        $message = $processor->current_signal()->get_error();
+        $error = get_class_name($processor->current_signal());
+        $file = $stack['file'];
+        $line = $stack['line'];
+    }
+    $stacktrace = '';
+    $i=0;
+    $path = str_replace('/..', '', XPSPL_PATH);
+    echo $path;
+    foreach ($trace as $_trace) {
+        if (strstr($_trace['file'], $path) === false) {
+            $stacktrace .= sprintf(
+                $i.': # %s:%s(%s)'.PHP_EOL,
+                (isset($_trace['file'])) ? $_trace['file'] : '-',
+                (isset($_trace['line'])) ? $_trace['line'] : '-',
+                ((isset($_trace['class'])) 
+                    ? $_trace['class'] . $_trace['type'] : '') 
+                . $_trace['function']
+            );
+            $i++;
+        }
+    }
+    echo sprintf(
+        'Exception: %s'.PHP_EOL.''
+        .'Message: %s'.PHP_EOL.''
+        .'Line: %s'.PHP_EOL.''
+        .'File: %s'.PHP_EOL.''
+        .'Trace:'.PHP_EOL.''
+        .'%s',
+        $error,
+        $message,
+        $line,
+        $file,
+        $stacktrace
+    );
+});
+}
 
 /**
  * Returns the current time since epox in milliseconds.
@@ -70,7 +120,7 @@ function microseconds(/* ... */) {
  */
 function signal_exceptions($exception) {
     // \XPSPL\signal(
-    //     new \XPSPL\processor\signal\Error(), 
+    //     new \XPSPL\processor\exception\Error(), 
     //     new \XPSPL\processor\event\Error($exception)
     // );
 }
@@ -91,7 +141,7 @@ function signal_exceptions($exception) {
  */
 function signal_errors($errno, $errstr, $errfile, $errline) {
     // \XPSPL\signal(
-    //     new \XPSPL\processor\signal\Error($errstr), 
+    //     new \XPSPL\processor\exception\Error($errstr), 
     //     new \XPSPL\processor\event\Error([
     //     $errstr, 0, $errno, $errfile, $errline
     // ]));

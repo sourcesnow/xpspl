@@ -33,8 +33,8 @@ function create_assertion($function, $name, $message = null) {
  */
 function test($function, $name = null) {
     $signal = new Test($name);
-    $handle = signal($signal, $function);
-    return [$handle, $signal];
+    $process = signal($signal, $function);
+    return [$process, $signal];
 }
 
 /**

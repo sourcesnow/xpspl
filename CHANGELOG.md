@@ -1,5 +1,8 @@
 ## 3.0.0
 
+* Default exception handler added that removes redudant processor steps
+* Exceptions are now thrown
+* Handle renamed to Process
 * Routine reset no longer resets the idle object.
 * Idle and Routine objects are now in the global XPSPL namespace.
 * Renamed engine\signal\* to processor\SIG_*
