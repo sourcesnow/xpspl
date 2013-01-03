@@ -5,7 +5,7 @@
  */
 $usage = 
 "usage: XPSPL [-c|--config=<file>][-h|--help][-p|--passthru][--test]
-              [--test-cover][-t|--time=<time>][-v|--version]
+              [--test-cover][-t|--time=<time>][-v|--version][--update]
               <file>
 Options:
   -c/--config   Load the giving file for configuration
@@ -39,7 +39,7 @@ if ($runfile != false) {
 $options = getopt(
     'qwert:yuiopasdfghjklzxc:vbnm',
     [
-        'help', 'config:', 'version', 'time:', 'test', 'test-cover'
+        'help', 'config:', 'version', 'time:', 'test', 'test-cover', 'update'
     ]
 );
 $tmp = $argv;
@@ -86,6 +86,16 @@ foreach ($options as $_i => $_arg) {
                 define('GENERATE_CODE_COVERAGE', true);
             }
             $it = false;
+            break;
+        case 'update':
+            fputs(STDOUT, 'Are you sure you want to update? [y/n] ');
+            $stdin = fopen('php://stdin', 'r');
+            $line = fgets($stdin);
+            if(trim($line) == 'y') {
+                exec('sudo '.dirname(realpath(__FILE__)).'/../install');
+                echo "Done".PHP_EOL;
+            }
+            exit(0);
             break;
         default:
             exit(sprintf(
