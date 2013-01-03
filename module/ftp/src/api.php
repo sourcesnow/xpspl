@@ -67,7 +67,7 @@ function failure(SIG_Upload $upload, $callback)
  *
  * @return  object  Process
  */
-function finished($callback)
+function finished(SIG_Upload $upload, $callback)
 {
-    return signal(new SIG_Finished, $callback);
+    return signal($upload->SIG_Finished(), $callback);
 }

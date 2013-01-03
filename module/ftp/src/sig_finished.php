@@ -11,4 +11,8 @@ namespace ftp;
  * 
  * Emitted when a uploaded finishes.
  */
-class SIG_Finished extends \XPSPL\Signal {}
+class SIG_Finished extends \XPSPL\Signal {
+
+    protected $_unique = true;
+
+}
