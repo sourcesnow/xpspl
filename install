@@ -36,16 +36,16 @@ install() {
     fi;
     mkdir $INSTALL_PATH/XPSPL
     cp -Rf * "$INSTALL_PATH/XPSPL"
-    if [ -f "$BINPATH/XPSPL" ]; then
-        rm "$BINPATH/XPSPL"
+    if [ -f "$BINPATH/xpspl" ]; then
+        rm "$BINPATH/xpspl"
     fi;
     echo "Installed XPSPL to $INSTALL_PATH/XPSPL"
-    echo "Installed executable to $BINPATH/XPSPL"
-    ln -s "$INSTALL_PATH/XPSPL/bin/XPSPL" "$BINPATH"
-    XPSPL -v
+    echo "Installed executable to $BINPATH/xpspl"
+    ln -s "$INSTALL_PATH/XPSPL/bin/xpspl" "$BINPATH"
+    xpspl -v
     echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
     echo "Running Unit Tests"
-    XPSPL --test
+    xpspl --test
     echo "Enjoy"
     echo "Install finished"
     echo "Cleaning up"

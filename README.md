@@ -1,36 +1,11 @@
-# Development
+# XPSPL
 
-You are currently in a development branch.
+XPSPL is a high performance signal processing enviornment for the PHP programming language.
 
-This branch is not recommended for production use and may not be backwards 
-compatible.
+XPSPL is not fully documented though it is production ready.
 
-# Recursion
+If you are comfortable analyzing code enjoy the library and contribute to the documentation to help those that come after us.
 
-This branch is for the removal of the circular object reference that currently 
-exists.
+## Documentation
 
-# Contribute
-
-Currently the underlying structure for removal is in place.
-
-The problem that currently exists is keeping the processor self dependent so that 
-it is still possible to extend the processor into its own space without conflicts.
-
-If you are interested in contributing to the recursion contact me through one of 
-the support channels below.
-
-# Documentation & Support
-
-Documentation for this branch currently does not exist.
-
-## Mailing list
-
-[Google Group](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
-
-
-## IRC
-
-```#prggmr``` on ```irc.freenode.net```.
-
-*I am usually idle in the channel when available.*
+XPSPL's documentation is available at http://xpspl.prggmr.org

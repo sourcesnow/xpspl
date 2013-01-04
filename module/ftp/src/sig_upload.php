@@ -58,6 +58,13 @@ class SIG_Upload extends \XPSPL\signal\Complex {
      */
     protected $_sig_failure = null;
 
+     /**
+     * Upload finished signal.
+     *
+     * @var  object
+     */
+    protected $_sig_finished = null;
+
     /**
      * Construct the routine that must be run.
      *
@@ -72,6 +79,7 @@ class SIG_Upload extends \XPSPL\signal\Complex {
         $this->signal_this();
         $this->_sig_complete = new SIG_Complete();
         $this->_sig_failure = new SIG_Failure();
+        $this->_sig_finished = new SIG_Finished();
         $defaults = [
             'hostname' => null,
             'port' => 21,
@@ -113,6 +121,10 @@ class SIG_Upload extends \XPSPL\signal\Complex {
             }
             // Cleanup once finished
             if (count($this->_uploading) == 0) {
+                emit(
+                    $this->_sig_finished, 
+                    new EV_Finished($this)
+                );
                 delete_signal($this);
                 delete_signal($this->_sig_complete);
                 delete_signal($this->_sig_failure);
@@ -211,5 +223,25 @@ class SIG_Upload extends \XPSPL\signal\Complex {
     public function SIG_Failure(/* ... */)
     {
         return $this->_sig_failure;
+    }
+
+    /**
+     * Returns the SIG_Finished signal for this upload.
+     *
+     * @return  object
+     */
+    public function SIG_Finished(/* ... */)
+    {
+        return $this->_sig_finished;
+    }
+
+    /**
+     * Returns the files that were uploaded.
+     *
+     * @return  array
+     */
+    public function get_uploaded_files(/* ... */)
+    {
+        return $this->_uploaded;
     }
 }
