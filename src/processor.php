@@ -241,7 +241,7 @@ class Processor {
      * Removes a signal processr.
      *
      * @param  mixed  $signal  Signal instance or signal.
-     * @param  mixed  $process  Handle instance or identifier.
+     * @param  mixed  $process  Process instance or identifier.
      * 
      * @return  void
      */
@@ -289,19 +289,19 @@ class Processor {
      * @param  string|int|object  $signal  Signal to attach the process.
      * @param  object  $callable  Signal processr
      *
-     * @return  object|boolean  Handle, boolean if error
+     * @return  object|boolean  Process, boolean if error
      */
     public function signal($signal, $process)
     {
-        if (!$process instanceof Handle) {
+        if (!$process instanceof Process) {
             if (!is_callable($process)) {
-                $this->emit(new exceptions\Invalid_Handle(
-                       "Invalid process given to the process method" 
+                $this->emit(new exceptions\Invalid_Process(
+                       "Invalid process given to install" 
                     ), new processor\event\Error([func_get_args()])
                 );
                 return false;
             }
-            $process = new Handle($process);
+            $process = new Process($process);
         }
         $queue = $this->register_signal($signal);
         if (false !== $queue) {
@@ -677,7 +677,7 @@ class Processor {
      * allowing for manipulation of the signal before it is passed to processs.
      *
      * @param  string|object  $signal  Signal instance or class name
-     * @param  object  $process  Handle to execute
+     * @param  object  $process  Process to execute
      * 
      * @return  boolean  True|False false is failure
      */
@@ -691,7 +691,7 @@ class Processor {
      * allowing for manipulation of the signal after it is passed to processs.
      *
      * @param  string|object  $signal  Signal instance or class name
-     * @param  object  $process  Handle to execute
+     * @param  object  $process  Process to execute
      * 
      * @return  boolean  True|False false is failure
      */
@@ -705,7 +705,7 @@ class Processor {
      * signal emits.
      *
      * @param  string|object  $signal
-     * @param  object  $process  Handle to execute
+     * @param  object  $process  Process to execute
      * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
      * 
      * @return  boolean  True|False false is failure
@@ -713,15 +713,14 @@ class Processor {
     protected function _signal_interrupt($signal, $process, $interrupt = null) 
     {
         // Variable Checks
-        if (!$process instanceof Handle) {
+        if (!$process instanceof Process) {
             if (!is_callable($process)) {
-                throw new exceptions\Invalid_Handle(
+                throw new exceptions\Invalid_Process(
                     "Invalid process given for signal interruption", 
                     $process
                 );
-                return false;
             } else {
-                $process = new Handle($process);
+                $process = new Process($process);
             }
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
@@ -737,7 +736,7 @@ class Processor {
         if ($interrupt != self::INTERRUPT_PRE && 
             $interrupt != self::INTERRUPT_POST) {
             throw new exceptions\Invalid_Interrupt(
-                "Invalid interruption location",
+                "Invalid Interruption Step",
                 $interrupt
             );
         }
@@ -770,7 +769,7 @@ class Processor {
     }
 
     /**
-     * Handle signal interuption functions.
+     * Process signal interuption functions.
      * 
      * @param  object  $signal  Signal
      * @param  int  $interupt  Interupt type
@@ -846,7 +845,7 @@ class Processor {
         foreach ($storages as $_storage) {
             if (count($this->_storage[$_storage]) == 0) continue;
             foreach ($this->_storage[$_storage] as $_index => $_node) {
-                if ($_node[1] instanceof Handle && $_node[1]->is_exhausted() ||
+                if ($_node[1] instanceof Process && $_node[1]->is_exhausted() ||
                     $_node[1] instanceof Queue && $this->queue_exhausted($_node[1])) {
                     unset($this->_storage[$_storage][$_index]);
                     if ($history) {

@@ -7,7 +7,7 @@ namespace network;
  */
 
 use \XPSPL\processor\idle as idle,
-    \XPSPL\Handle;
+    \XPSPL\Process;
 
 /**
  * Client

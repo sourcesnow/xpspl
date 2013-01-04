@@ -2,46 +2,76 @@
   <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var sig_inst = [['Time', 'Signals Installed']];
-        var sig_emit = [['Time', 'Signals Emitted']];
-        sig_emit.push([3.814697265625E-5, 2]);
-sig_emit.push([7.3909759521484E-5, 4]);
-sig_emit.push([0.00012803077697754, 8]);
-sig_emit.push([0.0073108673095703, 16]);
-sig_emit.push([0.00053906440734863, 32]);
-sig_emit.push([0.0010209083557129, 64]);
-sig_emit.push([0.002018928527832, 128]);
-sig_emit.push([0.0040440559387207, 256]);
-sig_emit.push([0.0080201625823975, 512]);
-sig_emit.push([0.016390800476074, 1024]);
-sig_emit.push([0.032379150390625, 2048]);
-sig_emit.push([0.10178184509277, 4096]);
-sig_inst.push([0.00014495849609375, 2]);
-sig_inst.push([8.5115432739258E-5, 4]);
-sig_inst.push([0.00015902519226074, 8]);
-sig_inst.push([0.00030612945556641, 16]);
-sig_inst.push([0.00059008598327637, 32]);
-sig_inst.push([0.0011448860168457, 64]);
-sig_inst.push([0.0023050308227539, 128]);
-sig_inst.push([0.0048670768737793, 256]);
-sig_inst.push([0.0099658966064453, 512]);
-sig_inst.push([0.020251035690308, 1024]);
-sig_inst.push([0.044739961624146, 2048]);
-sig_inst.push([0.093821048736572, 4096]);
-        var data_1 = google.visualization.arrayToDataTable(sig_emit);
-        var data_2 = google.visualization.arrayToDataTable(sig_inst);
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data_1, {title: 'Signal Emit'});
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
-        chart.draw(data_2, {title: 'Signal Install'});
-      }
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart(){
+    var ProcessesInstalled = [["Time", "Processes Installed"]];
+ProcessesInstalled.push([5.1975250244141E-5, 2]);
+ProcessesInstalled.push([4.5061111450195E-5, 4]);
+ProcessesInstalled.push([7.7009201049805E-5, 8]);
+ProcessesInstalled.push([0.00014400482177734, 16]);
+ProcessesInstalled.push([0.00027894973754883, 32]);
+ProcessesInstalled.push([0.00055313110351562, 64]);
+ProcessesInstalled.push([0.0012791156768799, 128]);
+ProcessesInstalled.push([0.0025739669799805, 256]);
+ProcessesInstalled.push([0.0046629905700684, 512]);
+ProcessesInstalled.push([0.0092661380767822, 1024]);
+ProcessesInstalled.push([0.019289970397949, 2048]);
+ProcessesInstalled.push([0.04413104057312, 4096]);
+var ProcessesInstalled_graph = google.visualization.arrayToDataTable(ProcessesInstalled);
+var ProcessesInstalled_chart = new google.visualization.LineChart(document.getElementById("ProcessesInstalled"));
+ProcessesInstalled_chart.draw(ProcessesInstalled_graph, {title: "Processes Installed"});
+var SignalsEmitted = [["Time", "Signals Emitted"]];
+SignalsEmitted.push([1.0013580322266E-5, 2]);
+SignalsEmitted.push([1.6927719116211E-5, 4]);
+SignalsEmitted.push([3.4809112548828E-5, 8]);
+SignalsEmitted.push([5.4121017456055E-5, 16]);
+SignalsEmitted.push([9.5129013061523E-5, 32]);
+SignalsEmitted.push([0.00022006034851074, 64]);
+SignalsEmitted.push([0.00041699409484863, 128]);
+SignalsEmitted.push([0.00073599815368652, 256]);
+SignalsEmitted.push([0.0014479160308838, 512]);
+SignalsEmitted.push([0.003018856048584, 1024]);
+SignalsEmitted.push([0.0059199333190918, 2048]);
+SignalsEmitted.push([0.013248920440674, 4096]);
+var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
+var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
+SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Signals Emitted"});
+var InterruptionsInstalled = [["Time", "Interruptions Installed"]];
+InterruptionsInstalled.push([3.6001205444336E-5, 2]);
+InterruptionsInstalled.push([3.0040740966797E-5, 4]);
+InterruptionsInstalled.push([5.4121017456055E-5, 8]);
+InterruptionsInstalled.push([0.00010800361633301, 16]);
+InterruptionsInstalled.push([0.00020599365234375, 32]);
+InterruptionsInstalled.push([0.00040197372436523, 64]);
+InterruptionsInstalled.push([0.00082302093505859, 128]);
+InterruptionsInstalled.push([0.0016410350799561, 256]);
+InterruptionsInstalled.push([0.0033121109008789, 512]);
+InterruptionsInstalled.push([0.0073161125183105, 1024]);
+InterruptionsInstalled.push([0.015161991119385, 2048]);
+InterruptionsInstalled.push([0.033018827438354, 4096]);
+var InterruptionsInstalled_graph = google.visualization.arrayToDataTable(InterruptionsInstalled);
+var InterruptionsInstalled_chart = new google.visualization.LineChart(document.getElementById("InterruptionsInstalled"));
+InterruptionsInstalled_chart.draw(InterruptionsInstalled_graph, {title: "Interruptions Installed"});
+var LoopsPerformed = [["Time", "Loops Performed"]];
+LoopsPerformed.push([2.1934509277344E-5, 2]);
+LoopsPerformed.push([4.0054321289062E-5, 4]);
+LoopsPerformed.push([7.7009201049805E-5, 8]);
+LoopsPerformed.push([0.00014901161193848, 16]);
+LoopsPerformed.push([0.00034093856811523, 32]);
+LoopsPerformed.push([0.0006411075592041, 64]);
+LoopsPerformed.push([0.0012891292572021, 128]);
+LoopsPerformed.push([0.0025918483734131, 256]);
+LoopsPerformed.push([0.0046830177307129, 512]);
+LoopsPerformed.push([0.0093960762023926, 1024]);
+LoopsPerformed.push([0.018944978713989, 2048]);
+LoopsPerformed.push([0.039000988006592, 4096]);
+var LoopsPerformed_graph = google.visualization.arrayToDataTable(LoopsPerformed);
+var LoopsPerformed_chart = new google.visualization.LineChart(document.getElementById("LoopsPerformed"));
+LoopsPerformed_chart.draw(LoopsPerformed_graph, {title: "Loops Performed"});
+    }
     </script>
   </head>
   <body>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
-    <div id="chart_div2" style="width: 900px; height: 500px;"></div>
-  </body>
+    <div id="ProcessesInstalled" style="width: 450px; height: 250px; float:left;"></div><div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div><div id="InterruptionsInstalled" style="width: 450px; height: 250px; float:left;"></div><div id="LoopsPerformed" style="width: 450px; height: 250px; float:left;"></div>  </body>
 </html>

@@ -7,22 +7,32 @@ if (function_exists('xdebug_start_code_coverage')) {
 
 import('unittest');
 
+class Cmp extends \XPSPL\signal\Complex {}
+
 $output = unittest\Output::instance();
 
 $tests = [
-    // 'Signal Installation' =>
-    // function($i){
-    //     signal($i, function(){}); 
-    // },
-    'Signal Emit' => 
+    'Processes Installed' =>
+    function($i){
+        signal($i, function(){}); 
+    },
+    'Signals Emitted' => 
     function($i){
         emit($i);
     },
+    'Interruptions Installed' =>
+    function($i){
+        before($i, function(){}); 
+    },
+    'Loops Performed' => 
+    function($i) {
+        loop();
+    }
 ];
 
 $output::send('Beginning performance tests');
 $results = [];
-$average_perform = 4;
+$average_perform = 100;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     for ($i=1;$i<$average_perform;$i++) {
@@ -31,7 +41,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 17);) {
+        for($a=1;$a<(1 << 12);) {
             $a = $a << 1;
             $output::send('Test Size : ' . $a);
             $tc = $a;

@@ -61,7 +61,7 @@ class Suite extends \XPSPL\signal\Complex {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_setup = new \XPSPL\Handle($function, null);
+        $this->_setup = new \XPSPL\Process($function, null);
     }
 
     /**
@@ -78,7 +78,7 @@ class Suite extends \XPSPL\signal\Complex {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_teardown = new \XPSPL\Handle($function, null);
+        $this->_teardown = new \XPSPL\Process($function, null);
     }
 
     /**

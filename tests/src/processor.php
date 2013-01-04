@@ -16,6 +16,7 @@ unittest\suite(function(){
     $this->teardown(function(){
         unset($this->processor);
     });
+
     $this->test(function(){
         $this->equal($this->processor->get_state(), STATE_DECLARED);
     }, 'Processor Construction');
@@ -100,11 +101,11 @@ unittest\suite(function(){
     
     // $this->test(function(){
     //     $this->processor->enable_signaled_exceptions();
-    //     $this->processor_error_signaled('Invalid_Handle', function(){
+    //     $this->processor_error_signaled('Invalid_Process', function(){
     //         $this->processor->signal('test', null);
     //     });
     //     $this->processor->disable_signaled_exceptions();
-    //     $this->processor_error_not_signaled('Invalid_Handle', function(){
+    //     $this->processor_error_not_signaled('Invalid_Process', function(){
     //         $this->processor->signal('test', null);
     //     });
     // }, 'enable_signaled_exceptions,disable_signaled_exceptions');
@@ -126,7 +127,7 @@ unittest\suite(function(){
     }, 'queue_exhausted');
 
     $this->test(function(){
-        $this->processor->signal('test', new XPSPL\Handle(function(){}, null));
+        $this->processor->signal('test', new XPSPL\Process(function(){}, null));
         $this->processor->emit('test');
         $this->equal($this->processor->get_state(), STATE_DECLARED);
         $this->count($this->processor->signal_history(), 1);
@@ -143,7 +144,7 @@ unittest\suite(function(){
 
     $this->test(function(){
         $process = $this->processor->signal('test', function(){});
-        $this->instanceof($process, 'XPSPL\Handle');
+        $this->instanceof($process, 'XPSPL\Process');
         $queue = $this->processor->search_signals('test');
         $this->count($queue->storage(), 1);
         $this->false($this->processor->has_signal_exhausted('test'));

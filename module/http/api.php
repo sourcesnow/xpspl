@@ -20,7 +20,7 @@ use \XPSPL\http as http;
  * @param  string|array  $method  Request method type to process.
  * @param  object  $event  XPSPL\http\Event object
  * 
- * @return  object  XPSPL\Handle
+ * @return  object  XPSPL\Process
  */
 function uri_request($uri, $function, $method = null, $event = null) { 
     return \XPSPL\process(new http\Uri(

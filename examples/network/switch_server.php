@@ -53,14 +53,14 @@ $connection->on_client(function($client, $server){
 });
 
 /**
- * Handles the video device start signal
+ * Process the video device start signal
  */
 signal(new SIG_Video_Device_Start(), non_exhaust(function($device){
     $device->write(write_video_cmd(false, true));
 }));
 
 /**
- * Handles the video device stop signal
+ * Process the video device stop signal
  */
 signal(new SIG_Video_Device_Stop(), non_exhaust(function($device){
     $device->write(write_video_cmd(false, true));

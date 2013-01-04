@@ -26,6 +26,8 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
  */
 class Test extends \XPSPL\Signal {
 
+    protected $_unique = true;
+
     /**
      * Assertion tests ran.
      */

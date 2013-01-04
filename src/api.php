@@ -11,7 +11,7 @@
  * @param  string|integer|object  $signal  Signal to attach the process.
  * @param  object  $callable  Callable
  *
- * @return  object|boolean  Handle, boolean if error
+ * @return  object|boolean  Process, boolean if error
  */
 function signal($signal, $callable)
 {
@@ -22,14 +22,14 @@ function signal($signal, $callable)
 /**
  * Creates a never exhausting signal processr.
  *
- * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Process object.
  *
- * @return  object  Handle
+ * @return  object  Process
  */
 function null_exhaust($process)
 {
-    if (!$process instanceof \XPSPL\Handle) {
-        $process = new \XPSPL\Handle($process, null);
+    if (!$process instanceof \XPSPL\Process) {
+        $process = new \XPSPL\Process($process, null);
         return $process;
     }
     $process->set_exhaust(null);
@@ -39,9 +39,9 @@ function null_exhaust($process)
 /**
  * Creates or sets a process with high priority.
  *
- * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Process object.
  *
- * @return  object  Handle
+ * @return  object  Process
  */
 function high_priority($process)
 {
@@ -51,9 +51,9 @@ function high_priority($process)
 /**
  * Creates or sets a process with low priority.
  *
- * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Process object.
  *
- * @return  object  Handle
+ * @return  object  Process
  */
 function low_priority($process)
 {
@@ -63,15 +63,15 @@ function low_priority($process)
 /**
  * Sets a process priority.
  *
- * @param  callable|process  $process  PHP Callable or \XPSPL\Handle object.
+ * @param  callable|process  $process  PHP Callable or \XPSPL\Process object.
  * @param  integer  $priority  Priority
  *
- * @return  object  Handle
+ * @return  object  Process
  */
 function priority($process, $priority)
 {
-    if (!$process instanceof \XPSPL\Handle) {
-        $process = new \XPSPL\Handle($process);
+    if (!$process instanceof \XPSPL\Process) {
+        $process = new \XPSPL\Process($process);
     }
     $process->set_priority($priority);
     return $process;
@@ -79,10 +79,10 @@ function priority($process, $priority)
 
 
 /**
- * Remove a sig processr.
+ * Removes an installed signal process.
  *
  * @param  string|integer|object  $signal  Signal process is attached to.
- * @param  object  $process  Handle instance.
+ * @param  object  $process  Process instance.
  *
  * @return  void
  */
@@ -186,7 +186,7 @@ function import($name, $dir = null)
  * allowing for manipulation of the event before it is passed to processs.
  *
  * @param  string|object  $signal  Signal instance or class name
- * @param  object  $process  Handle to execute
+ * @param  object  $process  Process to execute
  * 
  * @return  boolean  True|False false is failure
  */
@@ -201,7 +201,7 @@ function before($signal, $process)
  * allowing for manipulation of the event after it is passed to processs.
  *
  * @param  string|object  $signal  Signal instance or class name
- * @param  object  $process  Handle to execute
+ * @param  object  $process  Process to execute
  * 
  * @return  boolean  True|False false is failure
  */
@@ -389,7 +389,7 @@ function current_event($offset = 0)
  * 
  * @param  callable|object  $function  Function or process object
  * 
- * @return  object  \XPSPL\Handle
+ * @return  object  \XPSPL\Process
  */
 function on_shutdown($function)
 {
@@ -401,7 +401,7 @@ function on_shutdown($function)
  * 
  * @param  callable|object  $function  Function or process object
  * 
- * @return  object  \XPSPL\Handle
+ * @return  object  \XPSPL\Process
  */
 function on_start($function)
 {

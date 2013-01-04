@@ -36,7 +36,7 @@ spl_autoload_register(function($class){
 });
 
 /**
- * Exception Handler
+ * Exception Processr
  */
 if (!XPSPL_DEBUG) {
 set_exception_handler(function($exception){

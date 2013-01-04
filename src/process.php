@@ -11,19 +11,11 @@ use \Closure,
     \RuntimeException;
 
 /**
- * A process is the function which will execute upon a signal call.
- *
- * Though attached to a signal the object itself contains no
- * information on what a signal even is, it is possible to couple
- * it within the object, but the process will unknownly receive an
- * event which contains the same.
- *
- * As of v0.3.0 processs are now designed with an exhausting of 1
- * by default, this is done under the theory that any process which
- * is registered is done so to run at least once, otherwise it wouldn't
- * exist.
+ * Process
+ * 
+ * A process is a callable which will execute when a signal is emitted.
  */
-class Handle {
+class Process {
 
     /**
      * The function that will execute when this process is called.
@@ -31,14 +23,14 @@ class Handle {
     protected $_function = null;
 
     /**
-     * Handle is exhaustion.
+     * Process is exhaustion.
      *
      * @var  integer|null
      */
     protected $_exhaustion = 1;
 
     /**
-     * Handle priority.
+     * Process priority.
      *
      * @var  integer
      */

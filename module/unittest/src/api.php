@@ -29,7 +29,7 @@ function create_assertion($function, $name, $message = null) {
  * @param  object  $function  Test function
  * @param  string  $name  Test name
  * 
- * @return  array  [Handle, Signal]
+ * @return  array  [Process, Signal]
  */
 function test($function, $name = null) {
     $signal = new Test($name);
