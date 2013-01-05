@@ -48,6 +48,6 @@ define('TIME_SECONDS', 1);
 define('TIME_MILLISECONDS', 2);
 
 // Default process exhaustion rate.
-if (!defined('EXHAUST_DEFAULT')) {
-    define('EXHAUST_DEFAULT', 1);
+if (!defined('PROCESS_DEFAULT_EXHAUST')) {
+    define('PROCESS_DEFAULT_EXHAUST', 1);
 }

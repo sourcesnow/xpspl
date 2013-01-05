@@ -41,7 +41,7 @@ class Listener {
     }
 
     /**
-     * Returns the sig processrs for this listener.
+     * Returns the sig processes for this listener.
      *
      * @return  array
      */

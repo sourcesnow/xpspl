@@ -600,11 +600,12 @@ class Processor {
         // execute sig processrs
         $queue->sort();
         reset($queue->storage());
+        $result = null;
         foreach ($queue->storage() as $_node) {
             $_process = $_node[0];
             # Always check state first
             if ($signal->get_state() === STATE_HALTED) {
-                continue;
+                break;
             }
             # test for exhaustion
             if ($_process->is_exhausted()) {
@@ -615,11 +616,12 @@ class Processor {
                 $_process->get_function(),
                 $signal
             );
-            $signal->set_result($result);
             if (false === $result) {
                 $signal->halt();
+                break;
             }
         }
+        $signal->set_result($result);
     }
 
     /**

@@ -13,21 +13,21 @@ use \Closure,
 /**
  * Process
  * 
- * A process is a callable which will execute when a signal is emitted.
+ * A process is the callable which will execute when a signal is emitted.
  */
 class Process {
 
     /**
-     * The function that will execute when this process is called.
+     * The callable that will execute.
      */
-    protected $_function = null;
+    protected $_callable = null;
 
     /**
-     * Process is exhaustion.
+     * Process exhaustion.
      *
      * @var  integer|null
      */
-    protected $_exhaustion = 1;
+    protected $_exhaustion = null;
 
     /**
      * Process priority.
@@ -39,27 +39,25 @@ class Process {
     /**
      * Constructs a new process object.
      *
-     * @param  mixed  $function  A callable php variable.
+     * @param  mixed  $callable  A callable php variable.
      * @param  integer  $exhaust  Count to set process exhaustion.
      * @param  null|integer  $priority  Priority of the process.
      * 
      * @return  void
      */
-    public function __construct($function, $exhaust = EXHAUST_DEFAULT, $priority = null)
+    public function __construct($callable, $exhaust = PROCESS_DEFAULT_EXHAUST, $priority = null)
     {
-        if (null === $function || is_int($function) || is_bool($function)) {
+        if (!is_callable($callable)) {
             throw new \InvalidArgumentException;
         }
+
         // set exhaust rate
         $this->set_exhaust($exhaust);
+        
         // set priority
         $this->set_priority($priority);
-        // unbind the closure if is
-        if ($function instanceof \Closure) {
-            $this->_function = clone $function;
-        } else {
-            $this->_function = $function;
-        }
+
+        $this->_callable = $callable;
     }
 
     /**

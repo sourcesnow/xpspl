@@ -8,6 +8,9 @@ if (function_exists('xdebug_start_code_coverage')) {
 import('unittest');
 
 class Cmp extends \XPSPL\signal\Complex {}
+class Lst extends \XPSPL\Listener {
+    public function foo(){}
+}
 
 $output = unittest\Output::instance();
 
@@ -20,6 +23,14 @@ $tests = [
     function($i){
         emit($i);
     },
+    'Signal Registration' =>
+    function($i){
+        register_signal($i); 
+    },
+    'Listners Installed' => 
+    function($i) {
+        listen(new Lst());
+    },
     'Interruptions Installed' =>
     function($i){
         before($i, function(){}); 
@@ -27,12 +38,62 @@ $tests = [
     'Loops Performed' => 
     function($i) {
         loop();
-    }
+    },
+    'Interruption before emit' => 
+    function($i) {
+        before($i, function(){});
+        emit($i);
+    },
+    'Interruption after emit' => 
+    function($i) {
+        after($i, function(){});
+        emit($i);
+    },
+    'Complex Signal Registration' => 
+    function($i) {
+        register_signal(new Cmp());
+    },
+    'Complex Signal Evaluation' => 
+    function($i, $setup){
+        if ($setup) {
+            signal(new Cmp(), null_exhaust(function(){}));
+        }
+        emit('foo');
+    },
+    'Complex Signal Registration' => 
+    function($i) {
+        register_signal(new Cmp());
+    },
+    'Complex Signal Evaluation' => 
+    function($i, $setup){
+        if ($setup) {
+            signal(new Cmp(), null_exhaust(function(){}));
+        }
+        emit('foo');
+    },
+    'Complex Signal Interruption Before Install' => 
+    function($i, $setup){
+        before(new Cmp(), function(){});
+    },
+    'Complex Signal Interruption After Install' => 
+    function($i, $setup){
+        after(new Cmp(), function(){});
+    },
+    'Complex Signal Interruption Before' => 
+    function($i, $setup){
+        before(new Cmp(), function(){});
+        emit(new Cmp());
+    },
+    'Complex Signal Interruption After' => 
+    function($i, $setup){
+        after(new Cmp(), function(){});
+        emit(new Cmp());
+    },
 ];
 
 $output::send('Beginning performance tests');
 $results = [];
-$average_perform = 100;
+$average_perform = 250;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     for ($i=1;$i<$average_perform;$i++) {
@@ -43,14 +104,18 @@ foreach ($tests as $_test => $_func) {
         ));
         for($a=1;$a<(1 << 12);) {
             $a = $a << 1;
-            $output::send('Test Size : ' . $a);
             $tc = $a;
-            $start = microtime(true);
+            if ($a === 1) {
+                $setup = true;
+            } else {
+                $setup = false;
+            }
             if (!isset($results[$_test][$tc])) {
                 $results[$_test][$tc] = [];
             }
+            $start = microtime(true);
             for ($c=0;$c<$tc;$c++) {
-                $_func($c);
+                $_func($c, $setup);
             }
             $end = microtime(true);
             $results[$_test][$tc][] = $end - $start;
@@ -68,26 +133,3 @@ $data = ob_get_contents();
 ob_end_clean();
 file_put_contents('performance_chart.html', $data);
 echo "Performance chart in performance_chart.html".PHP_EOL;
-// $avg = function($array) {
-//     $total = 0.00;
-//     foreach ($array as $_c) { $total += $_c; }
-//     return round(count($array) / $total, 8);
-// };
-// $output->send_linebreak();
-// foreach ($results as $_test => $_results) {
-//     $output::send(sprintf(
-//         'Test %s results',
-//         $_test
-//     ));
-//     $output->send_linebreak();
-//     foreach ($_results as $_size => $_total) {
-//         $output::send(sprintf(
-//             'Size : %s',
-//             $_size
-//         ));
-//         $output::send(sprintf(
-//             'Time : %s',
-//             $avg($_total)
-//         ));
-//     }
-// }
