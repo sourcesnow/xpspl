@@ -47,7 +47,7 @@ class Queue {
     protected $_priority = QUEUE_DEFAULT_PRIORITY;
 
     /**
-     * Pushes a new processr into the queue.
+     * Pushes a new process into the queue.
      *
      * @param  mixed  $node  Variable to store
      * @param  integer $priority  Priority of the callable

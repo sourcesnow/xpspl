@@ -39,7 +39,7 @@ class Listener extends \XPSPL\Listener
             } else {
                 $_signal = str_replace('on_', '', $_method);
             }
-            $this->_sig_processrs[] = [
+            $this->_sig_processs[] = [
                 array($this, $_method),
                 $_signal
             ];

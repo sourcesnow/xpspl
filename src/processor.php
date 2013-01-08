@@ -238,7 +238,7 @@ class Processor {
     }
 
     /**
-     * Removes a signal processr.
+     * Removes a signal process.
      *
      * @param  mixed  $signal  Signal instance or signal.
      * @param  mixed  $process  Process instance or identifier.
@@ -284,10 +284,10 @@ class Processor {
     }
 
     /**
-     * Creates a new signal processr.
+     * Creates a new signal process.
      *
      * @param  string|int|object  $signal  Signal to attach the process.
-     * @param  object  $callable  Signal processr
+     * @param  object  $callable  Signal process
      *
      * @return  object|boolean  Process, boolean if error
      */
@@ -597,7 +597,7 @@ class Processor {
      */
     private function _queue_execute($queue, $signal)
     {
-        // execute sig processrs
+        // execute sig processs
         $queue->sort();
         reset($queue->storage());
         $result = null;

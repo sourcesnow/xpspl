@@ -45,7 +45,7 @@ abstract class Complex extends Standard {
      * @param  string|integer  $signal  Signal to evaluate
      *
      * @return  boolean|string|array  False on failure. True if matches. String
-     *                                or array indicate results to pass processrs
+     *                                or array indicate results to pass processs
      */
     public function evaluate($signal = null) 
     {
