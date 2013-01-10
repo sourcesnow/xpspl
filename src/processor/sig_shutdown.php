@@ -10,6 +10,6 @@ namespace XPSPL\processor;
 /**
  * SIG_Shutdown
  * 
- * Shutdown of XPSPL.
+ * Signals the shutdown of XPSPL.
  */
-class SIG_Shutdown extends \XPSPL\Signal {}
+class SIG_Shutdown extends \XPSPL\SIG {}

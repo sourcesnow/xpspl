@@ -15,7 +15,7 @@ use \XPSPL\State;
  * 
  * Base class for all XPSPL signals.
  */
-abstract class Standard {
+abstract class SIG_Base {
 
     use State;
 

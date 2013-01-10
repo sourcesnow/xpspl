@@ -10,6 +10,6 @@ namespace XPSPL\processor;
 /**
  * SIG_Startup
  * 
- * Start of XPSPL
+ * Signals the start of XPSPL.
  */
-class SIG_Startup extends \XPSPL\Signal {}
+class SIG_Startup extends \XPSPL\SIG {}

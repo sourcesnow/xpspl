@@ -9,8 +9,11 @@
  * Constants file
  */
 
-// debugging mode disabled by default
+
 if (!defined('XPSPL_DEBUG')) {
+    /**
+     * XPSPL Debug mode
+     */
     define('XPSPL_DEBUG', false);
 }
 

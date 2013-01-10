@@ -15,7 +15,7 @@ use \LogicException,
  * Complex signals are any signals that perform a calculation to determine
  * signals to trigger, idle time or an idle function.
  */
-abstract class Complex extends Standard {
+abstract class SIG_Complex extends SIG_Base {
 
     /**
      * Custom event object for this signal.

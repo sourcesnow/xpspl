@@ -9,13 +9,19 @@ namespace XPSPL;
 use \InvalidArgumentException;
 
 /**
- * As of v0.3.0 the default signal object allows for signals of only strings
- * and integers. 
+ * SIG
+ *
+ * A process signal.
+ *
+ * @since 
  * 
- * Other signal types are considered "complex" and use the 
- * \XPSPL\signal\Complex object.
+ * 0.3.0
+ *
+ * Signals of only strings and integers are allowed.
+ * 
+ * Anything other than a string or integer must be registered as a SIG_Complex.
  */
-class Signal extends \XPSPL\signal\Standard {
+class SIG extends \XPSPL\signal\Standard {
 
     /**
      * Unique signal object.

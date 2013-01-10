@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * The base for any processor exception.
  */
-class Base extends \XPSPL\Signal {}
+class Base extends \XPSPL\SIG {}

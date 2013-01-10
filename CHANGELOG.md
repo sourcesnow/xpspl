@@ -1,5 +1,9 @@
 ## 3.0.0
 
+* signal\Standard renamed to SIG_Base
+* Signal renamed to SIG
+* signal\Complex renamed to SIG_Complex
+* Removed constant XPSPL_ENGINE_EXCEPTIONS
 * Default exception handler added that removes redudant processor steps
 * Exceptions are now thrown
 * Handle renamed to Process

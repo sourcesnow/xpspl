@@ -116,8 +116,6 @@ class Processor {
         }
         $this->emit(new processor\SIG_Startup());
         while($this->_routine()) {
-            // check state
-            if ($this->get_state() === STATE_HALTED) break;
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
@@ -535,11 +533,9 @@ class Processor {
                 }
             });
         }
-
-        if (null !== $queue) {
+        if (null !== $queue && $queue->count() >= 0) {
             // execute the signal
             $this->_execute((null === $context) ? $signal : $context, $queue);
-
             // purge exhausted processs
             if (XPSPL_PURGE_EXHAUSTED) {
                 foreach ($queues as $_queue) {
@@ -648,6 +644,10 @@ class Processor {
                 return $class->$function[1]($signal);
             }
             return $function[0]($signal);
+        }
+        if ($function === null) {
+            debug_print_backtrace();
+            exit(0);
         }
         return $function($signal);
     }
