@@ -6,23 +6,23 @@
  */
 
 /**
- * Registers the given process to have a high priority.
+ * Registers the given process to have a low priority.
  *
- * Processes registered with a high priority will be executed before those with 
- * a low or default priority.
+ * Processes registered with a low priority will be executed after those with 
+ * a high and default priority.
  *
  * This allows for controlling the order of processes rather than using FIFO.
  *
- * A high priority process is useful when multiple processes will execute and it 
- * must always be one of the very first to run.
+ * A low priority process is useful when multiple processes will execute and it 
+ * must always be one of the very last to run.
  *
- * This registers the priority as *0*.
- *
+ * This registers the priority as *PHP_INT_MAX*.
+ * 
  * .. note::
  *
  *    This is not an interruption.
  *    
- *    Installed interruptions will still be executed before a high priority 
+ *    Installed interruptions will still be executed after a low priority 
  *    process.
  *
  * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
@@ -31,24 +31,24 @@
  *
  * @example
  *
- * Installs a process with high priority.
+ * Installs a process with low priority.
  *
  * .. code-block:: php
  * 
  *    <?php
  *    
  *    signal('foo', function(){
- *        echo 'bar';
+ *        echo 'foo';
  *    });
  *    
- *    signal('foo', high_priority(function(){
- *        echo 'foo';
+ *    signal('foo', low_priority(function(){
+ *        echo 'bar';
  *    }));
  *
  *    // results when foo is emitted
  *    // foobar
  */
-function high_priority($process)
+function low_priority($process)
 {
-    return priority(0, $process);
+    return priority(PHP_INT_MAX, $process);
 }

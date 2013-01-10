@@ -6,7 +6,12 @@
  */
 
 /**
- * Installs a new signal processor.
+ * Installs a process to execute when the given signal is emitted.
+ *
+ * .. note::
+ * 
+ *    All processes unless otherwise specified have a default exhaust of 1 and 
+ *    execute in FIFO order.
  *
  * @param  string|integer|object  $signal  Signal to attach the process.
  * @param  object  $callable  Callable
@@ -15,39 +20,51 @@
  *
  * @example
  *
- * This example demonstrates how to do something amazing!
+ * Install a process for the string signal 'foo'.
  *
  * .. code-block:: php
  * 
  *     <?php
  * 
- *     signal(new SIG_Startup(), function(){
- *         echo 'Doing something on startup';
+ *     signal('foo', function(){
+ *         echo 'foo was just emitted';
  *     });
  *
  * @example
  *
- * This demonstrates how to do something even more amazing!
+ * Install a process for the XPSPL startup object signal.
  *
  * .. code-block:: php
  *
  *     <?php
  *
- *     signal(new SIG_Shutdown(), null_exhaust(function(){
+ *     signal(new \XPSPL\processor\SIG_Startup(), function(){
  *         echo "I NEVER EXHAUST!!";
- *     }))
+ *     });
  *
  * @example
  *
- * This demonstrates how to do something even more amazing!
+ * Install a process for the integer signal 1.
  *
  * .. code-block:: php
  *
  *     <?php
  *
- *     signal(new SIG_AS(), null_exhaust(function(){
+ *     signal(1, function(){
  *         echo "I NEVER EXHAUST!!";
- *     }))
+ *     });
+ *
+ * @example
+ *
+ * Install a process that will never exhaust.
+ *
+ * .. code-block:: php
+ *
+ *    <?php
+ *
+ *    signal('foo', null_exhaust(function(){
+ *        echo "Foo emitted";
+ *    }));
  */
 function signal($signal, $callable)
 {
