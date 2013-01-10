@@ -6,12 +6,22 @@
  */
 
 /**
- * Creates a new signal processr.
+ * Creates a new signal process.
  *
  * @param  string|integer|object  $signal  Signal to attach the process.
  * @param  object  $callable  Callable
  *
  * @return  object|boolean  Process, boolean if error
+ *
+ * @example
+ *
+ * signal(new Test(), function($sig){
+ *     echo "Test just went off";
+ * });
+ *
+ * @example
+ *
+ * signal('a', a);
  */
 function signal($signal, $callable)
 {
