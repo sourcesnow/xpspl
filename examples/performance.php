@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 12);) {
+        for($a=1;$a<(1 << 13);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {

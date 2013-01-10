@@ -7,7 +7,7 @@ namespace unittest;
  */
 
 /**
- * Assertions class used within a test sig processr.
+ * Assertions class used within a test sig process.
  * 
  * The assertions class stores all assertions which can be called.
  */
@@ -44,7 +44,7 @@ class Assertions {
      * Calls an assertion function.
      * 
      * @param  string  $name  Assertion function name
-     * @param  array  $vars  Array of variables to pass the processr.
+     * @param  array  $vars  Array of variables to pass the process.
      * @param  object  $test  \XPSPL\unitest\Event
      * 
      * @return  boolean|string|int  True on success, False on failure|

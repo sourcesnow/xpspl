@@ -6,7 +6,7 @@
  */
 
 /**
- * Creates a new signal process.
+ * Installs a new signal processor.
  *
  * @param  string|integer|object  $signal  Signal to attach the process.
  * @param  object  $callable  Callable
@@ -15,13 +15,39 @@
  *
  * @example
  *
- * signal(new Test(), function($sig){
- *     echo "Test just went off";
- * });
+ * This example demonstrates how to do something amazing!
+ *
+ * .. code-block:: php
+ * 
+ *     <?php
+ * 
+ *     signal(new SIG_Startup(), function(){
+ *         echo 'Doing something on startup';
+ *     });
  *
  * @example
  *
- * signal('a', a);
+ * This demonstrates how to do something even more amazing!
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     signal(new SIG_Shutdown(), null_exhaust(function(){
+ *         echo "I NEVER EXHAUST!!";
+ *     }))
+ *
+ * @example
+ *
+ * This demonstrates how to do something even more amazing!
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     signal(new SIG_AS(), null_exhaust(function(){
+ *         echo "I NEVER EXHAUST!!";
+ *     }))
  */
 function signal($signal, $callable)
 {
@@ -30,7 +56,7 @@ function signal($signal, $callable)
 }
 
 /**
- * Creates a never exhausting signal processr.
+ * Creates a never exhausting signal process.
  *
  * @param  callable|process  $process  PHP Callable or \XPSPL\Process object.
  *
@@ -273,7 +299,7 @@ function erase_signal_history($signal)
 }
 
 /**
- * Disables the exception processr.
+ * Disables the exception process.
  *
  * @param  boolean  $history  Erase any history of exceptions signaled.
  *
