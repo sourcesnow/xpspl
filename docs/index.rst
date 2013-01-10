@@ -24,6 +24,15 @@ Table of Contents
    configuration
    quickstart
    api
+
+Modules
+-------
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+
    modules/ftp
 
 Source
