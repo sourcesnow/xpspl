@@ -31,7 +31,7 @@ API
    :maxdepth: 1
    :glob:
 
-   api/*
+   api
 
 Modules
 -------
