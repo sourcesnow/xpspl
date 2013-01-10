@@ -1,4 +1,7 @@
-.. /signal.php generated using docpx on 01/10/13 09:25pm
+.. /signal.php generated using docpx on 01/10/13 09:38pm
+signal
+------
+
 .. function:: signal()
 
 

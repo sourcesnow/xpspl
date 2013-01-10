@@ -6,12 +6,13 @@ XPSPL - PHP Signal Processing Library
 
 XPSPL is a high performance signal processing environment for the PHP programming language.
 
-.. note:: 
+Development
+-----------
 
-    XPSPL is not fully documented though it is production ready.
+The current version of documentation you are reading belongs to the event_removal branch 
+of development.
 
-    If you are comfortable analyzing code enjoy the library and contribute to 
-    the documentation to help those that come after us.
+This branch is not considered stable and should not be used for production software.
 
 Table of Contents
 -----------------
@@ -31,7 +32,7 @@ API
    :maxdepth: 1
    :glob:
 
-   api
+   api/*
 
 Modules
 -------
@@ -306,12 +307,6 @@ The following performance tests were generated on a 2.7GHZ i5 processor using th
     </script>
     <div id="ProcessesInstalled" style="width: 450px; height: 250px; float:left;"></div><div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div><div id="SignalRegistration" style="width: 450px; height: 250px; float:left;"></div><div id="ListnersInstalled" style="width: 450px; height: 250px; float:left;"></div><div id="InterruptionsInstalled" style="width: 450px; height: 250px; float:left;"></div><div id="LoopsPerformed" style="width: 450px; height: 250px; float:left;"></div><div id="Interruptionbeforeemit" style="width: 450px; height: 250px; float:left;"></div><div id="Interruptionafteremit" style="width: 450px; height: 250px; float:left;"></div><div id="ComplexSignalRegistration" style="width: 450px; height: 250px; float:left;"></div><div id="ComplexSignalEvaluation" style="width: 450px; height: 250px; float:left;"></div><div id="ComplexSignalInterruptionBeforeInstall" style="width: 450px; height: 250px; float:left;"></div><div id="ComplexSignalInterruptionAfterInstall" style="width: 450px; height: 250px; float:left;"></div><div id="ComplexSignalInterruptionBefore" style="width: 450px; height: 250px; float:left;"></div><div id="ComplexSignalInterruptionAfter" style="width: 450px; height: 250px; float:left;"></div>
    <div style="clear: both;"></div>
-   
-.. note::
-
-   These tests were performed under the event_removal_ branch.
-
-.. _event_removal: http://github.com/prggmr/XPSPL/tree/event_removal
 
 Author
 ------

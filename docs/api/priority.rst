@@ -1,4 +1,7 @@
-.. /priority.php generated using docpx on 01/10/13 09:25pm
+.. /priority.php generated using docpx on 01/10/13 09:38pm
+priority
+--------
+
 .. function:: priority()
 
 
