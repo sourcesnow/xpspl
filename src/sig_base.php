@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\signal;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -11,7 +11,7 @@ define('SIGNAL_SELF_PARENT', -0xE4E);
 use \XPSPL\State;
 
 /**
- * Standard Signal
+ * Base Signal
  * 
  * Base class for all XPSPL signals.
  */

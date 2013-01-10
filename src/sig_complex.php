@@ -10,98 +10,26 @@ use \LogicException,
     \XPSPL\Routine;
 
 /**
+ * SIG_Complex
+ * 
  * Added in v0.3.0
  * 
- * Complex signals are any signals that perform a calculation to determine
- * signals to trigger, idle time or an idle function.
+ * SIG_Complex evaluates the emitting signal to provide the processor 
+ * information for.
+ *
+ * - Signals to emit
  */
-abstract class SIG_Complex extends SIG_Base {
+class SIG_Complex extends SIG_STD {
 
     /**
-     * Custom event object for this signal.
-     * 
-     * @var  object
-     */
-    protected $_event = null;
-
-    /**
-     * The routine object that will be returned to the processor.
-     */
-    protected $_routine = null;
-
-    /**
-     * Constructs a new complex signal.
-     *
-     * This must be called from a child signal.
-     */
-    public function __construct()
-    {
-        $this->_routine = new Routine();
-    }
-
-    /**
-     * Compares the event signal given aganist itself.
+     * Evaluates the emitted signal.
      *
      * @param  string|integer  $signal  Signal to evaluate
      *
-     * @return  boolean|string|array  False on failure. True if matches. String
-     *                                or array indicate results to pass processs
+     * @return  boolean|object  False|XPSPL\Evaluation
      */
     public function evaluate($signal = null) 
     {
         return false;
-    }
-
-    /**
-     * Runs the routine calculations which allows for a complex signal to 
-     * analyze the event history or perform any other computable algorithm
-     * for determining when a signal should trigger, the processor should idle or
-     * the processor run the given function for a certain amount of time.
-     * 
-     * The goal of running routine calculations is to allow for complex event
-     * processing.
-     *
-     * The return of this method is ignored.
-     * 
-     * @param  array  $history  Event history
-     * 
-     * @return  void
-     */
-    public function routine($history = null){}
-
-    /**
-     * Returns the routine object for this complex signal.
-     * 
-     * @return  object  XPSPL\Routine
-     */
-    final public function get_routine()
-    {
-        return $this->_routine;
-    }
-
-    /**
-     * Returns the event assigned to this signal.
-     * 
-     * @return  object|null
-     */
-    final public function event($event = null)
-    {
-        if (null === $event) return $this->_event;
-        $this->_event = $event;
-        return $this->_event;
-    }
-
-    /**
-     * Method for adding this signal to signal itself within a routine.
-     *
-     * @param  boolean|object  $event  Create or provide an event. Default = true
-     * 
-     * @param  integer|null  $ttl  TTL for the event.
-     *
-     * @return  void
-     */
-    public function signal_this($context = null)
-    {
-        $this->_routine->add_signal($this, $context);
     }
 }
