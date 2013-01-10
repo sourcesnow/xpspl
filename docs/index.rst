@@ -23,7 +23,15 @@ Table of Contents
    install
    configuration
    quickstart
-   api
+
+API
+---
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   api/*
 
 Modules
 -------
