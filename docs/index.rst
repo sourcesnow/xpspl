@@ -20,11 +20,11 @@ Table of Contents
    :maxdepth: 2
    :glob:
 
-   docs/install
-   docs/configuration
-   docs/quickstart
-   docs/api
-   docs/modules/ftp
+   install
+   configuration
+   quickstart
+   api
+   modules/ftp
 
 Source
 ------
