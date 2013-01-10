@@ -13,6 +13,7 @@ Options:
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
   --test-cover  Run unit tests and generate code coverage.
+  --update      Update XPSPL to the latest stable version.
   -t/--time     Run for the given amount of milliseconds.
   -v/--version  Displays current XPSPL version.
 ";
