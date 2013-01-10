@@ -82,6 +82,10 @@ class Time extends \XPSPL\Idle {
      */
     public function idle($processor)
     {
+        $time = $this->get_time_left();
+        if ($time <= 0) {
+            return;
+        }
         switch ($this->_instruction) {
             case TIME_SECONDS:
                 sleep($this->get_time_left());

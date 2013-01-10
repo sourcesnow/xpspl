@@ -35,18 +35,14 @@ spl_autoload_register(function($class){
     }
 });
 
-// -------------------------------------------------------------------------- \\
-
 /**
  * Returns the current time since epox in milliseconds.
  * 
  * @return  integer
  */
 function milliseconds(/* ... */) {
-    return round(microseconds() * 1000);
+    return microseconds() * 1000;
 }
-
-// -------------------------------------------------------------------------- \\
 
 /**
  * Returns the current time since epox in microseonds.
@@ -56,8 +52,6 @@ function milliseconds(/* ... */) {
 function microseconds(/* ... */) {
     return microtime(true);
 }
-
-// -------------------------------------------------------------------------- \\
 
 /**
  * Transforms PHP exceptions into a signal.
