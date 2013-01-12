@@ -11,11 +11,7 @@ use \InvalidArgumentException;
 /**
  * SIG
  *
- * A process signal.
- *
- * @since 
- * 
- * 0.3.0
+ * @since 0.3.0
  *
  * Signals of only strings and integers are allowed.
  * 

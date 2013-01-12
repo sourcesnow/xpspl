@@ -1,5 +1,6 @@
 ## 3.0.0
 
+* State::get/set_state are now final.
 * signal\Standard renamed to SIG_Base
 * Signal renamed to SIG
 * signal\Complex renamed to SIG_Complex

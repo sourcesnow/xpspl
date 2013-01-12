@@ -1,7 +1,4 @@
-.. /low_priority.php generated using docpx on 01/10/13 09:38pm
-low_priority
-------------
-
+.. /low_priority.php generated using docpx on 01/12/13 04:10am
 .. function:: low_priority()
 
 

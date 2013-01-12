@@ -1,7 +1,4 @@
-.. /null_exhaust.php generated using docpx on 01/10/13 09:38pm
-null_exhaust
-------------
-
+.. /null_exhaust.php generated using docpx on 01/12/13 04:10am
 .. function:: null_exhaust()
 
 

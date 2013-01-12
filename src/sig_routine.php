@@ -8,7 +8,7 @@ use \XPSPL\processor\exception\Not_Implemented;
 /**
  * SIG_Routine
  *
- * The routine calculation.
+ * @since 2.0.0
  *
  * A SIG_Routine object indicates to the processor a routine that must be run.
  *

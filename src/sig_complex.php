@@ -12,14 +12,14 @@ use \LogicException,
 /**
  * SIG_Complex
  * 
- * Added in v0.3.0
+ * @since v0.3.0
  * 
  * SIG_Complex evaluates the emitting signal to provide the processor 
  * information for.
  *
  * - Signals to emit
  */
-class SIG_Complex extends SIG_STD {
+class SIG_Complex extends SIG {
 
     /**
      * Evaluates the emitted signal.

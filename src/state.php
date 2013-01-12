@@ -7,46 +7,41 @@ namespace XPSPL;
  */
 
 /**
- * State
- *
- * Added in v0.3.0
- *
- * A State is as it implies, state of a given object, the following states 
- * exist. 
- *
- * STATE_DECLARED
- * The object has been declared.
- *
- * STATE_RUNNING
- * The object is currently running an operation.
- *
- * STATE_EXITED
- * The object has finished execution.
- *
- * STATE_CORRUPTED
- * An error has occurred during object runtime and depending on the recovery
- * it has become corrupted.
- *
- * STATE_RECYCLED
- * The object has successfully ran through a lifecycle and has been recycled for 
- * additional use.
- *
- * STATE_RECOVERED
- * The object became corrupted during runtime execution and recovery was 
- * succesful.
- *
- * STATE_HALTED
- * The object has declared itself as halted to interrupt any further execution.
+ * Declared for use.
  */
-
 define('STATE_DECLARED' , 0x00001);
+/**
+ * Currently running in execution.
+ */
 define('STATE_RUNNING'  , 0x00002);
+/**
+ * Execution finised.
+ */
 define('STATE_EXITED'   , 0x00003);
+/**
+ * Error encountered.
+ */
 define('STATE_ERROR'    , 0x00004);
+/**
+ * Successfully ran through a lifecycle and reused.
+ */
 define('STATE_RECYCLED' , 0x00005);
+/**
+ * Corrupted during runtime execution and recovery was succesful.
+ */
 define('STATE_RECOVERED', 0x00006);
+/**
+ * The object has declared to stop any further execution.
+ */
 define('STATE_HALTED'   , 0x00007);
 
+/**
+ * State
+ *
+ * @since 0.3.0
+ *
+ * State is as it implies, state of a given object.
+ */ 
 trait State
 {
     /**
@@ -71,7 +66,7 @@ trait State
      *
      * @return  integer  Current state of this event.
      */
-    public function get_state(/* ... */)
+    final public function get_state(/* ... */)
     {
         return $this->_state;
     }
@@ -85,7 +80,7 @@ trait State
      *
      * @return  void
      */
-    public function set_state($state) 
+    final public function set_state($state) 
     {
         $this->_state = $state;
     }

@@ -1,7 +1,4 @@
-.. /high_priority.php generated using docpx on 01/10/13 09:38pm
-high_priority
--------------
-
+.. /high_priority.php generated using docpx on 01/12/13 04:10am
 .. function:: high_priority()
 
 

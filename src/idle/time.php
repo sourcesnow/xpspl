@@ -10,6 +10,8 @@ namespace XPSPL\idle;
  * Idles the processor for a specific amount of time.
  *
  * The amount of time can be specified in seconds or milliseconds.
+ *
+ * @todo Add microseconds.
  */
 class Time extends \XPSPL\Idle {
 
@@ -87,7 +89,12 @@ class Time extends \XPSPL\Idle {
                 sleep($this->get_time_left());
                 break;
             case TIME_MILLISECONDS:
-                usleep($this->get_time_left() * 1000);
+                $left = $this->get_time_left();
+                if ($left < 0) {
+                    time_nanosleep(0, $left * -1);
+                } else {
+                    usleep($this->get_time_left() * 1000);
+                }
                 break;
         }
     }
@@ -202,10 +209,10 @@ class Time extends \XPSPL\Idle {
             $this->get_time_left(), 
             TIME_SECONDS
         );
-        $that_left = $time->convert_length(
+        $time_left = $time->convert_length(
             $time->get_time_left(),
             TIME_SECONDS
         );
-        return $that_left < $this_left;
+        return $time_left < $this_left;
     }
 }
