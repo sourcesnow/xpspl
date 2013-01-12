@@ -1,4 +1,7 @@
-.. /remove_process.php generated using docpx on 01/12/13 04:10am
+.. /remove_process.php generated using docpx on 01/12/13 03:23pm
+remove_process
+==============
+
 .. function:: remove_process()
 
 

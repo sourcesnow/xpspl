@@ -15,49 +15,66 @@ use \Closure,
  *
  * The brainpower of XPSPL.
  * 
- * As of v0.3.0 the loop is now run in respect to the currently available processs,
+ * @since v0.3.0 
+ * 
+ * The loop is now run in respect to the currently available processs,
  * this prevents the processor from running contionusly forever when there isn't anything
  * that it needs to do.
  *
  * To achieve this the processor uses routines for calculating when to run and 
  * shutdowns when no more are available.
  *
- * The queue storage has also been improved in 0.3.0, previously the storage used
- * a non-index and index based storage, the storage now uses only a single array.
+ * The queue storage has also been improved by using only a single array.
  */
 class Processor {
 
     /**
-     * Statefull object
+     * Stateful and storage object
      */
-    use State, Storage;
+    use State;
 
     /**
-     * Storage container node indices
+     * SIG storage array.
+     *
+     * @var  array
      */
-    const HASH_STORAGE = 0;
-    const COMPLEX_STORAGE = 1;
-    const INTERRUPT_STORAGE = 2;
-
+    private $_sig_index = [];
     /**
-     * Interuption Types
+     * SIG_Complex storage array.
+     *
+     * @var  array
+     */
+    private $_sig_complex = [];
+    /**
+     * SIG_Routine storage array.
+     * 
+     * @var  array
+     */
+    private $_sig_routine = [];
+    /**
+     * Interruption storage.
+     *
+     * @var  array
+     */
+    private $_int_storage = [];
+    /**
+     * Interruption before emittion
+     *
+     * @var  integer
      */
     const INTERRUPT_PRE = 0;
+    /**
+     * Interruption after emittion
+     *
+     * @var  integer
+     */
     const INTERRUPT_POST = 1;
-
     /**
-     * History of events
+     * Signal history.
      * 
-     * @var  array
+     * @var  boolean|array
      */
-    protected $_history = [];
-
-    /**
-     * Routine data.
-     * 
-     * @var  array
-     */
-    private $_routines = [];
+    protected $_history = false;
 
     /**
      * Currently executing signal and hierachy
@@ -67,15 +84,10 @@ class Processor {
     /**
      * Starts the processor.
      *
-     * @param  boolean  $signal_history  Store a history of all signals.
-     * 
      * @return  void
      */
-    public function __construct($signal_history = true)
+    public function __construct()
     {
-        if ($signal_history === false) {
-            $this->_history = false;
-        }
         $this->set_state(STATE_DECLARED);
         $this->flush(); 
     }
@@ -115,7 +127,7 @@ class Processor {
             );
         }
         $this->emit(new processor\SIG_Startup());
-        while($this->_routine()) {
+        for($this->_routine();;) {
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
@@ -140,48 +152,28 @@ class Processor {
      */
     private function _routine()
     {
-        $return = false;
-        $this->_routine = new Routine();
+        $routine = new Routine();
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
-        foreach ($this->_storage[self::COMPLEX_STORAGE] as $_key => $_node) {
-            // Run the routine
-            $_routine = $_node[0]->routine($this->_history);
-            // Did it return true
-            if (true === $_routine) {
-                $_routine = $_node[0]->get_routine();
-                // Is the routine a routine?
-                if (!$_routine instanceof Routine) {
-                    throw new \Exception(sprintf(
-                        "%s did not return a routine",
-                        get_class($_node[0])
-                    ));
-                }
-                // Get all required data and reset the routine
-                $_signals = $_routine->get_signals();
-                $_idle = $_routine->get_idle();
-                $_routine->reset();
-                // Check signals
-                if (null !== $_signals && count($_signals) != 0) {
-                    foreach ($_signals as $__signal) {
-                        list($__sig, $__context) = $__signal;
-                        if (!$return) {
-                            $return = true;
-                        }
-                        $this->_routine->add_signal(
-                            $__sig, 
-                            $__context
-                        );
-                    }
-                }
-                // Check for an idle function
-                if (null !== $_idle) {
-                    $return = true;
-                    $this->_routine->add_idle($_idle);
+        // run the routines
+        foreach ($this->_sig_routine as $_key => $_node) {
+            $_node[0]->routine($routine, $this->_history);
+        }
+        // Check signals
+        if (count($routine->get_signals()) != 0) {
+            // This checks only for one possible signal that has not exhausted
+            // it still leaves the possibility for triggering exhausted signals
+            foreach ($routine->get_signals() as $_signal) {
+                if (false === $this->has_signal_exhausted($_signal[0])) {
+                    return true;
                 }
             }
         }
-        return $return;
+        // Check idle
+        if (null !== $routine->get_idle()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -259,11 +251,13 @@ class Processor {
      */
     public function flush(/* ... */)
     {
-        $this->_storage = [[], [], []];
+        foreach (['_sig_index', '_sig_complex', '_sig_routine'] as $_i) {
+            $this->{$_i} = [];
+        }
+        $this->_routine = new Routine();
         if (false !== $this->_history){
             $this->_history = [];
         }
-        $this->set_state(STATE_DECLARED);
     }
 
     /**
@@ -342,13 +336,13 @@ class Processor {
 
         if (!$queue) {
             $queue = new Queue();
-            if (!$signal instanceof \XPSPL\signal\Complex) {
-                $this->_storage[self::HASH_STORAGE][(string) $signal->get_info()] = [
+            if (!$signal instanceof SIG_Complex) {
+                $this->_sig_index[(string) $signal->get_index()] = [
                     $signal, $queue
                 ];
             } else {
                 $id = spl_object_hash($signal);
-                $this->_storage[self::COMPLEX_STORAGE][$id] = [$signal, $queue];
+                $this->_sig_complex[$id] = [$signal, $queue];
             }
         }
         return $queue;
@@ -365,28 +359,27 @@ class Processor {
      */
     public function search_signals($signal, $index = false) 
     {
-        if ($signal instanceof \XPSPL\signal\Complex) {
+        if ($signal instanceof SIG_Complex) {
             $id = spl_object_hash($signal);
-            if (isset($this->_storage[self::COMPLEX_STORAGE][$id])) {
+            if (isset($this->_sig_complex[$id])) {
                 if ($index) return $id;
-                return $this->_storage[self::COMPLEX_STORAGE][$id][1];
+                return $this->_sig_complex[$id][1];
             }
             return null;
         }
-        if ($signal instanceof \XPSPL\Signal) {
-            $signal = $signal->get_info();
+        if ($signal instanceof SIG) {
+            $signal = $signal->get_index();
         }
         $signal = (string) $signal;
-        if (isset($this->_storage[self::HASH_STORAGE][$signal])) {
+        if (isset($this->_sig_index[$signal])) {
             if ($index) return $signal;
-            return $this->_storage[self::HASH_STORAGE][$signal][1];
+            return $this->_sig_index[$signal][1];
         }
         return null;
     }
 
     /**
-     * Runs the evaluation for the registered complex signals using the given
-     * signal.
+     * Perform the evaluation for all registered complex signals.
      *
      * @param  string|object|int  $signal  Signal to evaluate
      *
@@ -394,11 +387,11 @@ class Processor {
      */
     public function evaluate_signals($signal)
     {
-        if (count($this->_storage[self::COMPLEX_STORAGE]) == 0) {
+        if (count($this->_sig_complex) == 0) {
             return null;
         }
         $return = [];
-        foreach ($this->_storage[self::COMPLEX_STORAGE] as $_node) {
+        foreach ($this->_sig_complex as $_node) {
             $eval = $_node[0]->evaluate($signal);
             if (false !== $eval) {
                 $return[] = [$_node, $eval];
@@ -500,7 +493,7 @@ class Processor {
             $queues = [];
         }
 
-        // search for exact matches
+        // search for index signal
         $searched = $this->search_signals($signal);
         if (null !== $searched) {
             if (null === $queue) {
@@ -533,6 +526,8 @@ class Processor {
                 }
             });
         }
+
+        // run the execution
         if (null !== $queue && $queue->count() >= 0) {
             // execute the signal
             $this->_execute((null === $context) ? $signal : $context, $queue);
@@ -547,6 +542,7 @@ class Processor {
                 }
             }
         }
+
         // Remove the last signal
         array_pop($this->_signal);
         return $signal;
@@ -752,7 +748,7 @@ class Processor {
             ];
         } else {
             if ($signal instanceof Signal) {
-                $name = $signal->get_info();
+                $name = $signal->get_index();
             } else {
                 if (is_object($signal)) {
                     $name = get_class($signal);
@@ -760,10 +756,10 @@ class Processor {
                     $name = $signal;
                 }
             }
-            if (!isset($storage[self::HASH_STORAGE][$name])) {
-                $storage[self::HASH_STORAGE][$name] = [];
+            if (!isset($storage[self::SIG_STORAGE][$name])) {
+                $storage[self::SIG_STORAGE][$name] = [];
             }
-            $storage[self::HASH_STORAGE][$name][] = [
+            $storage[self::SIG_STORAGE][$name][] = [
                 $signal, $process
             ];
         }
@@ -808,7 +804,7 @@ class Processor {
         $lookup = [];
         $class_name = (is_object($signal)) ? get_class($signal) : $signal;
         if ($signal instanceof Signal) {
-            $info = $signal->get_info();
+            $info = $signal->get_index();
             if ($info != $class_name) {
                 $lookup[] = $info;
             }
@@ -816,8 +812,8 @@ class Processor {
             $lookup[] = $class_name;
         }
         foreach ($lookup as $_index) {
-            if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index])) {
-                foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::HASH_STORAGE][$_index] as $_node) {
+            if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::SIG_STORAGE][$_index])) {
+                foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::SIG_STORAGE][$_index] as $_node) {
                     if (null === $queue) {
                         $queue = new Queue();
                     }
@@ -842,7 +838,7 @@ class Processor {
     public function clean($history = false)
     {
         $storages = [
-            self::HASH_STORAGE, self::COMPLEX_STORAGE, self::INTERRUPT_STORAGE
+            self::SIG_STORAGE, self::COMPLEX_STORAGE, self::INTERRUPT_STORAGE
         ];
         foreach ($storages as $_storage) {
             if (count($this->_storage[$_storage]) == 0) continue;
@@ -853,7 +849,7 @@ class Processor {
                     if ($history) {
                         $this->erase_signal_history(
                             ($_node[0] instanceof signal\Complex) ?
-                                $_node[0] : $_node[0]->get_info()
+                                $_node[0] : $_node[0]->get_index()
                         );
                     }
                 }
@@ -871,16 +867,16 @@ class Processor {
      */
     public function delete_signal($signal, $history = false)
     {
-        $info = false;
+        $index = false;
         if ($signal instanceof signal\Standard) {
             if ($signal instanceof signal\Complex) {
                 $obj = spl_object_hash($signal);
-                if (!isset($this->_storage[self::COMPLEX_STORAGE][$obj])) {
+                if (!isset($this->_sig_complex[$obj])) {
                     return false;
                 }
-                unset($this->_storage[self::COMPLEX_STORAGE][$obj]);
+                unset($this->_sig_complex[$obj]);
             } else {
-                $info = $signal->get_info();
+                $index = $signal->get_index();
             }
         } else {
             if (!is_string($signal) && !is_int($signal)) {
@@ -890,14 +886,14 @@ class Processor {
                 );
                 return false;
             }
-            $info = $signal;
+            $index = $signal;
         }
 
-        if (false !== $info) {
-            if (!isset($this->_storage[self::HASH_STORAGE][$info])) {
+        if (false !== $index) {
+            if (!isset($this->_sig_index[$index])) {
                 return false;
             }
-            unset($this->_storage[self::HASH_STORAGE][$info]);
+            unset($this->_sig_index[$index]);
         }
 
         if ($history) {

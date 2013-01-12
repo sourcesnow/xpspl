@@ -1,4 +1,7 @@
-.. /rated_exhaust.php generated using docpx on 01/12/13 04:10am
+.. /rated_exhaust.php generated using docpx on 01/12/13 03:23pm
+rated_exhaust
+=============
+
 .. function:: rated_exhaust()
 
 

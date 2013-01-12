@@ -28,6 +28,10 @@ Table of Contents
 API
 ---
 
+XPSPL API.
+
+All API functions are non-namespaced, globally available.
+
 .. toctree::
    :maxdepth: 1
    :glob:

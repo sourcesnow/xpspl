@@ -1,4 +1,4 @@
-.. ftp::
+.. ftp
 
 FTP Module
 ----------

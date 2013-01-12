@@ -6,12 +6,23 @@
  */
 
 /**
- * Emit a signal.
+ * Emit a signal, returning the resulting ``SIG`` object.
  *
- * @param  string|integer|object  $signal  Signal
+ * @param  signal  $signal  Any SIG_Base object string or integer, an invalid
+ *                          ``$signal`` throws a 
  * @param  object  $context  Context signal
  *
- * @return  object  \XPSPL\Signal
+ * @return  object  SIG
+ *
+ * @example
+ *
+ * Emitting a signal.
+ *
+ * .. code-block:: php
+ *
+ *    <?php
+ *    // Emit the foo signal
+ *    emit('foo');
  */
 function emit($signal, $context = null)
 {

@@ -20,11 +20,11 @@ abstract class SIG_Base {
     use State;
 
     /**
-     * Event the signal represents.
+     * Signal index.
      *
      * @var  string|integer
      */
-    protected $_info = null;
+    protected $_index = null;
 
     /**
      * Result of the event.
@@ -41,13 +41,13 @@ abstract class SIG_Base {
     protected $_parent = null;
 
     /**
-     * Returns the signal information.
+     * Returns the signal index.
      *
      * @return  boolean
      */
-    public function get_info(/* ... */) 
+    public function get_index(/* ... */) 
     {
-        return $this->_info;
+        return $this->_index;
     }
 
     /**

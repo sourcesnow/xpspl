@@ -310,7 +310,7 @@ class Output {
         $this->send_linebreak(self::ERROR);
         $this->send(sprintf(
             "TEST : %s%sASSERTION : [ %s ] is not a valid assertion %s",
-            $event->get_signal()->get_info(), PHP_EOL,
+            $event->get_signal()->get_index(), PHP_EOL,
             $func, (count($suggestions) != 0) ? 
                 'did you want ('.implode(', ', $suggestions).')?' :
                 'no suggestions found.'
