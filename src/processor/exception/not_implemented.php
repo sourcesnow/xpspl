@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Invalid process signal.
  */
-class Not_Implenented extends Error {}
+class Not_Implenented extends Exception {}

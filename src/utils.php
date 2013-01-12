@@ -42,7 +42,7 @@ if (!XPSPL_DEBUG) {
 set_exception_handler(function($exception){
     if (null !== $exception) {
         $trace = array_reverse($exception->getTrace());
-        $error = get_class_name($exception);
+        $error = get_class($exception);
         $message = $exception->getMessage();
         $line = $exception->getLine();
         $file = $exception->getFile();
@@ -50,14 +50,13 @@ set_exception_handler(function($exception){
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         $stack = array_pop($trace);
         $message = $processor->current_signal()->get_error();
-        $error = get_class_name($processor->current_signal());
+        $error = get_class($processor->current_signal());
         $file = $stack['file'];
         $line = $stack['line'];
     }
     $stacktrace = '';
     $i=0;
     $path = str_replace('/..', '', XPSPL_PATH);
-    echo $path;
     foreach ($trace as $_trace) {
         if (strstr($_trace['file'], $path) === false) {
             $stacktrace .= sprintf(

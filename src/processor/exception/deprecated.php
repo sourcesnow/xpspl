@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Deprecated code
  */
-class Deprecated extends Error {}
+class Deprecated extends Exception {}

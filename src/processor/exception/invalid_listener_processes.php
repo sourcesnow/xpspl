@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Invalid processes provided by a listener.
  */
-class Invalid_Listener_Processes extends Error {}
+class Invalid_Listener_Processes extends Exception {}

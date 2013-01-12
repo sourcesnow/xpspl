@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Maximum number of idle functions exceeded.
  */
-class Idle_Function_Overflow extends Error {}
+class Idle_Function_Overflow extends Exception {}

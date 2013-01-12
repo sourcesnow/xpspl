@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Exception occured during a routine calculation.
  */
-class Routine_Calculation_Error extends Error {}
+class Routine_Calculation_Error extends Exception {}

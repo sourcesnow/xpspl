@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Invalid signal interruption
  */
-class Invalid_Interrupt extends Error {}
+class Invalid_Interrupt extends Exception {}

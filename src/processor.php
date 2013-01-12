@@ -321,8 +321,7 @@ class Processor {
                 $signal = new Signal($signal);
             } catch (\InvalidArgumentException $e) {
                 throw new exceptions\Invalid_Signal(
-                    "Invalid signal given to register", 
-                    [$exception, $signal]
+                    "Invalid signal given to register"
                 );
                 return false;
             }
@@ -418,8 +417,7 @@ class Processor {
         if (!$event instanceof Event) {
             if (null !== $event) {
                 throw new exceptions\Invalid_Event(
-                    "Invalid event passed for execution", 
-                    $event
+                    "Invalid event passed for execution"
                 );
             }
             $event = new Event($ttl);
@@ -714,8 +712,7 @@ class Processor {
         if (!$process instanceof Process) {
             if (!is_callable($process)) {
                 throw new exceptions\Invalid_Process(
-                    "Invalid process given for signal interruption", 
-                    $process
+                    "Invalid process given for signal interruption"
                 );
             } else {
                 $process = new Process($process);
@@ -723,8 +720,7 @@ class Processor {
         }
         if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
             throw new exceptions\Ivalid_Signal(
-                "Invalid signal given for signal interruption",
-                $signal
+                "Invalid signal given for signal interruption"
             );
             return false;
         }
@@ -734,8 +730,7 @@ class Processor {
         if ($interrupt != self::INTERRUPT_PRE && 
             $interrupt != self::INTERRUPT_POST) {
             throw new exceptions\Invalid_Interrupt(
-                "Invalid Interruption Step",
-                $interrupt
+                "Invalid Interruption Step"
             );
         }
         if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
@@ -881,8 +876,7 @@ class Processor {
         } else {
             if (!is_string($signal) && !is_int($signal)) {
                 throw new exceptions\Invalid_Signal(
-                    "Delete signal",
-                    $signal
+                    "Delete signal"
                 );
                 return false;
             }

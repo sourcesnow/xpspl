@@ -17,7 +17,7 @@ use \InvalidArgumentException;
  * 
  * Anything other than a string or integer must be registered as a SIG_Complex.
  */
-class SIG extends \XPSPL\signal\Standard {
+class SIG extends SIG_Base {
 
     /**
      * Unique signal object.

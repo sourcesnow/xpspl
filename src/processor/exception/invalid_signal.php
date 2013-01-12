@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Invalid signal encountered by the processor.
  */
-class Invalid_Signal extends Error {}
+class Invalid_Signal extends Exception {}

@@ -10,4 +10,4 @@ namespace XPSPL\processor\exception;
 /**
  * Failed to load a XPSPL module
  */
-class Module_Load_Failure extends Error {}
+class Module_Load_Failure extends Exception {}

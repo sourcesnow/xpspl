@@ -4,11 +4,12 @@
  * Directly runs files in the XPSPL event loop
  */
 $usage = 
-"usage: XPSPL [-c|--config=<file>][-h|--help][-p|--passthru][--test]
-              [--test-cover][-t|--time=<time>][-v|--version]
+"usage: XPSPL [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
+              [--test-cover] [-t|--time=<time>] [-v|--version]
               <file>
 Options:
   -c/--config   Load the giving file for configuration
+  -d            Debug Mode
   -h/--help     Show this help message.
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
@@ -74,7 +75,7 @@ foreach ($options as $_i => $_arg) {
             include($_arg);
             break;
         case 'd':
-            define('XPSPL_DEV_MODE', true);
+            define('XPSPL_DEBUG', true);
             break;
         case 'test':
         case 'test-cover':

@@ -24,6 +24,18 @@ require XPSPL_PATH.'/src/utils.php';
 require XPSPL_PATH.'/src/api.php';
 require XPSPL_PATH.'/src/const.php';
 
+// Load the API
+$dir = new \RegexIterator(
+    new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator(XPSPL_PATH.'/src/api')
+    ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
+);
+foreach ($dir as $_file) {
+    array_map(function($i){
+        require_once $i;
+    }, $_file);
+}
+
 // dev mode
 if (XPSPL_DEBUG) {
     error_reporting(E_ALL);
