@@ -1,4 +1,4 @@
-.. /priority.php generated using docpx on 01/12/13 03:23pm
+.. /priority.php generated using docpx on 01/12/13 06:44pm
 priority
 ========
 
@@ -7,20 +7,22 @@ priority
 
     Registers the given process to have the given priority.
     
+    This allows for controlling the order of processes rather than using FIFO.
+    
+    Priority uses an ascending order where 0 > 1.
+    
     Processes registered with a high priority will be executed before those with 
     a low or default priority.
     
-    This allows for controlling the order of processes rather than using FIFO.
-    
-    A high priority process is useful when multiple processes will execute and it 
-    must always be one of the very first to run.
+    Process priority is handy when multiple process will execute and their order 
+    is important.
     
     .. note::
     
        This is not an interruption.
        
-       Installed interruptions will still be executed before a high priority 
-       process.
+       Installed interruptions will still be executed before or after a 
+       prioritized process.
 
     :param integer $priority: Priority to assign
     :param callable|process $process: PHP Callable or \XPSPL\Process.
@@ -31,22 +33,30 @@ priority
 Example
 +++++++
  
-Installs a process with high priority.
+Installs multiple process each with a seperate ascending priority.
 
 .. code-block:: php
 
    <?php
    
-   signal('foo', function(){
-       echo 'bar';
-   });
-   
-   signal('foo', high_priority(function(){
+   signal('foo', priority(0, function(){
        echo 'foo';
+   }));
+   
+   signal('foo', priority(3, function(){
+       echo 'bar';
+   }));
+   
+   signal('foo', priority(5, function(){
+       echo 'hello';
+   }));
+   
+   signal('foo', priority(10, function(){
+       echo 'world';
    }));
 
    // results when foo is emitted
-   // foobar
+   // foobarhelloworld
 
 
 
