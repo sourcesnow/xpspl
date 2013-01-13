@@ -41,9 +41,9 @@ namespace XPSPL;
  * .. code-block:: php
  *    
  *    <?php
- *    // We create the SIG Foo
+ *    // Create the SIG Foo
  *    class Foo extends \XPSPL\SIG {}
- *    // We then install a process to it
+ *    // Then install a process to it
  *    signal(new Foo(), function(){
  *        echo 'Foo is emitted';
  *    });
@@ -51,10 +51,19 @@ namespace XPSPL;
  *    before(new Foo(), function(){
  *        echo 'Foo is about to be emitted';
  *    });
+ *    emit(new Foo());
  *    // Results when foo is emitted
  *    // Foo is about to be emitted
  *    // Foo is emitted
+ *
+ * .. note::
  *    
+ *    When using object signals always provide a new object to the 
+ *    operation you are performing.
+ *    
+ *    The processor is optimized to detect object new SIGs and discard any which 
+ *    are not needed.
+ * 
  *     
  * @example 
  *
