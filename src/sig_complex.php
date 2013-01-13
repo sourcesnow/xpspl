@@ -32,4 +32,10 @@ class SIG_Complex extends SIG {
     {
         return false;
     }
+
+    /**
+     * Returns the signal index.
+     *
+     * @return  string
+     */
 }

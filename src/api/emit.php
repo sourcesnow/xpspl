@@ -6,7 +6,11 @@
  */
 
 /**
- * Emit a signal, returning the resulting ``SIG`` object.
+ * Emit a signals executing all processes installed to the signal. 
+ * 
+ * A ``SIG`` object is returned which is the SIG object passed
+ *
+ * When a signal is emitted all processes installed will be executed.
  *
  * @param  signal  $signal  Any SIG_Base object string or integer, an invalid
  *                          ``$signal`` throws a 

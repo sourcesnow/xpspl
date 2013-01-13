@@ -1,5 +1,6 @@
 ## 3.0.0
 
+* Processor::search_signals renamed to Processor::find_signal
 * State::get/set_state are now final.
 * signal\Standard renamed to SIG_Base
 * Signal renamed to SIG

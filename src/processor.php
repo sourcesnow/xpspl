@@ -197,7 +197,7 @@ class Processor {
      */
     public function has_signal_exhausted($signal)
     {
-        $queue = $this->search_signals($signal);
+        $queue = $this->find_signal($signal);
         if (null === $queue) {
             return true;
         }
@@ -237,7 +237,7 @@ class Processor {
      */
     public function remove_process($signal, $process)
     {
-        $queue = $this->search_signals($signal);
+        $queue = $this->find_signal($signal);
         if (null === $queue) {
             return;
         }
@@ -327,7 +327,7 @@ class Processor {
             }
         }
 
-        $search = $this->search_signals($signal);
+        $search = $this->find_signal($signal);
 
         if (null !== $search) {
             return $search;
@@ -348,15 +348,36 @@ class Processor {
     }
 
     /**
-     * Searches for a signal in storage returning its storage queue if found,
-     * optionally the index can be returned.
+     * Returns the process queue installed for the given signal.
+     *
+     * @param  object  $signal  SIG
      * 
-     * @param  string|int|object  $signal  Signal to search for.
-     * @param  boolean  $index  Return the index of the signal.
-     * 
-     * @return  null|object  null|Queue
+     * @return  object  Queue
      */
-    public function search_signals($signal, $index = false) 
+    private function _get_queue(SIG $signal)
+    {
+        $index = $signal->get_index();
+        if ($signal instanceof SIG) {
+            return $this->_sig_index[$index];
+        }
+        if ($signal instanceof SIG_Complex) {
+            return $this->_sig_complex[$index];
+        }
+        if ($signal instanceof SIG_Routine) {
+            return $this->_sig_routine[$index];
+        }
+    }
+
+    /**
+     * Finds a signal registered into the processor.
+     *
+     * If found the ``SIG`` object is returned otherwise null.
+     * 
+     * @param  signal  $signal  Signal to search for.
+     * 
+     * @return  null|object  ``SIG`` or ``null``.
+     */
+    public function find_signal($signal, $index = false) 
     {
         if ($signal instanceof SIG_Complex) {
             $id = spl_object_hash($signal);
@@ -472,13 +493,17 @@ class Processor {
      */
     public function emit($signal, $context = null)
     {
+        if (!$signal instanceof SIG) {
+            $signal = $this->find_signal($signal);
+        }
+
         // store processor signal
         $this->_signal[] = $signal;
         $queue = null;
 
         // Store the history of the signal
         if (false !== $this->_history) {
-            $this->_history[] = [$signal, milliseconds()];
+            $this->_history[] = $signal;
         }
 
         // Signal history management
@@ -492,7 +517,7 @@ class Processor {
         }
 
         // search for index signal
-        $searched = $this->search_signals($signal);
+        $searched = $this->find_signal($signal);
         if (null !== $searched) {
             if (null === $queue) {
                 $queue = new Queue();
