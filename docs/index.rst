@@ -33,7 +33,7 @@ XPSPL API.
 All API functions are non-namespaced, globally available.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
 
    api/*
