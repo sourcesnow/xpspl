@@ -33,7 +33,9 @@
  *
  * @example
  *
- * Installs multiple process each with a seperate ascending priority.
+ * Installing multiple priorities
+ *
+ * This installs multiple process each with a seperate ascending priority.
  *
  * .. code-block:: php
  * 

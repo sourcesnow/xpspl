@@ -22,7 +22,9 @@
  *
  * @example
  *
- * Install an awake process for every 2 seconds exhausting after 2 emits.
+ * Controlling exahust rate
+ *
+ * Installs an awake process for every 2 seconds exhausting after 2 emits.
  * 
  * .. code-block:: php
  *

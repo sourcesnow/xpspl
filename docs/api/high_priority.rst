@@ -1,8 +1,8 @@
-.. /high_priority.php generated using docpx on 01/12/13 06:45pm
+.. /high_priority.php generated using docpx on 01/14/13 01:12pm
 high_priority
 =============
 
-.. function:: high_priority()
+.. function:: high_priority($process)
 
 
     Registers the given process to have a high priority.
@@ -29,10 +29,10 @@ high_priority
     :rtype: object Process
 
 
-Example
-+++++++
+Install a process with high priority
+------------------------------------
  
-Installs a process with high priority.
+High priority process will always execute first.
 
 .. code-block:: php
 

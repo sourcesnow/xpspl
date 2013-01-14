@@ -1,8 +1,8 @@
-.. /low_priority.php generated using docpx on 01/12/13 06:45pm
+.. /low_priority.php generated using docpx on 01/14/13 01:12pm
 low_priority
 ============
 
-.. function:: low_priority()
+.. function:: low_priority($process)
 
 
     Registers the given process to have a low priority.
@@ -29,10 +29,10 @@ low_priority
     :rtype: object Process
 
 
-Example
-+++++++
+Install a process with low priority
+-----------------------------------
  
-Installs a process with low priority.
+Low priority processes always execute last.
 
 .. code-block:: php
 

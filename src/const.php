@@ -5,39 +5,60 @@
  * that can be found in the LICENSE file.
  */
 
-/**
- * Constants file
- */
-
-
 if (!defined('XPSPL_DEBUG')) {
     /**
      * XPSPL Debug mode
+     *
+     * When debug mode is turned off an exception handler is installed that 
+     * automatically removes the processor traces from the stack.
      */
     define('XPSPL_DEBUG', false);
 }
 
-// have the processor throw exceptions on signal errors
-if (!defined('XPSPL_ENGINE_EXCEPTIONS')) {
-    define('XPSPL_ENGINE_EXCEPTIONS', true);
-}
-
-// signal history original setting
 if (!defined('XPSPL_SIGNAL_HISTORY')) {
+    /**
+     * Signal History
+     * 
+     * Boolean option for the signal history. 
+     * 
+     * By default it is ``false``.
+     */
     define('XPSPL_SIGNAL_HISTORY', false);
 }
 
-// immediatly removes an exhausted process from the processor
 if (!defined('XPSPL_PURGE_EXHAUSTED')) {
+    /**
+     * Remove Exhausted processes
+     * 
+     * Boolean option to automatically remove exhausted queues from the processor.
+     *
+     * By default this settings is ``true``.
+     */
     define('XPSPL_PURGE_EXHAUSTED', true);
 }
 
-// modules directory
 if (!defined('XPSPL_MODULE_DIR')) {
+    /**
+     * Module Directory
+     * 
+     * Directory to look for modules.
+     *
+     * By default it is set to the ``module`` directory in XPSPL.
+     */
     define('XPSPL_MODULE_DIR', XPSPL_PATH . '/module');
 }
 
-// detect if using windows ...
+if (!defined('PROCESS_DEFAULT_EXHAUST')) {
+    /**
+     * Default process exhaustion
+     *
+     * Integer option defining the default exhausting of a process.
+     *
+     * By default it is 1.
+     */
+    define('PROCESS_DEFAULT_EXHAUST', 1);
+}
+
 if (!defined('WINDOWS')) {
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
         define('WINDOWS', true);
@@ -49,8 +70,3 @@ if (!defined('WINDOWS')) {
 // define time instructions
 define('TIME_SECONDS', 1);
 define('TIME_MILLISECONDS', 2);
-
-// Default process exhaustion rate.
-if (!defined('PROCESS_DEFAULT_EXHAUST')) {
-    define('PROCESS_DEFAULT_EXHAUST', 1);
-}

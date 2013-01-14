@@ -15,7 +15,9 @@
  *
  * @example
  *
- * Remove the installed process from the foo signal.
+ * Removing installed processes
+ *
+ * Removes the installed process from the foo signal.
  *
  * .. code-block::php
  *

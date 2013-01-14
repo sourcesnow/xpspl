@@ -31,7 +31,9 @@
  *
  * @example
  *
- * Installs a process with high priority.
+ * Install a process with high priority
+ *
+ * High priority process will always execute first.
  *
  * .. code-block:: php
  * 

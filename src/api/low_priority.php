@@ -31,7 +31,9 @@
  *
  * @example
  *
- * Installs a process with low priority.
+ * Install a process with low priority
+ *
+ * Low priority processes always execute last.
  *
  * .. code-block:: php
  * 

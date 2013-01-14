@@ -24,7 +24,10 @@
  *
  * @example
  *
- * Install an awake process for every 10 seconds.
+ * Install a null exhaust process.
+ *
+ * This example installs a null exhaust process which calls an awake signal 
+ * every 10 seconds creating an interval.
  * 
  * .. code-block:: php
  *
@@ -33,19 +36,6 @@
  *    
  *    time\awake(10, null_exhaust(function(){
  *        echo "10 seconds";
- *    }));
- *
- * @example
- *
- * Install a cron process for every night.
- * 
- * .. code-block:: php
- *
- *    <?php
- *    import('time');
- *    
- *    time\cron('* 24 * * *', null_exhaust(function(){
- *        echo 'I run at midnight every night.';  
  *    }));
  */ 
 function null_exhaust($process)
