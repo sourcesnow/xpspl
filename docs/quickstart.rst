@@ -15,10 +15,8 @@ Signal Driven Programming with XPSPL
 Signal driven programming is the development of software using a design where 
 the flow is determined by signals.
 
-It relies heavily on the use of event processes, interruptions, mutable data and 
+It relies heavily on the use of signaled processes, interruptions, mutable data and 
 insane levels of decoupling.
-
-If you know GUI this will feel very familiar.
 
 The idea is nothing new and is in use right now on the device your reading this 
 with, unless your on paper.
