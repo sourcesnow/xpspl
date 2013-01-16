@@ -8,6 +8,8 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Invalid signal encountered by the processor.
+ * Invalid Signal
+ * 
+ * An invalid signal was detected.
  */
 class Invalid_Signal extends Exception {}

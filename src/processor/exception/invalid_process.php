@@ -8,6 +8,8 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Invalid process signal.
+ * Invalid Process
+ * 
+ * An invalid process was detected.
  */
 class Invalid_Process extends Exception {}

@@ -8,6 +8,8 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Invalid signal interruption
+ * Invalid Interrupt
+ * 
+ * Invalid signal interruption installation attempted.
  */
 class Invalid_Interrupt extends Exception {}

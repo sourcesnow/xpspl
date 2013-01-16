@@ -8,6 +8,8 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Deprecated code
+ * Deprecated
+ * 
+ * Encounter of code use that has deprecated.
  */
 class Deprecated extends Exception {}

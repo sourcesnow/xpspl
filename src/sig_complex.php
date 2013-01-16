@@ -19,7 +19,7 @@ use \LogicException,
  *
  * - Signals to emit
  */
-class SIG_Complex extends SIG {
+final class SIG_Complex extends SIG {
 
     /**
      * Evaluates the emitted signal.

@@ -8,6 +8,10 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Failed to load a XPSPL module
+ * Module load failure
+ * 
+ * An attempted module load failed.
+ *
+ * This is generated immediately after php_declare(import).
  */
 class Module_Load_Failure extends Exception {}

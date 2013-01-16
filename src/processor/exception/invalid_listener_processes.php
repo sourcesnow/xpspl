@@ -8,6 +8,9 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Invalid processes provided by a listener.
+ * Invalid Listener Processes
+ * 
+ * A list containing invalid processes was returned from an attempted listener 
+ * registration.
  */
 class Invalid_Listener_Processes extends Exception {}
