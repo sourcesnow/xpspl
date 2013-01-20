@@ -34,23 +34,23 @@ class Processor {
     use State;
 
     /**
-     * SIG storage array.
+     * SIG storage database.
      *
      * @var  array
      */
-    private $_sig_index = [];
+    private $_sig_index = null;
     /**
-     * SIG_Complex storage array.
+     * SIG_Complex storage database.
      *
      * @var  array
      */
-    private $_sig_complex = [];
+    private $_sig_complex = null;
     /**
-     * SIG_Routine storage array.
+     * SIG_Routine storage database.
      * 
      * @var  array
      */
-    private $_sig_routine = [];
+    private $_sig_routine = null;
     /**
      * Interruption storage.
      *
@@ -127,7 +127,7 @@ class Processor {
             );
         }
         $this->emit(new processor\SIG_Startup());
-        for($this->_routine();;) {
+        while($this->_routine()) {
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
@@ -156,8 +156,8 @@ class Processor {
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
         // run the routines
-        foreach ($this->_sig_routine as $_key => $_node) {
-            $_node[0]->routine($routine, $this->_history);
+        foreach ($this->_sig_routine->storage() as $_routine) {
+            $_routine[0]->routine($routine);
         }
         // Check signals
         if (count($routine->get_signals()) != 0) {
@@ -197,11 +197,11 @@ class Processor {
      */
     public function has_signal_exhausted($signal)
     {
-        $queue = $this->find_signal($signal);
-        if (null === $queue) {
+        $memory = $this->find_signal($signal);
+        if (null === $memory || $memory[1]->count() === 0) {
             return true;
         }
-        return true === $this->queue_exhausted($queue);
+        return true === $this->queue_exhausted($memory[1]);
     }
 
     /**
@@ -245,14 +245,17 @@ class Processor {
     }
 
     /**
-     * Empties the storage, history and clears the current state.
+     * Flush
+     *
+     * Resets the signal databases, the routine object and cleans the history 
+     * if tracked.
      *
      * @return void
      */
     public function flush(/* ... */)
     {
         foreach (['_sig_index', '_sig_complex', '_sig_routine'] as $_i) {
-            $this->{$_i} = [];
+            $this->{$_i} = new Database();
         }
         $this->_routine = new Routine();
         if (false !== $this->_history){
@@ -261,6 +264,8 @@ class Processor {
     }
 
     /**
+     * Listen
+     * 
      * Registers an object listener.
      *
      * @param  object  $listener  XPSPL\Listener
@@ -286,27 +291,20 @@ class Processor {
     public function signal($signal, $process)
     {
         if (!$process instanceof Process) {
-            if (!is_callable($process)) {
-                throw new exceptions\Invalid_Process(sprintf(
-                   "Invalid process given to install %s",
-                   gettype($process)
-                ));
-                return false;
-            }
             $process = new Process($process);
         }
-        $queue = $this->register_signal($signal);
-        if (false !== $queue) {
-            if (is_array($queue)) {
-                $queue = $queue[0][0];
-            }
-            $queue->enqueue($process, $process->get_priority());
+        $memory = $this->find_signal($signal);
+        if (null === $memory) {
+            $queue = $this->register_signal($signal);
+        } else {
+            $queue = $memory[1];
         }
+        $queue->enqueue($process, $process->get_priority());
         return $process;
     }
 
     /**
-     * Registers a signal into the processor
+     * Registers a signal into the processor.
      *
      * @param  string|integer|object  $signal  Signal
      *
@@ -314,81 +312,49 @@ class Processor {
      */
     public function register_signal($signal)
     {
-        $queue = false;
-
         if (!$signal instanceof SIG) {
             $signal = new SIG($signal);
         }
-
-        $search = $this->find_signal($signal);
-
-        if (null !== $search) {
-            return $search;
-        }
-
-        if (!$queue) {
-            $queue = new Queue();
-            if (!$signal instanceof SIG_Complex) {
-                $this->_sig_index[(string) $signal->get_index()] = [
-                    $signal, $queue
-                ];
-            } else {
-                $id = spl_object_hash($signal);
-                $this->_sig_complex[$id] = [$signal, $queue];
-            }
-        }
+        $queue = new \XPSPL\Queue();
+        $db = $this->get_database($signal);
+        $db->register_signal($signal, $queue);
         return $queue;
     }
 
     /**
-     * Returns the process queue installed for the given signal.
+     * Returns the signal database for the given signal.
+     *
+     * @param  object  $signal
+     * 
+     * @return  array
+     */
+    public function get_database($signal)
+    {
+        if ($signal instanceof SIG_Complex) {
+            return $this->_sig_complex;
+        }
+        if ($signal instanceof SIG_Routine) {
+            return $this->_sig_routine;
+        }
+        if ($signal instanceof SIG) {
+            return $this->_sig_index;
+        }
+    }
+
+    /**
+     * Finds an installed signal.
      *
      * @param  object  $signal  SIG
      * 
      * @return  object  Queue
      */
-    private function _get_queue(SIG $signal)
+    private function find_signal(SIG $signal)
     {
-        $index = $signal->get_index();
-        if ($signal instanceof SIG) {
-            return $this->_sig_index[$index];
+        $db = $this->get_database($signal);
+        $memory = $db->find_signal($signal);
+        if (null !== $memory) {
+            return $memory;
         }
-        if ($signal instanceof SIG_Complex) {
-            return $this->_sig_complex[$index];
-        }
-        if ($signal instanceof SIG_Routine) {
-            return $this->_sig_routine[$index];
-        }
-    }
-
-    /**
-     * Finds a signal registered into the processor.
-     *
-     * If found the ``SIG`` object is returned otherwise null.
-     * 
-     * @param  signal  $signal  Signal to search for.
-     * 
-     * @return  null|object  ``SIG`` or ``null``.
-     */
-    public function find_signal($signal, $index = false) 
-    {
-        if ($signal instanceof SIG_Complex) {
-            $id = spl_object_hash($signal);
-            if (isset($this->_sig_complex[$id])) {
-                if ($index) return $id;
-                return $this->_sig_complex[$id][1];
-            }
-            return null;
-        }
-        if ($signal instanceof SIG) {
-            $signal = $signal->get_index();
-        }
-        $signal = (string) $signal;
-        if (isset($this->_sig_index[$signal])) {
-            if ($index) return $signal;
-            return $this->_sig_index[$signal][1];
-        }
-        return null;
     }
 
     /**
@@ -400,80 +366,20 @@ class Processor {
      */
     public function evaluate_signals($signal)
     {
-        if (count($this->_sig_complex) == 0) {
+        if ($this->_sig_complex->count() == 0) {
             return null;
         }
-        $return = [];
-        foreach ($this->_sig_complex as $_node) {
+        $signals = [];
+        foreach ($this->_sig_complex->storage() as $_node) {
             $eval = $_node[0]->evaluate($signal);
             if (false !== $eval) {
-                $return[] = [$_node, $eval];
+                $signals[] = $_node[1];
             }
         }
-        if (count($return) !== 0) {
-            return $return;
+        if (count($signals) !== 0) {
+            return $signals;
         }
         return null;
-    }
-
-    /**
-     * Loads an event for the current signal.
-     * 
-     * @param  int|string|object  $signal
-     * @param  object  $event  \XPSPL\Event
-     * @param  int|null  $ttl  Event TTL
-     * 
-     * @return  object  \XPSPL\Event
-     */
-    private function _event($signal, $event = null, $ttl = null)
-    {
-        // event creation
-        if (!$event instanceof Event) {
-            if (null !== $event) {
-                throw new exceptions\Invalid_Event(
-                    "Invalid event passed for execution"
-                );
-            }
-            $event = new Event($ttl);
-        } else {
-            if ($event->get_state() !== STATE_DECLARED) {
-                $event->set_state(STATE_RECYCLED);
-            }
-        }
-        // keep track of the current event
-        $this->_event[] = $event;
-        // are we keeping the history
-        if (false === $this->_history) {
-            return $event;
-        }
-        // event history management
-        if (count($this->_event) > 1)  {
-            $event->set_parent($this->current_event(-1));
-        }
-        $this->_history[] = [$event, $signal, milliseconds()];
-        return $event;
-    }
-
-    /**
-     * Exits the event from the processor.
-     * 
-     * @param  object  $event  \XPSPL\Event
-     */
-    private function _event_exit($event)
-    {
-        // event execution finished cleanup state if clean
-        if ($event->get_state() === STATE_RUNNING) {
-            $event->set_state(STATE_EXITED);
-        }
-        // are we keeping the history
-        if (!$this->_history) {
-            return null;
-        }
-        if (count($this->_event) !== 0) {
-            $this->_current_event = array_pop($this->_event);
-        } else {
-            $this->_current_event = null;
-        }
     }
 
     /**
@@ -487,78 +393,46 @@ class Processor {
     public function emit($signal, $context = null)
     {
         if (!$signal instanceof SIG) {
-            $signal = $this->find_signal($signal);
+            $signal = new SIG($signal);
         }
-
-        // store processor signal
-        $this->_signal[] = $signal;
-        $queue = null;
-
         // Store the history of the signal
         if (false !== $this->_history) {
             $this->_history[] = $signal;
         }
-
-        // Signal history management
+        // Set child status
         if (count($this->_signal) > 1)  {
-            $signal->set_parent($this->current_signal(-1));
+            $signal->set_parent($this->current_signal());
         }
-
-        // purge exhausted queues
-        if (XPSPL_PURGE_EXHAUSTED) {
-            $queues = [];
+        // Check if signal is installed
+        $memory = $this->find_signal($signal);
+        if (null === $memory) {
+            return $signal;
         }
-
-        // search for index signal
-        $searched = $this->find_signal($signal);
-        if (null !== $searched) {
-            if (null === $queue) {
-                $queue = new Queue();
-            }
-            $queue->merge($searched->storage());
-            if (XPSPL_PURGE_EXHAUSTED) {
-                $queues[] = $searched;
-            }
-        }
-
+        // Set as currently emitted signal
+        $this->_signal[] = $sig_queue;
+        // The queues to execute and later purge
+        $queues = [$memory[1]];
         // evaluate complex signals
-        $evalated = $this->evaluate_signals($signal);
-        if (null !== $evalated) {
-            if (null === $queue) {
-                $queue = new Queue();
-            }
-            array_walk($evalated, function($node) use ($queue, $queues) {
-                if (is_bool($node[1]) === false) {
-                    $data = $node[1];
-                    if (is_array($data)) {
-                        foreach ($data as $_k => $_v) {
-                            $signal->{$_k} = $_v;
-                        }
-                    }
-                }
-                $queue->merge($node[0][1]->storage());
-                if (XPSPL_PURGE_EXHAUSTED) {
-                    $queues[] = $node[0][1];
-                }
-            });
+        $evaluated = $this->evaluate_signals($signal);
+        if (null !== $evaluated) {
+            $queues = array_merge($queues, $evaluated);
         }
-
         // run the execution
-        if (null !== $queue && $queue->count() >= 0) {
-            // execute the signal
-            $this->_execute((null === $context) ? $signal : $context, $queue);
-            // purge exhausted processs
-            if (XPSPL_PURGE_EXHAUSTED) {
-                foreach ($queues as $_queue) {
-                    foreach ($_queue->storage() as $_node) {
-                        if ($_node[0]->is_exhausted()) {
-                            $_queue->dequeue($_node[0]);
-                        }
+        $queue = new Queue();
+        foreach ($queues as $_queue) {
+            $queue->merge($_queue->storage());
+        }
+        $this->_execute((null === $context) ? $signal : $context, $queue);
+        // purge exhausted processs
+        if (XPSPL_PURGE_EXHAUSTED) {
+            foreach ($queues as $_queue) {
+                foreach ($_queue->storage() as $_node) {
+                    if ($_node[0]->is_exhausted()) {
+                        $_queue->dequeue($_node[0]);
                     }
                 }
             }
         }
-
         // Remove the last signal
         array_pop($this->_signal);
         return $signal;
@@ -573,7 +447,6 @@ class Processor {
      *
      * @param  object  $signal  Signal instance.
      * @param  object  $queue  Queue instance.
-     * @param  object  $event  Event instance.
      * @param  boolean  $interupt  Run the interrupt functions.
      *
      * @return  void
@@ -926,7 +799,7 @@ class Processor {
         if (!$this->_history) {
             return false;
         }
-        // recursivly check if any events are a child of the given signal
+        // recursivly check if any signals are a child of the given signal
         // because if the chicken doesn't exist neither does the egg ...
         // or does it?
         $descend_destory = function($_event, $_signal) use ($signal, &$descend_destory) {
@@ -950,7 +823,7 @@ class Processor {
     }
 
     /**
-     * Sets the flag for storing the event history.
+     * Sets the flag for storing the signal history.
      *
      * Note that this will delete the current if reset.
      *

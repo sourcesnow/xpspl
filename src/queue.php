@@ -9,19 +9,14 @@ namespace XPSPL;
 use \InvalidArgumentException;
 
 /**
- * Defines the default priority of queue nodes
- */
-if (!defined('QUEUE_DEFAULT_PRIORITY')) {
-    define('QUEUE_DEFAULT_PRIORITY', 100);
-}
-
-/**
+ * Queue
+ *
+ * A database of signal processes.
+ * 
  * As of v0.3.0 Queues no longer maintain a reference to a signal.
  *
  * The Queue is still a representation of a PriorityQueue and will remain so 
  * until the issues with PHP's current implementation are addressed.
- * 
- * The queue can also be explicity set to a MIN or MAX heap upon construction.
  */
 class Queue {
 
@@ -35,24 +30,15 @@ class Queue {
     protected $_dirty = false;
 
     /**
-     * Heap type.
-     * 
-     * @var  integer
-     */
-    protected $_type = 0;
-
-    /**
      * Priority
      */
-    protected $_priority = QUEUE_DEFAULT_PRIORITY;
+    protected $_priority = PROCESS_DEFAULT_PRIORITY;
 
     /**
      * Pushes a new process into the queue.
      *
      * @param  mixed  $node  Variable to store
      * @param  integer $priority  Priority of the callable
-     *
-     * @throws  OverflowException  If max size exceeded
      *
      * @return  void
      */

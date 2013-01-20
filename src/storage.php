@@ -17,6 +17,7 @@ namespace XPSPL;
  * in this trait.
  */
 trait Storage {
+
     /**
      * The data storage.
      *

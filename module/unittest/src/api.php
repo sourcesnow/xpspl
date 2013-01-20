@@ -45,8 +45,8 @@ function test($function, $name = null) {
  * @return  void
  */
 function suite($function) {
-    $suite = new SIG_Suite();
-    signal($suite, $function);
+    $suite = new SIG_Suite($function);
+    register_signal($suite);
     return $suite;
 }
 
@@ -76,10 +76,9 @@ function generate_output() {
         $tests_run = [];
         foreach (signal_history() as $_node) {
             var_dump($_node);
-            if ($_node[0] instanceof Test) {
+            if ($_node instanceof SIG_Test) {
                 // suites
                 $tests++;
-                if (in_array($_node[0], $tests_run)) continue;
                 $tests_run[] = $_node[0];
                 $failures = [];
                 // Get passedXPSPL 

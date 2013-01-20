@@ -227,3 +227,20 @@ function get_class_name($object = null)
     $class = explode('\\', (is_string($object) ? $object : get_class($object)));
     return $class[count($class) - 1];
 }
+
+
+/**
+ * Wrapper for backtrace with/without args.
+ *
+ * @return  array
+ */
+function backtrace($args = false)
+{
+    if ($args) {
+        $trace = debug_backtrace();
+    } else {
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    }
+    array_unshift($trace);
+    return $trace;
+}

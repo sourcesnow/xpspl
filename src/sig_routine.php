@@ -1,7 +1,9 @@
 <?php
-namespace \XPSPL;
+namespace XPSPL;
 /**
- * LICENSE
+ * Copyright 2010-12 Nickolas Whiting. All rights reserved.
+ * Use of this source code is governed by the Apache 2 license
+ * that can be found in the LICENSE file.
  */
 
 use \XPSPL\processor\exception\Not_Implemented;
@@ -25,13 +27,13 @@ use \XPSPL\processor\exception\Not_Implemented;
  */
 class SIG_Routine extends SIG {
 
+    protected $_unique = true;
+
     /**
      * Runs the routine calculation.
      *
      * The method is provided a single routine object for providing the 
      * processor information.
-     *
-     * As of v3.0.0 the history was removed as a passed paramter.
      *
      * @param  object  $routine  Processor routine.
      * 

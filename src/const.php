@@ -59,6 +59,17 @@ if (!defined('PROCESS_DEFAULT_EXHAUST')) {
     define('PROCESS_DEFAULT_EXHAUST', 1);
 }
 
+if (!defined('QUEUE_DEFAULT_PRIORITY')) {
+    /**
+     * Process default priority
+     * 
+     * Integer option defining the default priority of all processes.
+     *
+     * By default it is 10.
+     */
+    define('PROCESS_DEFAULT_PRIORITY', 10);
+}
+
 if (!defined('WINDOWS')) {
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
         define('WINDOWS', true);

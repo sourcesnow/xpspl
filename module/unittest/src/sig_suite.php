@@ -6,28 +6,19 @@ namespace unittest;
  * that can be found in the LICENSE file.
  */
 
-use \XPSPL\SIG_Complex;
+use \XPSPL\SIG_Routine;
 
 /**
- * A test suite.
+ * SIG_Suite
  * 
  * The suite is designed to run a group of tests together.
+ *
+ * It is registered as a routine in the processor.
+ *
+ * All registered tests are registered into a SIG_Test signal constructed when 
+ * the suite is registered in the processor.
  */
-class SIG_Suite extends SIG_Complex {
-
-    /**
-     * Test context used in the suite.
-     * 
-     * @var  object  unittest\SIG_Test
-     */
-    protected $_test = null;
-
-    /**
-     * Setup function.
-     * 
-     * @var  object  \Closure
-     */
-    protected $_setup = null;
+class SIG_Suite extends SIG_Routine {
 
     /**
      * Teardown function
@@ -37,20 +28,21 @@ class SIG_Suite extends SIG_Complex {
     protected $_teardown = null;
 
     /**
-     * Constructs a new unit testing suite.
-     * 
-     * @param  object  $function  Closure
-     * 
-     * @return  void
+     * Constructs a new suite.
      */
-    public function __construct()
+    public function __construct($function)
     {
+        if ($function instanceof Closure) {
+            throw new InvalidArgumentException;
+        }
         parent::__construct();
         $this->_test = new SIG_Test();
+        $function = $function->bindTo($this);
+        $function();
     }
 
     /**
-     * Registers the setup function.
+     * Registers a setup function.
      * 
      * @param  object  $function  Closure
      * 
@@ -58,16 +50,11 @@ class SIG_Suite extends SIG_Complex {
      */
     public function setup($function)
     {
-        if (!$function instanceof \Closure) {
-            throw new \InvalidArgumentException(
-                "Suite requires instance of a Closure"
-            );
-        }
-        $this->_setup = null_exhaust($function);
+        before($this->_test, null_exhaust($function));
     }
 
     /**
-     * Registers the teardown function.
+     * Registers a teardown function.
      * 
      * @param  object  $function  Closure
      * 
@@ -75,12 +62,7 @@ class SIG_Suite extends SIG_Complex {
      */
     public function teardown($function)
     {
-        if (!$function instanceof \Closure) {
-            throw new \InvalidArgumentException(
-                "Suite requires instance of a Closure"
-            );
-        }
-        $this->_teardown = null_exhaust($function);
+        after($this->_test, null_exhaust($function));
     }
 
     /**
@@ -88,32 +70,25 @@ class SIG_Suite extends SIG_Complex {
      * 
      * @param  object  $function  Test function
      * @param  string  $name  Test name
+     *
+     * @return  object  SIG_Test
      */
-    function test($function, $name = null) {
-        $signal = new SIG_Test($name);
-        $this->_routine->add_signal(
-            $signal, $this->_test
-        );
-        $process = signal($signal, $function);
-        if (null !== $this->_setup) {
-            before(
-                $signal, $this->_setup
-            );
-        }
-        if (null !== $this->_teardown) {
-            after(
-                $signal, $this->_teardown
-            );
-        }
-        return [$signal, $process];
+    function test($function) 
+    {
+        signal($this->_test, $function);
     }
 
     /**
-     * Routine function
+     * Routine function.
      */
-    public function routine($history = null)
+    public function routine($routine, $history = null)
     {
-        $this->signal_this();
+        if (null === $this->_test) {
+            return false;
+        }
+        $routine->add_signal($this);
+        $routine->add_signal($this->_test);
+        $this->_test = null;
         return true;
     }
 }
