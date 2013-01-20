@@ -86,7 +86,9 @@ abstract class Complex extends Standard {
      */
     final public function event($event = null)
     {
-        if (null === $event) return $this->_event;
+        if (null === $event) {
+            return $this->_event;
+        }
         $this->_event = $event;
         return $this->_event;
     }
@@ -102,13 +104,13 @@ abstract class Complex extends Standard {
      */
     public function signal_this($event = null, $ttl = null)
     {
-        if (null !== $event) {
-            if (!$event instanceof \XPSPL\Event) {
-                $this->event(new \XPSPL\Event($ttl));
-            } else {
-                $this->event($event);
+        if (null !== $event && !$event instanceof \XPSPL\Event) {
+            $this->_event = new \XPSPL\Event($ttl);
+        } else {
+            if (null === $this->_event) {
+                $this->_event = new \XPSPL\Event();
             }
         }
-        $this->_routine->add_signal($this, $this->event());
+        $this->_routine->add_signal($this, $this->_event);
     }
 }

@@ -205,7 +205,8 @@ class Processor {
             );
         }
         $this->emit(new processor\SIG_Startup());
-        while($this->_routine()) {
+        for(;;) {
+            if (!$this->_routine()) break;
             // check state
             if ($this->get_state() === STATE_HALTED) break;
             $signals = $this->_routine->get_signals();
