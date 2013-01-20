@@ -15,7 +15,7 @@ function push_to_array($array1, $js_array) {
 
 function makeChart($name, $data) {
     $js_array = str_replace(" ", "", $name);
-    echo sprintf('var %s = [["Time", "%s"]];'.PHP_EOL,
+    echo sprintf('var %s = [["Time in us", "%s"]];'.PHP_EOL,
         $js_array, $name
     );
     push_to_array($data, $js_array);

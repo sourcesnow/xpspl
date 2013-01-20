@@ -290,6 +290,9 @@ class Processor {
      */
     public function signal($signal, $process)
     {
+        if (!$signal instanceof SIG) {
+            $signal = new SIG($signal);
+        }
         if (!$process instanceof Process) {
             $process = new Process($process);
         }
@@ -328,7 +331,7 @@ class Processor {
      * 
      * @return  array
      */
-    public function get_database($signal)
+    public function get_database(SIG $signal)
     {
         if ($signal instanceof SIG_Complex) {
             return $this->_sig_complex;
@@ -397,7 +400,7 @@ class Processor {
         }
         // Store the history of the signal
         if (false !== $this->_history) {
-            $this->_history[] = $signal;
+            $this->_history[] = [$signal, microtime()];
         }
         // Set child status
         if (count($this->_signal) > 1)  {
@@ -599,24 +602,18 @@ class Processor {
      */
     protected function _signal_interrupt($signal, $process, $interrupt = null) 
     {
-        // Variable Checks
         if (!$process instanceof Process) {
-            if (!is_callable($process)) {
-                throw new exceptions\Invalid_Process(
-                    "Invalid process given for signal interruption"
-                );
-            } else {
-                $process = new Process($process);
-            }
+            $process = new Process($process);
         }
-        if (!is_object($signal) && !is_int($signal) && !is_string($signal)) {
-            throw new exceptions\Ivalid_Signal(
-                "Invalid signal given for signal interruption"
-            );
-            return false;
+        if (!$signal instanceof SIG) {
+            $signal = new SIG($signal);
         }
-        if (null === $interrupt) {
-            $interrupt = self::INTERRUPT_PRE;
+        $memory = $this->find_signal($signal);
+        if (null === $signal) {
+            throw new exceptions\Unregistered_Signal(sprintf(
+                'Signal %s is not registed. Register before installing interruptions',
+                (is_object($signal)) ? get_class($signal) : $signal
+            ));
         }
         if ($interrupt != self::INTERRUPT_PRE && 
             $interrupt != self::INTERRUPT_POST) {
@@ -624,31 +621,31 @@ class Processor {
                 "Invalid Interruption Step"
             );
         }
-        if (!isset($this->_int_storage[$interrupt])) {
-            $this->_int_storage[$interrupt] = [[], []];
-        }
-        $storage =& $this->_int_storage[$interrupt];
-        if ($signal instanceof signal\Complex) {
-            $storage[self::COMPLEX_STORAGE][] =  [
-                $signal, $process
-            ];
-        } else {
-            if ($signal instanceof Signal) {
-                $name = $signal->get_index();
-            } else {
-                if (is_object($signal)) {
-                    $name = get_class($signal);
-                } else {
-                    $name = $signal;
-                }
-            }
-            if (!isset($storage[self::SIG_STORAGE][$name])) {
-                $storage[self::SIG_STORAGE][$name] = [];
-            }
-            $storage[self::SIG_STORAGE][$name][] = [
-                $signal, $process
-            ];
-        }
+        // if (!isset($this->_int_storage[$interrupt])) {
+        //     $this->_int_storage[$interrupt] = [[], []];
+        // }
+        // $storage =& $this->_int_storage[$interrupt];
+        // if ($signal instanceof signal\Complex) {
+        //     $storage[self::COMPLEX_STORAGE][] =  [
+        //         $signal, $process
+        //     ];
+        // } else {
+        //     if ($signal instanceof Signal) {
+        //         $name = $signal->get_index();
+        //     } else {
+        //         if (is_object($signal)) {
+        //             $name = get_class($signal);
+        //         } else {
+        //             $name = $signal;
+        //         }
+        //     }
+        //     if (!isset($storage[self::SIG_STORAGE][$name])) {
+        //         $storage[self::SIG_STORAGE][$name] = [];
+        //     }
+        //     $storage[self::SIG_STORAGE][$name][] = [
+        //         $signal, $process
+        //     ];
+        // }
         return true;
     }
 
@@ -663,55 +660,55 @@ class Processor {
     private function _interrupt($signal, $type)
     {
         // do nothing no interrupts registered
-        if (!isset($this->_int_storage[$type])) {
-            return true;
-        }
-        $queue = null;
-        if (count($this->_int_storage[$type][self::COMPLEX_STORAGE]) != 0) {
-            foreach ($this->_int_storage[$type][self::COMPLEX_STORAGE] as $_node) {
-                $eval = $_node[0]->evaluate($signal);
-                if (false !== $eval) {
-                    if (true !== $eval) {
-                        if (is_array($eval)) {
-                            foreach ($eval as $_k => $_v) {
-                                $event->{$_k} = $_v;
-                            }
-                        }
-                    }
-                    if (null === $queue) {
-                        $queue = new Queue();
-                    }
-                    if (!$_node[1]->is_exhausted()) {
-                        $queue->enqueue($_node[1], $_node[1]->get_priority());
-                    }
-                }
-            }
-        }
-        $lookup = [];
-        $class_name = (is_object($signal)) ? get_class($signal) : $signal;
-        if ($signal instanceof Signal) {
-            $info = $signal->get_index();
-            if ($info != $class_name) {
-                $lookup[] = $info;
-            }
-        } else {
-            $lookup[] = $class_name;
-        }
-        foreach ($lookup as $_index) {
-            if (isset($this->_int_storage[$type][self::SIG_STORAGE][$_index])) {
-                foreach ($this->_int_storage[$type][self::SIG_STORAGE][$_index] as $_node) {
-                    if (null === $queue) {
-                        $queue = new Queue();
-                    }
-                    if (!$_node[1]->is_exhausted()) {
-                        $queue->enqueue($_node[1], $_node[1]->get_priority());
-                    }
-                }
-            }
-        }
-        if (null !== $queue) {
-            $this->_queue_execute($queue, $signal);
-        }
+        // if (!isset($this->_int_storage[$type])) {
+        //     return true;
+        // }
+        // $queue = null;
+        // if (count($this->_int_storage[$type][self::COMPLEX_STORAGE]) != 0) {
+        //     foreach ($this->_int_storage[$type][self::COMPLEX_STORAGE] as $_node) {
+        //         $eval = $_node[0]->evaluate($signal);
+        //         if (false !== $eval) {
+        //             if (true !== $eval) {
+        //                 if (is_array($eval)) {
+        //                     foreach ($eval as $_k => $_v) {
+        //                         $event->{$_k} = $_v;
+        //                     }
+        //                 }
+        //             }
+        //             if (null === $queue) {
+        //                 $queue = new Queue();
+        //             }
+        //             if (!$_node[1]->is_exhausted()) {
+        //                 $queue->enqueue($_node[1], $_node[1]->get_priority());
+        //             }
+        //         }
+        //     }
+        // }
+        // $lookup = [];
+        // $class_name = (is_object($signal)) ? get_class($signal) : $signal;
+        // if ($signal instanceof Signal) {
+        //     $info = $signal->get_index();
+        //     if ($info != $class_name) {
+        //         $lookup[] = $info;
+        //     }
+        // } else {
+        //     $lookup[] = $class_name;
+        // }
+        // foreach ($lookup as $_index) {
+        //     if (isset($this->_int_storage[$type][self::SIG_STORAGE][$_index])) {
+        //         foreach ($this->_int_storage[$type][self::SIG_STORAGE][$_index] as $_node) {
+        //             if (null === $queue) {
+        //                 $queue = new Queue();
+        //             }
+        //             if (!$_node[1]->is_exhausted()) {
+        //                 $queue->enqueue($_node[1], $_node[1]->get_priority());
+        //             }
+        //         }
+        //     }
+        // }
+        // if (null !== $queue) {
+        //     $this->_queue_execute($queue, $signal);
+        // }
     }
 
     /**

@@ -31,69 +31,69 @@ $tests = [
     function($i) {
         listen(new Lst());
     },
-    'Interruptions Installed' =>
-    function($i){
-        before($i, function(){}); 
-    },
+    // 'Interruptions Installed' =>
+    // function($i){
+    //     before($i, function(){}); 
+    // },
     'Loops Performed' => 
     function($i) {
-        loop();
+        wait_loop();
     },
-    'Interruption before emit' => 
-    function($i) {
-        before($i, function(){});
-        emit($i);
-    },
-    'Interruption after emit' => 
-    function($i) {
-        after($i, function(){});
-        emit($i);
-    },
-    'Complex Signal Registration' => 
-    function($i) {
-        register_signal(new Cmp());
-    },
-    'Complex Signal Evaluation' => 
-    function($i, $setup){
-        if ($setup) {
-            signal(new Cmp(), null_exhaust(function(){}));
-        }
-        emit('foo');
-    },
-    'Complex Signal Registration' => 
-    function($i) {
-        register_signal(new Cmp());
-    },
-    'Complex Signal Evaluation' => 
-    function($i, $setup){
-        if ($setup) {
-            signal(new Cmp(), null_exhaust(function(){}));
-        }
-        emit('foo');
-    },
-    'Complex Signal Interruption Before Install' => 
-    function($i, $setup){
-        before(new Cmp(), function(){});
-    },
-    'Complex Signal Interruption After Install' => 
-    function($i, $setup){
-        after(new Cmp(), function(){});
-    },
-    'Complex Signal Interruption Before' => 
-    function($i, $setup){
-        before(new Cmp(), function(){});
-        emit(new Cmp());
-    },
-    'Complex Signal Interruption After' => 
-    function($i, $setup){
-        after(new Cmp(), function(){});
-        emit(new Cmp());
-    },
+    // 'Interruption before emit' => 
+    // function($i) {
+    //     before($i, function(){});
+    //     emit($i);
+    // },
+    // 'Interruption after emit' => 
+    // function($i) {
+    //     after($i, function(){});
+    //     emit($i);
+    // },
+    // 'Complex Signal Registration' => 
+    // function($i) {
+    //     register_signal(new Cmp());
+    // },
+    // 'Complex Signal Evaluation' => 
+    // function($i, $setup){
+    //     if ($setup) {
+    //         signal(new Cmp(), null_exhaust(function(){}));
+    //     }
+    //     emit('foo');
+    // },
+    // 'Complex Signal Registration' => 
+    // function($i) {
+    //     register_signal(new Cmp());
+    // },
+    // 'Complex Signal Evaluation' => 
+    // function($i, $setup){
+    //     if ($setup) {
+    //         signal(new Cmp(), null_exhaust(function(){}));
+    //     }
+    //     emit('foo');
+    // },
+    // 'Complex Signal Interruption Before Install' => 
+    // function($i, $setup){
+    //     before(new Cmp(), function(){});
+    // },
+    // 'Complex Signal Interruption After Install' => 
+    // function($i, $setup){
+    //     after(new Cmp(), function(){});
+    // },
+    // 'Complex Signal Interruption Before' => 
+    // function($i, $setup){
+    //     before(new Cmp(), function(){});
+    //     emit(new Cmp());
+    // },
+    // 'Complex Signal Interruption After' => 
+    // function($i, $setup){
+    //     after(new Cmp(), function(){});
+    //     emit(new Cmp());
+    // },
 ];
 
 $output::send('Beginning performance tests');
 $results = [];
-$average_perform = 250;
+$average_perform = 150;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     for ($i=1;$i<$average_perform;$i++) {
@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 13);) {
+        for($a=1;$a<(1 << 2);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {

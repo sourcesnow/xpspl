@@ -8,6 +8,8 @@ namespace XPSPL\processor\exception;
 
 
 /**
- * Non Implemented object attempted to run.
+ * Unregistered Signal
+ *
+ * Unregistered signal given to the processor.
  */
-class Not_Implenented extends Exception {}
+class Unregistered_Signal extends Exception {}

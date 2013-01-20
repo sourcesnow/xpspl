@@ -75,8 +75,7 @@ function generate_output() {
         $output = Output::instance();
         $tests_run = [];
         foreach (signal_history() as $_node) {
-            var_dump($_node);
-            if ($_node instanceof SIG_Test) {
+            if ($_node[0] instanceof SIG_Test) {
                 // suites
                 $tests++;
                 $tests_run[] = $_node[0];
