@@ -1,4 +1,4 @@
-## 3.0.0
+## 3.0.0 01202013
 
 * Routine reset no longer resets the idle object.
 * Idle and Routine objects are now in the global XPSPL namespace.
