@@ -1,119 +1,95 @@
-API
-***
+.. /api.php generated using docpx on 01/16/13 03:03am
 
-XPSPL API
 
-All functions declared on this page do not fall into any namespace.
+signal
+======
 
-.. api.php generated using docpx on 01/08/13 04:27pm
 .. function:: signal($signal, $callable)
 
 
-    Installs a new signal processor.
+    Creates a new signal handler.
 
-    :param string|integer|object $signal: Signal to attach the process.
+    :param string|integer|object $signal: Signal to attach the handle.
     :param object $callable: Callable
 
-    :rtype: object|boolean Process, boolean if error
-
-
-Example
-+++++++
- 
-This example demonstrates how to do something amazing!
-
-.. code-block:: php
-
-    <?php
-
-    signal(new SIG_Startup(), function(){
-        echo 'Doing something on startup';
-    });
-
-Example
-+++++++
- 
-This demonstrates how to do something even more amazing!
-
-.. code-block:: php
-
-    <?php
-
-    signal(new SIG_Shutdown(), null_exhaust(function(){
-        echo "I NEVER EXHAUST!!";
-    }))
-
-Example
-+++++++
- 
-This demonstrates how to do something even more amazing!
-
-.. code-block:: php
-
-    <?php
-
-    signal(new SIG_AS(), null_exhaust(function(){
-        echo "I NEVER EXHAUST!!";
-    }))
+    :rtype: object|boolean Handle, boolean if error
 
 
 
-.. function:: null_exhaust($process)
+null_exhaust
+============
+
+.. function:: null_exhaust($handle)
 
 
-    Creates a never exhausting signal process.
+    Creates a never exhausting signal handler.
 
-    :param callable|process $process: PHP Callable or \XPSPL\Process object.
+    :param callable|handle $handle: PHP Callable or \XPSPL\Handle object.
 
-    :rtype: object Process
-
-
-
-.. function:: high_priority($process)
-
-
-    Creates or sets a process with high priority.
-
-    :param callable|process $process: PHP Callable or \XPSPL\Process object.
-
-    :rtype: object Process
+    :rtype: object Handle
 
 
 
-.. function:: low_priority($process)
+high_priority
+=============
+
+.. function:: high_priority($handle)
 
 
-    Creates or sets a process with low priority.
+    Creates or sets a handle with high priority.
 
-    :param callable|process $process: PHP Callable or \XPSPL\Process object.
+    :param callable|handle $handle: PHP Callable or \XPSPL\Handle object.
 
-    :rtype: object Process
-
-
-
-.. function:: priority($process, $priority)
+    :rtype: object Handle
 
 
-    Sets a process priority.
 
-    :param callable|process $process: PHP Callable or \XPSPL\Process object.
+low_priority
+============
+
+.. function:: low_priority($handle)
+
+
+    Creates or sets a handle with low priority.
+
+    :param callable|handle $handle: PHP Callable or \XPSPL\Handle object.
+
+    :rtype: object Handle
+
+
+
+priority
+========
+
+.. function:: priority($handle, $priority)
+
+
+    Sets a handle priority.
+
+    :param callable|handle $handle: PHP Callable or \XPSPL\Handle object.
     :param integer $priority: Priority
 
-    :rtype: object Process
+    :rtype: object Handle
 
 
 
-.. function:: remove_process($signal, $process)
+remove_handle
+=============
+
+.. function:: remove_handle($signal, $handle)
 
 
-    Removes an installed signal process.
+    Remove a sig handler.
 
-    :param string|integer|object $signal: Signal process is attached to.
-    :param object $process: Process instance.
+    :param string|integer|object $signal: Signal handle is attached to.
+    :param object $handle: Handle instance.
 
     :rtype: void 
 
 
+
+emit
+====
 
 .. function:: emit($signal, [$event = false])
 
@@ -121,12 +97,15 @@ This demonstrates how to do something even more amazing!
     Signals an event.
 
     :param string|integer|object $signal: Signal or a signal instance.
-    :param array $vars: Array of variables to pass the processs.
+    :param array $vars: Array of variables to pass the handles.
     :param object $event: Event
 
     :rtype: object \XPSPL\Event
 
 
+
+signal_history
+==============
 
 .. function:: signal_history()
 
@@ -136,6 +115,9 @@ This demonstrates how to do something even more amazing!
     :rtype: array 
 
 
+
+register_signal
+===============
 
 .. function:: register_signal($signal)
 
@@ -147,6 +129,9 @@ This demonstrates how to do something even more amazing!
     :rtype: object Queue
 
 
+
+search_signals
+==============
 
 .. function:: search_signals($signal, [$index = false])
 
@@ -161,6 +146,9 @@ This demonstrates how to do something even more amazing!
 
 
 
+loop
+====
+
 .. function:: loop()
 
 
@@ -170,6 +158,9 @@ This demonstrates how to do something even more amazing!
 
 
 
+shutdown
+========
+
 .. function:: shutdown()
 
 
@@ -178,6 +169,9 @@ This demonstrates how to do something even more amazing!
     :rtype: void 
 
 
+
+import
+======
 
 .. function:: import($name, [$dir = false])
 
@@ -191,31 +185,40 @@ This demonstrates how to do something even more amazing!
 
 
 
-.. function:: before($signal, $process)
+before
+======
+
+.. function:: before($signal, $handle)
 
 
     Registers a function to interrupt the signal stack before a signal fires,
-    allowing for manipulation of the event before it is passed to processs.
+    allowing for manipulation of the event before it is passed to handles.
 
     :param string|object $signal: Signal instance or class name
-    :param object $process: Process to execute
+    :param object $handle: Handle to execute
 
     :rtype: boolean True|False false is failure
 
 
 
-.. function:: after($signal, $process)
+after
+=====
+
+.. function:: after($signal, $handle)
 
 
     Registers a function to interrupt the signal stack after a signal fires.
-    allowing for manipulation of the event after it is passed to processs.
+    allowing for manipulation of the event after it is passed to handles.
 
     :param string|object $signal: Signal instance or class name
-    :param object $process: Process to execute
+    :param object $handle: Handle to execute
 
     :rtype: boolean True|False false is failure
 
 
+
+XPSPL
+=====
 
 .. function:: XPSPL()
 
@@ -225,6 +228,9 @@ This demonstrates how to do something even more amazing!
     :rtype: object XPSPL\Processor
 
 
+
+clean
+=====
 
 .. function:: clean([$history = false])
 
@@ -236,6 +242,9 @@ This demonstrates how to do something even more amazing!
     :rtype: void 
 
 
+
+delete_signal
+=============
 
 .. function:: delete_signal($signal, [$history = false])
 
@@ -249,6 +258,9 @@ This demonstrates how to do something even more amazing!
 
 
 
+erase_signal_history
+====================
+
 .. function:: erase_signal_history($signal)
 
 
@@ -260,16 +272,22 @@ This demonstrates how to do something even more amazing!
 
 
 
+disable_signaled_exceptions
+===========================
+
 .. function:: disable_signaled_exceptions([$history = false])
 
 
-    Disables the exception process.
+    Disables the exception handler.
 
     :param boolean $history: Erase any history of exceptions signaled.
 
     :rtype: void 
 
 
+
+erase_history
+=============
 
 .. function:: erase_history()
 
@@ -279,6 +297,9 @@ This demonstrates how to do something even more amazing!
     :rtype: void 
 
 
+
+save_signal_history
+===================
 
 .. function:: save_signal_history($flag)
 
@@ -291,6 +312,9 @@ This demonstrates how to do something even more amazing!
 
 
 
+listen
+======
+
 .. function:: listen($listener)
 
 
@@ -301,6 +325,9 @@ This demonstrates how to do something even more amazing!
     :rtype: void 
 
 
+
+dir_include
+===========
 
 .. function:: dir_include($dir, [$listen = false, [$path = false]])
 
@@ -317,6 +344,9 @@ This demonstrates how to do something even more amazing!
 
 
 
+$i
+==
+
 .. function:: $i()
 
 
@@ -324,6 +354,9 @@ This demonstrates how to do something even more amazing!
     to get this to run.
 
 
+
+current_signal
+==============
 
 .. function:: current_signal([$offset = false])
 
@@ -336,6 +369,9 @@ This demonstrates how to do something even more amazing!
 
 
 
+current_event
+=============
+
 .. function:: current_event([$offset = false])
 
 
@@ -347,27 +383,36 @@ This demonstrates how to do something even more amazing!
 
 
 
+on_shutdown
+===========
+
 .. function:: on_shutdown($function)
 
 
     Call the provided function on processor shutdown.
 
-    :param callable|object $function: Function or process object
+    :param callable|object $function: Function or handle object
 
-    :rtype: object \XPSPL\Process
+    :rtype: object \XPSPL\Handle
 
 
+
+on_start
+========
 
 .. function:: on_start($function)
 
 
     Call the provided function on processor start.
 
-    :param callable|object $function: Function or process object
+    :param callable|object $function: Function or handle object
 
-    :rtype: object \XPSPL\Process
+    :rtype: object \XPSPL\Handle
 
 
+
+XPSPL_flush
+===========
 
 .. function:: XPSPL_flush()
 
@@ -375,18 +420,6 @@ This demonstrates how to do something even more amazing!
     Empties the storage, history and clears the current state.
 
     :rtype: void 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>XPSPLHandle &mdash; XPSPL 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
+    <link rel="next" title="XPSPLIdle" href="idle.html" />
+    <link rel="prev" title="EVENT_SELF_PARENT" href="event.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="idle.html" title="XPSPLIdle"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="event.html" title="EVENT_SELF_PARENT"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="xpsplhandle">
+<h1>XPSPLHandle<a class="headerlink" href="#xpsplhandle" title="Permalink to this headline">¶</a></h1>
+<p>A handle is the function which will execute upon a signal call.</p>
+<p>Though attached to a signal the object itself contains no
+information on what a signal even is, it is possible to couple
+it within the object, but the handle will unknownly receive an
+event which contains the same.</p>
+<p>As of v0.3.0 handles are now designed with an exhausting of 1
+by default, this is done under the theory that any handle which
+is registered is done so to run at least once, otherwise it wouldn&#8217;t
+exist.</p>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="construct">
+<h1>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="__construct">
+<tt class="descname">__construct</tt><big>(</big><em>$function</em><span class="optional">[</span>, <em>$exhaust = 1</em><span class="optional">[</span>, <em>$priority = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new handle object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$function</strong> (<em>mixed</em>) &#8211; A callable php variable.</li>
+<li><strong>$exhaust</strong> (<em>integer</em>) &#8211; Count to set handle exhaustion.</li>
+<li><strong>$priority</strong> (<em>null|integer</em>) &#8211; Priority of the handle.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="decrement-exhaust">
+<h1>decrement_exhaust<a class="headerlink" href="#decrement-exhaust" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="decrement_exhaust">
+<tt class="descname">decrement_exhaust</tt><big>(</big><big>)</big><a class="headerlink" href="#decrement_exhaust" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrements the exhaustion counter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="exhaustion">
+<h1>exhaustion<a class="headerlink" href="#exhaustion" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">exhaustion</tt><big>(</big><big>)</big></dt>
+<dd><p>Returns count until handle becomes exhausted</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="is-exhausted">
+<h1>is_exhausted<a class="headerlink" href="#is-exhausted" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="is_exhausted">
+<tt class="descname">is_exhausted</tt><big>(</big><big>)</big><a class="headerlink" href="#is_exhausted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the handle has exhausted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-priority">
+<h1>get_priority<a class="headerlink" href="#get-priority" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_priority">
+<tt class="descname">get_priority</tt><big>(</big><big>)</big><a class="headerlink" href="#get_priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the priority of the handle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-function">
+<h1>get_function<a class="headerlink" href="#get-function" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_function">
+<tt class="descname">get_function</tt><big>(</big><big>)</big><a class="headerlink" href="#get_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the function for the handle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">closure|array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="set-exhaust">
+<h1>set_exhaust<a class="headerlink" href="#set-exhaust" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="set_exhaust">
+<tt class="descname">set_exhaust</tt><big>(</big><em>$rate</em><big>)</big><a class="headerlink" href="#set_exhaust" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the handle exhaust rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$rate</strong> (<em>integer</em>) &#8211; Exhaust rate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="set-priority">
+<h1>set_priority<a class="headerlink" href="#set-priority" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="set_priority">
+<tt class="descname">set_priority</tt><big>(</big><em>$priority</em><big>)</big><a class="headerlink" href="#set_priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the handle priority.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$priority</strong> (<em>integer</em>) &#8211; Integer Priority</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">XPSPLHandle</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#construct">__construct</a></li>
+<li><a class="reference internal" href="#decrement-exhaust">decrement_exhaust</a></li>
+<li><a class="reference internal" href="#exhaustion">exhaustion</a></li>
+<li><a class="reference internal" href="#is-exhausted">is_exhausted</a></li>
+<li><a class="reference internal" href="#get-priority">get_priority</a></li>
+<li><a class="reference internal" href="#get-function">get_function</a></li>
+<li><a class="reference internal" href="#set-exhaust">set_exhaust</a></li>
+<li><a class="reference internal" href="#set-priority">set_priority</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="event.html"
+                        title="previous chapter">EVENT_SELF_PARENT</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="idle.html"
+                        title="next chapter">XPSPLIdle</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/src/handle.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="idle.html" title="XPSPLIdle"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="event.html" title="EVENT_SELF_PARENT"
+             >previous</a> |</li>
+        <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Nickolas Whiting.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

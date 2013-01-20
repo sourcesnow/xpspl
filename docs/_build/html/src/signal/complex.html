@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>XPSPLsignalComplex &mdash; XPSPL 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="XPSPL 3.0.0 documentation" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="xpsplsignalcomplex">
+<h1>XPSPLsignalComplex<a class="headerlink" href="#xpsplsignalcomplex" title="Permalink to this headline">¶</a></h1>
+<p>Added in v0.3.0</p>
+<p>Complex signals are any signals that perform a calculation to determine
+signals to trigger, idle time or an idle function.</p>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="construct">
+<h1>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="__construct">
+<tt class="descname">__construct</tt><big>(</big><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new complex signal.</p>
+<p>This must be called from a child signal.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="evaluate">
+<h1>evaluate<a class="headerlink" href="#evaluate" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">evaluate</tt><big>(</big><span class="optional">[</span><em>$signal = false</em><span class="optional">]</span><big>)</big></dt>
+<dd><p>Compares the event signal given aganist itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$signal</strong> (<em>string|integer</em>) &#8211; Signal to evaluate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean|string|array False on failure. True if matches. String
+or array indicate results to pass handlers</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="routine">
+<h1>routine<a class="headerlink" href="#routine" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">routine</tt><big>(</big><span class="optional">[</span><em>$history = false</em><span class="optional">]</span><big>)</big></dt>
+<dd><p>Runs the routine calculations which allows for a complex signal to
+analyze the event history or perform any other computable algorithm
+for determining when a signal should trigger, the processor should idle or
+the processor run the given function for a certain amount of time.</p>
+<p>The goal of running routine calculations is to allow for complex event
+processing.</p>
+<p>The return of this method is ignored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$history</strong> (<em>array</em>) &#8211; Event history</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-routine">
+<h1>get_routine<a class="headerlink" href="#get-routine" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_routine">
+<tt class="descname">get_routine</tt><big>(</big><big>)</big><a class="headerlink" href="#get_routine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the routine object for this complex signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object XPSPLRoutine</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="event">
+<h1>event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">event</tt><big>(</big><span class="optional">[</span><em>$event = false</em><span class="optional">]</span><big>)</big></dt>
+<dd><p>Returns the event assigned to this signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object|null</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="signal-this">
+<h1>signal_this<a class="headerlink" href="#signal-this" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="signal_this">
+<tt class="descname">signal_this</tt><big>(</big><span class="optional">[</span><em>$event = false</em><span class="optional">[</span>, <em>$ttl = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#signal_this" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for adding this signal to signal itself within a routine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$event</strong> (<em>boolean|object</em>) &#8211; Create or provide an event. Default = true</li>
+<li><strong>$ttl</strong> (<em>integer|null</em>) &#8211; TTL for the event.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">XPSPLsignalComplex</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#construct">__construct</a></li>
+<li><a class="reference internal" href="#evaluate">evaluate</a></li>
+<li><a class="reference internal" href="#routine">routine</a></li>
+<li><a class="reference internal" href="#get-routine">get_routine</a></li>
+<li><a class="reference internal" href="#event">event</a></li>
+<li><a class="reference internal" href="#signal-this">signal_this</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/src/signal/complex.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Nickolas Whiting.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

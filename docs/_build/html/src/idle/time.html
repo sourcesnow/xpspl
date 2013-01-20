@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>XPSPLidleTime &mdash; XPSPL 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="XPSPL 3.0.0 documentation" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="xpsplidletime">
+<h1>XPSPLidleTime<a class="headerlink" href="#xpsplidletime" title="Permalink to this headline">¶</a></h1>
+<p>Idles the processor for a specific amount of time.</p>
+<p>The amount of time can be specified in seconds or milliseconds.</p>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="construct">
+<h1>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="__construct">
+<tt class="descname">__construct</tt><big>(</big><em>$time</em>, <em>$instruction</em><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs the time idle.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="idle">
+<h1>idle<a class="headerlink" href="#idle" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">idle</tt><big>(</big><em>$processor</em><big>)</big></dt>
+<dd><p>Runs the idle function, this will call either sleep or usleep
+depending upon the type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-length">
+<h1>get_length<a class="headerlink" href="#get-length" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_length">
+<tt class="descname">get_length</tt><big>(</big><big>)</big><a class="headerlink" href="#get_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of time to idle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-time-until">
+<h1>get_time_until<a class="headerlink" href="#get-time-until" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_time_until">
+<tt class="descname">get_time_until</tt><big>(</big><big>)</big><a class="headerlink" href="#get_time_until" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the length of time to idle until.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-instruction">
+<h1>get_instruction<a class="headerlink" href="#get-instruction" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_instruction">
+<tt class="descname">get_instruction</tt><big>(</big><big>)</big><a class="headerlink" href="#get_instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the type of time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="get-time-left">
+<h1>get_time_left<a class="headerlink" href="#get-time-left" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="get_time_left">
+<tt class="descname">get_time_left</tt><big>(</big><big>)</big><a class="headerlink" href="#get_time_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time left until the idle should stop.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer|float</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="convert-length">
+<h1>convert_length<a class="headerlink" href="#convert-length" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="convert_length">
+<tt class="descname">convert_length</tt><big>(</big><em>$length</em>, <em>$to</em><big>)</big><a class="headerlink" href="#convert_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts length of times from and to seconds, milliseconds and
+microseconds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$length</strong> (<em>integer|float</em>) &#8211; </li>
+<li><strong>$to</strong> (<em>integer</em>) &#8211; To instruction</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">integer|float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="has-time-passed">
+<h1>has_time_passed<a class="headerlink" href="#has-time-passed" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="has_time_passed">
+<tt class="descname">has_time_passed</tt><big>(</big><big>)</big><a class="headerlink" href="#has_time_passed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if the time to idle until has passed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="override">
+<h1>override<a class="headerlink" href="#override" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt>
+<tt class="descname">override</tt><big>(</big><em>$time</em><big>)</big></dt>
+<dd><p>Determine if the given time idle function is less than the current.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$time</strong> (<em>object</em>) &#8211; Time idle object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">XPSPLidleTime</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#construct">__construct</a></li>
+<li><a class="reference internal" href="#idle">idle</a></li>
+<li><a class="reference internal" href="#get-length">get_length</a></li>
+<li><a class="reference internal" href="#get-time-until">get_time_until</a></li>
+<li><a class="reference internal" href="#get-instruction">get_instruction</a></li>
+<li><a class="reference internal" href="#get-time-left">get_time_left</a></li>
+<li><a class="reference internal" href="#convert-length">convert_length</a></li>
+<li><a class="reference internal" href="#has-time-passed">has_time_passed</a></li>
+<li><a class="reference internal" href="#override">override</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/src/idle/time.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Nickolas Whiting.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

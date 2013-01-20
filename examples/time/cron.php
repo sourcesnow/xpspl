@@ -10,7 +10,7 @@ date_default_timezone_set('America/New_York');
 /**
  * CRON
  *
- * This example demonstrates how to CRON XPSPL to run functions.
+ * This example demonstrates how to use CRON to awake XPSPL.
  */
 import('time');
 

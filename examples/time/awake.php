@@ -8,7 +8,7 @@
 /**
  * Awake
  *
- * This example demonstrates how to awake XPSPL to run functions.
+ * This example demonstrates how to awake XPSPL.
  */
 import('time');
 
