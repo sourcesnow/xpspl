@@ -6,6 +6,8 @@ namespace unittest;
  * that can be found in the LICENSE file.
  */
 
+use \XPSPL\SIG;
+
 if (!defined('SKIP_TESTS_ON_FAILURE')) {
     define('SKIP_TESTS_ON_FAILURE', true);
 }
@@ -24,7 +26,7 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
  *     etc ...
  * });
  */
-class Test extends \XPSPL\Signal {
+class SIG_Test extends SIG {
 
     protected $_unique = true;
 
@@ -54,25 +56,6 @@ class Test extends \XPSPL\Signal {
     {
         $this->_info = $info;
         parent::__construct();
-    }
-
-    /**
-     * Routine calculation.
-     */
-    public function routine($event_history = null)
-    {
-        $this->signal_this($this->_event);
-        // test signals always return to fire immediatly
-        return true;
-    }
-
-    /**
-     * Evalute.
-     */
-    public function evaluate($signal = null)
-    {
-        if ($signal === $this) return true;
-        return false;
     }
 
     /**

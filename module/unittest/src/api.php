@@ -45,7 +45,7 @@ function test($function, $name = null) {
  * @return  void
  */
 function suite($function) {
-    $suite = new Suite();
+    $suite = new SIG_Suite();
     signal($suite, $function);
     return $suite;
 }

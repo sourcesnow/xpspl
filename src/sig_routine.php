@@ -1,4 +1,5 @@
 <?php
+namespace \XPSPL;
 /**
  * LICENSE
  */
@@ -22,7 +23,7 @@ use \XPSPL\processor\exception\Not_Implemented;
  * SIG_Routines are designed for signals that will need to idle the processor 
  * to wait for emitting in the future.
  */
-final class SIG_Routine extends SIG {
+class SIG_Routine extends SIG {
 
     /**
      * Runs the routine calculation.

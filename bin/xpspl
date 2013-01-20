@@ -123,8 +123,7 @@ if (false !== $runfile) {
     } else {
         require_once $runfile;
     }
-} else if ($it) {
 }
 
 // start the loop!!
-loop($ttr);
+wait_loop($ttr);

@@ -117,7 +117,7 @@ class Process {
      */
     public function get_function(/* ... */)
     {
-        return $this->_function;
+        return $this->_callable;
     }
 
     /**

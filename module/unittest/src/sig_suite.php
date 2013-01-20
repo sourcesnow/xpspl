@@ -6,17 +6,19 @@ namespace unittest;
  * that can be found in the LICENSE file.
  */
 
+use \XPSPL\SIG_Complex;
+
 /**
  * A test suite.
  * 
  * The suite is designed to run a group of tests together.
  */
-class Suite extends \XPSPL\signal\Complex {
+class SIG_Suite extends SIG_Complex {
 
     /**
      * Test context used in the suite.
      * 
-     * @var  object  unittest\Test
+     * @var  object  unittest\SIG_Test
      */
     protected $_test = null;
 
@@ -44,7 +46,7 @@ class Suite extends \XPSPL\signal\Complex {
     public function __construct()
     {
         parent::__construct();
-        $this->_test = new Test();
+        $this->_test = new SIG_Test();
     }
 
     /**
@@ -61,7 +63,7 @@ class Suite extends \XPSPL\signal\Complex {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_setup = new \XPSPL\Process($function, null);
+        $this->_setup = null_exhaust($function);
     }
 
     /**
@@ -78,7 +80,7 @@ class Suite extends \XPSPL\signal\Complex {
                 "Suite requires instance of a Closure"
             );
         }
-        $this->_teardown = new \XPSPL\Process($function, null);
+        $this->_teardown = null_exhaust($function);
     }
 
     /**
@@ -88,7 +90,7 @@ class Suite extends \XPSPL\signal\Complex {
      * @param  string  $name  Test name
      */
     function test($function, $name = null) {
-        $signal = new Test($name);
+        $signal = new SIG_Test($name);
         $this->_routine->add_signal(
             $signal, $this->_test
         );

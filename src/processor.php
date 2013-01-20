@@ -106,7 +106,7 @@ class Processor {
     }
 
     /**
-     * Start the event loop.
+     * Waits for the next signal to occur.
      *
      * @todo unittest
      * 
@@ -114,7 +114,7 @@ class Processor {
      * 
      * @return  void
      */
-    public function loop($ttr = null)
+    public function wait_loop($ttr = null)
     {
         if (null !== $ttr) {
             $processor = $this;
@@ -287,10 +287,10 @@ class Processor {
     {
         if (!$process instanceof Process) {
             if (!is_callable($process)) {
-                $this->emit(new exceptions\Invalid_Process(
-                       "Invalid process given to install" 
-                    ), new processor\event\Error([func_get_args()])
-                );
+                throw new exceptions\Invalid_Process(sprintf(
+                   "Invalid process given to install %s",
+                   gettype($process)
+                ));
                 return false;
             }
             $process = new Process($process);
@@ -316,15 +316,8 @@ class Processor {
     {
         $queue = false;
 
-        if (!$signal instanceof \XPSPL\signal\Standard) {
-            try {
-                $signal = new Signal($signal);
-            } catch (\InvalidArgumentException $e) {
-                throw new exceptions\Invalid_Signal(
-                    "Invalid signal given to register"
-                );
-                return false;
-            }
+        if (!$signal instanceof SIG) {
+            $signal = new SIG($signal);
         }
 
         $search = $this->find_signal($signal);
@@ -758,10 +751,10 @@ class Processor {
                 "Invalid Interruption Step"
             );
         }
-        if (!isset($this->_storage[self::INTERRUPT_STORAGE][$interrupt])) {
-            $this->_storage[self::INTERRUPT_STORAGE][$interrupt] = [[], []];
+        if (!isset($this->_int_storage[$interrupt])) {
+            $this->_int_storage[$interrupt] = [[], []];
         }
-        $storage =& $this->_storage[self::INTERRUPT_STORAGE][$interrupt];
+        $storage =& $this->_int_storage[$interrupt];
         if ($signal instanceof signal\Complex) {
             $storage[self::COMPLEX_STORAGE][] =  [
                 $signal, $process
@@ -797,12 +790,12 @@ class Processor {
     private function _interrupt($signal, $type)
     {
         // do nothing no interrupts registered
-        if (!isset($this->_storage[self::INTERRUPT_STORAGE][$type])) {
+        if (!isset($this->_int_storage[$type])) {
             return true;
         }
         $queue = null;
-        if (count($this->_storage[self::INTERRUPT_STORAGE][$type][self::COMPLEX_STORAGE]) != 0) {
-            foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::COMPLEX_STORAGE] as $_node) {
+        if (count($this->_int_storage[$type][self::COMPLEX_STORAGE]) != 0) {
+            foreach ($this->_int_storage[$type][self::COMPLEX_STORAGE] as $_node) {
                 $eval = $_node[0]->evaluate($signal);
                 if (false !== $eval) {
                     if (true !== $eval) {
@@ -832,8 +825,8 @@ class Processor {
             $lookup[] = $class_name;
         }
         foreach ($lookup as $_index) {
-            if (isset($this->_storage[self::INTERRUPT_STORAGE][$type][self::SIG_STORAGE][$_index])) {
-                foreach ($this->_storage[self::INTERRUPT_STORAGE][$type][self::SIG_STORAGE][$_index] as $_node) {
+            if (isset($this->_int_storage[$type][self::SIG_STORAGE][$_index])) {
+                foreach ($this->_int_storage[$type][self::SIG_STORAGE][$_index] as $_node) {
                     if (null === $queue) {
                         $queue = new Queue();
                     }

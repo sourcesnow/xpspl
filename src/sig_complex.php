@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\signal;
+namespace XPSPL;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -19,7 +19,7 @@ use \LogicException,
  *
  * - Signals to emit
  */
-final class SIG_Complex extends SIG {
+class SIG_Complex extends SIG {
 
     /**
      * Evaluates the emitted signal.

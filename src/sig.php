@@ -144,7 +144,7 @@ namespace XPSPL;
  *     When using unique SIGs they must always be identified by their object.
  *    
  */
-final class SIG {
+class SIG {
 
     use State;
 

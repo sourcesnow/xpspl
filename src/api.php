@@ -45,14 +45,14 @@ function search_signals($signal, $index = false)
 }
 
 /**
- * Starts the XPSPL loop.
+ * Starts the XPSPL wait loop.
  *
  * @return  void
  */
-function loop()
+function wait_loop()
 {
     global $XPSPL;
-    return $XPSPL->loop();
+    return $XPSPL->wait_loop();
 }
 
 /**
