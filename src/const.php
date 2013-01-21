@@ -30,7 +30,7 @@ if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     /**
      * Remove Exhausted processes
      * 
-     * Boolean option to automatically remove exhausted queues from the processor.
+     * Boolean option to automatically remove exhausted signals from the processor.
      *
      * By default this settings is ``true``.
      */
@@ -54,7 +54,7 @@ if (!defined('PROCESS_DEFAULT_EXHAUST')) {
      *
      * Integer option defining the default exhausting of a process.
      *
-     * By default it is 1.
+     * By default it is ``1``.
      */
     define('PROCESS_DEFAULT_EXHAUST', 1);
 }
@@ -65,7 +65,7 @@ if (!defined('QUEUE_DEFAULT_PRIORITY')) {
      * 
      * Integer option defining the default priority of all processes.
      *
-     * By default it is 10.
+     * By default it is ``10``.
      */
     define('PROCESS_DEFAULT_PRIORITY', 10);
 }
@@ -81,3 +81,4 @@ if (!defined('WINDOWS')) {
 // define time instructions
 define('TIME_SECONDS', 1);
 define('TIME_MILLISECONDS', 2);
+define('TIME_MICROSECONDS', 3);

@@ -81,7 +81,7 @@ foreach ($options as $_i => $_arg) {
         case 'test-cover':
             $unittest = true;
             if (!defined('XPSPL_DEBUG')) {
-                define('XPSPL_DEBUG', false);
+                define('XPSPL_DEBUG', true);
             }
             if ($_i === 'test-cover') {
                 define('GENERATE_CODE_COVERAGE', true);

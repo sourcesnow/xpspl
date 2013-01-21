@@ -11,7 +11,7 @@ namespace XPSPL;
  * 
  * The routine class is used by the processor during the routine calculation for
  * storing the idle functions and the signals which should be triggered in the
- * loop.
+ * next loop.
  *
  * This was added due to the current loop not providing a simple means for
  * objects inside the loop determining what has happened within the routine
@@ -109,47 +109,6 @@ final class Routine {
         }
     }
 
-    /**
-     * Sets a new function to idle the processor.
-     *
-     * @param  object  $idle  Idle
-     *
-     * @return  void
-     */
-    public function set_idle($idle)
-    {
-        if (!$idle instanceof Idle) {
-            throw new \InvalidArgumentException(
-                "Idle must be an instance of XPSPL\processor\Idle"
-            );
-        }
-        foreach ($this->_idle as $_k => $_func) {
-            if ($_func instanceof $idle) {
-                if (!$_func->allow_override()) {
-                    throw new \RuntimeException(sprintf(
-                        "Idle class %s does not allow override",
-                        get_class($_func)
-                    ));
-                }
-                if ($_func->override($idle)) {
-                    $this->_idle[$_k] = $idle;
-                }
-                return;
-            }
-        }
-        $this->_idle[] = $idle;
-        if (count($this->_idle) >= 2) {
-            usort($this->_idle, function($a, $b){
-                $a = $a->get_priority();
-                $b = $b->get_priority();
-                if ($a == $b) {
-                    return 0;
-                }
-                return ($a < $b) ? -1 : 1;
-            });
-        }
-    }
-    
     /**
      * Adds a signal to trigger in the loop.
      *

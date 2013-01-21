@@ -110,24 +110,17 @@ class Processor {
      *
      * @todo unittest
      * 
-     * @param  null|integer  $ttr  Number of milliseconds to run the loop.
-     * 
      * @return  void
      */
-    public function wait_loop($ttr = null)
+    public function wait_loop()
     {
-        if (null !== $ttr) {
-            $processor = $this;
-            $awake_func = function() use ($processor) {
-                $processor->shutdown();
-            };
-            $this->signal(
-                new \XPSPL\time\SIG_Awake($ttr, TIME_MILLISECONDS), 
-                $awake_func
-            );
-        }
+        /**
+         * The original method found in the loop has been replaced
+         * with an intelligent time based analysis.
+         */
         $this->emit(new processor\SIG_Startup());
-        while($this->_routine()) {
+        routine:
+        if ($this->_routine()) {
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
                 foreach ($signals as $_signal) {
@@ -139,6 +132,7 @@ class Processor {
             if (null !== $idle) {
                 $idle->idle($this);
             }
+            goto routine;
         }
         $this->emit(new processor\SIG_Shutdown());
     }
@@ -152,25 +146,24 @@ class Processor {
      */
     private function _routine()
     {
-        $routine = new Routine();
         // allow for external shutdown signal before running anything
         if ($this->get_state() === STATE_HALTED) return false;
         // run the routines
         foreach ($this->_sig_routine->storage() as $_routine) {
-            $_routine[0]->routine($routine);
+            $_routine[0]->routine($this->_routine);
         }
         // Check signals
-        if (count($routine->get_signals()) != 0) {
+        if (count($this->_routine->get_signals()) != 0) {
             // This checks only for one possible signal that has not exhausted
             // it still leaves the possibility for triggering exhausted signals
-            foreach ($routine->get_signals() as $_signal) {
+            foreach ($this->_routine->get_signals() as $_signal) {
                 if (false === $this->has_signal_exhausted($_signal[0])) {
                     return true;
                 }
             }
         }
         // Check idle
-        if (null !== $routine->get_idle()) {
+        if (null !== $this->_routine->get_idle()) {
             return true;
         }
         return false;
@@ -412,7 +405,7 @@ class Processor {
             return $signal;
         }
         // Set as currently emitted signal
-        $this->_signal[] = $sig_queue;
+        $this->_signal[] = $signal;
         // The queues to execute and later purge
         $queues = [$memory[1]];
         // evaluate complex signals

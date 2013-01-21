@@ -81,7 +81,7 @@ class SIG_Suite extends SIG_Routine {
     /**
      * Routine function.
      */
-    public function routine($routine, $history = null)
+    public function routine(\XPSPL\Routine $routine)
     {
         if (null === $this->_test) {
             return false;
