@@ -15,26 +15,26 @@ class Lst extends \XPSPL\Listener {
 $output = unittest\Output::instance();
 
 $tests = [
-    'Processes Installed' =>
-    function($i){
-        signal($i, function(){}); 
-    },
-    'Signals Emitted' => 
-    function($i){
-        emit($i);
-    },
-    'Signal Registration' =>
-    function($i){
-        register_signal($i); 
-    },
-    'Listners Installed' => 
-    function($i) {
-        listen(new Lst());
-    },
-    // 'Interruptions Installed' =>
+    // 'Processes Installed' =>
     // function($i){
-    //     before($i, function(){}); 
+    //     signal($i, function(){}); 
     // },
+    // 'Signals Emitted' => 
+    // function($i){
+    //     emit($i);
+    // },
+    // 'Signal Registration' =>
+    // function($i){
+    //     register_signal($i); 
+    // },
+    // 'Listners Installed' => 
+    // function($i) {
+    //     listen(new Lst());
+    // },
+    // // 'Interruptions Installed' =>
+    // // function($i){
+    // //     before($i, function(){}); 
+    // // },
     'Loops Performed' => 
     function($i) {
         wait_loop();
@@ -93,16 +93,16 @@ $tests = [
 
 $output::send('Beginning performance tests');
 $results = [];
-$average_perform = 150;
+$average_perform = 1;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
-    for ($i=1;$i<$average_perform;$i++) {
+    for ($i=1;$i<$average_perform+1;$i++) {
         $output::send(sprintf(
             'Running %s test %s of %s',
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 2);) {
+        for($a=1;$a<(1 << 20);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {
