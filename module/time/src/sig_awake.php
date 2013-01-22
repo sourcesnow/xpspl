@@ -9,11 +9,11 @@ namespace time;
 use XPSPL\idle\Time;
 
  /**
- * Awake Signal
+ * Awake Routine
  *
  * Sends an awake signal after a specified amount of time has passed.
  */
-class SIG_Awake extends \XPSPL\signal\Complex {
+class SIG_Awake extends \XPSPL\SIG_Routine {
 
     /**
      * Time to awake in.
@@ -59,10 +59,10 @@ class SIG_Awake extends \XPSPL\signal\Complex {
      * 
      * @return  boolean
      */
-    public function routine($history = null)
+    public function routine($routine = null)
     {
         if ($this->_routine->get_idle()->has_time_passed()) {
-            $this->signal_this();
+            $routine->add_signal($this);
             $this->_routine->set_idle(new Time(
                 $this->_time, $this->_instruction
             ));
