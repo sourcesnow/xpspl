@@ -11,7 +11,7 @@ import("unittest");
 unittest\generate_output();
 
 // make sure we save the event history
-save_signal_history(true);
+set_signal_history(true);
 
 /**
  * Replace with the dir_load function

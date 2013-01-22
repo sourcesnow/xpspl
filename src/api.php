@@ -191,10 +191,10 @@ function erase_history()
  *
  * @return  void
  */
-function save_signal_history($flag)
+function set_signal_history($flag)
 {
     global $XPSPL;
-    return $XPSPL->save_signal_history($flag);
+    return $XPSPL->set_signal_history($flag);
 }
 
 /**

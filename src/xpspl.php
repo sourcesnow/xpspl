@@ -6,7 +6,7 @@
  */
 
 // library version
-define('XPSPL_VERSION', '3.1.0-alpha');
+define('XPSPL_VERSION', '4.0.0');
 
 // The creator
 define('XPSPL_MASTERMIND', 'Nickolas Whiting');
@@ -73,4 +73,5 @@ global $XPSPL;
 /**
  * Start the processor VROOOOOOM!
  */
-$XPSPL = XPSPL::init(XPSPL_SIGNAL_HISTORY);
+$XPSPL = XPSPL::init();
+set_signal_history(XPSPL_SIGNAL_HISTORY);

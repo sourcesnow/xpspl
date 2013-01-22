@@ -56,5 +56,8 @@
 function emit($signal, $context = null)
 {
     global $XPSPL;
+    if (!$signal instanceof \XPSPL\SIG) {
+        $signal = new \XPSPL\SIG($signal);
+    }
     return $XPSPL->emit($signal, $context);
 }

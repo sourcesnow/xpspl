@@ -37,8 +37,7 @@ class SIG_Suite extends SIG_Routine {
         }
         parent::__construct();
         $this->_test = new SIG_Test();
-        $function = $function->bindTo($this);
-        $function();
+        $function($this);
     }
 
     /**

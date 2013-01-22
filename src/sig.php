@@ -186,7 +186,7 @@ class SIG {
     public function __construct($index = null)
     {
         if ($this->_unique) {
-            $this->_index = spl_object_hash($this);
+            $this->_index = $this->_index . spl_object_hash($this);
             return;
         }
         if (null === $index) {

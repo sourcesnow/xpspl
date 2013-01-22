@@ -5,33 +5,15 @@
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart(){
-    var LoopsPerformed = [["Time in us", "Loops Performed"]];
-LoopsPerformed.push([0.00033402442932129, 2]);
-LoopsPerformed.push([7.176399230957E-5, 4]);
-LoopsPerformed.push([0.0001370906829834, 8]);
-LoopsPerformed.push([0.00027084350585938, 16]);
-LoopsPerformed.push([0.00054097175598145, 32]);
-LoopsPerformed.push([0.0010831356048584, 64]);
-LoopsPerformed.push([0.0021378993988037, 128]);
-LoopsPerformed.push([0.0045878887176514, 256]);
-LoopsPerformed.push([0.0091321468353271, 512]);
-LoopsPerformed.push([0.016751050949097, 1024]);
-LoopsPerformed.push([0.035400152206421, 2048]);
-LoopsPerformed.push([0.068190813064575, 4096]);
-LoopsPerformed.push([0.13724088668823, 8192]);
-LoopsPerformed.push([0.27621507644653, 16384]);
-LoopsPerformed.push([0.54696416854858, 32768]);
-LoopsPerformed.push([1.0976920127869, 65536]);
-LoopsPerformed.push([2.194925069809, 131072]);
-LoopsPerformed.push([4.3984971046448, 262144]);
-LoopsPerformed.push([8.655837059021, 524288]);
-LoopsPerformed.push([17.705581903458, 1048576]);
-var LoopsPerformed_graph = google.visualization.arrayToDataTable(LoopsPerformed);
-var LoopsPerformed_chart = new google.visualization.LineChart(document.getElementById("LoopsPerformed"));
-LoopsPerformed_chart.draw(LoopsPerformed_graph, {title: "Loops Performed"});
+    var SignalsEmitted = [["Time in us", "Signals Emitted"]];
+SignalsEmitted.push([5.5074691772461E-5, 2]);
+SignalsEmitted.push([3.0994415283203E-5, 4]);
+var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
+var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
+SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Signals Emitted"});
     }
     </script>
   </head>
   <body>
-    <div id="LoopsPerformed" style="width: 450px; height: 250px; float:left;"></div>  </body>
+    <div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div>  </body>
 </html>

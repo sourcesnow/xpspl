@@ -88,8 +88,14 @@
  *         echo "I NEVER EXHAUST!!";
  *     });
  */
-function signal($signal, $callable)
+function signal($signal, $process)
 {
     global $XPSPL;
-    return $XPSPL->signal($signal, $callable);
+    if (!$process instanceof \XPSPL\Process) {
+        $process = new \XPSPL\Process($process);
+    }
+    if (!$signal instanceof \XPSPL\SIG) {
+        $signal = new \XPSPL\SIG($signal);
+    }
+    return $XPSPL->signal($signal, $process);
 }

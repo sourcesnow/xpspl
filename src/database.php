@@ -26,7 +26,7 @@ class Database {
      *
      * @param  object  $signal  
      *
-     * @return  object|
+     * @return  object
      */
     public function find_signal(SIG $signal)
     {

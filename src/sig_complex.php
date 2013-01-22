@@ -21,6 +21,8 @@ use \LogicException,
  */
 class SIG_Complex extends SIG {
 
+    protected $_unique = true;
+
     /**
      * Evaluates the emitted signal.
      *
@@ -30,12 +32,6 @@ class SIG_Complex extends SIG {
      */
     public function evaluate($signal = null) 
     {
-        return false;
+        throw new Not_Implemented();
     }
-
-    /**
-     * Returns the signal index.
-     *
-     * @return  string
-     */
 }

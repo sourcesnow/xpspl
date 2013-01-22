@@ -26,7 +26,7 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
  *     etc ...
  * });
  */
-class SIG_Test extends SIG {
+class SIG_Test extends \XPSPL\SIG_Routine {
 
     protected $_unique = true;
 
@@ -46,15 +46,23 @@ class SIG_Test extends SIG {
     protected $_failed = false;
 
     /**
+     * The test name.
+     *
+     * @var  string
+     */
+    public $name = null;
+
+    /**
      * Constructs a new test signal.
      * 
      * @param  string  $name  Name of the test.
      * 
      * @return  void
      */
-    public function __construct($info = null)
+    public function __construct($name = null, $suite = false)
     {
-        $this->_info = $info;
+        $this->_suite = $suite;
+        $this->_index = 'test-'.$name.'-';
         parent::__construct();
     }
 
@@ -75,7 +83,7 @@ class SIG_Test extends SIG {
             } catch (\BadMethodCallException $e) {
                 $call = null;
                 Output::instance()->unknown_assertion(
-                    $this, $func, $args, $this->_assertions
+                    $this, $func, $args, Assertions::instance()
                 );
             }
             if ($call !== true) {
@@ -131,6 +139,16 @@ class SIG_Test extends SIG {
     {
         for ($i=0;$i<$number;$i++) {
             Assertions::instance()->assertion($this, null, null, null);
+        }
+    }
+
+    /**
+     * Runs the routine.
+     */
+    public function routine(\XPSPL\Routine $routine)
+    {
+        if (!$this->_suite) {
+            $routine->add_signal($this);
         }
     }
 }

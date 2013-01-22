@@ -291,14 +291,13 @@ class Output {
     /**
      * Generates an error indicating an unknown assertion has been called.
      * 
-     * @param  object  $event  Test event
      * @param  string  $func  Assertion function called
      * @param  array  $args  Array of arguments passed to the assertion
      * @param  object  $assertion  The assertion object used
      * 
      * @return  void
      */
-    public function unknown_assertion($event, $func, $args, $assertion) 
+    public function unknown_assertion($signal, $func, $args, $assertion) 
     {
         $assertions = array_keys($assertion->storage());
         $suggestions = array_filter($assertions, 
@@ -310,7 +309,7 @@ class Output {
         $this->send_linebreak(self::ERROR);
         $this->send(sprintf(
             "TEST : %s%sASSERTION : [ %s ] is not a valid assertion %s",
-            $event->get_signal()->get_index(), PHP_EOL,
+            $signal->get_index(), PHP_EOL,
             $func, (count($suggestions) != 0) ? 
                 'did you want ('.implode(', ', $suggestions).')?' :
                 'no suggestions found.'

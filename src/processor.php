@@ -6,9 +6,7 @@ namespace XPSPL;
  * that can be found in the LICENSE file.
  */
 
-use \Closure,
-    \InvalidArgumentException,
-    \XPSPL\processor\exception as exceptions;
+use \XPSPL\processor\exception as exceptions;
 
 /**
  * Processor
@@ -17,14 +15,20 @@ use \Closure,
  * 
  * @since v0.3.0 
  * 
- * The loop is now run in respect to the currently available processs,
- * this prevents the processor from running contionusly forever when there isn't anything
- * that it needs to do.
+ * The loop is now run in respect to the currently available processes,
+ * this prevents the processor from running contionusly forever when there is not
+ * anything that it needs to do.
  *
- * To achieve this the processor uses routines for calculating when to run and 
- * shutdowns when no more are available.
+ * To achieve this the processor uses routines.
  *
- * The queue storage has also been improved by using only a single array.
+ * @since v4.0.0
+ *
+ * Signal storages have been upgraded to a database object, the routine and 
+ * evaluation methods for the complex signal have also been moved into their 
+ * own classes.
+ *
+ * The loop has been replaced with a goto statement, measurements indicate that 
+ * it performs faster than a loop ... though should it? 
  */
 class Processor {
 
@@ -52,11 +56,17 @@ class Processor {
      */
     private $_sig_routine = null;
     /**
-     * Interruption storage.
+     * Interruption before execution storage.
      *
      * @var  array
      */
-    private $_int_storage = [];
+    private $_int_before = null;
+    /**
+     * Interruption before execution storage.
+     *
+     * @var  array
+     */
+    private $_int_after = null;
     /**
      * Interruption before emittion
      *
@@ -188,7 +198,7 @@ class Processor {
      * 
      * @return  boolean
      */
-    public function has_signal_exhausted($signal)
+    public function has_signal_exhausted(SIG $signal)
     {
         $memory = $this->find_signal($signal);
         if (null === $memory || $memory[1]->count() === 0) {
@@ -247,8 +257,16 @@ class Processor {
      */
     public function flush(/* ... */)
     {
-        foreach (['_sig_index', '_sig_complex', '_sig_routine'] as $_i) {
-            $this->{$_i} = new Database();
+        // Databases to flush
+        $database = [
+            '_sig_index', 
+            '_sig_complex',
+            '_sig_routine',
+            '_int_before', 
+            '_int_after'
+        ];
+        foreach ($database as $_db) {
+            $this->{$_db} = new Database();
         }
         $this->_routine = new Routine();
         if (false !== $this->_history){
@@ -281,7 +299,7 @@ class Processor {
      *
      * @return  object|boolean  Process, boolean if error
      */
-    public function signal($signal, $process)
+    public function signal(SIG $signal, Process $process)
     {
         if (!$signal instanceof SIG) {
             $signal = new SIG($signal);
@@ -306,7 +324,7 @@ class Processor {
      *
      * @return  boolean|object  false|XPSPL\Queue
      */
-    public function register_signal($signal)
+    public function register_signal(SIG $signal)
     {
         if (!$signal instanceof SIG) {
             $signal = new SIG($signal);
@@ -360,7 +378,7 @@ class Processor {
      *
      * @return  array|null  [[[signal, queue], eval_return]]
      */
-    public function evaluate_signals($signal)
+    public function evaluate_signals(SIG $signal)
     {
         if ($this->_sig_complex->count() == 0) {
             return null;
@@ -386,7 +404,7 @@ class Processor {
      *
      * @return  object  Event
      */
-    public function emit($signal, $context = null)
+    public function emit(SIG $signal, $context = null)
     {
         if (!$signal instanceof SIG) {
             $signal = new SIG($signal);
@@ -447,7 +465,7 @@ class Processor {
      *
      * @return  void
      */
-    private function _execute($signal, $queue, $interrupt = true)
+    private function _execute(SIG $signal, Queue $queue, $interrupt = true)
     {
         // process pre interupt functions
         if ($interrupt) {
@@ -472,7 +490,7 @@ class Processor {
      *
      * @return  void
      */
-    private function _queue_execute($queue, $signal)
+    private function _queue_execute(Queue $queue, SIG $signal)
     {
         // execute sig processs
         $queue->sort();
@@ -509,12 +527,8 @@ class Processor {
      * 
      * @return  boolean
      */
-    private function _func_exec($function, $signal)
+    private function _func_exec($function, SIG $signal)
     {
-        if ($function instanceof \Closure) {
-            $func = $function->bindTo($signal, null);
-            return $func();
-        }
         if (is_array($function)) {
             if (count($function) >= 2) {
                 if (is_object($function[0])) {
@@ -527,16 +541,16 @@ class Processor {
             return $function[0]($signal);
         }
         if ($function === null) {
-            debug_print_backtrace();
-            exit(0);
+            throw new exceptions\Invalid_Process(sprintf(
+                'Signal (%s) encountered a null process during execution',
+                $signal->get_index()
+            ));
         }
         return $function($signal);
     }
     
-    
-
     /**
-     * Retrieves the signal history.
+     * Returns the signal history.
      * 
      * @return  array
      */
@@ -556,8 +570,10 @@ class Processor {
     }
 
     /**
-     * Registers a function to interrupt the signal stack before a signal emits,
-     * allowing for manipulation of the signal before it is passed to processs.
+     * Registers a function to interrupt the signal stack before a signal emits.
+     * 
+     * This allows for manipulation of the signal before it is passed to any 
+     * processes.
      *
      * @param  string|object  $signal  Signal instance or class name
      * @param  object  $process  Process to execute
@@ -566,12 +582,13 @@ class Processor {
      */
     public function before($signal, $process)
     {
-        return $this->_signal_interrupt($signal, $process, self::INTERRUPT_PRE);
+        return $this->_signal_interrupt($signal, $process, Processor::INTERRUPT_PRE);
     }
 
     /**
-     * Registers a function to interrupt the signal stack after a signal emits,
-     * allowing for manipulation of the signal after it is passed to processs.
+     * Registers a function to interrupt the signal stack after a signal emits.
+     * 
+     * This allows for analysis of a signal after execution in processes.
      *
      * @param  string|object  $signal  Signal instance or class name
      * @param  object  $process  Process to execute
@@ -580,7 +597,7 @@ class Processor {
      */
     public function after($signal, $process)
     {
-        return $this->_signal_interrupt($signal, $process, self::INTERRUPT_POST);
+        return $this->_signal_interrupt($signal, $process, Processor::INTERRUPT_POST);
     }
 
     /**
@@ -595,51 +612,49 @@ class Processor {
      */
     protected function _signal_interrupt($signal, $process, $interrupt = null) 
     {
+        if (!$signal instanceof SIG) {
+            $sig = new SIG($signal);
+        }
         if (!$process instanceof Process) {
             $process = new Process($process);
-        }
-        if (!$signal instanceof SIG) {
-            $signal = new SIG($signal);
         }
         $memory = $this->find_signal($signal);
         if (null === $signal) {
             throw new exceptions\Unregistered_Signal(sprintf(
-                'Signal %s is not registed. Register before installing interruptions',
+                'Signal %s must be registered before installing interruptions',
                 (is_object($signal)) ? get_class($signal) : $signal
             ));
         }
-        if ($interrupt != self::INTERRUPT_PRE && 
-            $interrupt != self::INTERRUPT_POST) {
-            throw new exceptions\Invalid_Interrupt(
-                "Invalid Interruption Step"
-            );
+        $database = $this->_get_int_database($interrupt);
+        $memory = $database->find_signal($signal);
+        if (null === $memory) {
+            $queue = new Queue();
+            $database->register_signal($signal, $queue);
+        } else {
+            $queue = $memory[1];
         }
-        // if (!isset($this->_int_storage[$interrupt])) {
-        //     $this->_int_storage[$interrupt] = [[], []];
-        // }
-        // $storage =& $this->_int_storage[$interrupt];
-        // if ($signal instanceof signal\Complex) {
-        //     $storage[self::COMPLEX_STORAGE][] =  [
-        //         $signal, $process
-        //     ];
-        // } else {
-        //     if ($signal instanceof Signal) {
-        //         $name = $signal->get_index();
-        //     } else {
-        //         if (is_object($signal)) {
-        //             $name = get_class($signal);
-        //         } else {
-        //             $name = $signal;
-        //         }
-        //     }
-        //     if (!isset($storage[self::SIG_STORAGE][$name])) {
-        //         $storage[self::SIG_STORAGE][$name] = [];
-        //     }
-        //     $storage[self::SIG_STORAGE][$name][] = [
-        //         $signal, $process
-        //     ];
-        // }
+        $queue->enqueue($process);
         return true;
+    }
+
+    /**
+     * Returns the interruption storage database.
+     * 
+     * @param  integer  $type  The interruption type
+     * 
+     * @return  object  \XPSPL\Database
+     *
+     * @since  v4.0.0
+     */
+    private function _get_int_database($interrupt)
+    {
+        if (Processor::INTERRUPT_PRE === $interrupt) {
+            return $this->_int_before;
+        }
+        if (Processor::INTERRUPT_POST === $interrupt) {
+            return $this->_int_after;
+        }
+        throw new LogicException("Unknown interruption $interrupt");
     }
 
     /**
@@ -650,58 +665,14 @@ class Processor {
      * 
      * @return  boolean
      */
-    private function _interrupt($signal, $type)
+    private function _interrupt(SIG $signal, $interrupt = null)
     {
-        // do nothing no interrupts registered
-        // if (!isset($this->_int_storage[$type])) {
-        //     return true;
-        // }
-        // $queue = null;
-        // if (count($this->_int_storage[$type][self::COMPLEX_STORAGE]) != 0) {
-        //     foreach ($this->_int_storage[$type][self::COMPLEX_STORAGE] as $_node) {
-        //         $eval = $_node[0]->evaluate($signal);
-        //         if (false !== $eval) {
-        //             if (true !== $eval) {
-        //                 if (is_array($eval)) {
-        //                     foreach ($eval as $_k => $_v) {
-        //                         $event->{$_k} = $_v;
-        //                     }
-        //                 }
-        //             }
-        //             if (null === $queue) {
-        //                 $queue = new Queue();
-        //             }
-        //             if (!$_node[1]->is_exhausted()) {
-        //                 $queue->enqueue($_node[1], $_node[1]->get_priority());
-        //             }
-        //         }
-        //     }
-        // }
-        // $lookup = [];
-        // $class_name = (is_object($signal)) ? get_class($signal) : $signal;
-        // if ($signal instanceof Signal) {
-        //     $info = $signal->get_index();
-        //     if ($info != $class_name) {
-        //         $lookup[] = $info;
-        //     }
-        // } else {
-        //     $lookup[] = $class_name;
-        // }
-        // foreach ($lookup as $_index) {
-        //     if (isset($this->_int_storage[$type][self::SIG_STORAGE][$_index])) {
-        //         foreach ($this->_int_storage[$type][self::SIG_STORAGE][$_index] as $_node) {
-        //             if (null === $queue) {
-        //                 $queue = new Queue();
-        //             }
-        //             if (!$_node[1]->is_exhausted()) {
-        //                 $queue->enqueue($_node[1], $_node[1]->get_priority());
-        //             }
-        //         }
-        //     }
-        // }
-        // if (null !== $queue) {
-        //     $this->_queue_execute($queue, $signal);
-        // }
+        $database = $this->_get_int_database($interrupt);
+        $memory = $database->find_signal($signal);
+        if (null === $memory) {
+            return;
+        }
+        $this->_queue_execute($memory[1], $signal);
     }
 
     /**
@@ -710,6 +681,10 @@ class Processor {
      * @param  boolean  $history  Erase any history of the signals cleaned.
      * 
      * @return  void
+     *
+     * @todo
+     *
+     * Clean this ugly code ... 
      */
     public function clean($history = false)
     {
@@ -821,7 +796,7 @@ class Processor {
      *
      * @return  void
      */
-    public function save_signal_history($flag)
+    public function set_signal_history($flag)
     {
         if ($flag === true) {
             if (!$this->_history) {

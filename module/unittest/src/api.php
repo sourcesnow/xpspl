@@ -32,9 +32,9 @@ function create_assertion($function, $name, $message = null) {
  * @return  array  [Process, Signal]
  */
 function test($function, $name = null) {
-    $signal = new Test($name);
+    $signal = new SIG_Test($name);
     $process = signal($signal, $function);
-    return [$process, $signal];
+    return $signal;
 }
 
 /**
@@ -58,7 +58,7 @@ function suite($function) {
 function generate_output() {
 
     // enable the event history
-    save_signal_history(true);
+    set_signal_history(true);
 
     // Startup
     on_start(function(){

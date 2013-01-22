@@ -19,10 +19,10 @@ $tests = [
     // function($i){
     //     signal($i, function(){}); 
     // },
-    // 'Signals Emitted' => 
-    // function($i){
-    //     emit($i);
-    // },
+    'Signals Emitted' => 
+    function($i){
+        emit($i);
+    },
     // 'Signal Registration' =>
     // function($i){
     //     register_signal($i); 
@@ -35,10 +35,10 @@ $tests = [
     // // function($i){
     // //     before($i, function(){}); 
     // // },
-    'Loops Performed' => 
-    function($i) {
-        wait_loop();
-    },
+    // 'Loops Performed' => 
+    // function($i) {
+    //     wait_loop();
+    // },
     // 'Interruption before emit' => 
     // function($i) {
     //     before($i, function(){});
@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 20);) {
+        for($a=1;$a<(1 << 2);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {

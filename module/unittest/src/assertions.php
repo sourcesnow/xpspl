@@ -45,21 +45,23 @@ class Assertions {
      * 
      * @param  string  $name  Assertion function name
      * @param  array  $vars  Array of variables to pass the process.
-     * @param  object  $test  \XPSPL\unitest\Event
+     * @param  object  $test  \XPSPL\unittest\SIG_Test
      * 
      * @return  boolean|string|int  True on success, False on failure|
      *                              String indicated failure message|
      *                              Integer on unknown assertion.
      */
-    public function call_assertion($name, $vars, $event)
+    public function call_assertion($name, $vars, SIG_Test $signal)
     {
         if (!isset($this->_storage[$name])) {
-            throw new \BadMethodCallException;
+            return Output::instance()->unknown_assertion(
+                $signal, $name, $vars, $this
+            );
         }
         if (!is_array($vars)) {
             $vars = [$vars];
         }
-        $func = $this->_storage[$name][0]->bindTo($event);
+        $func = $this->_storage[$name][0]->bindTo($signal);
         $test = call_user_func_array($func, $vars);
         if ($test === true) {
             return true;
