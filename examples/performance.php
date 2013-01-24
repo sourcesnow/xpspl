@@ -15,14 +15,14 @@ class Lst extends \XPSPL\Listener {
 $output = unittest\Output::instance();
 
 $tests = [
-    // 'Processes Installed' =>
-    // function($i){
-    //     signal($i, function(){}); 
-    // },
-    'Signals Emitted' => 
+    'Processes Installed' =>
     function($i){
-        emit($i);
+        signal($i, function(){}); 
     },
+    // 'Signals Emitted' => 
+    // function($i){
+    //     emit($i);
+    // },
     // 'Signal Registration' =>
     // function($i){
     //     register_signal($i); 
@@ -93,7 +93,7 @@ $tests = [
 
 $output::send('Beginning performance tests');
 $results = [];
-$average_perform = 1;
+$average_perform = 2;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     for ($i=1;$i<$average_perform+1;$i++) {
@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 2);) {
+        for($a=1;$a<(1 << 18);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {

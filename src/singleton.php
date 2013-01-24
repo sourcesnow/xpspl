@@ -14,7 +14,7 @@ trait Singleton {
     /**
      * @var  object|null  Instanceof the singleton
      */
-    protected static $_instance = null;
+    private static $_instance = null;
 
     /**
      * Returns an instance of the singleton.

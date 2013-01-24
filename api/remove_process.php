@@ -28,6 +28,5 @@
  */
 function remove_process($signal, $process)
 {
-    global $XPSPL;
-    return $XPSPL->remove_process($signal, $process);   
+    return XPSPL::instance()->remove_process($signal, $process);   
 }

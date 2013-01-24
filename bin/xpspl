@@ -5,12 +5,13 @@
  */
 $usage = 
 "usage: XPSPL [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
-              [--test-cover] [-t|--time=<time>] [-v|--version]
+              [--test-cover] [-t|--time=<time>] [-v|--version] [-j|--judy]
               <file>
 Options:
   -c/--config   Load the giving file for configuration
   -d            Debug Mode
   -h/--help     Show this help message.
+  -j/--judy     Disable judy support
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
   --test-cover  Run unit tests and generate code coverage.
@@ -40,7 +41,8 @@ if ($runfile != false) {
 $options = getopt(
     'qwert:yuiopasdfghjklzxc:vbnm',
     [
-        'help', 'config:', 'version', 'time:', 'test', 'test-cover'
+        'help', 'config:', 'version', 'time:', 'test', 'test-cover',
+        'judy'
     ]
 );
 $tmp = $argv;
@@ -51,6 +53,10 @@ foreach ($options as $_i => $_arg) {
     // Hack
     $break = false;
     switch ($_i) {
+        case 'j':
+        case 'judy':
+            define('XPSPL_JUDY_SUPPORT', false);
+            break;
         case 'p':
         case 'passthru':
             $break = true;
@@ -103,7 +109,7 @@ start:
 
 // load XPSPL
 if (!class_exists('XPSPL')) {
-    require_once dirname(realpath(__FILE__)).'/../src/XPSPL.php';
+    require_once dirname(realpath(__FILE__)).'/../xpspl.php';
 }
 
 if (isset($showversion)) {

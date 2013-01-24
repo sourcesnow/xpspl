@@ -8,7 +8,7 @@
 import('unittest');
 
 /**
- * emit API function unit tests
+ * Emit Unitest
  */
 unittest\test(function($test){
     $test->equal('a', 'a');

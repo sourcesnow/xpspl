@@ -13,21 +13,24 @@ define('XPSPL_MASTERMIND', 'Nickolas Whiting');
 
 // Add this to include path
 if (!defined('XPSPL_PATH')) {
-    define('XPSPL_PATH', dirname(realpath(__FILE__)).'/..');
+    define('XPSPL_PATH', dirname(realpath(__FILE__)));
 }
-set_include_path(XPSPL_PATH . '/..' . PATH_SEPARATOR . get_include_path());
-set_include_path(XPSPL_PATH . '/module' . PATH_SEPARATOR . get_include_path());
-
+set_include_path(
+    XPSPL_PATH . '/module' . PATH_SEPARATOR .
+    XPSPL_PATH . '/..' . PATH_SEPARATOR . 
+    get_include_path()
+);
 // start'er up
 // utils & traits
 require XPSPL_PATH.'/src/utils.php';
-require XPSPL_PATH.'/src/api.php';
 require XPSPL_PATH.'/src/const.php';
+require XPSPL_PATH.'/src/api.php';
 
 // Load the API
+// believe it or not this is the fastest way to do this
 $dir = new \RegexIterator(
     new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator(XPSPL_PATH.'/src/api')
+        new \RecursiveDirectoryIterator(XPSPL_PATH.'/api')
     ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
 );
 foreach ($dir as $_file) {
@@ -42,36 +45,16 @@ if (XPSPL_DEBUG) {
 }
 
 /**
- * The XPSPL object works as the global instance used for managing the
- * global processor instance.
+ * XPSPL
+ * 
+ * XPSPL is a globally available singleton used for communication access via the 
+ * API.
  */
 final class XPSPL extends \XPSPL\Processor {
-
     use XPSPL\Singleton;
-
-    /**
-     * Initialise the global processor instance.
-     *
-     * @param  boolean  $event_history  Store a history of all signals.
-     * 
-     * @return  object  XPSPL\Processor
-     */
-    final public static function init($event_history = true) 
-    {
-        if (null === static::$_instance) {
-            static::$_instance = new self($event_history);
-        }
-        return static::$_instance;
-    }
 }
-
-/**
- * Thats right ... that says global.
- */
-global $XPSPL;
 
 /**
  * Start the processor VROOOOOOM!
  */
-$XPSPL = XPSPL::init();
 set_signal_history(XPSPL_SIGNAL_HISTORY);

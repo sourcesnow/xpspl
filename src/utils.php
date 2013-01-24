@@ -29,6 +29,7 @@ spl_autoload_register(function($class){
         $file = stream_resolve_include_path(
             strtolower($class).'.php'
         );
+        echo $file;
         if (false !== $file) {
             require_once $file;
         }

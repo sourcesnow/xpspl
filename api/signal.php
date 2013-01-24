@@ -90,12 +90,11 @@
  */
 function signal($signal, $process)
 {
-    global $XPSPL;
     if (!$process instanceof \XPSPL\Process) {
         $process = new \XPSPL\Process($process);
     }
     if (!$signal instanceof \XPSPL\SIG) {
         $signal = new \XPSPL\SIG($signal);
     }
-    return $XPSPL->signal($signal, $process);
+    return XPSPL::instance()->signal($signal, $process);
 }

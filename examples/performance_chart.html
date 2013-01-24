@@ -5,15 +5,31 @@
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart(){
-    var SignalsEmitted = [["Time in us", "Signals Emitted"]];
-SignalsEmitted.push([5.5074691772461E-5, 2]);
-SignalsEmitted.push([3.0994415283203E-5, 4]);
-var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
-var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
-SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Signals Emitted"});
+    var ProcessesInstalled = [["Time in us", "Processes Installed"]];
+ProcessesInstalled.push([0.00011706352233887, 2]);
+ProcessesInstalled.push([0.00011897087097168, 4]);
+ProcessesInstalled.push([0.00030708312988281, 8]);
+ProcessesInstalled.push([0.00049614906311035, 16]);
+ProcessesInstalled.push([0.00092315673828125, 32]);
+ProcessesInstalled.push([0.0019261837005615, 64]);
+ProcessesInstalled.push([0.0038101673126221, 128]);
+ProcessesInstalled.push([0.0076160430908203, 256]);
+ProcessesInstalled.push([0.015644073486328, 512]);
+ProcessesInstalled.push([0.04383397102356, 1024]);
+ProcessesInstalled.push([0.061107158660889, 2048]);
+ProcessesInstalled.push([0.13882493972778, 4096]);
+ProcessesInstalled.push([0.29086494445801, 8192]);
+ProcessesInstalled.push([0.55445504188538, 16384]);
+ProcessesInstalled.push([1.1316390037537, 32768]);
+ProcessesInstalled.push([2.2878088951111, 65536]);
+ProcessesInstalled.push([4.7162518501282, 131072]);
+ProcessesInstalled.push([10.321792125702, 262144]);
+var ProcessesInstalled_graph = google.visualization.arrayToDataTable(ProcessesInstalled);
+var ProcessesInstalled_chart = new google.visualization.LineChart(document.getElementById("ProcessesInstalled"));
+ProcessesInstalled_chart.draw(ProcessesInstalled_graph, {title: "Processes Installed"});
     }
     </script>
   </head>
   <body>
-    <div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div>  </body>
+    <div id="ProcessesInstalled" style="width: 450px; height: 250px; float:left;"></div>  </body>
 </html>

@@ -29,6 +29,8 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
      */
     protected $_instruction = null;
 
+    
+
     /**
      * Constructs a awake signal.
      *
@@ -61,7 +63,7 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
      */
     public function routine($routine = null)
     {
-        if ($this->_routine->get_idle()->has_time_passed()) {
+        if ($()) {
             $routine->add_signal($this);
             $this->_routine->set_idle(new Time(
                 $this->_time, $this->_instruction

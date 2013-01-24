@@ -12,8 +12,7 @@
  */
 function signal_history(/* ... */)
 {
-    global $XPSPL;
-    return $XPSPL->signal_history();
+    return XPSPL::instance()->signal_history();
 }
 
 /**
@@ -25,8 +24,7 @@ function signal_history(/* ... */)
  */
 function register_signal($signal)
 {
-    global $XPSPL;
-    return $XPSPL->register_signal($signal);
+    return XPSPL::instance()->register_signal($signal);
 }
 
 /**
@@ -40,8 +38,7 @@ function register_signal($signal)
  */
 function search_signals($signal, $index = false) 
 {
-    global $XPSPL;
-    return $XPSPL->search_signals($signal, $index);
+    return XPSPL::instance()->search_signals($signal, $index);
 }
 
 /**
@@ -51,8 +48,7 @@ function search_signals($signal, $index = false)
  */
 function wait_loop()
 {
-    global $XPSPL;
-    return $XPSPL->wait_loop();
+    return XPSPL::instance()->wait_loop();
 }
 
 /**
@@ -62,8 +58,7 @@ function wait_loop()
  */
 function shutdown()
 {
-    global $XPSPL;
-    return $XPSPL->shutdown();
+    return XPSPL::instance()->shutdown();
 }
 
 /**
@@ -90,8 +85,7 @@ function import($name, $dir = null)
  */
 function before($signal, $process)
 {
-    global $XPSPL;
-    return $XPSPL->before($signal, $process);
+    return XPSPL::instance()->before($signal, $process);
 }
 
 /**
@@ -105,8 +99,7 @@ function before($signal, $process)
  */
 function after($signal, $process)
 {
-    global $XPSPL;
-    return $XPSPL->after($signal, $process);
+    return XPSPL::instance()->after($signal, $process);
 }
 
 /**
@@ -116,8 +109,7 @@ function after($signal, $process)
  */
 function XPSPL()
 {
-    global $XPSPL;
-    return $XPSPL;
+    return XPSPL::instance();
 }
 
 /**
@@ -129,8 +121,7 @@ function XPSPL()
  */
 function clean($history = false)
 {
-    global $XPSPL;
-    return $XPSPL->clean($history);
+    return XPSPL::instance()->clean($history);
 }
 
 /**
@@ -143,8 +134,7 @@ function clean($history = false)
  */
 function delete_signal($signal, $history = false)
 {
-    global $XPSPL;
-    return $XPSPL->delete_signal($storage, $history);
+    return XPSPL::instance()->delete_signal($storage, $history);
 }
 
 /**
@@ -156,8 +146,7 @@ function delete_signal($signal, $history = false)
  */
 function erase_signal_history($signal)
 {
-    global $XPSPL;
-    return $XPSPL->erase_signal_history($signal);
+    return XPSPL::instance()->erase_signal_history($signal);
 }
 
 /**
@@ -169,8 +158,7 @@ function erase_signal_history($signal)
  */
 function disable_signaled_exceptions($history = false)
 {
-    global $XPSPL;
-    return $XPSPL->disable_signaled_exceptions($history);
+    return XPSPL::instance()->disable_signaled_exceptions($history);
 }
 
 /**
@@ -180,8 +168,7 @@ function disable_signaled_exceptions($history = false)
  */
 function erase_history()
 {
-    global $XPSPL;
-    return $XPSPL->erase_history();
+    return XPSPL::instance()->erase_history();
 }
 
 /**
@@ -193,8 +180,7 @@ function erase_history()
  */
 function set_signal_history($flag)
 {
-    global $XPSPL;
-    return $XPSPL->set_signal_history($flag);
+    return XPSPL::instance()->set_signal_history($flag);
 }
 
 /**
@@ -206,8 +192,7 @@ function set_signal_history($flag)
  */
 function listen($listener)
 {
-    global $XPSPL;
-    return $XPSPL->listen($listener);
+    return XPSPL::instance()->listen($listener);
 }
 
 /**
@@ -232,7 +217,6 @@ function dir_include($dir, $listen = false, $path = null)
             new \RecursiveDirectoryIterator($dir)
         ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
     );
-    var_dump($iterator);
     foreach ($iterator as $_file) {
         array_map(function($i) use ($path, $listen){
             include $i;
@@ -265,8 +249,7 @@ function dir_include($dir, $listen = false, $path = null)
  */
 function current_signal($offset = 0)
 {
-    global $XPSPL;
-    return $XPSPL->current_signal($offset);
+    return XPSPL::instance()->current_signal($offset);
 }
 
 /**
@@ -278,8 +261,7 @@ function current_signal($offset = 0)
  */
 function current_event($offset = 0)
 {
-    global $XPSPL;
-    return $XPSPL->current_event($offset);
+    return XPSPL::instance()->current_event($offset);
 }
 
 /**
@@ -313,6 +295,5 @@ function on_start($function)
  */
 function XPSPL_flush(/* ... */)
 {
-    global $XPSPL;
-    return $XPSPL->flush();
+    return XPSPL::instance()->flush();
 }

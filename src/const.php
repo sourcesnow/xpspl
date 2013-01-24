@@ -70,6 +70,17 @@ if (!defined('QUEUE_DEFAULT_PRIORITY')) {
     define('PROCESS_DEFAULT_PRIORITY', 10);
 }
 
+if (!defined('XPSPL_JUDY_SUPPORT')) {
+    /**
+     * Judy is an array implementation.
+     *
+     * For more information see http://php.net/manual/en/book.judy.php
+     *
+     * Currently this is experimental as an attempt to improve performance.
+     */
+    define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
+}
+
 if (!defined('WINDOWS')) {
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
         define('WINDOWS', true);
