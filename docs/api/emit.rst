@@ -1,8 +1,5 @@
-.. /emit.php generated using docpx on 01/14/13 01:12pm
-emit
-====
-
-.. function:: emit($signal, [$context = false])
+.. /emit.php generated using docpx on 01/24/13 03:54am
+.. function:: emit()
 
 
     Emit a signal. 
@@ -28,9 +25,11 @@ emit
     :rtype: object SIG
 
 
-Emitting a unique signal
-------------------------
+Example
++++++++
  
+Emitting a unique signal
+
 When a unique signal is emitted
 
 .. code-block:: php

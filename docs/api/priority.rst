@@ -1,8 +1,5 @@
-.. /priority.php generated using docpx on 01/14/13 01:12pm
-priority
-========
-
-.. function:: priority($priority, $process)
+.. /priority.php generated using docpx on 01/24/13 03:54am
+.. function:: priority()
 
 
     Registers the given process to have the given priority.
@@ -30,9 +27,11 @@ priority
     :rtype: object Process
 
 
-Installing multiple priorities
-------------------------------
+Example
++++++++
  
+Installing multiple priorities
+
 This installs multiple process each with a seperate ascending priority.
 
 .. code-block:: php

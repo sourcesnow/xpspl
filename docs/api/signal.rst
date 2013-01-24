@@ -1,8 +1,5 @@
-.. /signal.php generated using docpx on 01/14/13 01:12pm
-signal
-======
-
-.. function:: signal($signal, $callable)
+.. /signal.php generated using docpx on 01/24/13 03:54am
+.. function:: signal()
 
 
     Installs a process to execute when the given signal is emitted.
@@ -18,9 +15,11 @@ signal
     :rtype: object|boolean Process, boolean if error
 
 
-Object Signals
---------------
+Example
++++++++
  
+Object Signals
+
 Objects signals are the prefered method of installing and emit signals as it 
 helps remove user-error, provides easier development, debugging and 
 refactoring.
@@ -49,9 +48,11 @@ In this example an object signal of Foo is created.
     // Emit Foo
     emit(new Foo());
 
-String and Integer signals
---------------------------
+Example
++++++++
  
+String and Integer signals
+
 When using only strings and integers as a signal the string or integer can 
 be provided directly rather than giving an object.
 
@@ -72,9 +73,11 @@ be provided directly rather than giving an object.
     // results
     // foo
 
-Null exhaust
-------------
+Example
++++++++
  
+Null exhaust
+
 Install a process for the integer signal 1.
 
 .. code-block:: php

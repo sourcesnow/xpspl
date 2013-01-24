@@ -58,6 +58,15 @@ trait Storage {
     }
 
     /**
+     * Frees the storage.
+     */
+    public function free(/* ... */)
+    {
+        unset($this->_storage);
+        $this->_storage = [];
+    }
+
+    /**
      * Procedures.
      */
     public function count(/* ... */)

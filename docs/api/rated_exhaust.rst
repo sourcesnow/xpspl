@@ -1,8 +1,5 @@
-.. /rated_exhaust.php generated using docpx on 01/14/13 01:12pm
-rated_exhaust
-=============
-
-.. function:: rated_exhaust($limit, $process)
+.. /rated_exhaust.php generated using docpx on 01/24/13 03:54am
+.. function:: rated_exhaust()
 
 
     Registers the given process to have the given exhaust rate.
@@ -20,9 +17,11 @@ rated_exhaust
     :rtype: object Process
 
 
-Controlling exahust rate
-------------------------
+Example
++++++++
  
+Controlling exahust rate
+
 Installs an awake process for every 2 seconds exhausting after 2 emits.
 
 .. code-block:: php

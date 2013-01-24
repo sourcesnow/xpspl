@@ -266,9 +266,33 @@ class Processor {
             '_int_after'
         ];
         foreach ($database as $_db) {
-            $this->{$_db} = new Database();
+            if (is_object($this->{$_db})) {
+                if (XPSPL_DEBUG) {
+                    import('unittest');
+                    \unittest\Output::send(sprintf(
+                        '%s - Flush'.PHP_EOL.
+                        '%i - Mem Start'.PHP_EOL,
+                        $_db,
+                        $this->{$_db}->storage()->memoryUsage()
+                    ));
+                }
+                $this->{$_db}->free();
+                if (XPSPL_DEBUG) {
+                    import('unittest');
+                    \unittest\Output::send(sprintf(
+                        '%i - Mem Finish'.PHP_EOL,
+                        $this->{$_db}->storage()->memoryUsage()
+                    ));
+                }
+            } else {
+                $this->{$_db} = new Database();
+            }
         }
-        $this->_routine = new Routine();
+        if (is_object($this->_routine)){
+            $this->_routine->reset();
+        } else {
+            $this->_routine = new Routine();
+        }
         if (false !== $this->_history){
             $this->_history = [];
         }

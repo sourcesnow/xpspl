@@ -1,8 +1,5 @@
-.. /null_exhaust.php generated using docpx on 01/14/13 01:12pm
-null_exhaust
-============
-
-.. function:: null_exhaust($process)
+.. /null_exhaust.php generated using docpx on 01/24/13 03:54am
+.. function:: null_exhaust()
 
 
     Registers the given process to have a null exhaust.
@@ -22,9 +19,11 @@ null_exhaust
     :rtype: object Process
 
 
-Install a null exhaust process.
--------------------------------
+Example
++++++++
  
+Install a null exhaust process.
+
 This example installs a null exhaust process which calls an awake signal 
 every 10 seconds creating an interval.
 

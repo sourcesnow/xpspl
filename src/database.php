@@ -29,12 +29,7 @@ if (XPSPL_JUDY_SUPPORT){
 class Database {
 
     use Storage;
-
-    /**
-     * Judy object.
-     */
-    protected $_storage = null;
-
+    
     /**
      * Constructs a new Database.
      *
@@ -75,6 +70,14 @@ class Database {
     {
         $index = $signal->get_index();
         $this->_storage[$index] = [$signal, $queue];
+    }
+
+    /**
+     * Frees the database.
+     */
+    public function free(/* ... */)
+    {
+        $this->_storage->free();
     }
 }
 } else {

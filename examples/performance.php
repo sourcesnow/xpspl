@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 18);) {
+        for($a=1;$a<(1 << 24);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {
@@ -120,6 +120,7 @@ foreach ($tests as $_test => $_func) {
             $end = microtime(true);
             $results[$_test][$tc][] = $end - $start;
             XPSPL_flush();
+            var_dump(xpspl());
         }
     }
     $output::send(sprintf(

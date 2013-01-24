@@ -126,6 +126,7 @@ final class Routine {
      */
     public function reset()
     {
-        $this->_signals = null;
+        $this->_signals = [];
+        $this->_idle = [];
     }
 }

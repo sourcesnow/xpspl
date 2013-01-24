@@ -8,6 +8,15 @@ Requirements
 
 XPSPL requires  **>= PHP 5.4**.
 
+Optional
+========
+
+C Judy 1.0.4
+PECL Judy 0.1.4
+
+The Judy library demonstrates improving the database by giving storage a linear 
+scale of ~39us up to the tested 262144.
+
 Install
 =======
 

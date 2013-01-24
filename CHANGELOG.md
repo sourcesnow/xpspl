@@ -1,5 +1,6 @@
 ## 3.0.0
 
+* Added Judy as the Database array.
 * save_signal_history rennamed to set_signal_history
 * Processor::search_signals renamed to Processor::find_signal
 * State::get/set_state are now final.
