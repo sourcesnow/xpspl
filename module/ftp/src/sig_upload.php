@@ -172,33 +172,40 @@ class SIG_Upload extends \XPSPL\signal\Complex {
                 ftp_close($connection);
                 break;
             }
-            $transfer = ftp_nb_put(
-                $connection,
-                $_file->get_name(),
-                $_file->get_full_path(),
-                $_file->get_transfer_mode()
-            );
-            if ($transfer === FTP_MOREDATA) {
-                $this->_uploading[] = [
-                    $connection,
-                    $_file
-                ];
+            if (!file_exists($_file->get_full_path())) {
+                emit(
+                    $this->_sig_failure,
+                    new EV_Failure($_file)
+                );
             } else {
-                if ($transfer == FTP_FINISHED) {
-                    emit(
-                        $this->_sig_complete,
-                        new EV_Complete($_file)
-                    );
-                    // Close the FTP connection to that file
-                    ftp_close($connection);
-                    $this->_uploaded[] = $_file;
+                $transfer = ftp_nb_put(
+                    $connection,
+                    $_file->get_name(),
+                    $_file->get_full_path(),
+                    $_file->get_transfer_mode()
+                );
+                if ($transfer === FTP_MOREDATA) {
+                    $this->_uploading[] = [
+                        $connection,
+                        $_file
+                    ];
                 } else {
-                    emit(
-                        $this->_sig_failure,
-                        new EV_Failure($_file)
-                    );
-                    // Close the FTP connection to that file
-                    ftp_close($connection);
+                    if ($transfer == FTP_FINISHED) {
+                        emit(
+                            $this->_sig_complete,
+                            new EV_Complete($_file)
+                        );
+                        // Close the FTP connection to that file
+                        ftp_close($connection);
+                        $this->_uploaded[] = $_file;
+                    } else {
+                        emit(
+                            $this->_sig_failure,
+                            new EV_Failure($_file)
+                        );
+                        // Close the FTP connection to that file
+                        ftp_close($connection);
+                    }
                 }
             }
             unset($this->_files[$_k]);
