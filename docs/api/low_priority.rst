@@ -1,4 +1,9 @@
-.. /low_priority.php generated using docpx on 01/24/13 03:54am
+.. /low_priority.php generated using docpx on 01/28/13 03:43am
+
+
+low_priority
+============
+
 .. function:: low_priority()
 
 
@@ -21,15 +26,13 @@
        Installed interruptions will still be executed after a low priority 
        process.
 
-    :param callable|process $process: PHP Callable or \XPSPL\Process.
+    :param callable|process: PHP Callable or \XPSPL\Process.
 
     :rtype: object Process
 
 
-Example
-+++++++
- 
 Install a process with low priority
+-----------------------------------
 
 Low priority processes always execute last.
 

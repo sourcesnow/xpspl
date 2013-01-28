@@ -1,4 +1,9 @@
-.. /rated_exhaust.php generated using docpx on 01/24/13 03:54am
+.. /rated_exhaust.php generated using docpx on 01/28/13 03:43am
+
+
+rated_exhaust
+=============
+
 .. function:: rated_exhaust()
 
 
@@ -12,15 +17,13 @@
     
     If you require a null exhaust process use the ``null_exhaust`` function.
 
-    :param callable|process $process: PHP Callable or Process.
+    :param callable|process: PHP Callable or Process.
 
     :rtype: object Process
 
 
-Example
-+++++++
- 
 Controlling exahust rate
+------------------------
 
 Installs an awake process for every 2 seconds exhausting after 2 emits.
 

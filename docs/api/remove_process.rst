@@ -1,19 +1,22 @@
-.. /remove_process.php generated using docpx on 01/24/13 03:54am
+.. /remove_process.php generated using docpx on 01/28/13 03:43am
+
+
+remove_process
+==============
+
 .. function:: remove_process()
 
 
     Removes an installed signal process.
 
-    :param string|integer|object $signal: Signal process is attached to.
-    :param object $process: Process.
+    :param string|integer|object: Signal process is attached to.
+    :param object: Process.
 
     :rtype: void 
 
 
-Example
-+++++++
- 
 Removing installed processes
+----------------------------
 
 Removes the installed process from the foo signal.
 

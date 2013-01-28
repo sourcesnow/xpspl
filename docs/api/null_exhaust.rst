@@ -1,4 +1,9 @@
-.. /null_exhaust.php generated using docpx on 01/24/13 03:54am
+.. /null_exhaust.php generated using docpx on 01/28/13 03:43am
+
+
+null_exhaust
+============
+
 .. function:: null_exhaust()
 
 
@@ -14,15 +19,13 @@
     If you require a process to exhaust after a few executions use the ``rated_exhaust`` 
     function.
 
-    :param callable|process $process: PHP Callable or Process.
+    :param callable|process: PHP Callable or Process.
 
     :rtype: object Process
 
 
-Example
-+++++++
- 
 Install a null exhaust process.
+-------------------------------
 
 This example installs a null exhaust process which calls an awake signal 
 every 10 seconds creating an interval.

@@ -1,4 +1,9 @@
-.. /emit.php generated using docpx on 01/24/13 03:54am
+.. /emit.php generated using docpx on 01/28/13 03:43am
+
+
+emit
+====
+
 .. function:: emit()
 
 
@@ -6,12 +11,12 @@
     
     This will execute all processes and interruptions installed to the signal. 
     
-    A ``SIG`` object is returned.
+    The executed ``SIG`` object is returned.
     
     .. note::
     
-       When emitting unique signals, i.e. complex, routines or user defined the 
-       unique sig object must be given that was used to install any sig handlers.
+       When emitting unique signals, e.g.. complex, routines or defined uniques 
+       the unique sig object installed must be given.
     
     Once a signal is emitted the following execution chain takes place.
     
@@ -19,16 +24,14 @@
     2. Installed processes
     3. After process interruptions
 
-    :param signal $signal: Signal to emit.
-    :param object $context: Signal context.
+    :param signal: Signal to emit.
+    :param object: Signal context.
 
     :rtype: object SIG
 
 
-Example
-+++++++
- 
 Emitting a unique signal
+------------------------
 
 When a unique signal is emitted
 

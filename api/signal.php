@@ -76,17 +76,32 @@
  *
  * @example
  *
- * Null exhaust
+ * Null exhaust process.
  *
- * Install a process for the integer signal 1.
+ * Install a process that never exhausts.
+ *
+ * .. note::
+ *
+ *     Once a null exhaust process is installed it must be removed using 
+ *     ``remove_process``.
  *
  * .. code-block:: php
  *
  *     <?php
  *
- *     signal(1, function(){
- *         echo "I NEVER EXHAUST!!";
- *     });
+ *     signal(SIG('foo'), null_exhaust(function(){
+ *         echo "foo";
+ *     }));
+ *
+ *     for ($i=0;$i<35;$i++) {
+ *         emit(SIG('foo'));
+ *     }
+ *     // results
+ *     // foo
+ *     // foo
+ *     // foo
+ *     // foo
+ *     // ...
  */
 function signal($signal, $process)
 {

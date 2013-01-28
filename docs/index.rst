@@ -9,7 +9,7 @@ XPSPL is a high performance signal processor for the PHP programming language.
 Development
 -----------
 
-The current version of documentation you are reading belongs to the event_removal branch 
+The current version of documentation you are reading belongs to the xspel branch 
 of development.
 
 This branch is not considered stable and should not be used for production software.
@@ -51,6 +51,20 @@ These modules are bundled directly with XPSPL available without installation.
 
 
    modules/ftp
+
+Core
+----
+
+XPSPL Core
+
+These classes are the core of XPSPL.
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   xpspl/*
+   xpspl/*/*
 
 Source
 ------

@@ -1,4 +1,9 @@
-.. /signal.php generated using docpx on 01/24/13 03:54am
+.. /signal.php generated using docpx on 01/28/13 03:43am
+
+
+signal
+======
+
 .. function:: signal()
 
 
@@ -9,16 +14,14 @@
        All processes unless otherwise specified have a default exhaust of 1 and 
        execute in FIFO order.
 
-    :param string|integer|object $signal: Signal to attach the process.
-    :param object $callable: Callable
+    :param string|integer|object: Signal to attach the process.
+    :param object: Callable
 
     :rtype: object|boolean Process, boolean if error
 
 
-Example
-+++++++
- 
 Object Signals
+--------------
 
 Objects signals are the prefered method of installing and emit signals as it 
 helps remove user-error, provides easier development, debugging and 
@@ -48,10 +51,8 @@ In this example an object signal of Foo is created.
     // Emit Foo
     emit(new Foo());
 
-Example
-+++++++
- 
 String and Integer signals
+--------------------------
 
 When using only strings and integers as a signal the string or integer can 
 be provided directly rather than giving an object.
@@ -73,20 +74,33 @@ be provided directly rather than giving an object.
     // results
     // foo
 
-Example
-+++++++
- 
-Null exhaust
+Null exhaust process.
+---------------------
 
-Install a process for the integer signal 1.
+Install a process that never exhausts.
+
+.. note::
+
+    Once a null exhaust process is installed it must be removed using 
+    ``remove_process``.
 
 .. code-block:: php
 
     <?php
 
-    signal(1, function(){
-        echo "I NEVER EXHAUST!!";
-    });
+    signal(SIG('foo'), null_exhaust(function(){
+        echo "foo";
+    }));
+
+    for ($i=0;$i<35;$i++) {
+        emit(SIG('foo'));
+    }
+    // results
+    // foo
+    // foo
+    // foo
+    // foo
+    // ...
 
 
 

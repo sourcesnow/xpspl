@@ -116,6 +116,32 @@ class Processor {
     }
 
     /**
+     * Analyzes the processor runtime and shutdowns when no activity is 
+     * detected.
+     *
+     * @param  object  $sig_awake  SIG_Awake
+     *
+     * @return  void
+     */
+    public function anaylze_runtime(SIG_Awake $sig_awake)
+    {
+        if (!isset($sig_awake->analysis)) {
+            $sig_awake->analysis = microseconds();
+            $sig_awake->count = 0;
+        } else {
+            if (0 === ($sig_awake - microseconds()) >> 10) {
+                if ($sig_awake->count > 5) {
+                    $this->shutdown();
+                }
+                $sig_awake->count = $sig_awake->count + 1;
+            } else {
+                $sig_awake->count = 0;
+            }
+            $sig_awake->analysis = microseconds();
+        }
+    }
+
+    /**
      * Waits for the next signal to occur.
      *
      * @todo unittest
@@ -129,6 +155,12 @@ class Processor {
          * with an intelligent time based analysis.
          */
         $this->emit(new processor\SIG_Startup());
+        if (class_exists('time\\SIG_Awake', true)) {
+            $this->signal(
+                new time\SIG_Awake(35, TIME_MICROSECONDS), 
+                new Process([$this, analyze_runtime], null, 0)
+            );
+        }
         routine:
         if ($this->_routine()) {
             $signals = $this->_routine->get_signals();
@@ -531,7 +563,7 @@ class Processor {
                 continue;
             }
             $_process->decrement_exhaust();
-            $result = $this->_func_exec(
+            $result = $this->_process_exec(
                 $_process->get_function(),
                 $signal
             );
@@ -551,7 +583,7 @@ class Processor {
      * 
      * @return  boolean
      */
-    private function _func_exec($function, SIG $signal)
+    private function _process_exec(Process $function, SIG $signal)
     {
         if (is_array($function)) {
             if (count($function) >= 2) {

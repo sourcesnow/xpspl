@@ -1,4 +1,9 @@
-.. /priority.php generated using docpx on 01/24/13 03:54am
+.. /priority.php generated using docpx on 01/28/13 03:43am
+
+
+priority
+========
+
 .. function:: priority()
 
 
@@ -21,16 +26,14 @@
        Installed interruptions will still be executed before or after a 
        prioritized process.
 
-    :param integer $priority: Priority to assign
-    :param callable|process $process: PHP Callable or \XPSPL\Process.
+    :param integer: Priority to assign
+    :param callable|process: PHP Callable or \XPSPL\Process.
 
     :rtype: object Process
 
 
-Example
-+++++++
- 
 Installing multiple priorities
+------------------------------
 
 This installs multiple process each with a seperate ascending priority.
 

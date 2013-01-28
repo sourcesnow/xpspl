@@ -6,9 +6,9 @@
  */
 
 /**
- * Generates an XPSPL SIG object.
+ * Generates an XPSPL SIG object from the given ``$signal``.
  *
- * This function is literally a shorthand to avoid typing new SIG.
+ * This function is only a shorthand for ``new SIG($signal)``.
  *
  * @param  string|  $signal  Signal process is attached to.
  * 
@@ -16,7 +16,9 @@
  *
  * @example
  *
- * Passing a signal to the ``signal`` function.
+ * Creating a SIG.
+ *
+ * This will create a SIG idenitified by 'foo'.
  *
  * .. code-block::php
  *

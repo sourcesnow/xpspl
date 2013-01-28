@@ -10,12 +10,12 @@
  * 
  * This will execute all processes and interruptions installed to the signal. 
  * 
- * A ``SIG`` object is returned.
+ * The executed ``SIG`` object is returned.
  *
  * .. note::
  *
- *    When emitting unique signals, i.e. complex, routines or user defined the 
- *    unique sig object must be given that was used to install any sig handlers.
+ *    When emitting unique signals, e.g.. complex, routines or defined uniques 
+ *    the unique sig object installed must be given.
  *
  * Once a signal is emitted the following execution chain takes place.
  *
