@@ -9,6 +9,7 @@ $usage =
               <file>
 Options:
   -c/--config   Load the giving file for configuration
+  -d            Turn on XPSPL_DEBUG
   -h/--help     Show this help message.
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
@@ -75,7 +76,7 @@ foreach ($options as $_i => $_arg) {
             include($_arg);
             break;
         case 'd':
-            define('XPSPL_DEV_MODE', true);
+            define('XPSPL_DEBUG', true);
             break;
         case 'test':
         case 'test-cover':
