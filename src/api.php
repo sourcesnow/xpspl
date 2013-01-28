@@ -246,7 +246,7 @@ function clean($history = false)
 function delete_signal($signal, $history = false)
 {
     global $XPSPL;
-    return $XPSPL->delete_signal($storage, $history);
+    return $XPSPL->delete_signal($signal, $history);
 }
 
 /**
