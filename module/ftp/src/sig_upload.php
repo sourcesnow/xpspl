@@ -133,7 +133,7 @@ class SIG_Upload extends \XPSPL\signal\Complex {
         }));
     }
 
-    public function routine()
+    public function routine($history = null)
     {
         if (count($this->_files) > 0 || count($this->_uploading) > 0) {
             return true;
