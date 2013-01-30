@@ -18,15 +18,13 @@ class SIG_Base extends \XPSPL\Signal {
      * 
      * @return  void
      */
-    public function __construct($connection = null)
+    public function __construct($info = null)
     {
-        parent::__construct();
-
         if (null === $info) {
+            parent::__construct();
             return;
         }
-
-        $this->_info = spl_object_hash($signal).$this->_info;
+        $this->_info = spl_object_hash($info).'.'.get_class($this);
     }
 
 }

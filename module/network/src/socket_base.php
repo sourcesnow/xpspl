@@ -79,11 +79,13 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
                 }
             }
             // establish sockets
-            $re = $wr = $ex = [
+            $re = [
                 $this->connection->get_resource()
             ];
+            $wr = $ex = [];
             foreach ($this->_clients as $_k => $_c) {
                 $_r = $_c->get_resource();
+                var_dump($_r);
                 // test if socket is still connected
                 // send disconnect if disconnect detected
                 if (!is_resource($_r)) {
@@ -93,41 +95,50 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
                     );
                     unset($this->_clients[$_k]);
                     continue;
+                } else {
+                    $re[] = $_r;
+                    $wr[] = $_r;
+                    $ex[] = $_r;
                 }
-                $re[] = $_r;
-                $wr[] = $_r;
-                $ex[] = $_r;
             }
-            if (false !== $count = socket_select($re, $write, $ex, $time)) {
+            var_dump($this->_clients);
+            if (false !== $count = socket_select($re, $wr, $ex, $time)) {
+                var_dump($count, $re, $wr, $ex);
                 if ($count == 0) return true;
                 if (count($re) !== 0) {
                     foreach ($re as $_r) {
-                        if (!isset($this->_clients[$_r])) {
-                            $client = new Client($_r);
-                            $this->_routine->add_signal(
-                                new SIG_Connect($this),
-                                new EV_Connect($client)
-                            );
-                            $this->_clients[$client->get_resource()] = $client;
+                        $id = intval($_r);
+                        if (!isset($this->_clients[$id])) {
+                            try {
+                                $client = new Client($_r);
+                                $id = intval($client->get_resource());
+                                $this->_routine->add_signal(
+                                    new SIG_Connect($this),
+                                    new EV_Connect($client)
+                                );
+                                $this->_clients[$id] = $client;
+                            } catch (\RuntimeException $e) {
+                                // connection error
+                                // $this->_routine->add_signal(
+                                //     new SIG_Error($e)
+                                // );
+                            }
                         } else {
                             $this->_routine->add_signal(
                                 new SIG_Read($this),
-                                new EV_Read($this->_clients[$_r])
+                                new EV_Read($this->_clients[$id])
                             );
                         }
                     }
                 }
-                if (count($write) !== 0) {
-                    foreach ($write as $_write) {
+                if (count($wr) !== 0) {
+                    foreach ($wr as $_write) {
                         $this->_routine->add_signal(
                             new SIG_Write($this),
-                            new EV_Write($this->_clients[$_w])
+                            new EV_Write($this->_clients[intval($_write)])
                         );
                     }
                 }
-            } else {
-                // socket error
-                throw_socket_error();
             }
         }));
     }
