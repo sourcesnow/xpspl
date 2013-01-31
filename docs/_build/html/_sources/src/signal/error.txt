@@ -1,34 +1,34 @@
-.. /processor/signal/error.php generated using docpx on 01/16/13 03:03am
+.. processor/signal/error.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\processor\signal\Error
-============================
+Class
+*****
 
+XPSPL\\processor\\signal\\Error
+===============================
 
 The error event
-
-
 
 Methods
 -------
 
 __construct
-===========
++++++++++++
 
-.. function:: __construct([$error = false, [$exception = false]])
+.. function:: __construct()
 
 
     Constructs a new signal.
 
-    :param string $error: Error message.
-    :param object|null $exception: Exception object if exists
+    :param string: Error message.
+    :param object|null: Exception object if exists
 
     :rtype: void 
 
 
 
 get_error
-=========
++++++++++
 
 .. function:: get_error()
 
@@ -40,7 +40,7 @@ get_error
 
 
 get_exception
-=============
++++++++++++++
 
 .. function:: get_exception()
 
@@ -48,8 +48,6 @@ get_exception
     Returns the exception, if set.
 
     :rtype: object|null 
-
-
 
 
 

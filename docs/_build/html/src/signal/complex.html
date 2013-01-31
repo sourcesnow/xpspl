@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>XPSPLsignalComplex &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Class &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -25,7 +25,9 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="XPSPL 3.0.0 documentation" href="../../index.html" /> 
+    <link rel="top" title="XPSPL 3.0.0 documentation" href="../../index.html" />
+    <link rel="next" title="Class" href="deprecated.html" />
+    <link rel="prev" title="Class" href="base.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,6 +36,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="deprecated.html" title="Class"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="base.html" title="Class"
+             accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -43,17 +51,17 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="xpsplsignalcomplex">
-<h1>XPSPLsignalComplex<a class="headerlink" href="#xpsplsignalcomplex" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class">
+<h1>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xpspl-signal-complex">
+<h2>XPSPL\signal\Complex<a class="headerlink" href="#xpspl-signal-complex" title="Permalink to this headline">¶</a></h2>
 <p>Added in v0.3.0</p>
 <p>Complex signals are any signals that perform a calculation to determine
 signals to trigger, idle time or an idle function.</p>
 <div class="section" id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="construct">
-<h1>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h1>
+<h4>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="__construct">
 <tt class="descname">__construct</tt><big>(</big><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
@@ -63,16 +71,16 @@ signals to trigger, idle time or an idle function.</p>
 
 </div>
 <div class="section" id="evaluate">
-<h1>evaluate<a class="headerlink" href="#evaluate" title="Permalink to this headline">¶</a></h1>
+<h4>evaluate<a class="headerlink" href="#evaluate" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">evaluate</tt><big>(</big><span class="optional">[</span><em>$signal = false</em><span class="optional">]</span><big>)</big></dt>
+<tt class="descname">evaluate</tt><big>(</big><big>)</big></dt>
 <dd><p>Compares the event signal given aganist itself.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$signal</strong> (<em>string|integer</em>) &#8211; Signal to evaluate</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string|integer</strong> &#8211; Signal to evaluate</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean|string|array False on failure. True if matches. String
 or array indicate results to pass handlers</td>
@@ -83,10 +91,10 @@ or array indicate results to pass handlers</td>
 
 </div>
 <div class="section" id="routine">
-<h1>routine<a class="headerlink" href="#routine" title="Permalink to this headline">¶</a></h1>
+<h4>routine<a class="headerlink" href="#routine" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">routine</tt><big>(</big><span class="optional">[</span><em>$history = false</em><span class="optional">]</span><big>)</big></dt>
+<tt class="descname">routine</tt><big>(</big><big>)</big></dt>
 <dd><p>Runs the routine calculations which allows for a complex signal to
 analyze the event history or perform any other computable algorithm
 for determining when a signal should trigger, the processor should idle or
@@ -98,7 +106,7 @@ processing.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$history</strong> (<em>array</em>) &#8211; Event history</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>array</strong> &#8211; Event history</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -108,7 +116,7 @@ processing.</p>
 
 </div>
 <div class="section" id="get-routine">
-<h1>get_routine<a class="headerlink" href="#get-routine" title="Permalink to this headline">¶</a></h1>
+<h4>get_routine<a class="headerlink" href="#get-routine" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="get_routine">
 <tt class="descname">get_routine</tt><big>(</big><big>)</big><a class="headerlink" href="#get_routine" title="Permalink to this definition">¶</a></dt>
@@ -125,10 +133,10 @@ processing.</p>
 
 </div>
 <div class="section" id="event">
-<h1>event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h1>
+<h4>event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">event</tt><big>(</big><span class="optional">[</span><em>$event = false</em><span class="optional">]</span><big>)</big></dt>
+<tt class="descname">event</tt><big>(</big><big>)</big></dt>
 <dd><p>Returns the event assigned to this signal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -142,18 +150,18 @@ processing.</p>
 
 </div>
 <div class="section" id="signal-this">
-<h1>signal_this<a class="headerlink" href="#signal-this" title="Permalink to this headline">¶</a></h1>
+<h4>signal_this<a class="headerlink" href="#signal-this" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="signal_this">
-<tt class="descname">signal_this</tt><big>(</big><span class="optional">[</span><em>$event = false</em><span class="optional">[</span>, <em>$ttl = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#signal_this" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">signal_this</tt><big>(</big><big>)</big><a class="headerlink" href="#signal_this" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for adding this signal to signal itself within a routine.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$event</strong> (<em>boolean|object</em>) &#8211; Create or provide an event. Default = true</li>
-<li><strong>$ttl</strong> (<em>integer|null</em>) &#8211; TTL for the event.</li>
+<li><strong>boolean|object</strong> &#8211; Create or provide an event. Default = true</li>
+<li><strong>integer|null</strong> &#8211; TTL for the event.</li>
 </ul>
 </td>
 </tr>
@@ -165,6 +173,9 @@ processing.</p>
 </dd></dl>
 
 </div>
+</div>
+</div>
+</div>
 
 
           </div>
@@ -174,10 +185,9 @@ processing.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">XPSPLsignalComplex</a><ul>
-<li><a class="reference internal" href="#methods">Methods</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Class</a><ul>
+<li><a class="reference internal" href="#xpspl-signal-complex">XPSPL\signal\Complex</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
 <li><a class="reference internal" href="#construct">__construct</a></li>
 <li><a class="reference internal" href="#evaluate">evaluate</a></li>
 <li><a class="reference internal" href="#routine">routine</a></li>
@@ -185,7 +195,19 @@ processing.</p>
 <li><a class="reference internal" href="#event">event</a></li>
 <li><a class="reference internal" href="#signal-this">signal_this</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="base.html"
+                        title="previous chapter">Class</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="deprecated.html"
+                        title="next chapter">Class</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/src/signal/complex.txt"
@@ -214,6 +236,12 @@ processing.</p>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="deprecated.html" title="Class"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="base.html" title="Class"
+             >previous</a> |</li>
         <li><a href="../../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
     </div>

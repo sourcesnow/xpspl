@@ -1,21 +1,21 @@
-.. /idle/process.php generated using docpx on 01/16/13 03:03am
+.. idle/process.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\idle\Process
-==================
+Class
+*****
 
+XPSPL\\idle\\Process
+====================
 
 Idles the processor using a function process.
-
-
 
 Methods
 -------
 
 __construct
-===========
++++++++++++
 
-.. function:: __construct($function)
+.. function:: __construct()
 
 
     Constructs the time idle.
@@ -23,14 +23,12 @@ __construct
 
 
 idle
-====
+++++
 
-.. function:: idle($processor)
+.. function:: idle()
 
 
     Run the idle function.
-
-
 
 
 

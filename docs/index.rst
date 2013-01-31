@@ -16,11 +16,12 @@ Table of Contents
    install
    configuration
    quickstart
+
 API
 ---
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    src/api
 
@@ -28,7 +29,7 @@ Architecture
 ------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 4
    :glob:
 
    src/*

@@ -1,8 +1,11 @@
-.. /storage.php generated using docpx on 01/16/13 03:03am
+.. storage.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\storage
-=============
+Function
+********
+
+XPSPL\\storage
+==============
 
 .. function:: XPSPL\storage()
 
@@ -13,8 +16,11 @@ XPSPL\storage
 
 
 
-XPSPL\merge
-===========
+Function
+********
+
+XPSPL\\merge
+============
 
 .. function:: XPSPL\merge()
 
@@ -25,22 +31,28 @@ XPSPL\merge
 
 
 
-XPSPL\walk
-==========
+Function
+********
+
+XPSPL\\walk
+===========
 
 .. function:: XPSPL\walk()
 
 
     Apply the given function to every node in storage.
 
-    :param callable $func: 
+    :param callable: 
 
     :rtype: void 
 
 
 
-XPSPL\count
-===========
+Function
+********
+
+XPSPL\\count
+============
 
 .. function:: XPSPL\count()
 
@@ -49,71 +61,101 @@ XPSPL\count
 
 
 
-XPSPL\current
-=============
+Function
+********
+
+XPSPL\\current
+==============
 
 .. function:: XPSPL\current()
 
 
 
-XPSPL\end
-=========
+Function
+********
+
+XPSPL\\end
+==========
 
 .. function:: XPSPL\end()
 
 
 
-XPSPL\key
-=========
+Function
+********
+
+XPSPL\\key
+==========
 
 .. function:: XPSPL\key()
 
 
 
-XPSPL\next
-==========
+Function
+********
+
+XPSPL\\next
+===========
 
 .. function:: XPSPL\next()
 
 
 
-XPSPL\prev
-==========
+Function
+********
+
+XPSPL\\prev
+===========
 
 .. function:: XPSPL\prev()
 
 
 
-XPSPL\reset
-===========
+Function
+********
+
+XPSPL\\reset
+============
 
 .. function:: XPSPL\reset()
 
 
 
-XPSPL\valid
-===========
+Function
+********
+
+XPSPL\\valid
+============
 
 .. function:: XPSPL\valid()
 
 
 
-XPSPL\sort
-==========
+Function
+********
+
+XPSPL\\sort
+===========
 
 .. function:: XPSPL\sort()
 
 
 
-XPSPL\usort
-===========
+Function
+********
+
+XPSPL\\usort
+============
 
 .. function:: XPSPL\usort()
 
 
 
-XPSPL\uasort
-============
+Function
+********
+
+XPSPL\\uasort
+=============
 
 .. function:: XPSPL\uasort()
 

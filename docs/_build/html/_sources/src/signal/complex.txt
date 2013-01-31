@@ -1,22 +1,22 @@
-.. /signal/complex.php generated using docpx on 01/16/13 03:03am
+.. signal/complex.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\signal\Complex
-====================
+Class
+*****
 
+XPSPL\\signal\\Complex
+======================
 
 Added in v0.3.0
 
 Complex signals are any signals that perform a calculation to determine
 signals to trigger, idle time or an idle function.
 
-
-
 Methods
 -------
 
 __construct
-===========
++++++++++++
 
 .. function:: __construct()
 
@@ -28,14 +28,14 @@ __construct
 
 
 evaluate
-========
+++++++++
 
-.. function:: evaluate([$signal = false])
+.. function:: evaluate()
 
 
     Compares the event signal given aganist itself.
 
-    :param string|integer $signal: Signal to evaluate
+    :param string|integer: Signal to evaluate
 
     :rtype: boolean|string|array False on failure. True if matches. String
                                or array indicate results to pass handlers
@@ -43,9 +43,9 @@ evaluate
 
 
 routine
-=======
++++++++
 
-.. function:: routine([$history = false])
+.. function:: routine()
 
 
     Runs the routine calculations which allows for a complex signal to 
@@ -58,14 +58,14 @@ routine
     
     The return of this method is ignored.
 
-    :param array $history: Event history
+    :param array: Event history
 
     :rtype: void 
 
 
 
 get_routine
-===========
++++++++++++
 
 .. function:: get_routine()
 
@@ -77,9 +77,9 @@ get_routine
 
 
 event
-=====
++++++
 
-.. function:: event([$event = false])
+.. function:: event()
 
 
     Returns the event assigned to this signal.
@@ -89,19 +89,17 @@ event
 
 
 signal_this
-===========
++++++++++++
 
-.. function:: signal_this([$event = false, [$ttl = false]])
+.. function:: signal_this()
 
 
     Method for adding this signal to signal itself within a routine.
 
-    :param boolean|object $event: Create or provide an event. Default = true
-    :param integer|null $ttl: TTL for the event.
+    :param boolean|object: Create or provide an event. Default = true
+    :param integer|null: TTL for the event.
 
     :rtype: void 
-
-
 
 
 

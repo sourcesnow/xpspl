@@ -1,9 +1,11 @@
-.. /handle.php generated using docpx on 01/16/13 03:03am
+.. handle.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\Handle
-============
+Class
+*****
 
+XPSPL\\Handle
+=============
 
 A handle is the function which will execute upon a signal call.
 
@@ -17,29 +19,27 @@ by default, this is done under the theory that any handle which
 is registered is done so to run at least once, otherwise it wouldn't
 exist.
 
-
-
 Methods
 -------
 
 __construct
-===========
++++++++++++
 
-.. function:: __construct($function, [$exhaust = 1, [$priority = false]])
+.. function:: __construct()
 
 
     Constructs a new handle object.
 
-    :param mixed $function: A callable php variable.
-    :param integer $exhaust: Count to set handle exhaustion.
-    :param null|integer $priority: Priority of the handle.
+    :param mixed: A callable php variable.
+    :param integer: Count to set handle exhaustion.
+    :param null|integer: Priority of the handle.
 
     :rtype: void 
 
 
 
 decrement_exhaust
-=================
++++++++++++++++++
 
 .. function:: decrement_exhaust()
 
@@ -51,7 +51,7 @@ decrement_exhaust
 
 
 exhaustion
-==========
+++++++++++
 
 .. function:: exhaustion()
 
@@ -63,7 +63,7 @@ exhaustion
 
 
 is_exhausted
-============
+++++++++++++
 
 .. function:: is_exhausted()
 
@@ -75,7 +75,7 @@ is_exhausted
 
 
 get_priority
-============
+++++++++++++
 
 .. function:: get_priority()
 
@@ -87,7 +87,7 @@ get_priority
 
 
 get_function
-============
+++++++++++++
 
 .. function:: get_function()
 
@@ -99,32 +99,30 @@ get_function
 
 
 set_exhaust
-===========
++++++++++++
 
-.. function:: set_exhaust($rate)
+.. function:: set_exhaust()
 
 
     Sets the handle exhaust rate.
 
-    :param integer $rate: Exhaust rate
+    :param integer: Exhaust rate
 
     :rtype: void 
 
 
 
 set_priority
-============
+++++++++++++
 
-.. function:: set_priority($priority)
+.. function:: set_priority()
 
 
     Sets the handle priority.
 
-    :param integer $priority: Integer Priority
+    :param integer: Integer Priority
 
     :rtype: void 
-
-
 
 
 

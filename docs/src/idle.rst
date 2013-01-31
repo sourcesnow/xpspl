@@ -1,9 +1,11 @@
-.. /idle.php generated using docpx on 01/16/13 03:03am
+.. idle.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\Idle
-==========
+Class
+*****
 
+XPSPL\\Idle
+===========
 
 Idle
 
@@ -18,15 +20,13 @@ idle.
 The base provides the rules that only one type of the given idle function
 should exist and a default priority of zero for all.
 
-
-
 Methods
 -------
 
 idle
-====
+++++
 
-.. function:: idle($processor)
+.. function:: idle()
 
 
     Idle's the processor.
@@ -45,14 +45,14 @@ idle
     processor specs or is poorly designed will result in terrible performance, 
     unexpected results and damage to your system ... use caution.
 
-    :param object $processor: The processor that wishes to idle.
+    :param object: The processor that wishes to idle.
 
     :rtype: void 
 
 
 
 get_priority
-============
+++++++++++++
 
 .. function:: get_priority()
 
@@ -64,7 +64,7 @@ get_priority
 
 
 allow_override
-==============
+++++++++++++++
 
 .. function:: allow_override()
 
@@ -77,18 +77,16 @@ allow_override
 
 
 override
-========
+++++++++
 
-.. function:: override($idle)
+.. function:: override()
 
 
     Returns if the given function can override this in the processor.
 
-    :param object $idle: Idle function object
+    :param object: Idle function object
 
     :rtype: boolean 
-
-
 
 
 

@@ -1,12 +1,11 @@
-.. /event.php generated using docpx on 01/16/13 03:03am
+.. event.php generated using docpx on 01/30/13 08:17pm
 
 
-EVENT_SELF_PARENT
-=================
+Class
+*****
 
-XPSPL\Event
-===========
-
+XPSPL\\Event
+============
 
 Event
 
@@ -14,27 +13,25 @@ Represents an executed/executable XPSPL event signal.
 
 As of v0.3.0 the event now inherits the State and Storage traits.
 
-
-
 Methods
 -------
 
 __construct
-===========
++++++++++++
 
-.. function:: __construct([$ttl = false])
+.. function:: __construct()
 
 
     Construction allow for setting the event TTL.
 
-    :param integer $ttl: TTL in milliseconds for the event.
+    :param integer: TTL in milliseconds for the event.
 
     :rtype: object XPSPL\Event
 
 
 
 has_expired
-===========
++++++++++++
 
 .. function:: has_expired()
 
@@ -46,7 +43,7 @@ has_expired
 
 
 get_signal
-==========
+++++++++++
 
 .. function:: get_signal()
 
@@ -58,19 +55,19 @@ get_signal
 
 
 set_result
-==========
+++++++++++
 
-.. function:: set_result($result)
+.. function:: set_result()
 
 
     Sets the result of the event.
 
-    :param mixed $result: 
+    :param mixed: 
 
 
 
 get_result
-==========
+++++++++++
 
 .. function:: get_result()
 
@@ -82,7 +79,7 @@ get_result
 
 
 halt
-====
+++++
 
 .. function:: halt()
 
@@ -94,7 +91,7 @@ halt
 
 
 is_child
-========
+++++++++
 
 .. function:: is_child()
 
@@ -106,21 +103,21 @@ is_child
 
 
 set_parent
-==========
+++++++++++
 
-.. function:: set_parent($event)
+.. function:: set_parent()
 
 
     Sets the parent event.
 
-    :param object $event: \XPSPL\Event
+    :param object: \XPSPL\Event
 
     :rtype: void 
 
 
 
 get_parent
-==========
+++++++++++
 
 .. function:: get_parent()
 
@@ -132,61 +129,65 @@ get_parent
 
 
 __get
-=====
++++++
 
-.. function:: __get($key)
+.. function:: __get()
 
 
     Get a variable in the event.
 
-    :param mixed $key: Variable name.
+    :param mixed: Variable name.
 
     :rtype: mixed|null 
 
 
 
 __isset
-=======
++++++++
 
-.. function:: __isset($key)
+.. function:: __isset()
 
 
     Checks for a variable in the event.
 
-    :param mixed $key: Variable name.
+    :param mixed: Variable name.
 
     :rtype: boolean 
 
 
 
 __set
-=====
++++++
 
-.. function:: __set($key, $value)
+.. function:: __set()
 
 
     Set a variable in the event.
 
-    :param string $key: Name of variable
-    :param mixed $value: Value to variable
+    :param string: Name of variable
+    :param mixed: Value to variable
 
     :rtype: boolean True
 
 
 
 __unset
-=======
++++++++
 
-.. function:: __unset($key)
+.. function:: __unset()
 
 
     Deletes a variable in the event.
 
-    :param mixed $key: Variable name.
+    :param mixed: Variable name.
 
     :rtype: boolean 
 
 
 
+Constants
+---------
 
+EVENT_SELF_PARENT
++++++++++++++++++
 

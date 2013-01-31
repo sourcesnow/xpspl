@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>XPSPLIdle &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Class &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
-    <link rel="next" title="XPSPLLibrary" href="library.html" />
-    <link rel="prev" title="XPSPLHandle" href="handle.html" /> 
+    <link rel="next" title="Class" href="library.html" />
+    <link rel="prev" title="Class" href="handle.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="library.html" title="XPSPLLibrary"
+          <a href="library.html" title="Class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="handle.html" title="XPSPLHandle"
+          <a href="handle.html" title="Class"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +51,10 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="xpsplidle">
-<h1>XPSPLIdle<a class="headerlink" href="#xpsplidle" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class">
+<h1>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xpspl-idle">
+<h2>XPSPL\Idle<a class="headerlink" href="#xpspl-idle" title="Permalink to this headline">¶</a></h2>
 <p>Idle</p>
 <p>The idle class is used for idling the processor, the base provides no
 functionality in itself and must be extended.</p>
@@ -63,14 +65,12 @@ idle.</p>
 <p>The base provides the rules that only one type of the given idle function
 should exist and a default priority of zero for all.</p>
 <div class="section" id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="idle">
-<h1>idle<a class="headerlink" href="#idle" title="Permalink to this headline">¶</a></h1>
+<h4>idle<a class="headerlink" href="#idle" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">idle</tt><big>(</big><em>$processor</em><big>)</big></dt>
+<tt class="descname">idle</tt><big>(</big><big>)</big></dt>
 <dd><p>Idle&#8217;s the processor.</p>
 <p>This function is purely responsible for providing the processor the ability
 to idle, typically this will be done through either a call to sleep or a
@@ -86,7 +86,7 @@ unexpected results and damage to your system ... use caution.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$processor</strong> (<em>object</em>) &#8211; The processor that wishes to idle.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; The processor that wishes to idle.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -96,7 +96,7 @@ unexpected results and damage to your system ... use caution.</p>
 
 </div>
 <div class="section" id="get-priority">
-<h1>get_priority<a class="headerlink" href="#get-priority" title="Permalink to this headline">¶</a></h1>
+<h4>get_priority<a class="headerlink" href="#get-priority" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="get_priority">
 <tt class="descname">get_priority</tt><big>(</big><big>)</big><a class="headerlink" href="#get_priority" title="Permalink to this definition">¶</a></dt>
@@ -113,7 +113,7 @@ unexpected results and damage to your system ... use caution.</p>
 
 </div>
 <div class="section" id="allow-override">
-<h1>allow_override<a class="headerlink" href="#allow-override" title="Permalink to this headline">¶</a></h1>
+<h4>allow_override<a class="headerlink" href="#allow-override" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="allow_override">
 <tt class="descname">allow_override</tt><big>(</big><big>)</big><a class="headerlink" href="#allow_override" title="Permalink to this definition">¶</a></dt>
@@ -131,16 +131,16 @@ is met or exceeded.</p>
 
 </div>
 <div class="section" id="override">
-<h1>override<a class="headerlink" href="#override" title="Permalink to this headline">¶</a></h1>
+<h4>override<a class="headerlink" href="#override" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">override</tt><big>(</big><em>$idle</em><big>)</big></dt>
+<tt class="descname">override</tt><big>(</big><big>)</big></dt>
 <dd><p>Returns if the given function can override this in the processor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$idle</strong> (<em>object</em>) &#8211; Idle function object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; Idle function object</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
 </tr>
@@ -148,6 +148,9 @@ is met or exceeded.</p>
 </table>
 </dd></dl>
 
+</div>
+</div>
+</div>
 </div>
 
 
@@ -158,22 +161,27 @@ is met or exceeded.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">XPSPLIdle</a><ul>
-<li><a class="reference internal" href="#methods">Methods</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Class</a><ul>
+<li><a class="reference internal" href="#xpspl-idle">XPSPL\Idle</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
 <li><a class="reference internal" href="#idle">idle</a></li>
 <li><a class="reference internal" href="#get-priority">get_priority</a></li>
 <li><a class="reference internal" href="#allow-override">allow_override</a></li>
 <li><a class="reference internal" href="#override">override</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="handle.html"
-                        title="previous chapter">XPSPLHandle</a></p>
+                        title="previous chapter">Class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="library.html"
-                        title="next chapter">XPSPLLibrary</a></p>
+                        title="next chapter">Class</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/idle.txt"
@@ -203,10 +211,10 @@ is met or exceeded.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="library.html" title="XPSPLLibrary"
+          <a href="library.html" title="Class"
              >next</a> |</li>
         <li class="right" >
-          <a href="handle.html" title="XPSPLHandle"
+          <a href="handle.html" title="Class"
              >previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>

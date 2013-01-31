@@ -1,13 +1,11 @@
-.. /processor/signal/event_expired.php generated using docpx on 01/16/13 03:03am
+.. processor/signal/event_expired.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\processor\signal\Event_Expired
-====================================
+Class
+*****
 
+XPSPL\\processor\\signal\\Event_Expired
+=======================================
 
 Expired event triggered for execution
-
-
-
-
 

@@ -1,13 +1,11 @@
-.. /processor/signal/deprecated.php generated using docpx on 01/16/13 03:03am
+.. processor/signal/deprecated.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\processor\signal\Deprecated
-=================================
+Class
+*****
 
+XPSPL\\processor\\signal\\Deprecated
+====================================
 
 Deprecated code
-
-
-
-
 

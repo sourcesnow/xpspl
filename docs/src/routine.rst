@@ -1,9 +1,11 @@
-.. /routine.php generated using docpx on 01/16/13 03:03am
+.. routine.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\Routine
-=============
+Class
+*****
 
+XPSPL\\Routine
+==============
 
 Routine
 
@@ -17,13 +19,11 @@ calculation and the functionality required for the upgraded idle required
 more complex algorithms which would not fit well inside the entire routine
 loop method.
 
-
-
 Methods
 -------
 
 get_signals
-===========
++++++++++++
 
 .. function:: get_signals()
 
@@ -35,7 +35,7 @@ get_signals
 
 
 get_idle
-========
+++++++++
 
 .. function:: get_idle()
 
@@ -49,7 +49,7 @@ get_idle
 
 
 get_idles_available
-===================
++++++++++++++++++++
 
 .. function:: get_idles_available()
 
@@ -61,39 +61,37 @@ get_idles_available
 
 
 add_idle
-========
+++++++++
 
-.. function:: add_idle($idle)
+.. function:: add_idle()
 
 
     Adds a new function to idle the engine.
 
-    :param object $idle: Idle
+    :param object: Idle
 
     :rtype: void 
 
 
 
-string(2) "$a"
 set_idle
-========
+++++++++
 
-.. function:: set_idle($idle)
+.. function:: set_idle()
 
 
     Sets a new function to idle the processor.
 
-    :param object $idle: Idle
+    :param object: Idle
 
     :rtype: void 
 
 
 
-string(2) "$a"
 add_signal
-==========
+++++++++++
 
-.. function:: add_signal($signal, [$vars = false, [$event = false]])
+.. function:: add_signal()
 
 
     Adds a signal to trigger in the loop.
@@ -103,7 +101,7 @@ add_signal
 
 
 reset
-=====
++++++
 
 .. function:: reset()
 
@@ -111,8 +109,6 @@ reset
     Resets the routine after the processor has used it.
 
     :rtype: void 
-
-
 
 
 

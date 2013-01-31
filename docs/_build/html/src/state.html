@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>STATE_DECLARED &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Function &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
-    <link rel="next" title="XPSPLstorage" href="storage.html" />
-    <link rel="prev" title="XPSPLinstance" href="singleton.html" /> 
+    <link rel="next" title="Function" href="storage.html" />
+    <link rel="prev" title="Function" href="singleton.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="storage.html" title="XPSPLstorage"
+          <a href="storage.html" title="Function"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="singleton.html" title="XPSPLinstance"
+          <a href="singleton.html" title="Function"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +51,73 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="state-declared">
-<h1>STATE_DECLARED<a class="headerlink" href="#state-declared" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="function">
+<h1>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xpspl-construct">
+<h2>XPSPL\__construct<a class="headerlink" href="#xpspl-construct" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="XPSPL__construct">
+<tt class="descname">XPSPL__construct</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPL__construct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new state object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="id1">
+<h1>Function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xpspl-get-state">
+<h2>XPSPL\get_state<a class="headerlink" href="#xpspl-get-state" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="XPSPLget_state">
+<tt class="descname">XPSPLget_state</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLget_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current event state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer Current state of this event.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="id2">
+<h1>Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xpspl-set-state">
+<h2>XPSPL\set_state<a class="headerlink" href="#xpspl-set-state" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="XPSPLset_state">
+<tt class="descname">XPSPLset_state</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLset_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the object state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>int</strong> &#8211; State of the object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Throws InvalidArgumentException:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="constants">
+<h3>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="state-declared">
+<h4>STATE_DECLARED<a class="headerlink" href="#state-declared" title="Permalink to this headline">¶</a></h4>
 <p>State</p>
 <p>Added in v0.3.0</p>
 <p>A State is as it implies, state of a given object, the following states
@@ -76,78 +141,25 @@ succesful.</p>
 The object has declared itself as halted to interrupt any further execution.</p>
 </div>
 <div class="section" id="state-running">
-<h1>STATE_RUNNING<a class="headerlink" href="#state-running" title="Permalink to this headline">¶</a></h1>
+<h4>STATE_RUNNING<a class="headerlink" href="#state-running" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="state-exited">
-<h1>STATE_EXITED<a class="headerlink" href="#state-exited" title="Permalink to this headline">¶</a></h1>
+<h4>STATE_EXITED<a class="headerlink" href="#state-exited" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="state-error">
-<h1>STATE_ERROR<a class="headerlink" href="#state-error" title="Permalink to this headline">¶</a></h1>
+<h4>STATE_ERROR<a class="headerlink" href="#state-error" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="state-recycled">
-<h1>STATE_RECYCLED<a class="headerlink" href="#state-recycled" title="Permalink to this headline">¶</a></h1>
+<h4>STATE_RECYCLED<a class="headerlink" href="#state-recycled" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="state-recovered">
-<h1>STATE_RECOVERED<a class="headerlink" href="#state-recovered" title="Permalink to this headline">¶</a></h1>
+<h4>STATE_RECOVERED<a class="headerlink" href="#state-recovered" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="state-halted">
-<h1>STATE_HALTED<a class="headerlink" href="#state-halted" title="Permalink to this headline">¶</a></h1>
+<h4>STATE_HALTED<a class="headerlink" href="#state-halted" title="Permalink to this headline">¶</a></h4>
 </div>
-<div class="section" id="xpspl-construct">
-<h1>XPSPL__construct<a class="headerlink" href="#xpspl-construct" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="XPSPL__construct">
-<tt class="descname">XPSPL__construct</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPL__construct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a new state object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
-<div class="section" id="xpsplget-state">
-<h1>XPSPLget_state<a class="headerlink" href="#xpsplget-state" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="XPSPLget_state">
-<tt class="descname">XPSPLget_state</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLget_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current event state.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer Current state of this event.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
-<div class="section" id="xpsplset-state">
-<h1>XPSPLset_state<a class="headerlink" href="#xpsplset-state" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="XPSPLset_state">
-<tt class="descname">XPSPLset_state</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLset_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the object state.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$state</strong> (<em>int</em>) &#8211; State of the object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Throws InvalidArgumentException:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 
 
@@ -158,24 +170,38 @@ The object has declared itself as halted to interrupt any further execution.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">STATE_DECLARED</a></li>
+<li><a class="reference internal" href="#">Function</a><ul>
+<li><a class="reference internal" href="#xpspl-construct">XPSPL\__construct</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Function</a><ul>
+<li><a class="reference internal" href="#xpspl-get-state">XPSPL\get_state</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">Function</a><ul>
+<li><a class="reference internal" href="#xpspl-set-state">XPSPL\set_state</a><ul>
+<li><a class="reference internal" href="#constants">Constants</a><ul>
+<li><a class="reference internal" href="#state-declared">STATE_DECLARED</a></li>
 <li><a class="reference internal" href="#state-running">STATE_RUNNING</a></li>
 <li><a class="reference internal" href="#state-exited">STATE_EXITED</a></li>
 <li><a class="reference internal" href="#state-error">STATE_ERROR</a></li>
 <li><a class="reference internal" href="#state-recycled">STATE_RECYCLED</a></li>
 <li><a class="reference internal" href="#state-recovered">STATE_RECOVERED</a></li>
 <li><a class="reference internal" href="#state-halted">STATE_HALTED</a></li>
-<li><a class="reference internal" href="#xpspl-construct">XPSPL__construct</a></li>
-<li><a class="reference internal" href="#xpsplget-state">XPSPLget_state</a></li>
-<li><a class="reference internal" href="#xpsplset-state">XPSPLset_state</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="singleton.html"
-                        title="previous chapter">XPSPLinstance</a></p>
+                        title="previous chapter">Function</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="storage.html"
-                        title="next chapter">XPSPLstorage</a></p>
+                        title="next chapter">Function</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/state.txt"
@@ -205,10 +231,10 @@ The object has declared itself as halted to interrupt any further execution.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="storage.html" title="XPSPLstorage"
+          <a href="storage.html" title="Function"
              >next</a> |</li>
         <li class="right" >
-          <a href="singleton.html" title="XPSPLinstance"
+          <a href="singleton.html" title="Function"
              >previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>

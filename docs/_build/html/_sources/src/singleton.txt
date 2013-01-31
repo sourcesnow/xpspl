@@ -1,8 +1,11 @@
-.. /singleton.php generated using docpx on 01/16/13 03:03am
+.. singleton.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\instance
-==============
+Function
+********
+
+XPSPL\\instance
+===============
 
 .. function:: XPSPL\instance()
 
@@ -13,8 +16,11 @@ XPSPL\instance
 
 
 
-XPSPL\__clone
-=============
+Function
+********
+
+XPSPL\\__clone
+==============
 
 .. function:: XPSPL\__clone()
 

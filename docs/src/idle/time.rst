@@ -1,23 +1,23 @@
-.. /idle/time.php generated using docpx on 01/16/13 03:03am
+.. idle/time.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\idle\Time
-===============
+Class
+*****
 
+XPSPL\\idle\\Time
+=================
 
 Idles the processor for a specific amount of time.
 
 The amount of time can be specified in seconds or milliseconds.
 
-
-
 Methods
 -------
 
 __construct
-===========
++++++++++++
 
-.. function:: __construct($time, $instruction)
+.. function:: __construct()
 
 
     Constructs the time idle.
@@ -25,9 +25,9 @@ __construct
 
 
 idle
-====
+++++
 
-.. function:: idle($processor)
+.. function:: idle()
 
 
     Runs the idle function, this will call either sleep or usleep
@@ -38,7 +38,7 @@ idle
 
 
 get_length
-==========
+++++++++++
 
 .. function:: get_length()
 
@@ -50,7 +50,7 @@ get_length
 
 
 get_time_until
-==============
+++++++++++++++
 
 .. function:: get_time_until()
 
@@ -62,7 +62,7 @@ get_time_until
 
 
 get_instruction
-===============
++++++++++++++++
 
 .. function:: get_instruction()
 
@@ -74,7 +74,7 @@ get_instruction
 
 
 get_time_left
-=============
++++++++++++++
 
 .. function:: get_time_left()
 
@@ -86,23 +86,23 @@ get_time_left
 
 
 convert_length
-==============
+++++++++++++++
 
-.. function:: convert_length($length, $to)
+.. function:: convert_length()
 
 
     Converts length of times from and to seconds, milliseconds and 
     microseconds.
 
-    :param integer|float $length: 
-    :param integer $to: To instruction
+    :param integer|float: 
+    :param integer: To instruction
 
     :rtype: integer|float 
 
 
 
 has_time_passed
-===============
++++++++++++++++
 
 .. function:: has_time_passed()
 
@@ -114,18 +114,16 @@ has_time_passed
 
 
 override
-========
+++++++++
 
-.. function:: override($time)
+.. function:: override()
 
 
     Determine if the given time idle function is less than the current.
 
-    :param object $time: Time idle object
+    :param object: Time idle object
 
     :rtype: boolean 
-
-
 
 
 

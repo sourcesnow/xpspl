@@ -1,8 +1,60 @@
-.. /state.php generated using docpx on 01/16/13 03:03am
+.. state.php generated using docpx on 01/30/13 08:17pm
 
+
+Function
+********
+
+XPSPL\\__construct
+==================
+
+.. function:: XPSPL\__construct()
+
+
+    Constructs a new state object.
+
+    :rtype: void 
+
+
+
+Function
+********
+
+XPSPL\\get_state
+================
+
+.. function:: XPSPL\get_state()
+
+
+    Returns the current event state.
+
+    :rtype: integer Current state of this event.
+
+
+
+Function
+********
+
+XPSPL\\set_state
+================
+
+.. function:: XPSPL\set_state()
+
+
+    Set the object state.
+
+    :param int: State of the object.
+
+    :throws InvalidArgumentException: 
+
+    :rtype: void 
+
+
+
+Constants
+---------
 
 STATE_DECLARED
-==============
+++++++++++++++
 
 State
 
@@ -36,60 +88,20 @@ STATE_HALTED
 The object has declared itself as halted to interrupt any further execution.
 
 STATE_RUNNING
-=============
++++++++++++++
 
 STATE_EXITED
-============
+++++++++++++
 
 STATE_ERROR
-===========
++++++++++++
 
 STATE_RECYCLED
-==============
+++++++++++++++
 
 STATE_RECOVERED
-===============
++++++++++++++++
 
 STATE_HALTED
-============
-
-XPSPL\__construct
-=================
-
-.. function:: XPSPL\__construct()
-
-
-    Constructs a new state object.
-
-    :rtype: void 
-
-
-
-XPSPL\get_state
-===============
-
-.. function:: XPSPL\get_state()
-
-
-    Returns the current event state.
-
-    :rtype: integer Current state of this event.
-
-
-
-XPSPL\set_state
-===============
-
-.. function:: XPSPL\set_state()
-
-
-    Set the object state.
-
-    :param int $state: State of the object.
-
-    :throws InvalidArgumentException: 
-
-    :rtype: void 
-
-
+++++++++++++
 

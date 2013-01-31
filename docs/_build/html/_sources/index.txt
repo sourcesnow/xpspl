@@ -6,7 +6,6 @@ XPSPL - PHP Signal Processing Library
 
 XPSPL is a high performance signal processor for the PHP programming language.
 
-
 Table of Contents
 -----------------
 
@@ -22,10 +21,19 @@ API
 ---
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    src/api
 
+Architecture
+------------
+
+.. toctree::
+   :maxdepth: 3
+   :glob:
+
+   src/*
+   src/*/*
 
 Modules
 -------
@@ -34,16 +42,6 @@ Modules
    :maxdepth: 1
 
    modules/ftp
-
-Architecture
-------------
-
-.. toctree::
-   :maxdepth: 1
-   :glob:
-
-   src/*
-   src/*/*
 
 Source
 ------

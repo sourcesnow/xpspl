@@ -75,36 +75,547 @@
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html">signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#null-exhaust">null_exhaust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#high-priority">high_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#low-priority">low_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#priority">priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#remove-handle">remove_handle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#emit">emit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#signal-history">signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#register-signal">register_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#search-signals">search_signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#loop">loop</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#shutdown">shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#import">import</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#before">before</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#after">after</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#xpspl">XPSPL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#clean">clean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#delete-signal">delete_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#erase-signal-history">erase_signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#disable-signaled-exceptions">disable_signaled_exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#erase-history">erase_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#save-signal-history">save_signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#listen">listen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#dir-include">dir_include</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#i">$i</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#current-signal">current_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#current-event">current_event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#on-shutdown">on_shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#on-start">on_start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#xpspl-flush">XPSPL_flush</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#signal">signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id1">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#null-exhaust">null_exhaust</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id2">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#high-priority">high_priority</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id3">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#low-priority">low_priority</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id4">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#priority">priority</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id5">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#remove-handle">remove_handle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id6">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#emit">emit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id7">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#signal-history">signal_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id8">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#register-signal">register_signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id9">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#search-signals">search_signals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id10">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#loop">loop</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id11">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#shutdown">shutdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id12">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#import">import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id13">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#before">before</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id14">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#after">after</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id15">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#xpspl">XPSPL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id16">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#clean">clean</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id17">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#delete-signal">delete_signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id18">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#erase-signal-history">erase_signal_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id19">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#disable-signaled-exceptions">disable_signaled_exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id20">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#erase-history">erase_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id21">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#save-signal-history">save_signal_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id22">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#listen">listen</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id23">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#dir-include">dir_include</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id24">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#current-signal">current_signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id25">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#current-event">current_event</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id26">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#on-shutdown">on_shutdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id27">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#on-start">on_start</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id28">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#xpspl-flush">XPSPL_flush</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#signal">signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id1">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#null-exhaust">null_exhaust</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id2">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#high-priority">high_priority</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id3">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#low-priority">low_priority</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id4">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#priority">priority</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id5">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#remove-handle">remove_handle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id6">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#emit">emit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id7">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#signal-history">signal_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id8">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#register-signal">register_signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id9">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#search-signals">search_signals</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id10">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#loop">loop</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id11">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#shutdown">shutdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id12">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#import">import</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id13">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#before">before</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id14">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#after">after</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id15">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#xpspl">XPSPL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id16">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#clean">clean</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id17">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#delete-signal">delete_signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id18">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#erase-signal-history">erase_signal_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id19">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#disable-signaled-exceptions">disable_signaled_exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id20">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#erase-history">erase_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id21">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#save-signal-history">save_signal_history</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id22">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#listen">listen</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id23">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#dir-include">dir_include</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id24">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#current-signal">current_signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id25">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#current-event">current_event</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id26">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#on-shutdown">on_shutdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id27">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#on-start">on_start</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/api.html#id28">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/api.html#xpspl-flush">XPSPL_flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/const.html">Constants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#xpspl-debug">XPSPL_DEBUG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#xpspl-engine-exceptions">XPSPL_ENGINE_EXCEPTIONS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#xpspl-signal-history">XPSPL_SIGNAL_HISTORY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#xpspl-signal-exceptions">XPSPL_SIGNAL_EXCEPTIONS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#xpspl-purge-exhausted">XPSPL_PURGE_EXHAUSTED</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#xpspl-module-dir">XPSPL_MODULE_DIR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#windows">WINDOWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#id1">WINDOWS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#time-seconds">TIME_SECONDS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#time-milliseconds">TIME_MILLISECONDS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src/const.html#exhaust-default">EXHAUST_DEFAULT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/event.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/event.html#xpspl-event">XPSPL\Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/event.html#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src/event.html#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/handle.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/handle.html#xpspl-handle">XPSPL\Handle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/handle.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/idle.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/idle.html#xpspl-idle">XPSPL\Idle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/idle.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/library.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/library.html#xpspl-library">XPSPL\Library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/library.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/listener.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/listener.html#xpspl-listener">XPSPL\Listener</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/listener.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/processor.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/processor.html#xpspl-processor">XPSPL\Processor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/processor.html#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src/processor.html#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/queue.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/queue.html#xpspl-queue">XPSPL\Queue</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/queue.html#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src/queue.html#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/routine.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/routine.html#xpspl-routine">XPSPL\Routine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/routine.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal.html#xpspl-signal">XPSPL\Signal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/signal.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/singleton.html">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/singleton.html#xpspl-instance">XPSPL\instance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/singleton.html#id1">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/singleton.html#xpspl-clone">XPSPL\__clone</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/state.html">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/state.html#xpspl-construct">XPSPL\__construct</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/state.html#id1">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/state.html#xpspl-get-state">XPSPL\get_state</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/state.html#id2">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/state.html#xpspl-set-state">XPSPL\set_state</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/state.html#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-storage">XPSPL\storage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id1">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-merge">XPSPL\merge</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id2">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-walk">XPSPL\walk</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id3">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-count">XPSPL\count</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id4">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-current">XPSPL\current</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id5">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-end">XPSPL\end</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id6">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-key">XPSPL\key</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id7">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-next">XPSPL\next</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id8">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-prev">XPSPL\prev</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id9">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-reset">XPSPL\reset</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id10">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-valid">XPSPL\valid</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id11">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-sort">XPSPL\sort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id12">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-usort">XPSPL\usort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/storage.html#id13">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/storage.html#xpspl-uasort">XPSPL\uasort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/utils.html">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/utils.html#milliseconds">milliseconds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/utils.html#id1">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/utils.html#microseconds">microseconds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/utils.html#id2">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/utils.html#signal-exceptions">signal_exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/utils.html#id3">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/utils.html#signal-errors">signal_errors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/utils.html#id4">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/utils.html#bin-search">bin_search</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/utils.html#id5">Function</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/utils.html#get-class-name">get_class_name</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/utils.html#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/xpspl.html#xpspl">XPSPL</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/xpspl.html#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src/xpspl.html#constants">Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/event/error.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/event/error.html#xpspl-processor-event-error">XPSPL\processor\event\Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/event/error.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/idle/process.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/idle/process.html#xpspl-idle-process">XPSPL\idle\Process</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/idle/process.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/idle/time.html#xpspl-idle-time">XPSPL\idle\Time</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/idle/time.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/processor/sig_shutdown.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/processor/sig_shutdown.html#xpspl-processor-sig-shutdown">XPSPL\processor\SIG_Shutdown</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/processor/sig_startup.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/processor/sig_startup.html#xpspl-processor-sig-startup">XPSPL\processor\SIG_Startup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/base.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/base.html#xpspl-processor-signal-base">XPSPL\processor\signal\Base</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/complex.html#xpspl-signal-complex">XPSPL\signal\Complex</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/signal/complex.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/deprecated.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/deprecated.html#xpspl-processor-signal-deprecated">XPSPL\processor\signal\Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/error.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/error.html#xpspl-processor-signal-error">XPSPL\processor\signal\Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/signal/error.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/event_expired.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/event_expired.html#xpspl-processor-signal-event-expired">XPSPL\processor\signal\Event_Expired</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/handle_exception.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/handle_exception.html#xpspl-processor-signal-handle-exception">XPSPL\processor\signal\Handle_Exception</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/idle_function_overflow.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/idle_function_overflow.html#xpspl-processor-signal-idle-function-overflow">XPSPL\processor\signal\Idle_Function_Overflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_event.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/invalid_event.html#xpspl-processor-signal-invalid-event">XPSPL\processor\signal\Invalid_Event</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_handle.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/invalid_handle.html#xpspl-processor-signal-invalid-handle">XPSPL\processor\signal\Invalid_Handle</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_interrupt.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/invalid_interrupt.html#xpspl-processor-signal-invalid-interrupt">XPSPL\processor\signal\Invalid_Interrupt</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_signal.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/invalid_signal.html#xpspl-processor-signal-invalid-signal">XPSPL\processor\signal\Invalid_Signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/module_load_failure.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/module_load_failure.html#xpspl-processor-signal-module-load-failure">XPSPL\processor\signal\Module_Load_Failure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/processor_errors.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/processor_errors.html#xpspl-processor-signal-processor-errors">XPSPL\processor\signal\Processor_Errors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/signal/processor_errors.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/processor_signals.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/processor_signals.html#xpspl-processor-signal-processor-signals">XPSPL\processor\signal\Processor_Signals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/signal/processor_signals.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/routine_calculation_error.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/routine_calculation_error.html#xpspl-processor-signal-routine-calculation-error">XPSPL\processor\signal\Routine_Calculation_Error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src/signal/standard.html">Class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src/signal/standard.html#xpspl-signal-standard">XPSPL\signal\Standard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src/signal/standard.html#methods">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -113,226 +624,6 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules/ftp.html">FTP Module</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="architecture">
-<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html">signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#null-exhaust">null_exhaust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#high-priority">high_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#low-priority">low_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#priority">priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#remove-handle">remove_handle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#emit">emit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#signal-history">signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#register-signal">register_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#search-signals">search_signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#loop">loop</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#shutdown">shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#import">import</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#before">before</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#after">after</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#xpspl">XPSPL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#clean">clean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#delete-signal">delete_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#erase-signal-history">erase_signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#disable-signaled-exceptions">disable_signaled_exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#erase-history">erase_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#save-signal-history">save_signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#listen">listen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#dir-include">dir_include</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#i">$i</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#current-signal">current_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#current-event">current_event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#on-shutdown">on_shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#on-start">on_start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/api.html#xpspl-flush">XPSPL_flush</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html">XPSPL_DEBUG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#xpspl-engine-exceptions">XPSPL_ENGINE_EXCEPTIONS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#xpspl-signal-history">XPSPL_SIGNAL_HISTORY</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#xpspl-signal-exceptions">XPSPL_SIGNAL_EXCEPTIONS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#xpspl-purge-exhausted">XPSPL_PURGE_EXHAUSTED</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#xpspl-module-dir">XPSPL_MODULE_DIR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#windows">WINDOWS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#id1">WINDOWS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#time-seconds">TIME_SECONDS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#time-milliseconds">TIME_MILLISECONDS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/const.html#exhaust-default">EXHAUST_DEFAULT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html">EVENT_SELF_PARENT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#xpsplevent">XPSPLEvent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#has-expired">has_expired</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#get-signal">get_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#set-result">set_result</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#get-result">get_result</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#halt">halt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#is-child">is_child</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#set-parent">set_parent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#get-parent">get_parent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#get">__get</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#isset">__isset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#set">__set</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event.html#unset">__unset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html">XPSPLHandle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#decrement-exhaust">decrement_exhaust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#exhaustion">exhaustion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#is-exhausted">is_exhausted</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#get-priority">get_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#get-function">get_function</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#set-exhaust">set_exhaust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/handle.html#set-priority">set_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle.html">XPSPLIdle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle.html#idle">idle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle.html#get-priority">get_priority</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle.html#allow-override">allow_override</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle.html#override">override</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/library.html">XPSPLLibrary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/library.html#load">load</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/listener.html">XPSPLListener</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/listener.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/listener.html#get-signals">_get_signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/listener.html#reset">_reset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html">XPSPLProcessor</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#register-error-handler">_register_error_handler</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#loop">loop</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#get-routine">get_routine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#has-signal-exhausted">has_signal_exhausted</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#queue-exhausted">queue_exhausted</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#remove-handle">remove_handle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#flush">flush</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#listen">listen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#signal">signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#register-signal">register_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#search-signals">search_signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#evaluate-signals">evaluate_signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#event">_event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#event-exit">_event_exit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#emit">emit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#queue-execute">_queue_execute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#func-exec">_func_exec</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#signal-history">signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#shutdown">shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#event-analysis">event_analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#before">before</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#after">after</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#signal-interrupt">_signal_interrupt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#interrupt">_interrupt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#clean">clean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#delete-signal">delete_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#erase-signal-history">erase_signal_history</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#current-signal">current_signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#current-event">current_event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#hash-storage">HASH_STORAGE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#complex-storage">COMPLEX_STORAGE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#interrupt-storage">INTERRUPT_STORAGE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#interrupt-pre">INTERRUPT_PRE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor.html#interrupt-post">INTERRUPT_POST</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/queue.html">QUEUE_MAX_SIZE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/queue.html#queue-default-priority">QUEUE_DEFAULT_PRIORITY</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/queue.html#xpsplqueue">XPSPLQueue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/queue.html#enqueue">enqueue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/queue.html#dequeue">dequeue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/queue.html#sort">sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/routine.html">XPSPLRoutine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/routine.html#get-signals">get_signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/routine.html#get-idle">get_idle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/routine.html#get-idles-available">get_idles_available</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/routine.html#add-idle">add_idle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/routine.html#reset">reset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal.html">XPSPLSignal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/singleton.html">XPSPLinstance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/singleton.html#xpspl-clone">XPSPL__clone</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html">STATE_DECLARED</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#state-running">STATE_RUNNING</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#state-exited">STATE_EXITED</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#state-error">STATE_ERROR</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#state-recycled">STATE_RECYCLED</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#state-recovered">STATE_RECOVERED</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#state-halted">STATE_HALTED</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#xpspl-construct">XPSPL__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#xpsplget-state">XPSPLget_state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/state.html#xpsplset-state">XPSPLset_state</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html">XPSPLstorage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplmerge">XPSPLmerge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplwalk">XPSPLwalk</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplcount">XPSPLcount</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplcurrent">XPSPLcurrent</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplend">XPSPLend</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplkey">XPSPLkey</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplnext">XPSPLnext</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplprev">XPSPLprev</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplreset">XPSPLreset</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplvalid">XPSPLvalid</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplsort">XPSPLsort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpsplusort">XPSPLusort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/storage.html#xpspluasort">XPSPLuasort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html">XPSPL_AUTOLOADER</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#class">$class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#milliseconds">milliseconds</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#microseconds">microseconds</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#signal-exceptions">signal_exceptions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#signal-errors">signal_errors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#bin-search">bin_search</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#node">$node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/utils.html#get-class-name">get_class_name</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html">XPSPL_VERSION</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html#xpspl-mastermind">XPSPL_MASTERMIND</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html#xpspl-path">XPSPL_PATH</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html#xpspl">XPSPL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html#init">init</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/xpspl.html#version">version</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event/error.html">XPSPLprocessoreventError</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event/error.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/event/error.html#get-error-data">get_error_data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/process.html">XPSPLidleProcess</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/process.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/process.html#idle">idle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html">XPSPLidleTime</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#idle">idle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#get-length">get_length</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#get-time-until">get_time_until</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#get-instruction">get_instruction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#get-time-left">get_time_left</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#convert-length">convert_length</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#has-time-passed">has_time_passed</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/idle/time.html#override">override</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor/sig_shutdown.html">XPSPLprocessorSIG_Shutdown</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/processor/sig_startup.html">XPSPLprocessorSIG_Startup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/base.html">XPSPLprocessorsignalBase</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html">XPSPLsignalComplex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html#evaluate">evaluate</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html#routine">routine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html#get-routine">get_routine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html#event">event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/complex.html#signal-this">signal_this</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/deprecated.html">XPSPLprocessorsignalDeprecated</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/error.html">XPSPLprocessorsignalError</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/error.html#construct">__construct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/error.html#get-error">get_error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/error.html#get-exception">get_exception</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/event_expired.html">XPSPLprocessorsignalEvent_Expired</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/handle_exception.html">XPSPLprocessorsignalHandle_Exception</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/idle_function_overflow.html">XPSPLprocessorsignalIdle_Function_Overflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_event.html">XPSPLprocessorsignalInvalid_Event</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_handle.html">XPSPLprocessorsignalInvalid_Handle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_interrupt.html">XPSPLprocessorsignalInvalid_Interrupt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/invalid_signal.html">XPSPLprocessorsignalInvalid_Signal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/module_load_failure.html">XPSPLprocessorsignalModule_Load_Failure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/processor_errors.html">XPSPLprocessorsignalProcessor_Errors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/processor_errors.html#evaluate">evaluate</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/processor_signals.html">XPSPLprocessorsignalProcessor_Signals</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/processor_signals.html#evaluate">evaluate</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/routine_calculation_error.html">XPSPLprocessorsignalRoutine_Calculation_Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/standard.html">XPSPLsignalStandard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="src/signal/standard.html#get-info">get_info</a></li>
 </ul>
 </div>
 </div>
@@ -638,10 +929,10 @@ ComplexSignalInterruptionAfter_chart.draw(ComplexSignalInterruptionAfter_graph, 
 <li><a class="reference internal" href="#api">API</a><ul>
 </ul>
 </li>
-<li><a class="reference internal" href="#modules">Modules</a><ul>
+<li><a class="reference internal" href="#architecture">Architecture</a><ul>
 </ul>
 </li>
-<li><a class="reference internal" href="#architecture">Architecture</a><ul>
+<li><a class="reference internal" href="#modules">Modules</a><ul>
 </ul>
 </li>
 <li><a class="reference internal" href="#source">Source</a></li>

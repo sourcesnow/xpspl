@@ -1,23 +1,21 @@
-.. /processor/signal/processor_errors.php generated using docpx on 01/16/13 03:03am
+.. processor/signal/processor_errors.php generated using docpx on 01/30/13 08:17pm
 
 
-XPSPL\processor\signal\Processor_Errors
-=======================================
+Class
+*****
 
+XPSPL\\processor\\signal\\Processor_Errors
+==========================================
 
 Catches all processor error signals that trigger.
-
-
 
 Methods
 -------
 
 evaluate
-========
+++++++++
 
-.. function:: evaluate([$signal = false])
-
-
+.. function:: evaluate()
 
 
 

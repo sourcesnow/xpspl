@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>XPSPLProcessor &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Class &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
-    <link rel="next" title="QUEUE_MAX_SIZE" href="queue.html" />
-    <link rel="prev" title="XPSPLListener" href="listener.html" /> 
+    <link rel="next" title="Class" href="queue.html" />
+    <link rel="prev" title="Class" href="listener.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="queue.html" title="QUEUE_MAX_SIZE"
+          <a href="queue.html" title="Class"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="listener.html" title="XPSPLListener"
+          <a href="listener.html" title="Class"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +51,10 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="xpsplprocessor">
-<h1>XPSPLProcessor<a class="headerlink" href="#xpsplprocessor" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="class">
+<h1>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xpspl-processor">
+<h2>XPSPL\Processor<a class="headerlink" href="#xpspl-processor" title="Permalink to this headline">¶</a></h2>
 <p>Processor</p>
 <p>The brainpower of XPSPL.</p>
 <p>As of v0.3.0 the loop is now run in respect to the currently available handles,
@@ -63,20 +65,18 @@ shutdowns when no more are available.</p>
 <p>The queue storage has also been improved in 0.3.0, previously the storage used
 a non-index and index based storage, the storage now uses only a single array.</p>
 <div class="section" id="methods">
-<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="construct">
-<h1>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h1>
+<h4>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="__construct">
-<tt class="descname">__construct</tt><big>(</big><span class="optional">[</span><em>$signal_history = true</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__construct</tt><big>(</big><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the processor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$signal_history</strong> (<em>boolean</em>) &#8211; Store a history of all signals.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>boolean</strong> &#8211; Store a history of all signals.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -86,7 +86,7 @@ a non-index and index based storage, the storage now uses only a single array.</
 
 </div>
 <div class="section" id="register-error-handler">
-<h1>_register_error_handler<a class="headerlink" href="#register-error-handler" title="Permalink to this headline">¶</a></h1>
+<h4>_register_error_handler<a class="headerlink" href="#register-error-handler" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_register_error_handler">
 <tt class="descname">_register_error_handler</tt><big>(</big><big>)</big><a class="headerlink" href="#_register_error_handler" title="Permalink to this definition">¶</a></dt>
@@ -103,9 +103,9 @@ Create a suitable error handler</p>
 </table>
 </dd></dl>
 
-<p>bool(false)
-erase_history
-=============</p>
+</div>
+<div class="section" id="erase-history">
+<h4>erase_history<a class="headerlink" href="#erase-history" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="erase_history">
 <tt class="descname">erase_history</tt><big>(</big><big>)</big><a class="headerlink" href="#erase_history" title="Permalink to this definition">¶</a></dt>
@@ -122,82 +122,69 @@ erase_history
 
 </div>
 <div class="section" id="loop">
-<h1>loop<a class="headerlink" href="#loop" title="Permalink to this headline">¶</a></h1>
+<h4>loop<a class="headerlink" href="#loop" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">loop</tt><big>(</big><span class="optional">[</span><em>$ttr = false</em><span class="optional">]</span><big>)</big></dt>
+<tt class="descname">loop</tt><big>(</big><big>)</big></dt>
 <dd><p>Start the event loop.</p>
-</dd></dl>
-
-<p>Warning: Illegal string offset &#8216;type&#8217; in /Users/prggmr/Lab/docpx/src/templates/rst/tags.template on line 43</p>
-<p>Warning: Illegal string offset &#8216;text&#8217; in /Users/prggmr/Lab/docpx/src/templates/rst/tags.template on line 44</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">param null|integer $ttr:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Number of milliseconds to run the loop.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>null|integer</strong> &#8211; Number of milliseconds to run the loop.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body">void</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
-<p>bool(false)
-_routine
-========</p>
+</dd></dl>
+
+</div>
+<div class="section" id="routine">
+<h4>_routine<a class="headerlink" href="#routine" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_routine">
 <tt class="descname">_routine</tt><big>(</big><big>)</big><a class="headerlink" href="#_routine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the complex signal routine for the processor loop.</p>
-</dd></dl>
-
-<p>Warning: Illegal string offset &#8216;type&#8217; in /Users/prggmr/Lab/docpx/src/templates/rst/tags.template on line 43</p>
-<p>Warning: Illegal string offset &#8216;text&#8217; in /Users/prggmr/Lab/docpx/src/templates/rst/tags.template on line 44</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">boolean|array</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean|array</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</dd></dl>
+
 </div>
 <div class="section" id="get-routine">
-<h1>get_routine<a class="headerlink" href="#get-routine" title="Permalink to this headline">¶</a></h1>
+<h4>get_routine<a class="headerlink" href="#get-routine" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="get_routine">
 <tt class="descname">get_routine</tt><big>(</big><big>)</big><a class="headerlink" href="#get_routine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current routine object.</p>
-</dd></dl>
-
-<p>Warning: Illegal string offset &#8216;type&#8217; in /Users/prggmr/Lab/docpx/src/templates/rst/tags.template on line 43</p>
-<p>Warning: Illegal string offset &#8216;text&#8217; in /Users/prggmr/Lab/docpx/src/templates/rst/tags.template on line 44</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">null|object</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">null|object</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</dd></dl>
+
 </div>
 <div class="section" id="has-signal-exhausted">
-<h1>has_signal_exhausted<a class="headerlink" href="#has-signal-exhausted" title="Permalink to this headline">¶</a></h1>
+<h4>has_signal_exhausted<a class="headerlink" href="#has-signal-exhausted" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="has_signal_exhausted">
-<tt class="descname">has_signal_exhausted</tt><big>(</big><em>$signal</em><big>)</big><a class="headerlink" href="#has_signal_exhausted" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">has_signal_exhausted</tt><big>(</big><big>)</big><a class="headerlink" href="#has_signal_exhausted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if the given signal has exhausted.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$queue</strong> (<em>string|integer|object</em>) &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string|integer|object</strong> &#8211; </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
 </tr>
@@ -207,16 +194,16 @@ _routine
 
 </div>
 <div class="section" id="queue-exhausted">
-<h1>queue_exhausted<a class="headerlink" href="#queue-exhausted" title="Permalink to this headline">¶</a></h1>
+<h4>queue_exhausted<a class="headerlink" href="#queue-exhausted" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="queue_exhausted">
-<tt class="descname">queue_exhausted</tt><big>(</big><em>$queue</em><big>)</big><a class="headerlink" href="#queue_exhausted" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">queue_exhausted</tt><big>(</big><big>)</big><a class="headerlink" href="#queue_exhausted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine if all queue handles are exhausted.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$queue</strong> (<em>object</em>) &#8211; XPSPLQueue</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; XPSPLQueue</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
 </tr>
@@ -226,18 +213,18 @@ _routine
 
 </div>
 <div class="section" id="remove-handle">
-<h1>remove_handle<a class="headerlink" href="#remove-handle" title="Permalink to this headline">¶</a></h1>
+<h4>remove_handle<a class="headerlink" href="#remove-handle" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="remove_handle">
-<tt class="descname">remove_handle</tt><big>(</big><em>$signal</em>, <em>$handle</em><big>)</big><a class="headerlink" href="#remove_handle" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">remove_handle</tt><big>(</big><big>)</big><a class="headerlink" href="#remove_handle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a signal handler.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>mixed</em>) &#8211; Signal instance or signal.</li>
-<li><strong>$handle</strong> (<em>mixed</em>) &#8211; Handle instance or identifier.</li>
+<li><strong>mixed</strong> &#8211; Signal instance or signal.</li>
+<li><strong>mixed</strong> &#8211; Handle instance or identifier.</li>
 </ul>
 </td>
 </tr>
@@ -250,7 +237,7 @@ _routine
 
 </div>
 <div class="section" id="flush">
-<h1>flush<a class="headerlink" href="#flush" title="Permalink to this headline">¶</a></h1>
+<h4>flush<a class="headerlink" href="#flush" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
 <tt class="descname">flush</tt><big>(</big><big>)</big></dt>
@@ -267,16 +254,16 @@ _routine
 
 </div>
 <div class="section" id="listen">
-<h1>listen<a class="headerlink" href="#listen" title="Permalink to this headline">¶</a></h1>
+<h4>listen<a class="headerlink" href="#listen" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">listen</tt><big>(</big><em>$listener</em><big>)</big></dt>
+<tt class="descname">listen</tt><big>(</big><big>)</big></dt>
 <dd><p>Registers an object listener.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$listener</strong> (<em>object</em>) &#8211; XPSPLListener</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; XPSPLListener</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -286,18 +273,18 @@ _routine
 
 </div>
 <div class="section" id="signal">
-<h1>signal<a class="headerlink" href="#signal" title="Permalink to this headline">¶</a></h1>
+<h4>signal<a class="headerlink" href="#signal" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">signal</tt><big>(</big><em>$signal</em>, <em>$handle</em><big>)</big></dt>
+<tt class="descname">signal</tt><big>(</big><big>)</big></dt>
 <dd><p>Creates a new signal handler.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>string|int|object</em>) &#8211; Signal to attach the handle.</li>
-<li><strong>$callable</strong> (<em>object</em>) &#8211; Signal handler</li>
+<li><strong>string|int|object</strong> &#8211; Signal to attach the handle.</li>
+<li><strong>object</strong> &#8211; Signal handler</li>
 </ul>
 </td>
 </tr>
@@ -310,16 +297,16 @@ _routine
 
 </div>
 <div class="section" id="register-signal">
-<h1>register_signal<a class="headerlink" href="#register-signal" title="Permalink to this headline">¶</a></h1>
+<h4>register_signal<a class="headerlink" href="#register-signal" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="register_signal">
-<tt class="descname">register_signal</tt><big>(</big><em>$signal</em><big>)</big><a class="headerlink" href="#register_signal" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">register_signal</tt><big>(</big><big>)</big><a class="headerlink" href="#register_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a signal a new signal</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$signal</strong> (<em>string|integer|object</em>) &#8211; Signal</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string|integer|object</strong> &#8211; Signal</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean|object false|XPSPLQueue</td>
 </tr>
@@ -329,10 +316,10 @@ _routine
 
 </div>
 <div class="section" id="search-signals">
-<h1>search_signals<a class="headerlink" href="#search-signals" title="Permalink to this headline">¶</a></h1>
+<h4>search_signals<a class="headerlink" href="#search-signals" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="search_signals">
-<tt class="descname">search_signals</tt><big>(</big><em>$signal</em><span class="optional">[</span>, <em>$index = false</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#search_signals" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">search_signals</tt><big>(</big><big>)</big><a class="headerlink" href="#search_signals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Searches for a signal in storage returning its storage queue if found,
 optionally the index can be returned.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -340,8 +327,8 @@ optionally the index can be returned.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>string|int|object</em>) &#8211; Signal to search for.</li>
-<li><strong>$index</strong> (<em>boolean</em>) &#8211; Return the index of the signal.</li>
+<li><strong>string|int|object</strong> &#8211; Signal to search for.</li>
+<li><strong>boolean</strong> &#8211; Return the index of the signal.</li>
 </ul>
 </td>
 </tr>
@@ -354,17 +341,17 @@ optionally the index can be returned.</p>
 
 </div>
 <div class="section" id="evaluate-signals">
-<h1>evaluate_signals<a class="headerlink" href="#evaluate-signals" title="Permalink to this headline">¶</a></h1>
+<h4>evaluate_signals<a class="headerlink" href="#evaluate-signals" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="evaluate_signals">
-<tt class="descname">evaluate_signals</tt><big>(</big><em>$signal</em><big>)</big><a class="headerlink" href="#evaluate_signals" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">evaluate_signals</tt><big>(</big><big>)</big><a class="headerlink" href="#evaluate_signals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the evaluation for the registered complex signals using the given
 signal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$signal</strong> (<em>string|object|int</em>) &#8211; Signal to evaluate</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string|object|int</strong> &#8211; Signal to evaluate</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">array|null [[[signal, queue], eval_return]]</td>
 </tr>
@@ -374,19 +361,19 @@ signal.</p>
 
 </div>
 <div class="section" id="event">
-<h1>_event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h1>
+<h4>_event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_event">
-<tt class="descname">_event</tt><big>(</big><em>$signal</em><span class="optional">[</span>, <em>$event = false</em><span class="optional">[</span>, <em>$ttl = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#_event" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_event</tt><big>(</big><big>)</big><a class="headerlink" href="#_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads an event for the current signal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>int|string|object</em>) &#8211; </li>
-<li><strong>$event</strong> (<em>object</em>) &#8211; XPSPLEvent</li>
-<li><strong>$ttl</strong> (<em>int|null</em>) &#8211; Event TTL</li>
+<li><strong>int|string|object</strong> &#8211; </li>
+<li><strong>object</strong> &#8211; XPSPLEvent</li>
+<li><strong>int|null</strong> &#8211; Event TTL</li>
 </ul>
 </td>
 </tr>
@@ -399,16 +386,16 @@ signal.</p>
 
 </div>
 <div class="section" id="event-exit">
-<h1>_event_exit<a class="headerlink" href="#event-exit" title="Permalink to this headline">¶</a></h1>
+<h4>_event_exit<a class="headerlink" href="#event-exit" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_event_exit">
-<tt class="descname">_event_exit</tt><big>(</big><em>$event</em><big>)</big><a class="headerlink" href="#_event_exit" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_event_exit</tt><big>(</big><big>)</big><a class="headerlink" href="#_event_exit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Exits the event from the processor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$event</strong> (<em>object</em>) &#8211; XPSPLEvent</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>object</strong> &#8211; XPSPLEvent</td>
 </tr>
 </tbody>
 </table>
@@ -416,18 +403,18 @@ signal.</p>
 
 </div>
 <div class="section" id="emit">
-<h1>emit<a class="headerlink" href="#emit" title="Permalink to this headline">¶</a></h1>
+<h4>emit<a class="headerlink" href="#emit" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">emit</tt><big>(</big><em>$signal</em><span class="optional">[</span>, <em>$event = false</em><span class="optional">[</span>, <em>$ttl = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big></dt>
+<tt class="descname">emit</tt><big>(</big><big>)</big></dt>
 <dd><p>Emits a signal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>mixed</em>) &#8211; Signal instance or signal.</li>
-<li><strong>$event</strong> (<em>object</em>) &#8211; XPSPLEvent</li>
+<li><strong>mixed</strong> &#8211; Signal instance or signal.</li>
+<li><strong>object</strong> &#8211; XPSPLEvent</li>
 </ul>
 </td>
 </tr>
@@ -438,12 +425,12 @@ signal.</p>
 </table>
 </dd></dl>
 
-<p>string(5) &#8220;$node&#8221;
-_execute
-========</p>
+</div>
+<div class="section" id="execute">
+<h4>_execute<a class="headerlink" href="#execute" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_execute">
-<tt class="descname">_execute</tt><big>(</big><em>$signal</em>, <em>$queue</em>, <em>$event</em><span class="optional">[</span>, <em>$interrupt = true</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#_execute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_execute</tt><big>(</big><big>)</big><a class="headerlink" href="#_execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a queue.</p>
 <p>This will monitor the event status and break on a HALT or ERROR state.</p>
 <p>Executes interruption functions before and after queue execution.</p>
@@ -452,10 +439,10 @@ _execute
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>object</em>) &#8211; Signal instance.</li>
-<li><strong>$queue</strong> (<em>object</em>) &#8211; Queue instance.</li>
-<li><strong>$event</strong> (<em>object</em>) &#8211; Event instance.</li>
-<li><strong>$interupt</strong> (<em>boolean</em>) &#8211; Run the interrupt functions.</li>
+<li><strong>object</strong> &#8211; Signal instance.</li>
+<li><strong>object</strong> &#8211; Queue instance.</li>
+<li><strong>object</strong> &#8211; Event instance.</li>
+<li><strong>boolean</strong> &#8211; Run the interrupt functions.</li>
 </ul>
 </td>
 </tr>
@@ -468,10 +455,10 @@ _execute
 
 </div>
 <div class="section" id="queue-execute">
-<h1>_queue_execute<a class="headerlink" href="#queue-execute" title="Permalink to this headline">¶</a></h1>
+<h4>_queue_execute<a class="headerlink" href="#queue-execute" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_queue_execute">
-<tt class="descname">_queue_execute</tt><big>(</big><em>$queue</em>, <em>$event</em><big>)</big><a class="headerlink" href="#_queue_execute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_queue_execute</tt><big>(</big><big>)</big><a class="headerlink" href="#_queue_execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a queue.</p>
 <p>If XPSPL_EXHAUSTION_PURGE is true handles will be purged once they
 reach exhaustion.</p>
@@ -480,8 +467,8 @@ reach exhaustion.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$queue</strong> (<em>object</em>) &#8211; XPSPLQueue</li>
-<li><strong>$event</strong> (<em>object</em>) &#8211; XPSPLEvent</li>
+<li><strong>object</strong> &#8211; XPSPLQueue</li>
+<li><strong>object</strong> &#8211; XPSPLEvent</li>
 </ul>
 </td>
 </tr>
@@ -494,18 +481,18 @@ reach exhaustion.</p>
 
 </div>
 <div class="section" id="func-exec">
-<h1>_func_exec<a class="headerlink" href="#func-exec" title="Permalink to this headline">¶</a></h1>
+<h4>_func_exec<a class="headerlink" href="#func-exec" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_func_exec">
-<tt class="descname">_func_exec</tt><big>(</big><em>$function</em>, <em>$event</em><big>)</big><a class="headerlink" href="#_func_exec" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_func_exec</tt><big>(</big><big>)</big><a class="headerlink" href="#_func_exec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes a callable processor function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$function</strong> (<em>callable</em>) &#8211; Function to execute</li>
-<li><strong>$event</strong> (<em>object</em>) &#8211; Event context to execute within</li>
+<li><strong>callable</strong> &#8211; Function to execute</li>
+<li><strong>object</strong> &#8211; Event context to execute within</li>
 </ul>
 </td>
 </tr>
@@ -518,7 +505,7 @@ reach exhaustion.</p>
 
 </div>
 <div class="section" id="signal-history">
-<h1>signal_history<a class="headerlink" href="#signal-history" title="Permalink to this headline">¶</a></h1>
+<h4>signal_history<a class="headerlink" href="#signal-history" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="signal_history">
 <tt class="descname">signal_history</tt><big>(</big><big>)</big><a class="headerlink" href="#signal_history" title="Permalink to this definition">¶</a></dt>
@@ -535,7 +522,7 @@ reach exhaustion.</p>
 
 </div>
 <div class="section" id="shutdown">
-<h1>shutdown<a class="headerlink" href="#shutdown" title="Permalink to this headline">¶</a></h1>
+<h4>shutdown<a class="headerlink" href="#shutdown" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
 <tt class="descname">shutdown</tt><big>(</big><big>)</big></dt>
@@ -552,7 +539,7 @@ reach exhaustion.</p>
 
 </div>
 <div class="section" id="event-analysis">
-<h1>event_analysis<a class="headerlink" href="#event-analysis" title="Permalink to this headline">¶</a></h1>
+<h4>event_analysis<a class="headerlink" href="#event-analysis" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="event_analysis">
 <tt class="descname">event_analysis</tt><big>(</big><big>)</big><a class="headerlink" href="#event_analysis" title="Permalink to this definition">¶</a></dt>
@@ -569,10 +556,10 @@ reach exhaustion.</p>
 
 </div>
 <div class="section" id="before">
-<h1>before<a class="headerlink" href="#before" title="Permalink to this headline">¶</a></h1>
+<h4>before<a class="headerlink" href="#before" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">before</tt><big>(</big><em>$signal</em>, <em>$handle</em><big>)</big></dt>
+<tt class="descname">before</tt><big>(</big><big>)</big></dt>
 <dd><p>Registers a function to interrupt the signal stack before a signal fires,
 allowing for manipulation of the event beore it is passed to handles.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -580,8 +567,8 @@ allowing for manipulation of the event beore it is passed to handles.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>string|object</em>) &#8211; Signal instance or class name</li>
-<li><strong>$handle</strong> (<em>object</em>) &#8211; Handle to execute</li>
+<li><strong>string|object</strong> &#8211; Signal instance or class name</li>
+<li><strong>object</strong> &#8211; Handle to execute</li>
 </ul>
 </td>
 </tr>
@@ -594,10 +581,10 @@ allowing for manipulation of the event beore it is passed to handles.</p>
 
 </div>
 <div class="section" id="after">
-<h1>after<a class="headerlink" href="#after" title="Permalink to this headline">¶</a></h1>
+<h4>after<a class="headerlink" href="#after" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">after</tt><big>(</big><em>$signal</em>, <em>$handle</em><big>)</big></dt>
+<tt class="descname">after</tt><big>(</big><big>)</big></dt>
 <dd><p>Registers a function to interrupt the signal stack after a signal fires,
 allowing for manipulation of the event after it is passed to handles.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -605,8 +592,8 @@ allowing for manipulation of the event after it is passed to handles.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>string|object</em>) &#8211; Signal instance or class name</li>
-<li><strong>$handle</strong> (<em>object</em>) &#8211; Handle to execute</li>
+<li><strong>string|object</strong> &#8211; Signal instance or class name</li>
+<li><strong>object</strong> &#8211; Handle to execute</li>
 </ul>
 </td>
 </tr>
@@ -619,10 +606,10 @@ allowing for manipulation of the event after it is passed to handles.</p>
 
 </div>
 <div class="section" id="signal-interrupt">
-<h1>_signal_interrupt<a class="headerlink" href="#signal-interrupt" title="Permalink to this headline">¶</a></h1>
+<h4>_signal_interrupt<a class="headerlink" href="#signal-interrupt" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_signal_interrupt">
-<tt class="descname">_signal_interrupt</tt><big>(</big><em>$signal</em>, <em>$handle</em><span class="optional">[</span>, <em>$interrupt = false</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#_signal_interrupt" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_signal_interrupt</tt><big>(</big><big>)</big><a class="headerlink" href="#_signal_interrupt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a function to interrupt the signal stack before or after a
 signal fires.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -630,9 +617,9 @@ signal fires.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>string|object</em>) &#8211; </li>
-<li><strong>$handle</strong> (<em>object</em>) &#8211; Handle to execute</li>
-<li><strong>$place</strong> (<em>int|null</em>) &#8211; Interuption location. INTERUPT_PRE|INTERUPT_POST</li>
+<li><strong>string|object</strong> &#8211; </li>
+<li><strong>object</strong> &#8211; Handle to execute</li>
+<li><strong>int|null</strong> &#8211; Interuption location. INTERUPT_PRE|INTERUPT_POST</li>
 </ul>
 </td>
 </tr>
@@ -645,18 +632,18 @@ signal fires.</p>
 
 </div>
 <div class="section" id="interrupt">
-<h1>_interrupt<a class="headerlink" href="#interrupt" title="Permalink to this headline">¶</a></h1>
+<h4>_interrupt<a class="headerlink" href="#interrupt" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="_interrupt">
-<tt class="descname">_interrupt</tt><big>(</big><em>$signal</em>, <em>$type</em>, <em>$event</em><big>)</big><a class="headerlink" href="#_interrupt" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">_interrupt</tt><big>(</big><big>)</big><a class="headerlink" href="#_interrupt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle signal interuption functions.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>object</em>) &#8211; Signal</li>
-<li><strong>$interupt</strong> (<em>int</em>) &#8211; Interupt type</li>
+<li><strong>object</strong> &#8211; Signal</li>
+<li><strong>int</strong> &#8211; Interupt type</li>
 </ul>
 </td>
 </tr>
@@ -669,16 +656,16 @@ signal fires.</p>
 
 </div>
 <div class="section" id="clean">
-<h1>clean<a class="headerlink" href="#clean" title="Permalink to this headline">¶</a></h1>
+<h4>clean<a class="headerlink" href="#clean" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt>
-<tt class="descname">clean</tt><big>(</big><span class="optional">[</span><em>$history = false</em><span class="optional">]</span><big>)</big></dt>
+<tt class="descname">clean</tt><big>(</big><big>)</big></dt>
 <dd><p>Cleans any exhausted signals from the processor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$history</strong> (<em>boolean</em>) &#8211; Erase any history of the signals cleaned.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>boolean</strong> &#8211; Erase any history of the signals cleaned.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -688,18 +675,18 @@ signal fires.</p>
 
 </div>
 <div class="section" id="delete-signal">
-<h1>delete_signal<a class="headerlink" href="#delete-signal" title="Permalink to this headline">¶</a></h1>
+<h4>delete_signal<a class="headerlink" href="#delete-signal" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="delete_signal">
-<tt class="descname">delete_signal</tt><big>(</big><em>$signal</em><span class="optional">[</span>, <em>$history = false</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#delete_signal" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">delete_signal</tt><big>(</big><big>)</big><a class="headerlink" href="#delete_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete a signal from the processor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>$signal</strong> (<em>string|object|int</em>) &#8211; Signal to delete.</li>
-<li><strong>$history</strong> (<em>boolean</em>) &#8211; Erase any history of the signal.</li>
+<li><strong>string|object|int</strong> &#8211; Signal to delete.</li>
+<li><strong>boolean</strong> &#8211; Erase any history of the signal.</li>
 </ul>
 </td>
 </tr>
@@ -712,16 +699,16 @@ signal fires.</p>
 
 </div>
 <div class="section" id="erase-signal-history">
-<h1>erase_signal_history<a class="headerlink" href="#erase-signal-history" title="Permalink to this headline">¶</a></h1>
+<h4>erase_signal_history<a class="headerlink" href="#erase-signal-history" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="erase_signal_history">
-<tt class="descname">erase_signal_history</tt><big>(</big><em>$signal</em><big>)</big><a class="headerlink" href="#erase_signal_history" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">erase_signal_history</tt><big>(</big><big>)</big><a class="headerlink" href="#erase_signal_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>Erases any history of a signal.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$signal</strong> (<em>string|object</em>) &#8211; Signal to be erased from history.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string|object</strong> &#8211; Signal to be erased from history.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -729,19 +716,19 @@ signal fires.</p>
 </table>
 </dd></dl>
 
-<p>string(7) &#8220;$_event&#8221;
-save_signal_history
-===================</p>
+</div>
+<div class="section" id="save-signal-history">
+<h4>save_signal_history<a class="headerlink" href="#save-signal-history" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="save_signal_history">
-<tt class="descname">save_signal_history</tt><big>(</big><em>$flag</em><big>)</big><a class="headerlink" href="#save_signal_history" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">save_signal_history</tt><big>(</big><big>)</big><a class="headerlink" href="#save_signal_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the flag for storing the event history.</p>
 <p>Note that this will delete the current if reset.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$flag</strong> (<em>boolean</em>) &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>boolean</strong> &#8211; </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">void</td>
 </tr>
@@ -751,16 +738,16 @@ save_signal_history
 
 </div>
 <div class="section" id="current-signal">
-<h1>current_signal<a class="headerlink" href="#current-signal" title="Permalink to this headline">¶</a></h1>
+<h4>current_signal<a class="headerlink" href="#current-signal" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="current_signal">
-<tt class="descname">current_signal</tt><big>(</big><span class="optional">[</span><em>$offset = 1</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#current_signal" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">current_signal</tt><big>(</big><big>)</big><a class="headerlink" href="#current_signal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current signal in execution.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$offset</strong> (<em>integer</em>) &#8211; In memory hierarchy offset +/-.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>integer</strong> &#8211; In memory hierarchy offset +/-.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">object</td>
 </tr>
@@ -770,16 +757,16 @@ save_signal_history
 
 </div>
 <div class="section" id="current-event">
-<h1>current_event<a class="headerlink" href="#current-event" title="Permalink to this headline">¶</a></h1>
+<h4>current_event<a class="headerlink" href="#current-event" title="Permalink to this headline">¶</a></h4>
 <dl class="function">
 <dt id="current_event">
-<tt class="descname">current_event</tt><big>(</big><span class="optional">[</span><em>$offset = false</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#current_event" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">current_event</tt><big>(</big><big>)</big><a class="headerlink" href="#current_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current event.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>$offset</strong> (<em>integer</em>) &#8211; In memory hierarchy offset +/-.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>integer</strong> &#8211; In memory hierarchy offset +/-.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">object XPSPLEvent</td>
 </tr>
@@ -787,26 +774,29 @@ save_signal_history
 </table>
 </dd></dl>
 
+</div>
+</div>
 <div class="section" id="constants">
-<h2>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
-</div>
-</div>
+<h3>Constants<a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="hash-storage">
-<h1>HASH_STORAGE<a class="headerlink" href="#hash-storage" title="Permalink to this headline">¶</a></h1>
+<h4>HASH_STORAGE<a class="headerlink" href="#hash-storage" title="Permalink to this headline">¶</a></h4>
 <p>Storage container node indices</p>
 </div>
 <div class="section" id="complex-storage">
-<h1>COMPLEX_STORAGE<a class="headerlink" href="#complex-storage" title="Permalink to this headline">¶</a></h1>
+<h4>COMPLEX_STORAGE<a class="headerlink" href="#complex-storage" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="interrupt-storage">
-<h1>INTERRUPT_STORAGE<a class="headerlink" href="#interrupt-storage" title="Permalink to this headline">¶</a></h1>
+<h4>INTERRUPT_STORAGE<a class="headerlink" href="#interrupt-storage" title="Permalink to this headline">¶</a></h4>
 </div>
 <div class="section" id="interrupt-pre">
-<h1>INTERRUPT_PRE<a class="headerlink" href="#interrupt-pre" title="Permalink to this headline">¶</a></h1>
+<h4>INTERRUPT_PRE<a class="headerlink" href="#interrupt-pre" title="Permalink to this headline">¶</a></h4>
 <p>Interuption Types</p>
 </div>
 <div class="section" id="interrupt-post">
-<h1>INTERRUPT_POST<a class="headerlink" href="#interrupt-post" title="Permalink to this headline">¶</a></h1>
+<h4>INTERRUPT_POST<a class="headerlink" href="#interrupt-post" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+</div>
 </div>
 
 
@@ -817,13 +807,14 @@ save_signal_history
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">XPSPLProcessor</a><ul>
-<li><a class="reference internal" href="#methods">Methods</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">Class</a><ul>
+<li><a class="reference internal" href="#xpspl-processor">XPSPL\Processor</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
 <li><a class="reference internal" href="#construct">__construct</a></li>
 <li><a class="reference internal" href="#register-error-handler">_register_error_handler</a></li>
+<li><a class="reference internal" href="#erase-history">erase_history</a></li>
 <li><a class="reference internal" href="#loop">loop</a></li>
+<li><a class="reference internal" href="#routine">_routine</a></li>
 <li><a class="reference internal" href="#get-routine">get_routine</a></li>
 <li><a class="reference internal" href="#has-signal-exhausted">has_signal_exhausted</a></li>
 <li><a class="reference internal" href="#queue-exhausted">queue_exhausted</a></li>
@@ -837,6 +828,7 @@ save_signal_history
 <li><a class="reference internal" href="#event">_event</a></li>
 <li><a class="reference internal" href="#event-exit">_event_exit</a></li>
 <li><a class="reference internal" href="#emit">emit</a></li>
+<li><a class="reference internal" href="#execute">_execute</a></li>
 <li><a class="reference internal" href="#queue-execute">_queue_execute</a></li>
 <li><a class="reference internal" href="#func-exec">_func_exec</a></li>
 <li><a class="reference internal" href="#signal-history">signal_history</a></li>
@@ -849,24 +841,31 @@ save_signal_history
 <li><a class="reference internal" href="#clean">clean</a></li>
 <li><a class="reference internal" href="#delete-signal">delete_signal</a></li>
 <li><a class="reference internal" href="#erase-signal-history">erase_signal_history</a></li>
+<li><a class="reference internal" href="#save-signal-history">save_signal_history</a></li>
 <li><a class="reference internal" href="#current-signal">current_signal</a></li>
-<li><a class="reference internal" href="#current-event">current_event</a><ul>
-<li><a class="reference internal" href="#constants">Constants</a></li>
+<li><a class="reference internal" href="#current-event">current_event</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#constants">Constants</a><ul>
 <li><a class="reference internal" href="#hash-storage">HASH_STORAGE</a></li>
 <li><a class="reference internal" href="#complex-storage">COMPLEX_STORAGE</a></li>
 <li><a class="reference internal" href="#interrupt-storage">INTERRUPT_STORAGE</a></li>
 <li><a class="reference internal" href="#interrupt-pre">INTERRUPT_PRE</a></li>
 <li><a class="reference internal" href="#interrupt-post">INTERRUPT_POST</a></li>
 </ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="listener.html"
-                        title="previous chapter">XPSPLListener</a></p>
+                        title="previous chapter">Class</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="queue.html"
-                        title="next chapter">QUEUE_MAX_SIZE</a></p>
+                        title="next chapter">Class</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/processor.txt"
@@ -896,10 +895,10 @@ save_signal_history
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="queue.html" title="QUEUE_MAX_SIZE"
+          <a href="queue.html" title="Class"
              >next</a> |</li>
         <li class="right" >
-          <a href="listener.html" title="XPSPLListener"
+          <a href="listener.html" title="Class"
              >previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
