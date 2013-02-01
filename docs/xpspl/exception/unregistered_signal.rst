@@ -1,10 +1,12 @@
-.. processor/exception/unregistered_signal.php generated using docpx on 01/27/13 03:54pm
+.. processor/exception/unregistered_signal.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\processor\\exception\\Unregistered_Signal
-================================================
+Class - XPSPL\\processor\\exception\\Unregistered_Signal
+********************************************************
 
 Unregistered Signal
 
 Unregistered signal given to the processor.
 
+
+Last updated on 01/31/13 10:43pm

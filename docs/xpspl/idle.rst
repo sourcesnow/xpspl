@@ -1,8 +1,8 @@
-.. idle.php generated using docpx on 01/27/13 03:54pm
+.. idle.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Idle
-===========
+Class - XPSPL\\Idle
+*******************
 
 Idle
 
@@ -18,12 +18,12 @@ The base provides the rules that only one type of the given idle function
 should exist and a default priority of zero for all.
 
 Methods
-+++++++
+-------
 
 idle
-----
+++++
 
-.. function:: idle()
+.. function:: idle($processor)
 
 
     Idle's the processor.
@@ -48,7 +48,7 @@ idle
 
 
 get_priority
-------------
+++++++++++++
 
 .. function:: get_priority()
 
@@ -60,7 +60,7 @@ get_priority
 
 
 allow_override
---------------
+++++++++++++++
 
 .. function:: allow_override()
 
@@ -73,9 +73,9 @@ allow_override
 
 
 override
---------
+++++++++
 
-.. function:: override()
+.. function:: override($idle)
 
 
     Returns if the given function can override this in the processor.
@@ -86,3 +86,5 @@ override
 
 
 
+
+Last updated on 01/31/13 10:43pm

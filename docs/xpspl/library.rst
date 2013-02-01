@@ -1,20 +1,20 @@
-.. library.php generated using docpx on 01/27/13 03:54pm
+.. library.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Library
-==============
+Class - XPSPL\\Library
+**********************
 
 Library
 
 Loads and tracks XPSPL modules.
 
 Methods
-+++++++
+-------
 
 load
-----
+++++
 
-.. function:: load()
+.. function:: load($name, [$dir = false])
 
 
     Loads a XPSPL module.
@@ -26,3 +26,5 @@ load
 
 
 
+
+Last updated on 01/31/13 10:43pm

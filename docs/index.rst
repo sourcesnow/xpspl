@@ -60,7 +60,7 @@ XPSPL Core
 These classes are the core of XPSPL.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
 
    xpspl/*

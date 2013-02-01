@@ -1,8 +1,8 @@
-.. listener.php generated using docpx on 01/27/13 03:54pm
+.. listener.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Listener
-===============
+Class - XPSPL\\Listener
+***********************
 
 Listener 
 
@@ -12,10 +12,10 @@ The listener allows for registering a class into the processor establishing
 processs for each publicly defined method name.
 
 Methods
-+++++++
+-------
 
 __construct
------------
++++++++++++
 
 .. function:: __construct()
 
@@ -27,7 +27,7 @@ __construct
 
 
 _get_signals
-------------
+++++++++++++
 
 .. function:: _get_signals()
 
@@ -39,7 +39,7 @@ _get_signals
 
 
 _reset
-------
+++++++
 
 .. function:: _reset()
 
@@ -50,3 +50,5 @@ _reset
 
 
 
+
+Last updated on 01/31/13 10:43pm

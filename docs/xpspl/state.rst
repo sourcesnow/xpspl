@@ -1,10 +1,18 @@
-.. state.php generated using docpx on 01/27/13 03:54pm
+.. state.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\__construct
-==================
+Trait - XPSPL\\State
+********************
 
-.. function:: XPSPL\__construct()
+State
+
+Methods
+-------
+
+__construct
++++++++++++
+
+.. function:: __construct()
 
 
     Constructs a new state object.
@@ -13,10 +21,10 @@ XPSPL\\__construct
 
 
 
-XPSPL\\get_state
-================
+get_state
++++++++++
 
-.. function:: XPSPL\get_state()
+.. function:: get_state()
 
 
     Returns the current event state.
@@ -25,10 +33,10 @@ XPSPL\\get_state
 
 
 
-XPSPL\\set_state
-================
+set_state
++++++++++
 
-.. function:: XPSPL\set_state()
+.. function:: set_state()
 
 
     Set the object state.
@@ -41,38 +49,36 @@ XPSPL\\set_state
 
 
 
-STATE_DECLARED
-==============
+Constants
+---------
 
+STATE_DECLARED
+++++++++++++++
 Declared for use.
 
 STATE_RUNNING
-=============
-
++++++++++++++
 Currently running in execution.
 
 STATE_EXITED
-============
-
+++++++++++++
 Execution finised.
 
 STATE_ERROR
-===========
-
++++++++++++
 Error encountered.
 
 STATE_RECYCLED
-==============
-
+++++++++++++++
 Successfully ran through a lifecycle and reused.
 
 STATE_RECOVERED
-===============
-
++++++++++++++++
 Corrupted during runtime execution and recovery was succesful.
 
 STATE_HALTED
-============
-
+++++++++++++
 The object has declared to stop any further execution.
 
+
+Last updated on 01/31/13 10:43pm

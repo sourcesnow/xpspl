@@ -1,18 +1,18 @@
-.. sig_complex.php generated using docpx on 01/27/13 03:54pm
+.. sig_complex.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\SIG_Complex
-==================
+Class - XPSPL\\SIG_Complex
+**************************
 
 SIG_Complex
 
 Methods
-+++++++
+-------
 
 evaluate
---------
+++++++++
 
-.. function:: evaluate()
+.. function:: evaluate([$signal = false])
 
 
     Evaluates the emitted signal.
@@ -23,3 +23,5 @@ evaluate
 
 
 
+
+Last updated on 01/31/13 10:43pm

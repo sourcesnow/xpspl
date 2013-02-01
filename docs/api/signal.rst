@@ -1,10 +1,13 @@
-.. /signal.php generated using docpx on 01/28/13 03:43am
+.. signal.php generated using docpx on 01/31/13 10:44pm
 
+
+Function - signal
+*****************
 
 signal
 ======
 
-.. function:: signal()
+.. function:: signal($signal, $process)
 
 
     Installs a process to execute when the given signal is emitted.
@@ -21,7 +24,7 @@ signal
 
 
 Object Signals
---------------
+##############
 
 Objects signals are the prefered method of installing and emit signals as it 
 helps remove user-error, provides easier development, debugging and 
@@ -52,7 +55,7 @@ In this example an object signal of Foo is created.
     emit(new Foo());
 
 String and Integer signals
---------------------------
+##########################
 
 When using only strings and integers as a signal the string or integer can 
 be provided directly rather than giving an object.
@@ -75,7 +78,7 @@ be provided directly rather than giving an object.
     // foo
 
 Null exhaust process.
----------------------
+#####################
 
 Install a process that never exhausts.
 
@@ -104,3 +107,5 @@ Install a process that never exhausts.
 
 
 
+
+Last updated on 01/31/13 10:44pm

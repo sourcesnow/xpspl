@@ -1,8 +1,8 @@
-.. routine.php generated using docpx on 01/27/13 03:54pm
+.. routine.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Routine
-==============
+Class - XPSPL\\Routine
+**********************
 
 Routine
 
@@ -17,10 +17,10 @@ more complex algorithms which would not fit well inside the entire routine
 loop method.
 
 Methods
-+++++++
+-------
 
 get_signals
------------
++++++++++++
 
 .. function:: get_signals()
 
@@ -32,7 +32,7 @@ get_signals
 
 
 get_idle
---------
+++++++++
 
 .. function:: get_idle()
 
@@ -46,7 +46,7 @@ get_idle
 
 
 get_idles_available
--------------------
++++++++++++++++++++
 
 .. function:: get_idles_available()
 
@@ -58,9 +58,9 @@ get_idles_available
 
 
 add_idle
---------
+++++++++
 
-.. function:: add_idle()
+.. function:: add_idle($idle)
 
 
     Adds a new function to idle the engine.
@@ -72,9 +72,9 @@ add_idle
 
 
 add_signal
-----------
+++++++++++
 
-.. function:: add_signal()
+.. function:: add_signal($signal, [$context = false])
 
 
     Adds a signal to trigger in the loop.
@@ -84,7 +84,7 @@ add_signal
 
 
 reset
------
++++++
 
 .. function:: reset()
 
@@ -95,3 +95,5 @@ reset
 
 
 
+
+Last updated on 01/31/13 10:43pm

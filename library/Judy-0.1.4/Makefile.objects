@@ -1,0 +1,14 @@
+php_judy.lo: /Users/prggmr/Downloads/Judy-0.1.4/php_judy.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/Users/prggmr/Downloads/Judy-0.1.4 $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /Users/prggmr/Downloads/Judy-0.1.4/php_judy.c -o php_judy.lo 
+judy_handlers.lo: /Users/prggmr/Downloads/Judy-0.1.4/judy_handlers.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/Users/prggmr/Downloads/Judy-0.1.4 $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /Users/prggmr/Downloads/Judy-0.1.4/judy_handlers.c -o judy_handlers.lo 
+judy_arrayaccess.lo: /Users/prggmr/Downloads/Judy-0.1.4/judy_arrayaccess.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/Users/prggmr/Downloads/Judy-0.1.4 $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /Users/prggmr/Downloads/Judy-0.1.4/judy_arrayaccess.c -o judy_arrayaccess.lo 
+judy_iterator.lo: /Users/prggmr/Downloads/Judy-0.1.4/judy_iterator.c
+	$(LIBTOOL) --mode=compile $(CC)  -I. -I/Users/prggmr/Downloads/Judy-0.1.4 $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS)  -c /Users/prggmr/Downloads/Judy-0.1.4/judy_iterator.c -o judy_iterator.lo 
+$(phplibdir)/judy.la: ./judy.la
+	$(LIBTOOL) --mode=install cp ./judy.la $(phplibdir)
+
+./judy.la: $(shared_objects_judy) $(JUDY_SHARED_DEPENDENCIES)
+	$(LIBTOOL) --mode=link $(CC) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) -o $@ -export-dynamic -avoid-version -prefer-pic -module -rpath $(phplibdir) $(EXTRA_LDFLAGS) $(shared_objects_judy) $(JUDY_SHARED_LIBADD)
+

@@ -1,10 +1,13 @@
-.. /remove_process.php generated using docpx on 01/28/13 03:43am
+.. remove_process.php generated using docpx on 01/31/13 10:44pm
 
+
+Function - remove_process
+*************************
 
 remove_process
 ==============
 
-.. function:: remove_process()
+.. function:: remove_process($signal, $process)
 
 
     Removes an installed signal process.
@@ -16,7 +19,7 @@ remove_process
 
 
 Removing installed processes
-----------------------------
+############################
 
 Removes the installed process from the foo signal.
 
@@ -29,3 +32,5 @@ Removes the installed process from the foo signal.
 
 
 
+
+Last updated on 01/31/13 10:44pm

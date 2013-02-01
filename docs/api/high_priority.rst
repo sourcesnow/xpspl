@@ -1,10 +1,13 @@
-.. /high_priority.php generated using docpx on 01/28/13 03:43am
+.. high_priority.php generated using docpx on 01/31/13 10:44pm
 
+
+Function - high_priority
+************************
 
 high_priority
 =============
 
-.. function:: high_priority()
+.. function:: high_priority($process)
 
 
     Registers the given process to have a high priority.
@@ -32,7 +35,7 @@ high_priority
 
 
 Install a process with high priority
-------------------------------------
+####################################
 
 High priority process will always execute first.
 
@@ -53,3 +56,5 @@ High priority process will always execute first.
 
 
 
+
+Last updated on 01/31/13 10:44pm

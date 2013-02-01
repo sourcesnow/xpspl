@@ -1,18 +1,18 @@
-.. sig_routine.php generated using docpx on 01/27/13 03:54pm
+.. sig_routine.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\SIG_Routine
-==================
+Class - XPSPL\\SIG_Routine
+**************************
 
 SIG_Routine
 
 Methods
-+++++++
-
-routine
 -------
 
-.. function:: routine()
+routine
++++++++
+
+.. function:: routine($routine)
 
 
     Runs the routine calculation.
@@ -26,3 +26,5 @@ routine
 
 
 
+
+Last updated on 01/31/13 10:43pm

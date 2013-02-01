@@ -1,10 +1,12 @@
-.. processor/exception/exception.php generated using docpx on 01/27/13 03:54pm
+.. processor/exception/exception.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\processor\\exception\\Exception
-======================================
+Class - XPSPL\\processor\\exception\\Exception
+**********************************************
 
 Exception
 
 Base class for all XPSPL processor Exceptions
 
+
+Last updated on 01/31/13 10:43pm

@@ -1,8 +1,8 @@
-.. queue.php generated using docpx on 01/27/13 03:54pm
+.. queue.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Queue
-============
+Class - XPSPL\\Queue
+********************
 
 Queue
 
@@ -14,12 +14,12 @@ The Queue is still a representation of a PriorityQueue and will remain so
 until the issues with PHP's current implementation are addressed.
 
 Methods
-+++++++
-
-enqueue
 -------
 
-.. function:: enqueue()
+enqueue
++++++++
+
+.. function:: enqueue($node, [$priority = false])
 
 
     Pushes a new process into the queue.
@@ -32,9 +32,9 @@ enqueue
 
 
 dequeue
--------
++++++++
 
-.. function:: dequeue()
+.. function:: dequeue($node)
 
 
     Removes a process from the queue.
@@ -48,7 +48,7 @@ dequeue
 
 
 sort
-----
+++++
 
 .. function:: sort()
 
@@ -59,3 +59,5 @@ sort
 
 
 
+
+Last updated on 01/31/13 10:43pm

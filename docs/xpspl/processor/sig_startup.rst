@@ -1,10 +1,12 @@
-.. processor/sig_startup.php generated using docpx on 01/27/13 03:54pm
+.. processor/sig_startup.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\processor\\SIG_Startup
-=============================
+Class - XPSPL\\processor\\SIG_Startup
+*************************************
 
 SIG_Startup
 
 Signals the start of XPSPL.
 
+
+Last updated on 01/31/13 10:43pm

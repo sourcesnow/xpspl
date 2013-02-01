@@ -1,10 +1,18 @@
-.. singleton.php generated using docpx on 01/27/13 03:54pm
+.. singleton.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\instance
-===============
+Trait - XPSPL\\Singleton
+************************
 
-.. function:: XPSPL\instance()
+Singleton trait used for making a singleton object.
+
+Methods
+-------
+
+instance
+++++++++
+
+.. function:: instance()
 
 
     Returns an instance of the singleton.
@@ -13,13 +21,15 @@ XPSPL\\instance
 
 
 
-XPSPL\\__clone
-==============
+__clone
++++++++
 
-.. function:: XPSPL\__clone()
+.. function:: __clone()
 
 
     Disallow cloning
 
 
 
+
+Last updated on 01/31/13 10:43pm

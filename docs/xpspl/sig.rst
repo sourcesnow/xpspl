@@ -1,8 +1,8 @@
-.. sig.php generated using docpx on 01/27/13 03:54pm
+.. sig.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\SIG
-==========
+Class - XPSPL\\SIG
+******************
 
 SIG
 
@@ -25,12 +25,12 @@ It is also possible to provide the SIG an index value to represent itself as.
    will be ignored.
 
 Methods
-+++++++
+-------
 
 __construct
------------
++++++++++++
 
-.. function:: __construct()
+.. function:: __construct([$index = false])
 
 
     Constructs a new signal.
@@ -42,7 +42,7 @@ __construct
 
 
 get_index
----------
++++++++++
 
 .. function:: get_index()
 
@@ -54,9 +54,9 @@ get_index
 
 
 set_result
-----------
+++++++++++
 
-.. function:: set_result()
+.. function:: set_result($result)
 
 
     Sets the result of the signal.
@@ -66,7 +66,7 @@ set_result
 
 
 get_result
-----------
+++++++++++
 
 .. function:: get_result()
 
@@ -78,7 +78,7 @@ get_result
 
 
 halt
-----
+++++
 
 .. function:: halt()
 
@@ -90,7 +90,7 @@ halt
 
 
 is_child
---------
+++++++++
 
 .. function:: is_child()
 
@@ -102,9 +102,9 @@ is_child
 
 
 set_parent
-----------
+++++++++++
 
-.. function:: set_parent()
+.. function:: set_parent($signal)
 
 
     Sets the parent signal.
@@ -116,7 +116,7 @@ set_parent
 
 
 get_parent
-----------
+++++++++++
 
 .. function:: get_parent()
 
@@ -128,9 +128,9 @@ get_parent
 
 
 __get
------
++++++
 
-.. function:: __get()
+.. function:: __get($key)
 
 
     Get a variable in the signal.
@@ -142,9 +142,9 @@ __get
 
 
 __isset
--------
++++++++
 
-.. function:: __isset()
+.. function:: __isset($key)
 
 
     Checks for a variable in the signal.
@@ -156,9 +156,9 @@ __isset
 
 
 __set
------
++++++
 
-.. function:: __set()
+.. function:: __set($key, $value)
 
 
     Set a variable in the signal.
@@ -171,9 +171,9 @@ __set
 
 
 __unset
--------
++++++++
 
-.. function:: __unset()
+.. function:: __unset($key)
 
 
     Deletes a variable in the signal.
@@ -184,3 +184,5 @@ __unset
 
 
 
+
+Last updated on 01/31/13 10:43pm

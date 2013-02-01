@@ -1,8 +1,8 @@
-.. database.php generated using docpx on 01/27/13 03:54pm
+.. database.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Database
-===============
+Class - XPSPL\\Database
+***********************
 
 Database
 
@@ -13,10 +13,10 @@ All signals are stored in a database by their index.
 Each signal stored has a copy of the signal and it's queue.
 
 Methods
-+++++++
+-------
 
 __construct
------------
++++++++++++
 
 .. function:: __construct()
 
@@ -28,9 +28,9 @@ __construct
 
 
 find_signal
------------
++++++++++++
 
-.. function:: find_signal()
+.. function:: find_signal($signal)
 
 
     Finds the signal in the database.
@@ -44,9 +44,9 @@ find_signal
 
 
 register_signal
----------------
++++++++++++++++
 
-.. function:: register_signal()
+.. function:: register_signal($signal, $queue)
 
 
     Registers a signal in the database with the given queue.
@@ -59,7 +59,7 @@ register_signal
 
 
 free
-----
+++++
 
 .. function:: free()
 
@@ -68,16 +68,16 @@ free
 
 
 
-XPSPL\\Database
-===============
+Class - XPSPL\\Database
+***********************
 
 Methods
-+++++++
+-------
 
 find_signal
------------
++++++++++++
 
-.. function:: find_signal()
+.. function:: find_signal($signal)
 
 
     Finds the signal in the database.
@@ -91,9 +91,9 @@ find_signal
 
 
 register_signal
----------------
++++++++++++++++
 
-.. function:: register_signal()
+.. function:: register_signal($signal, $queue)
 
 
     Registers a signal in the database with the given queue.
@@ -105,3 +105,5 @@ register_signal
 
 
 
+
+Last updated on 01/31/13 10:43pm

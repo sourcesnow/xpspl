@@ -1,5 +1,8 @@
-.. utils.php generated using docpx on 01/27/13 03:54pm
+.. utils.php generated using docpx on 01/31/13 10:43pm
 
+
+Function - milliseconds
+***********************
 
 milliseconds
 ============
@@ -13,6 +16,9 @@ milliseconds
 
 
 
+Function - microseconds
+***********************
+
 microseconds
 ============
 
@@ -25,10 +31,13 @@ microseconds
 
 
 
+Function - signal_exceptions
+****************************
+
 signal_exceptions
 =================
 
-.. function:: signal_exceptions()
+.. function:: signal_exceptions($exception)
 
 
     Transforms PHP exceptions into a signal.
@@ -41,10 +50,13 @@ signal_exceptions
 
 
 
+Function - signal_errors
+************************
+
 signal_errors
 =============
 
-.. function:: signal_errors()
+.. function:: signal_errors($errno, $errstr, $errfile, $errline)
 
 
     Transforms PHP errors into a signal.
@@ -60,10 +72,13 @@ signal_errors
 
 
 
+Function - bin_search
+*********************
+
 bin_search
 ==========
 
-.. function:: bin_search()
+.. function:: bin_search($needle, $haystack, [$compare = false])
 
 
     Performs a binary search for the given node returning the index.
@@ -82,10 +97,13 @@ bin_search
 
 
 
+Function - get_class_name
+*************************
+
 get_class_name
 ==============
 
-.. function:: get_class_name()
+.. function:: get_class_name([$object = false])
 
 
     Returns the name of a class using get_class with the namespaces stripped.
@@ -98,10 +116,13 @@ get_class_name
 
 
 
+Function - backtrace
+********************
+
 backtrace
 =========
 
-.. function:: backtrace()
+.. function:: backtrace([$args = false])
 
 
     Wrapper for backtrace with/without args.
@@ -110,8 +131,12 @@ backtrace
 
 
 
-XPSPL_AUTOLOADER
-================
+Constants
+---------
 
+XPSPL_AUTOLOADER
+++++++++++++++++
 Autoloader
 
+
+Last updated on 01/31/13 10:43pm

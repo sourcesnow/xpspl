@@ -1,18 +1,18 @@
-.. processor.php generated using docpx on 01/27/13 03:54pm
+.. processor.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Processor
-================
+Class - XPSPL\\Processor
+************************
 
 Processor
 
 The brainpower of XPSPL.
 
 Methods
-+++++++
+-------
 
 __construct
------------
++++++++++++
 
 .. function:: __construct()
 
@@ -24,7 +24,7 @@ __construct
 
 
 erase_history
--------------
++++++++++++++
 
 .. function:: erase_history()
 
@@ -35,8 +35,23 @@ erase_history
 
 
 
+anaylze_runtime
++++++++++++++++
+
+.. function:: anaylze_runtime($sig_awake)
+
+
+    Analyzes the processor runtime and shutdowns when no activity is 
+    detected.
+
+    :param object: SIG_Awake
+
+    :rtype: void 
+
+
+
 wait_loop
----------
++++++++++
 
 .. function:: wait_loop()
 
@@ -49,7 +64,7 @@ wait_loop
 
 
 _routine
---------
+++++++++
 
 .. function:: _routine()
 
@@ -62,7 +77,7 @@ _routine
 
 
 get_routine
------------
++++++++++++
 
 .. function:: get_routine()
 
@@ -75,9 +90,9 @@ get_routine
 
 
 has_signal_exhausted
---------------------
+++++++++++++++++++++
 
-.. function:: has_signal_exhausted()
+.. function:: has_signal_exhausted($signal)
 
 
     Determines if the given signal has exhausted.
@@ -89,9 +104,9 @@ has_signal_exhausted
 
 
 queue_exhausted
----------------
++++++++++++++++
 
-.. function:: queue_exhausted()
+.. function:: queue_exhausted($queue)
 
 
     Determine if all queue processs are exhausted.
@@ -103,9 +118,9 @@ queue_exhausted
 
 
 remove_process
---------------
+++++++++++++++
 
-.. function:: remove_process()
+.. function:: remove_process($signal, $process)
 
 
     Removes a signal process.
@@ -118,7 +133,7 @@ remove_process
 
 
 flush
------
++++++
 
 .. function:: flush()
 
@@ -133,9 +148,9 @@ flush
 
 
 listen
-------
+++++++
 
-.. function:: listen()
+.. function:: listen($listener)
 
 
     Listen
@@ -149,9 +164,9 @@ listen
 
 
 signal
-------
+++++++
 
-.. function:: signal()
+.. function:: signal($signal, $process)
 
 
     Creates a new signal process.
@@ -164,9 +179,9 @@ signal
 
 
 register_signal
----------------
++++++++++++++++
 
-.. function:: register_signal()
+.. function:: register_signal($signal)
 
 
     Registers a signal into the processor.
@@ -178,9 +193,9 @@ register_signal
 
 
 get_database
-------------
+++++++++++++
 
-.. function:: get_database()
+.. function:: get_database($signal)
 
 
     Returns the signal database for the given signal.
@@ -192,9 +207,9 @@ get_database
 
 
 find_signal
------------
++++++++++++
 
-.. function:: find_signal()
+.. function:: find_signal($signal)
 
 
     Finds an installed signal.
@@ -206,9 +221,9 @@ find_signal
 
 
 evaluate_signals
-----------------
+++++++++++++++++
 
-.. function:: evaluate_signals()
+.. function:: evaluate_signals($signal)
 
 
     Perform the evaluation for all registered complex signals.
@@ -220,9 +235,9 @@ evaluate_signals
 
 
 emit
-----
+++++
 
-.. function:: emit()
+.. function:: emit($signal, [$context = false])
 
 
     Emits a signal.
@@ -235,9 +250,9 @@ emit
 
 
 _execute
---------
+++++++++
 
-.. function:: _execute()
+.. function:: _execute($signal, $queue, [$interrupt = true])
 
 
     Executes a queue.
@@ -255,9 +270,9 @@ _execute
 
 
 _queue_execute
---------------
+++++++++++++++
 
-.. function:: _queue_execute()
+.. function:: _queue_execute($queue, $signal)
 
 
     Executes a queue.
@@ -272,10 +287,10 @@ _queue_execute
 
 
 
-_func_exec
-----------
+_process_exec
++++++++++++++
 
-.. function:: _func_exec()
+.. function:: _process_exec($function, $signal)
 
 
     Executes a callable processor function.
@@ -288,7 +303,7 @@ _func_exec
 
 
 signal_history
---------------
+++++++++++++++
 
 .. function:: signal_history()
 
@@ -300,7 +315,7 @@ signal_history
 
 
 shutdown
---------
+++++++++
 
 .. function:: shutdown()
 
@@ -312,9 +327,9 @@ shutdown
 
 
 before
-------
+++++++
 
-.. function:: before()
+.. function:: before($signal, $process)
 
 
     Registers a function to interrupt the signal stack before a signal emits.
@@ -330,9 +345,9 @@ before
 
 
 after
------
++++++
 
-.. function:: after()
+.. function:: after($signal, $process)
 
 
     Registers a function to interrupt the signal stack after a signal emits.
@@ -347,9 +362,9 @@ after
 
 
 _signal_interrupt
------------------
++++++++++++++++++
 
-.. function:: _signal_interrupt()
+.. function:: _signal_interrupt($signal, $process, [$interrupt = false])
 
 
     Registers a function to interrupt the signal stack before or after a 
@@ -364,9 +379,9 @@ _signal_interrupt
 
 
 _get_int_database
------------------
++++++++++++++++++
 
-.. function:: _get_int_database()
+.. function:: _get_int_database($interrupt)
 
 
     Returns the interruption storage database.
@@ -380,9 +395,9 @@ _get_int_database
 
 
 _interrupt
-----------
+++++++++++
 
-.. function:: _interrupt()
+.. function:: _interrupt($signal, [$interrupt = false])
 
 
     Process signal interuption functions.
@@ -395,9 +410,9 @@ _interrupt
 
 
 clean
------
++++++
 
-.. function:: clean()
+.. function:: clean([$history = false])
 
 
     Cleans any exhausted signals from the processor.
@@ -411,9 +426,9 @@ clean
 
 
 delete_signal
--------------
++++++++++++++
 
-.. function:: delete_signal()
+.. function:: delete_signal($signal, [$history = false])
 
 
     Delete a signal from the processor.
@@ -426,9 +441,9 @@ delete_signal
 
 
 erase_signal_history
---------------------
+++++++++++++++++++++
 
-.. function:: erase_signal_history()
+.. function:: erase_signal_history($signal)
 
 
     Erases any history of a signal.
@@ -440,9 +455,9 @@ erase_signal_history
 
 
 set_signal_history
-------------------
+++++++++++++++++++
 
-.. function:: set_signal_history()
+.. function:: set_signal_history($flag)
 
 
     Sets the flag for storing the signal history.
@@ -456,9 +471,9 @@ set_signal_history
 
 
 current_signal
---------------
+++++++++++++++
 
-.. function:: current_signal()
+.. function:: current_signal([$offset = 1])
 
 
     Returns the current signal in execution.
@@ -469,18 +484,16 @@ current_signal
 
 
 
-
-
 Constants
-+++++++++
+---------
 
 INTERRUPT_PRE
-=============
-
++++++++++++++
 Interruption before emittion
 
 INTERRUPT_POST
-==============
-
+++++++++++++++
 Interruption after emittion
 
+
+Last updated on 01/31/13 10:43pm

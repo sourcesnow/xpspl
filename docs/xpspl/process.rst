@@ -1,20 +1,20 @@
-.. process.php generated using docpx on 01/27/13 03:54pm
+.. process.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\Process
-==============
+Class - XPSPL\\Process
+**********************
 
 Process
 
 A process is the callable which will execute when a signal is emitted.
 
 Methods
-+++++++
+-------
 
 __construct
------------
++++++++++++
 
-.. function:: __construct()
+.. function:: __construct($callable, [$exhaust = 1, [$priority = false]])
 
 
     Constructs a new process object.
@@ -28,7 +28,7 @@ __construct
 
 
 decrement_exhaust
------------------
++++++++++++++++++
 
 .. function:: decrement_exhaust()
 
@@ -40,7 +40,7 @@ decrement_exhaust
 
 
 exhaustion
-----------
+++++++++++
 
 .. function:: exhaustion()
 
@@ -52,7 +52,7 @@ exhaustion
 
 
 is_exhausted
-------------
+++++++++++++
 
 .. function:: is_exhausted()
 
@@ -64,7 +64,7 @@ is_exhausted
 
 
 get_priority
-------------
+++++++++++++
 
 .. function:: get_priority()
 
@@ -76,7 +76,7 @@ get_priority
 
 
 get_function
-------------
+++++++++++++
 
 .. function:: get_function()
 
@@ -88,9 +88,9 @@ get_function
 
 
 set_exhaust
------------
++++++++++++
 
-.. function:: set_exhaust()
+.. function:: set_exhaust($rate)
 
 
     Sets the process exhaust rate.
@@ -102,9 +102,9 @@ set_exhaust
 
 
 set_priority
-------------
+++++++++++++
 
-.. function:: set_priority()
+.. function:: set_priority($priority)
 
 
     Sets the process priority.
@@ -115,3 +115,5 @@ set_priority
 
 
 
+
+Last updated on 01/31/13 10:43pm

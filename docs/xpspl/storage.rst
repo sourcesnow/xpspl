@@ -1,10 +1,25 @@
-.. storage.php generated using docpx on 01/27/13 03:54pm
+.. storage.php generated using docpx on 01/31/13 10:43pm
 
 
-XPSPL\\storage
-==============
+Trait - XPSPL\\Storage
+**********************
 
-.. function:: XPSPL\storage()
+Storage trait.
+
+The Storage trait is designed to allow objects to act as a storage, the
+trait only provides an interface to the normal PHP functions used for
+transversing an array, keeping all data within a central storage.
+
+See the PHP Manual for more information regarding the functions used
+in this trait.
+
+Methods
+-------
+
+storage
++++++++
+
+.. function:: storage()
 
 
     Returns the current storage array.
@@ -13,10 +28,10 @@ XPSPL\\storage
 
 
 
-XPSPL\\merge
-============
+merge
++++++
 
-.. function:: XPSPL\merge()
+.. function:: merge()
 
 
     Merge an array with the current storage.
@@ -25,10 +40,10 @@ XPSPL\\merge
 
 
 
-XPSPL\\walk
-===========
+walk
+++++
 
-.. function:: XPSPL\walk()
+.. function:: walk()
 
 
     Apply the given function to every node in storage.
@@ -39,93 +54,95 @@ XPSPL\\walk
 
 
 
-XPSPL\\free
-===========
+free
+++++
 
-.. function:: XPSPL\free()
+.. function:: free()
 
 
     Frees the storage.
 
 
 
-XPSPL\\count
-============
+count
++++++
 
-.. function:: XPSPL\count()
+.. function:: count()
 
 
     Procedures.
 
 
 
-XPSPL\\current
-==============
+current
++++++++
 
-.. function:: XPSPL\current()
-
-
-
-XPSPL\\end
-==========
-
-.. function:: XPSPL\end()
+.. function:: current()
 
 
 
-XPSPL\\key
-==========
+end
++++
 
-.. function:: XPSPL\key()
-
-
-
-XPSPL\\next
-===========
-
-.. function:: XPSPL\next()
+.. function:: end()
 
 
 
-XPSPL\\prev
-===========
+key
++++
 
-.. function:: XPSPL\prev()
-
-
-
-XPSPL\\reset
-============
-
-.. function:: XPSPL\reset()
+.. function:: key()
 
 
 
-XPSPL\\valid
-============
+next
+++++
 
-.. function:: XPSPL\valid()
-
-
-
-XPSPL\\sort
-===========
-
-.. function:: XPSPL\sort()
+.. function:: next()
 
 
 
-XPSPL\\usort
-============
+prev
+++++
 
-.. function:: XPSPL\usort()
-
-
-
-XPSPL\\uasort
-=============
-
-.. function:: XPSPL\uasort()
+.. function:: prev()
 
 
 
+reset
++++++
+
+.. function:: reset()
+
+
+
+valid
++++++
+
+.. function:: valid()
+
+
+
+sort
+++++
+
+.. function:: sort()
+
+
+
+usort
++++++
+
+.. function:: usort()
+
+
+
+uasort
+++++++
+
+.. function:: uasort()
+
+
+
+
+Last updated on 01/31/13 10:43pm

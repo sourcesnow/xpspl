@@ -1,0 +1,8 @@
+002+ 
+003+ Fatal error: Uncaught exception 'Exception' with message 'DateTime::__construct(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone.' in /Users/prggmr/Downloads/Judy-0.1.4/tests/github_issue2_003.php:7
+002- k: 125, v: 2012
+003- k: 521, v: 1983
+004+ Stack trace:
+005+ #0 /Users/prggmr/Downloads/Judy-0.1.4/tests/github_issue2_003.php(7): DateTime->__construct('2012-02-14')
+006+ #1 {main}
+007+   thrown in /Users/prggmr/Downloads/Judy-0.1.4/tests/github_issue2_003.php on line 7
