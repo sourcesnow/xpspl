@@ -1,11 +1,8 @@
-.. listener.php generated using docpx on 01/30/13 08:17pm
+.. listener.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Listener
-===============
+Class - XPSPL\\Listener
+***********************
 
 Listener 
 
@@ -53,3 +50,5 @@ _reset
 
 
 
+
+Last updated on 02/01/13 07:27am

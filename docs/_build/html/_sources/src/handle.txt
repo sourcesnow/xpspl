@@ -1,11 +1,8 @@
-.. handle.php generated using docpx on 01/30/13 08:17pm
+.. handle.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Handle
-=============
+Class - XPSPL\\Handle
+*********************
 
 A handle is the function which will execute upon a signal call.
 
@@ -25,7 +22,7 @@ Methods
 __construct
 +++++++++++
 
-.. function:: __construct()
+.. function:: __construct($function, [$exhaust = 1, [$priority = false]])
 
 
     Constructs a new handle object.
@@ -101,7 +98,7 @@ get_function
 set_exhaust
 +++++++++++
 
-.. function:: set_exhaust()
+.. function:: set_exhaust($rate)
 
 
     Sets the handle exhaust rate.
@@ -115,7 +112,7 @@ set_exhaust
 set_priority
 ++++++++++++
 
-.. function:: set_priority()
+.. function:: set_priority($priority)
 
 
     Sets the handle priority.
@@ -126,3 +123,5 @@ set_priority
 
 
 
+
+Last updated on 02/01/13 07:27am

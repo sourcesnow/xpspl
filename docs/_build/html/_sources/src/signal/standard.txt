@@ -1,11 +1,8 @@
-.. signal/standard.php generated using docpx on 01/30/13 08:17pm
+.. signal/standard.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\signal\\Standard
-=======================
+Class - XPSPL\\signal\\Standard
+*******************************
 
 Standard Signal
 
@@ -26,3 +23,5 @@ get_info
 
 
 
+
+Last updated on 02/01/13 07:27am

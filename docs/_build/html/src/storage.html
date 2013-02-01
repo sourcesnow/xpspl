@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Function &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Trait - XPSPL\Storage &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
-    <link rel="next" title="Function" href="utils.html" />
-    <link rel="prev" title="Function" href="state.html" /> 
+    <link rel="next" title="Function - milliseconds" href="utils.html" />
+    <link rel="prev" title="Trait - XPSPL\State" href="state.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="utils.html" title="Function"
+          <a href="utils.html" title="Function - milliseconds"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="state.html" title="Function"
+          <a href="state.html" title="Trait - XPSPL\State"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,13 +51,21 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="function">
-<h1>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-storage">
-<h2>XPSPL\storage<a class="headerlink" href="#xpspl-storage" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="trait-xpspl-storage">
+<h1>Trait - XPSPL\Storage<a class="headerlink" href="#trait-xpspl-storage" title="Permalink to this headline">¶</a></h1>
+<p>Storage trait.</p>
+<p>The Storage trait is designed to allow objects to act as a storage, the
+trait only provides an interface to the normal PHP functions used for
+transversing an array, keeping all data within a central storage.</p>
+<p>See the PHP Manual for more information regarding the functions used
+in this trait.</p>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="storage">
+<h3>storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLstorage">
-<tt class="descname">XPSPLstorage</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLstorage" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">storage</tt><big>(</big><big>)</big></dt>
 <dd><p>Returns the current storage array.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -70,14 +78,11 @@
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="id1">
-<h1>Function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-merge">
-<h2>XPSPL\merge<a class="headerlink" href="#xpspl-merge" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="merge">
+<h3>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLmerge">
-<tt class="descname">XPSPLmerge</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLmerge" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">merge</tt><big>(</big><big>)</big></dt>
 <dd><p>Merge an array with the current storage.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -90,14 +95,11 @@
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="id2">
-<h1>Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-walk">
-<h2>XPSPL\walk<a class="headerlink" href="#xpspl-walk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="walk">
+<h3>walk<a class="headerlink" href="#walk" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLwalk">
-<tt class="descname">XPSPLwalk</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLwalk" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">walk</tt><big>(</big><big>)</big></dt>
 <dd><p>Apply the given function to every node in storage.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -112,127 +114,96 @@
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="id3">
-<h1>Function<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-count">
-<h2>XPSPL\count<a class="headerlink" href="#xpspl-count" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="count">
+<h3>count<a class="headerlink" href="#count" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLcount">
-<tt class="descname">XPSPLcount</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLcount" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">count</tt><big>(</big><big>)</big></dt>
 <dd><p>Procedures.</p>
 </dd></dl>
 
 </div>
-</div>
-<div class="section" id="id4">
-<h1>Function<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-current">
-<h2>XPSPL\current<a class="headerlink" href="#xpspl-current" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="current">
+<h3>current<a class="headerlink" href="#current" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLcurrent">
-<tt class="descname">XPSPLcurrent</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLcurrent" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">current</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id5">
-<h1>Function<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-end">
-<h2>XPSPL\end<a class="headerlink" href="#xpspl-end" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="end">
+<h3>end<a class="headerlink" href="#end" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLend">
-<tt class="descname">XPSPLend</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLend" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">end</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id6">
-<h1>Function<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-key">
-<h2>XPSPL\key<a class="headerlink" href="#xpspl-key" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="key">
+<h3>key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLkey">
-<tt class="descname">XPSPLkey</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLkey" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">key</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id7">
-<h1>Function<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-next">
-<h2>XPSPL\next<a class="headerlink" href="#xpspl-next" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="next">
+<h3>next<a class="headerlink" href="#next" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLnext">
-<tt class="descname">XPSPLnext</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLnext" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">next</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id8">
-<h1>Function<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-prev">
-<h2>XPSPL\prev<a class="headerlink" href="#xpspl-prev" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prev">
+<h3>prev<a class="headerlink" href="#prev" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLprev">
-<tt class="descname">XPSPLprev</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLprev" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">prev</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id9">
-<h1>Function<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-reset">
-<h2>XPSPL\reset<a class="headerlink" href="#xpspl-reset" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reset">
+<h3>reset<a class="headerlink" href="#reset" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLreset">
-<tt class="descname">XPSPLreset</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLreset" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">reset</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id10">
-<h1>Function<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-valid">
-<h2>XPSPL\valid<a class="headerlink" href="#xpspl-valid" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="valid">
+<h3>valid<a class="headerlink" href="#valid" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLvalid">
-<tt class="descname">XPSPLvalid</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLvalid" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">valid</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id11">
-<h1>Function<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-sort">
-<h2>XPSPL\sort<a class="headerlink" href="#xpspl-sort" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sort">
+<h3>sort<a class="headerlink" href="#sort" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLsort">
-<tt class="descname">XPSPLsort</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLsort" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">sort</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id12">
-<h1>Function<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-usort">
-<h2>XPSPL\usort<a class="headerlink" href="#xpspl-usort" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="usort">
+<h3>usort<a class="headerlink" href="#usort" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLusort">
-<tt class="descname">XPSPLusort</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLusort" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">usort</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
 </div>
-</div>
-<div class="section" id="id13">
-<h1>Function<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-uasort">
-<h2>XPSPL\uasort<a class="headerlink" href="#xpspl-uasort" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="uasort">
+<h3>uasort<a class="headerlink" href="#uasort" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="XPSPLuasort">
-<tt class="descname">XPSPLuasort</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPLuasort" title="Permalink to this definition">¶</a></dt>
+<dt>
+<tt class="descname">uasort</tt><big>(</big><big>)</big></dt>
 <dd></dd></dl>
 
+<p>Last updated on 02/01/13 07:27am</p>
+</div>
 </div>
 </div>
 
@@ -244,70 +215,34 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-storage">XPSPL\storage</a></li>
+<li><a class="reference internal" href="#">Trait - XPSPL\Storage</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#storage">storage</a></li>
+<li><a class="reference internal" href="#merge">merge</a></li>
+<li><a class="reference internal" href="#walk">walk</a></li>
+<li><a class="reference internal" href="#count">count</a></li>
+<li><a class="reference internal" href="#current">current</a></li>
+<li><a class="reference internal" href="#end">end</a></li>
+<li><a class="reference internal" href="#key">key</a></li>
+<li><a class="reference internal" href="#next">next</a></li>
+<li><a class="reference internal" href="#prev">prev</a></li>
+<li><a class="reference internal" href="#reset">reset</a></li>
+<li><a class="reference internal" href="#valid">valid</a></li>
+<li><a class="reference internal" href="#sort">sort</a></li>
+<li><a class="reference internal" href="#usort">usort</a></li>
+<li><a class="reference internal" href="#uasort">uasort</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-merge">XPSPL\merge</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id2">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-walk">XPSPL\walk</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id3">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-count">XPSPL\count</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id4">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-current">XPSPL\current</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id5">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-end">XPSPL\end</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id6">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-key">XPSPL\key</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id7">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-next">XPSPL\next</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id8">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-prev">XPSPL\prev</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id9">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-reset">XPSPL\reset</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id10">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-valid">XPSPL\valid</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id11">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-sort">XPSPL\sort</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id12">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-usort">XPSPL\usort</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#id13">Function</a><ul>
-<li><a class="reference internal" href="#xpspl-uasort">XPSPL\uasort</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="state.html"
-                        title="previous chapter">Function</a></p>
+                        title="previous chapter">Trait - XPSPL\State</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="utils.html"
-                        title="next chapter">Function</a></p>
+                        title="next chapter">Function - milliseconds</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/storage.txt"
@@ -337,10 +272,10 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="utils.html" title="Function"
+          <a href="utils.html" title="Function - milliseconds"
              >next</a> |</li>
         <li class="right" >
-          <a href="state.html" title="Function"
+          <a href="state.html" title="Trait - XPSPL\State"
              >previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>

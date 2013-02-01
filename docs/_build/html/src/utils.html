@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Function &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Function - milliseconds &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
-    <link rel="next" title="Class" href="xpspl.html" />
-    <link rel="prev" title="Function" href="storage.html" /> 
+    <link rel="next" title="Class - XPSPL" href="xpspl.html" />
+    <link rel="prev" title="Trait - XPSPL\Storage" href="storage.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="xpspl.html" title="Class"
+          <a href="xpspl.html" title="Class - XPSPL"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="storage.html" title="Function"
+          <a href="storage.html" title="Trait - XPSPL\Storage"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +51,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="function">
-<h1>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="function-milliseconds">
+<h1>Function - milliseconds<a class="headerlink" href="#function-milliseconds" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="milliseconds">
 <h2>milliseconds<a class="headerlink" href="#milliseconds" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -71,8 +71,8 @@
 
 </div>
 </div>
-<div class="section" id="id1">
-<h1>Function<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="function-microseconds">
+<h1>Function - microseconds<a class="headerlink" href="#function-microseconds" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="microseconds">
 <h2>microseconds<a class="headerlink" href="#microseconds" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -91,13 +91,13 @@
 
 </div>
 </div>
-<div class="section" id="id2">
-<h1>Function<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="function-signal-exceptions">
+<h1>Function - signal_exceptions<a class="headerlink" href="#function-signal-exceptions" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="signal-exceptions">
 <h2>signal_exceptions<a class="headerlink" href="#signal-exceptions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="signal_exceptions">
-<tt class="descname">signal_exceptions</tt><big>(</big><big>)</big><a class="headerlink" href="#signal_exceptions" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">signal_exceptions</tt><big>(</big><em>$exception</em><big>)</big><a class="headerlink" href="#signal_exceptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms PHP exceptions into a signal.</p>
 <p>The signal fired is XPSPLprocessorSignal::GLOBAL_EXCEPTION</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -114,13 +114,13 @@
 
 </div>
 </div>
-<div class="section" id="id3">
-<h1>Function<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="function-signal-errors">
+<h1>Function - signal_errors<a class="headerlink" href="#function-signal-errors" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="signal-errors">
 <h2>signal_errors<a class="headerlink" href="#signal-errors" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="signal_errors">
-<tt class="descname">signal_errors</tt><big>(</big><big>)</big><a class="headerlink" href="#signal_errors" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">signal_errors</tt><big>(</big><em>$errno</em>, <em>$errstr</em>, <em>$errfile</em>, <em>$errline</em><big>)</big><a class="headerlink" href="#signal_errors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms PHP errors into a signal.</p>
 <p>The signal fired is XPSPLprocessorSignal::GLOBAL_ERROR</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -144,13 +144,13 @@
 
 </div>
 </div>
-<div class="section" id="id4">
-<h1>Function<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="function-bin-search">
+<h1>Function - bin_search<a class="headerlink" href="#function-bin-search" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="bin-search">
 <h2>bin_search<a class="headerlink" href="#bin-search" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="bin_search">
-<tt class="descname">bin_search</tt><big>(</big><big>)</big><a class="headerlink" href="#bin_search" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">bin_search</tt><big>(</big><em>$needle</em>, <em>$haystack</em><span class="optional">[</span>, <em>$compare = false</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#bin_search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a binary search for the given node returning the index.</p>
 <p>Logic:</p>
 <p>0 - Match
@@ -176,13 +176,13 @@
 
 </div>
 </div>
-<div class="section" id="id5">
-<h1>Function<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="function-get-class-name">
+<h1>Function - get_class_name<a class="headerlink" href="#function-get-class-name" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="get-class-name">
 <h2>get_class_name<a class="headerlink" href="#get-class-name" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="get_class_name">
-<tt class="descname">get_class_name</tt><big>(</big><big>)</big><a class="headerlink" href="#get_class_name" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_class_name</tt><big>(</big><span class="optional">[</span><em>$object = false</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#get_class_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the name of a class using get_class with the namespaces stripped.
 This will not work inside a class scope as get_class() a workaround for
 that is using get_class_name(get_class());</p>
@@ -203,6 +203,7 @@ that is using get_class_name(get_class());</p>
 <div class="section" id="xpspl-autoloader">
 <h4>XPSPL_AUTOLOADER<a class="headerlink" href="#xpspl-autoloader" title="Permalink to this headline">¶</a></h4>
 <p>Autoloader</p>
+<p>Last updated on 02/01/13 07:27am</p>
 </div>
 </div>
 </div>
@@ -216,27 +217,27 @@ that is using get_class_name(get_class());</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Function</a><ul>
+<li><a class="reference internal" href="#">Function - milliseconds</a><ul>
 <li><a class="reference internal" href="#milliseconds">milliseconds</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1">Function</a><ul>
+<li><a class="reference internal" href="#function-microseconds">Function - microseconds</a><ul>
 <li><a class="reference internal" href="#microseconds">microseconds</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2">Function</a><ul>
+<li><a class="reference internal" href="#function-signal-exceptions">Function - signal_exceptions</a><ul>
 <li><a class="reference internal" href="#signal-exceptions">signal_exceptions</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id3">Function</a><ul>
+<li><a class="reference internal" href="#function-signal-errors">Function - signal_errors</a><ul>
 <li><a class="reference internal" href="#signal-errors">signal_errors</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id4">Function</a><ul>
+<li><a class="reference internal" href="#function-bin-search">Function - bin_search</a><ul>
 <li><a class="reference internal" href="#bin-search">bin_search</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id5">Function</a><ul>
+<li><a class="reference internal" href="#function-get-class-name">Function - get_class_name</a><ul>
 <li><a class="reference internal" href="#get-class-name">get_class_name</a><ul>
 <li><a class="reference internal" href="#constants">Constants</a><ul>
 <li><a class="reference internal" href="#xpspl-autoloader">XPSPL_AUTOLOADER</a></li>
@@ -250,10 +251,10 @@ that is using get_class_name(get_class());</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="storage.html"
-                        title="previous chapter">Function</a></p>
+                        title="previous chapter">Trait - XPSPL\Storage</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="xpspl.html"
-                        title="next chapter">Class</a></p>
+                        title="next chapter">Class - XPSPL</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/utils.txt"
@@ -283,10 +284,10 @@ that is using get_class_name(get_class());</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="xpspl.html" title="Class"
+          <a href="xpspl.html" title="Class - XPSPL"
              >next</a> |</li>
         <li class="right" >
-          <a href="storage.html" title="Function"
+          <a href="storage.html" title="Trait - XPSPL\Storage"
              >previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>

@@ -1,11 +1,8 @@
-.. event.php generated using docpx on 01/30/13 08:17pm
+.. event.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Event
-============
+Class - XPSPL\\Event
+********************
 
 Event
 
@@ -19,7 +16,7 @@ Methods
 __construct
 +++++++++++
 
-.. function:: __construct()
+.. function:: __construct([$ttl = false])
 
 
     Construction allow for setting the event TTL.
@@ -57,7 +54,7 @@ get_signal
 set_result
 ++++++++++
 
-.. function:: set_result()
+.. function:: set_result($result)
 
 
     Sets the result of the event.
@@ -105,7 +102,7 @@ is_child
 set_parent
 ++++++++++
 
-.. function:: set_parent()
+.. function:: set_parent($event)
 
 
     Sets the parent event.
@@ -131,7 +128,7 @@ get_parent
 __get
 +++++
 
-.. function:: __get()
+.. function:: __get($key)
 
 
     Get a variable in the event.
@@ -145,7 +142,7 @@ __get
 __isset
 +++++++
 
-.. function:: __isset()
+.. function:: __isset($key)
 
 
     Checks for a variable in the event.
@@ -159,7 +156,7 @@ __isset
 __set
 +++++
 
-.. function:: __set()
+.. function:: __set($key, $value)
 
 
     Set a variable in the event.
@@ -174,7 +171,7 @@ __set
 __unset
 +++++++
 
-.. function:: __unset()
+.. function:: __unset($key)
 
 
     Deletes a variable in the event.
@@ -191,3 +188,4 @@ Constants
 EVENT_SELF_PARENT
 +++++++++++++++++
 
+Last updated on 02/01/13 07:27am

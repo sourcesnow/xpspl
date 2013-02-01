@@ -1,13 +1,13 @@
-.. api.php generated using docpx on 01/30/13 08:17pm
+.. api.php generated using docpx on 02/01/13 07:27am
 
 
-Function
-********
+Function - signal
+*****************
 
 signal
 ======
 
-.. function:: signal()
+.. function:: signal($signal, $callable)
 
 
     Creates a new signal handler.
@@ -19,13 +19,13 @@ signal
 
 
 
-Function
-********
+Function - null_exhaust
+***********************
 
 null_exhaust
 ============
 
-.. function:: null_exhaust()
+.. function:: null_exhaust($handle)
 
 
     Creates a never exhausting signal handler.
@@ -36,13 +36,13 @@ null_exhaust
 
 
 
-Function
-********
+Function - high_priority
+************************
 
 high_priority
 =============
 
-.. function:: high_priority()
+.. function:: high_priority($handle)
 
 
     Creates or sets a handle with high priority.
@@ -53,13 +53,13 @@ high_priority
 
 
 
-Function
-********
+Function - low_priority
+***********************
 
 low_priority
 ============
 
-.. function:: low_priority()
+.. function:: low_priority($handle)
 
 
     Creates or sets a handle with low priority.
@@ -70,13 +70,13 @@ low_priority
 
 
 
-Function
-********
+Function - priority
+*******************
 
 priority
 ========
 
-.. function:: priority()
+.. function:: priority($handle, $priority)
 
 
     Sets a handle priority.
@@ -88,13 +88,13 @@ priority
 
 
 
-Function
-********
+Function - remove_handle
+************************
 
 remove_handle
 =============
 
-.. function:: remove_handle()
+.. function:: remove_handle($signal, $handle)
 
 
     Remove a sig handler.
@@ -106,13 +106,13 @@ remove_handle
 
 
 
-Function
-********
+Function - emit
+***************
 
 emit
 ====
 
-.. function:: emit()
+.. function:: emit($signal, [$event = false])
 
 
     Signals an event.
@@ -125,8 +125,8 @@ emit
 
 
 
-Function
-********
+Function - signal_history
+*************************
 
 signal_history
 ==============
@@ -140,13 +140,13 @@ signal_history
 
 
 
-Function
-********
+Function - register_signal
+**************************
 
 register_signal
 ===============
 
-.. function:: register_signal()
+.. function:: register_signal($signal)
 
 
     Registers a signal in the processor.
@@ -157,13 +157,13 @@ register_signal
 
 
 
-Function
-********
+Function - search_signals
+*************************
 
 search_signals
 ==============
 
-.. function:: search_signals()
+.. function:: search_signals($signal, [$index = false])
 
 
     Searches for a signal in storage returning its storage node if found,
@@ -176,8 +176,8 @@ search_signals
 
 
 
-Function
-********
+Function - loop
+***************
 
 loop
 ====
@@ -191,8 +191,8 @@ loop
 
 
 
-Function
-********
+Function - shutdown
+*******************
 
 shutdown
 ========
@@ -206,13 +206,13 @@ shutdown
 
 
 
-Function
-********
+Function - import
+*****************
 
 import
 ======
 
-.. function:: import()
+.. function:: import($name, [$dir = false])
 
 
     Import a module.
@@ -224,13 +224,13 @@ import
 
 
 
-Function
-********
+Function - before
+*****************
 
 before
 ======
 
-.. function:: before()
+.. function:: before($signal, $handle)
 
 
     Registers a function to interrupt the signal stack before a signal fires,
@@ -243,13 +243,13 @@ before
 
 
 
-Function
-********
+Function - after
+****************
 
 after
 =====
 
-.. function:: after()
+.. function:: after($signal, $handle)
 
 
     Registers a function to interrupt the signal stack after a signal fires.
@@ -262,8 +262,8 @@ after
 
 
 
-Function
-********
+Function - XPSPL
+****************
 
 XPSPL
 =====
@@ -277,13 +277,13 @@ XPSPL
 
 
 
-Function
-********
+Function - clean
+****************
 
 clean
 =====
 
-.. function:: clean()
+.. function:: clean([$history = false])
 
 
     Cleans any exhausted signal queues from the processor.
@@ -294,13 +294,13 @@ clean
 
 
 
-Function
-********
+Function - delete_signal
+************************
 
 delete_signal
 =============
 
-.. function:: delete_signal()
+.. function:: delete_signal($signal, [$history = false])
 
 
     Delete a signal from the processor.
@@ -312,13 +312,13 @@ delete_signal
 
 
 
-Function
-********
+Function - erase_signal_history
+*******************************
 
 erase_signal_history
 ====================
 
-.. function:: erase_signal_history()
+.. function:: erase_signal_history($signal)
 
 
     Erases any history of a signal.
@@ -329,13 +329,13 @@ erase_signal_history
 
 
 
-Function
-********
+Function - disable_signaled_exceptions
+**************************************
 
 disable_signaled_exceptions
 ===========================
 
-.. function:: disable_signaled_exceptions()
+.. function:: disable_signaled_exceptions([$history = false])
 
 
     Disables the exception handler.
@@ -346,8 +346,8 @@ disable_signaled_exceptions
 
 
 
-Function
-********
+Function - erase_history
+************************
 
 erase_history
 =============
@@ -361,13 +361,13 @@ erase_history
 
 
 
-Function
-********
+Function - save_signal_history
+******************************
 
 save_signal_history
 ===================
 
-.. function:: save_signal_history()
+.. function:: save_signal_history($flag)
 
 
     Sets the flag for storing the event history.
@@ -378,13 +378,13 @@ save_signal_history
 
 
 
-Function
-********
+Function - listen
+*****************
 
 listen
 ======
 
-.. function:: listen()
+.. function:: listen($listener)
 
 
     Registers a new event listener object in the processor.
@@ -395,13 +395,13 @@ listen
 
 
 
-Function
-********
+Function - dir_include
+**********************
 
 dir_include
 ===========
 
-.. function:: dir_include()
+.. function:: dir_include($dir, [$listen = false, [$path = false]])
 
 
     Performs a inclusion of the entire directory content, including 
@@ -416,13 +416,13 @@ dir_include
 
 
 
-Function
-********
+Function - current_signal
+*************************
 
 current_signal
 ==============
 
-.. function:: current_signal()
+.. function:: current_signal([$offset = false])
 
 
     Returns the current signal in execution.
@@ -433,13 +433,13 @@ current_signal
 
 
 
-Function
-********
+Function - current_event
+************************
 
 current_event
 =============
 
-.. function:: current_event()
+.. function:: current_event([$offset = false])
 
 
     Returns the current event in execution.
@@ -450,13 +450,13 @@ current_event
 
 
 
-Function
-********
+Function - on_shutdown
+**********************
 
 on_shutdown
 ===========
 
-.. function:: on_shutdown()
+.. function:: on_shutdown($function)
 
 
     Call the provided function on processor shutdown.
@@ -467,13 +467,13 @@ on_shutdown
 
 
 
-Function
-********
+Function - on_start
+*******************
 
 on_start
 ========
 
-.. function:: on_start()
+.. function:: on_start($function)
 
 
     Call the provided function on processor start.
@@ -484,8 +484,8 @@ on_start
 
 
 
-Function
-********
+Function - XPSPL_flush
+**********************
 
 XPSPL_flush
 ===========
@@ -499,3 +499,5 @@ XPSPL_flush
 
 
 
+
+Last updated on 02/01/13 07:27am

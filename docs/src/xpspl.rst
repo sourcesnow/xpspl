@@ -1,11 +1,8 @@
-.. xpspl.php generated using docpx on 01/30/13 08:17pm
+.. xpspl.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL
-=====
+Class - XPSPL
+*************
 
 The XPSPL object works as the global instance used for managing the
 global processor instance.
@@ -16,7 +13,7 @@ Methods
 init
 ++++
 
-.. function:: init()
+.. function:: init([$event_history = true])
 
 
     Initialise the global processor instance.
@@ -44,10 +41,9 @@ Constants
 
 XPSPL_VERSION
 +++++++++++++
-
 XPSPL_MASTERMIND
 ++++++++++++++++
-
 XPSPL_PATH
 ++++++++++
 
+Last updated on 02/01/13 07:27am

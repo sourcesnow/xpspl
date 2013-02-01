@@ -1,11 +1,8 @@
-.. idle.php generated using docpx on 01/30/13 08:17pm
+.. idle.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Idle
-===========
+Class - XPSPL\\Idle
+*******************
 
 Idle
 
@@ -26,7 +23,7 @@ Methods
 idle
 ++++
 
-.. function:: idle()
+.. function:: idle($processor)
 
 
     Idle's the processor.
@@ -79,7 +76,7 @@ allow_override
 override
 ++++++++
 
-.. function:: override()
+.. function:: override($idle)
 
 
     Returns if the given function can override this in the processor.
@@ -90,3 +87,5 @@ override
 
 
 
+
+Last updated on 02/01/13 07:27am

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Class &mdash; XPSPL 3.0.0 documentation</title>
+    <title>Class - XPSPL\Handle &mdash; XPSPL 3.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="XPSPL 3.0.0 documentation" href="../index.html" />
-    <link rel="next" title="Class" href="idle.html" />
-    <link rel="prev" title="Class" href="event.html" /> 
+    <link rel="next" title="Class - XPSPL\Idle" href="idle.html" />
+    <link rel="prev" title="Class - XPSPL\Event" href="event.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="idle.html" title="Class"
+          <a href="idle.html" title="Class - XPSPL\Idle"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="event.html" title="Class"
+          <a href="event.html" title="Class - XPSPL\Event"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>
@@ -51,10 +51,8 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="class">
-<h1>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xpspl-handle">
-<h2>XPSPL\Handle<a class="headerlink" href="#xpspl-handle" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="class-xpspl-handle">
+<h1>Class - XPSPL\Handle<a class="headerlink" href="#class-xpspl-handle" title="Permalink to this headline">¶</a></h1>
 <p>A handle is the function which will execute upon a signal call.</p>
 <p>Though attached to a signal the object itself contains no
 information on what a signal even is, it is possible to couple
@@ -65,12 +63,12 @@ by default, this is done under the theory that any handle which
 is registered is done so to run at least once, otherwise it wouldn&#8217;t
 exist.</p>
 <div class="section" id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="construct">
-<h4>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h4>
+<h3>__construct<a class="headerlink" href="#construct" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="__construct">
-<tt class="descname">__construct</tt><big>(</big><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__construct</tt><big>(</big><em>$function</em><span class="optional">[</span>, <em>$exhaust = 1</em><span class="optional">[</span>, <em>$priority = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#__construct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a new handle object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -92,7 +90,7 @@ exist.</p>
 
 </div>
 <div class="section" id="decrement-exhaust">
-<h4>decrement_exhaust<a class="headerlink" href="#decrement-exhaust" title="Permalink to this headline">¶</a></h4>
+<h3>decrement_exhaust<a class="headerlink" href="#decrement-exhaust" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="decrement_exhaust">
 <tt class="descname">decrement_exhaust</tt><big>(</big><big>)</big><a class="headerlink" href="#decrement_exhaust" title="Permalink to this definition">¶</a></dt>
@@ -109,7 +107,7 @@ exist.</p>
 
 </div>
 <div class="section" id="exhaustion">
-<h4>exhaustion<a class="headerlink" href="#exhaustion" title="Permalink to this headline">¶</a></h4>
+<h3>exhaustion<a class="headerlink" href="#exhaustion" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt>
 <tt class="descname">exhaustion</tt><big>(</big><big>)</big></dt>
@@ -126,7 +124,7 @@ exist.</p>
 
 </div>
 <div class="section" id="is-exhausted">
-<h4>is_exhausted<a class="headerlink" href="#is-exhausted" title="Permalink to this headline">¶</a></h4>
+<h3>is_exhausted<a class="headerlink" href="#is-exhausted" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="is_exhausted">
 <tt class="descname">is_exhausted</tt><big>(</big><big>)</big><a class="headerlink" href="#is_exhausted" title="Permalink to this definition">¶</a></dt>
@@ -143,7 +141,7 @@ exist.</p>
 
 </div>
 <div class="section" id="get-priority">
-<h4>get_priority<a class="headerlink" href="#get-priority" title="Permalink to this headline">¶</a></h4>
+<h3>get_priority<a class="headerlink" href="#get-priority" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="get_priority">
 <tt class="descname">get_priority</tt><big>(</big><big>)</big><a class="headerlink" href="#get_priority" title="Permalink to this definition">¶</a></dt>
@@ -160,7 +158,7 @@ exist.</p>
 
 </div>
 <div class="section" id="get-function">
-<h4>get_function<a class="headerlink" href="#get-function" title="Permalink to this headline">¶</a></h4>
+<h3>get_function<a class="headerlink" href="#get-function" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="get_function">
 <tt class="descname">get_function</tt><big>(</big><big>)</big><a class="headerlink" href="#get_function" title="Permalink to this definition">¶</a></dt>
@@ -177,10 +175,10 @@ exist.</p>
 
 </div>
 <div class="section" id="set-exhaust">
-<h4>set_exhaust<a class="headerlink" href="#set-exhaust" title="Permalink to this headline">¶</a></h4>
+<h3>set_exhaust<a class="headerlink" href="#set-exhaust" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="set_exhaust">
-<tt class="descname">set_exhaust</tt><big>(</big><big>)</big><a class="headerlink" href="#set_exhaust" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_exhaust</tt><big>(</big><em>$rate</em><big>)</big><a class="headerlink" href="#set_exhaust" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the handle exhaust rate.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -196,10 +194,10 @@ exist.</p>
 
 </div>
 <div class="section" id="set-priority">
-<h4>set_priority<a class="headerlink" href="#set-priority" title="Permalink to this headline">¶</a></h4>
+<h3>set_priority<a class="headerlink" href="#set-priority" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="set_priority">
-<tt class="descname">set_priority</tt><big>(</big><big>)</big><a class="headerlink" href="#set_priority" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_priority</tt><big>(</big><em>$priority</em><big>)</big><a class="headerlink" href="#set_priority" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the handle priority.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -213,7 +211,7 @@ exist.</p>
 </table>
 </dd></dl>
 
-</div>
+<p>Last updated on 02/01/13 07:27am</p>
 </div>
 </div>
 </div>
@@ -226,8 +224,7 @@ exist.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Class</a><ul>
-<li><a class="reference internal" href="#xpspl-handle">XPSPL\Handle</a><ul>
+<li><a class="reference internal" href="#">Class - XPSPL\Handle</a><ul>
 <li><a class="reference internal" href="#methods">Methods</a><ul>
 <li><a class="reference internal" href="#construct">__construct</a></li>
 <li><a class="reference internal" href="#decrement-exhaust">decrement_exhaust</a></li>
@@ -242,15 +239,13 @@ exist.</p>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="event.html"
-                        title="previous chapter">Class</a></p>
+                        title="previous chapter">Class - XPSPL\Event</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="idle.html"
-                        title="next chapter">Class</a></p>
+                        title="next chapter">Class - XPSPL\Idle</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/src/handle.txt"
@@ -280,10 +275,10 @@ exist.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="idle.html" title="Class"
+          <a href="idle.html" title="Class - XPSPL\Idle"
              >next</a> |</li>
         <li class="right" >
-          <a href="event.html" title="Class"
+          <a href="event.html" title="Class - XPSPL\Event"
              >previous</a> |</li>
         <li><a href="../index.html">XPSPL 3.0.0 documentation</a> &raquo;</li> 
       </ul>

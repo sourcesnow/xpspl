@@ -1,8 +1,8 @@
-.. utils.php generated using docpx on 01/30/13 08:17pm
+.. utils.php generated using docpx on 02/01/13 07:27am
 
 
-Function
-********
+Function - milliseconds
+***********************
 
 milliseconds
 ============
@@ -16,8 +16,8 @@ milliseconds
 
 
 
-Function
-********
+Function - microseconds
+***********************
 
 microseconds
 ============
@@ -31,13 +31,13 @@ microseconds
 
 
 
-Function
-********
+Function - signal_exceptions
+****************************
 
 signal_exceptions
 =================
 
-.. function:: signal_exceptions()
+.. function:: signal_exceptions($exception)
 
 
     Transforms PHP exceptions into a signal.
@@ -50,13 +50,13 @@ signal_exceptions
 
 
 
-Function
-********
+Function - signal_errors
+************************
 
 signal_errors
 =============
 
-.. function:: signal_errors()
+.. function:: signal_errors($errno, $errstr, $errfile, $errline)
 
 
     Transforms PHP errors into a signal.
@@ -72,13 +72,13 @@ signal_errors
 
 
 
-Function
-********
+Function - bin_search
+*********************
 
 bin_search
 ==========
 
-.. function:: bin_search()
+.. function:: bin_search($needle, $haystack, [$compare = false])
 
 
     Performs a binary search for the given node returning the index.
@@ -97,13 +97,13 @@ bin_search
 
 
 
-Function
-********
+Function - get_class_name
+*************************
 
 get_class_name
 ==============
 
-.. function:: get_class_name()
+.. function:: get_class_name([$object = false])
 
 
     Returns the name of a class using get_class with the namespaces stripped.
@@ -121,6 +121,7 @@ Constants
 
 XPSPL_AUTOLOADER
 ++++++++++++++++
-
 Autoloader
 
+
+Last updated on 02/01/13 07:27am

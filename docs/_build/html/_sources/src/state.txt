@@ -1,13 +1,16 @@
-.. state.php generated using docpx on 01/30/13 08:17pm
+.. state.php generated using docpx on 02/01/13 07:27am
 
 
-Function
-********
+Trait - XPSPL\\State
+********************
 
-XPSPL\\__construct
-==================
+Methods
+-------
 
-.. function:: XPSPL\__construct()
+__construct
++++++++++++
+
+.. function:: __construct()
 
 
     Constructs a new state object.
@@ -16,13 +19,10 @@ XPSPL\\__construct
 
 
 
-Function
-********
+get_state
++++++++++
 
-XPSPL\\get_state
-================
-
-.. function:: XPSPL\get_state()
+.. function:: get_state()
 
 
     Returns the current event state.
@@ -31,13 +31,10 @@ XPSPL\\get_state
 
 
 
-Function
-********
+set_state
++++++++++
 
-XPSPL\\set_state
-================
-
-.. function:: XPSPL\set_state()
+.. function:: set_state()
 
 
     Set the object state.
@@ -55,7 +52,6 @@ Constants
 
 STATE_DECLARED
 ++++++++++++++
-
 State
 
 Added in v0.3.0
@@ -89,19 +85,15 @@ The object has declared itself as halted to interrupt any further execution.
 
 STATE_RUNNING
 +++++++++++++
-
 STATE_EXITED
 ++++++++++++
-
 STATE_ERROR
 +++++++++++
-
 STATE_RECYCLED
 ++++++++++++++
-
 STATE_RECOVERED
 +++++++++++++++
-
 STATE_HALTED
 ++++++++++++
 
+Last updated on 02/01/13 07:27am
