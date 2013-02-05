@@ -36,10 +36,10 @@ spl_autoload_register(function($class){
     }
 });
 
+if (!XPSPL_DEBUG) {
 /**
  * Exception Processr
  */
-if (!XPSPL_DEBUG) {
 set_exception_handler(function($exception){
     if (null !== $exception) {
         $trace = array_reverse($exception->getTrace());

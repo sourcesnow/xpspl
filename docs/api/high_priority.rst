@@ -1,11 +1,9 @@
-.. high_priority.php generated using docpx on 01/31/13 10:44pm
+.. /high_priority.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - high_priority
 ************************
 
-high_priority
-=============
 
 .. function:: high_priority($process)
 
@@ -57,4 +55,4 @@ High priority process will always execute first.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

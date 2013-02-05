@@ -20,7 +20,7 @@
  *
  * This will create a SIG idenitified by 'foo'.
  *
- * .. code-block::php
+ * .. code-block:: php
  *
  *    <?php
  *    signal(SIG('foo'), function(){

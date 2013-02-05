@@ -1,5 +1,9 @@
 ## 3.0.0
 
+* Moved the Queue into the \XPSPL\database namespace.
+* Removed the Process::set_priority method
+* Queue priority is now index based
+* Removed the Queue::sort method
 * Added Judy as the Database array.
 * save_signal_history rennamed to set_signal_history
 * Processor::search_signals renamed to Processor::find_signal

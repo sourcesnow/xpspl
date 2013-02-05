@@ -1,11 +1,9 @@
-.. signal.php generated using docpx on 01/31/13 10:44pm
+.. /signal.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - signal
 *****************
 
-signal
-======
 
 .. function:: signal($signal, $process)
 
@@ -108,4 +106,4 @@ Install a process that never exhausts.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

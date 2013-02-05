@@ -21,7 +21,7 @@ use \XPSPL\processor\exception as exceptions;
  *
  * To achieve this the processor uses routines.
  *
- * @since v4.0.0
+ * @since v3.0.0
  *
  * Signal storages have been upgraded to a database object, the routine and 
  * evaluation methods for the complex signal have also been moved into their 
@@ -157,8 +157,8 @@ class Processor {
         $this->emit(new processor\SIG_Startup());
         if (class_exists('time\\SIG_Awake', true)) {
             $this->signal(
-                new time\SIG_Awake(35, TIME_MICROSECONDS), 
-                new Process([$this, analyze_runtime], null, 0)
+                new \time\SIG_Awake(35, TIME_MICROSECONDS), 
+                new Process([$this, 'analyze_runtime'], null, 0)
             );
         }
         routine:
@@ -242,7 +242,7 @@ class Processor {
     /**
      * Determine if all queue processs are exhausted.
      *
-     * @param  object  $queue  \XPSPL\Queue
+     * @param  object  $queue  \XPSPL\database\Queue
      * 
      * @return  boolean
      */
@@ -385,7 +385,7 @@ class Processor {
         if (!$signal instanceof SIG) {
             $signal = new SIG($signal);
         }
-        $queue = new \XPSPL\Queue();
+        $queue = new \XPSPL\database\Queue();
         $db = $this->get_database($signal);
         $db->register_signal($signal, $queue);
         return $queue;
@@ -416,7 +416,7 @@ class Processor {
      *
      * @param  object  $signal  SIG
      * 
-     * @return  object  Queue
+     * @return  object  \XPSPL\Queue
      */
     private function find_signal(SIG $signal)
     {

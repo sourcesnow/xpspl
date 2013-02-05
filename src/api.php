@@ -6,16 +6,6 @@
  */
 
 /**
- * Returns the signal history.
- * 
- * @return  array
- */
-function signal_history(/* ... */)
-{
-    return XPSPL::instance()->signal_history();
-}
-
-/**
  * Registers a signal in the processor.
  * 
  * @param  string|integer|object  $signal  Signal

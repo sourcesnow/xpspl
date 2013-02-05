@@ -1,11 +1,9 @@
-.. emit.php generated using docpx on 01/31/13 10:44pm
+.. /emit.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - emit
 ***************
 
-emit
-====
 
 .. function:: emit($signal, [$context = false])
 
@@ -60,4 +58,4 @@ When a unique signal is emitted
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

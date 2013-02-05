@@ -72,6 +72,17 @@ if (!defined('QUEUE_DEFAULT_PRIORITY')) {
 
 if (!defined('XPSPL_JUDY_SUPPORT')) {
     /**
+     * Judy is an optional database configuration.
+     *
+     * http://xpspl.prggmr.org/en/xspel/install.html#optional
+     *
+     * Currently this is experimental as an attempt to improve performance.
+     */
+    define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
+}
+
+if (!defined('XPSPL_ANALYZE_TIME')) {
+    /**
      * Judy is an array implementation.
      *
      * For more information see http://php.net/manual/en/book.judy.php
@@ -79,14 +90,6 @@ if (!defined('XPSPL_JUDY_SUPPORT')) {
      * Currently this is experimental as an attempt to improve performance.
      */
     define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
-}
-
-if (!defined('WINDOWS')) {
-    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-        define('WINDOWS', true);
-    } else {
-        define('WINDOWS', false);
-    }
 }
 
 // define time instructions

@@ -1,11 +1,9 @@
-.. sig.php generated using docpx on 01/31/13 10:44pm
+.. /sig.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - SIG
 **************
 
-SIG
-===
 
 .. function:: SIG($signal)
 
@@ -24,7 +22,7 @@ Creating a SIG.
 
 This will create a SIG idenitified by 'foo'.
 
-.. code-block::php
+.. code-block:: php
 
    <?php
    signal(SIG('foo'), function(){
@@ -36,4 +34,4 @@ This will create a SIG idenitified by 'foo'.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

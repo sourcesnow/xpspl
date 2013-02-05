@@ -1,11 +1,9 @@
-.. rated_exhaust.php generated using docpx on 01/31/13 10:44pm
+.. /rated_exhaust.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - rated_exhaust
 ************************
 
-rated_exhaust
-=============
 
 .. function:: rated_exhaust($limit, $process)
 
@@ -42,4 +40,4 @@ Installs an awake process for every 2 seconds exhausting after 2 emits.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

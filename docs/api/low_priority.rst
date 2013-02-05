@@ -1,11 +1,9 @@
-.. low_priority.php generated using docpx on 01/31/13 10:44pm
+.. /low_priority.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - low_priority
 ***********************
 
-low_priority
-============
 
 .. function:: low_priority($process)
 
@@ -57,4 +55,4 @@ Low priority processes always execute last.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

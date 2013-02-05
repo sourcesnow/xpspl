@@ -45,18 +45,14 @@ class Process {
      * 
      * @return  void
      */
-    public function __construct($callable, $exhaust = PROCESS_DEFAULT_EXHAUST, $priority = null)
+    public function __construct(callable $callable, $exhaust = PROCESS_DEFAULT_EXHAUST, $priority = PROCESS_DEFAULT_PRIORITY)
     {
-        if (!is_callable($callable)) {
-            throw new \InvalidArgumentException;
-        }
-
         // set exhaust rate
         $this->set_exhaust($exhaust);
-        
-        // set priority
-        $this->set_priority($priority);
-
+        if (null !== $priority && !is_int($priority)) {
+            $priority = null;
+        }
+        $this->_priority = $priority;
         $this->_callable = $callable;
     }
 
@@ -149,6 +145,7 @@ class Process {
         if (null !== $priority && !is_int($priority)) {
             return;
         }
+        echo "SET P " . $priority;
         $this->_priority = $priority;
     }
 }

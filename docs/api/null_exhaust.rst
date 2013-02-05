@@ -1,11 +1,9 @@
-.. null_exhaust.php generated using docpx on 01/31/13 10:44pm
+.. /null_exhaust.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - null_exhaust
 ***********************
 
-null_exhaust
-============
 
 .. function:: null_exhaust($process)
 
@@ -45,4 +43,4 @@ every 10 seconds creating an interval.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

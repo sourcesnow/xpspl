@@ -1,11 +1,9 @@
-.. priority.php generated using docpx on 01/31/13 10:44pm
+.. /priority.php generated using docpx on 02/01/13 10:00pm
 
 
 Function - priority
 *******************
 
-priority
-========
 
 .. function:: priority($priority, $process)
 
@@ -66,4 +64,4 @@ This installs multiple process each with a seperate ascending priority.
 
 
 
-Last updated on 01/31/13 10:44pm
+Last updated on 02/01/13 10:00pm

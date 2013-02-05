@@ -17,6 +17,20 @@ PECL Judy 0.1.4
 The Judy library demonstrates improving the database by giving storage a linear 
 scale of ~39us up to the tested 262144.
 
+Both required libraries are bundled in the ``library`` folder with XPSPL.
+
+For installation of Judy C see the README.
+
+For installation of Judy PECL.
+
+.. code-block:: sh
+
+    $: phpize
+    $: ./configure
+    $: make
+    $: make test
+    $: sudo make install
+
 Install
 =======
 

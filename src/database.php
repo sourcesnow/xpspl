@@ -11,11 +11,7 @@ use \Judy;
 /**
  * Database
  * 
- * A signal database.
- *
- * All signals are stored in a database by their index.
- *
- * Each signal stored has a copy of the signal and it's queue.
+ * A database is a storage mechanism for arbirtary data.
  *
  * @experimental
  *
@@ -25,7 +21,6 @@ use \Judy;
  * To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support 
  * will be used if Judy is installed and enabled on the PHP installation.
  */
-if (XPSPL_JUDY_SUPPORT){
 class Database {
 
     use Storage;
@@ -37,39 +32,9 @@ class Database {
      */
     public function __construct(/* ... */)
     {
-        $this->_storage = new Judy(Judy::STRING_TO_MIXED);
-    }
-
-    /**
-     * Finds the signal in the database.
-     *
-     * Returns null if the signal does not exit.
-     *
-     * @param  object  $signal  
-     *
-     * @return  object
-     */
-    public function find_signal(SIG $signal)
-    {
-        $index = $signal->get_index();
-        if (isset($this->_storage[$index])) {
-            return $this->_storage[$index];
+        if (XPSPL_JUDY_SUPPORT) {
+            $this->_storage = new Judy(Judy::STRING_TO_MIXED);
         }
-        return null;
-    }
-
-    /**
-     * Registers a signal in the database with the given queue.
-     *
-     * @param  object  $signal \XPSPL\SIG
-     * @param  object  $queue  \XPSPL\Queue
-     *
-     * @return  void
-     */
-    public function register_signal(SIG $signal, Queue $queue)
-    {
-        $index = $signal->get_index();
-        $this->_storage[$index] = [$signal, $queue];
     }
 
     /**
@@ -77,44 +42,11 @@ class Database {
      */
     public function free(/* ... */)
     {
-        $this->_storage->free();
-    }
-}
-} else {
-class Database {
-
-    use Storage;
-
-    /**
-     * Finds the signal in the database.
-     *
-     * Returns null if the signal does not exit.
-     *
-     * @param  object  $signal  
-     *
-     * @return  object
-     */
-    public function find_signal(SIG $signal)
-    {
-        $index = $signal->get_index();
-        if (isset($this->_storage[$index])) {
-            return $this->_storage[$index];
+        if (XPSPL_JUDY_SUPPORT) {
+            $this->_storage->free();
+        } else {
+            unset($this->_storage);
+            $this->_storage = [];
         }
-        return null;
     }
-
-    /**
-     * Registers a signal in the database with the given queue.
-     *
-     * @param  object  $signal \XPSPL\SIG
-     * @param  object  $queue  \XPSPL\Queue
-     *
-     * @return  void
-     */
-    public function register_signal(SIG $signal, Queue $queue)
-    {
-        $index = $signal->get_index();
-        $this->_storage[$index] = [$signal, $queue];
-    }
-}
 }
