@@ -14,4 +14,4 @@ namespace XPSPL\exception;
  *
  * This is generated immediately after php_declare(import).
  */
-class Module_Load_Failure extends Exception {}
+class Module_Load_Failure extends \Exception {}

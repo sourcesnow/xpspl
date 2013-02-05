@@ -25,10 +25,13 @@ class Library extends Database {
      * 
      * @return  void
      */
-    public function load($name, $dir = XPSPL_MODULE_DIR) 
+    public function load($name, $dir = null) 
     {
         // already loaded
         if (isset($this->_storage[$name])) return;
+        if ($dir === null) {
+            $dir = XPSPL_MODULE_DIR;
+        }
         if (!is_dir($dir)) {
             throw new Module_Load_Failure(sprintf(
                 "Module directory %s does not exist", $dir

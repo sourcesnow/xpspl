@@ -45,7 +45,7 @@ if (!defined('XPSPL_MODULE_DIR')) {
      *
      * By default it is set to the ``module`` directory in XPSPL.
      */
-    define('XPSPL_MODULE_DIR', XPSPL_PATH . '/module');
+    define('XPSPL_MODULE_DIR', XPSPL_PATH . '/modules');
 }
 
 if (!defined('PROCESS_DEFAULT_EXHAUST')) {
@@ -91,6 +91,11 @@ if (!defined('XPSPL_ANALYZE_TIME')) {
      */
     define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
 }
+
+/**
+ * XPSPL Log
+ */
+define('XPSPL_LOG', 0);
 
 // define time instructions
 define('TIME_SECONDS', 1);

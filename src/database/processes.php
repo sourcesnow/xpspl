@@ -55,38 +55,38 @@ class Processes extends \XPSPL\Database {
      */
     public function install(\XPSPL\Process $process)
     {
-        if (XPSPL_DEBUG) {
-            logger(XPSPL_LOG)->debug('Entering process install');
-        }
-        echo PHP_EOL."ENTER".PHP_EOL;
+        $process = clone $process;
         $priority = $process->get_priority();
-        var_dump($priority).PHP_EOL;
-        var_dump($this->_storage).PHP_EOL;
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Entering process install priority %s',
+                $priority
+            ));
+        }
         if (isset($this->_storage[$priority])) {
-            echo "SETTING".PHP_EOL;
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_DEBUG)->debug(
+                    "Entering matrix"
+                );
+            }
             if ($this->_storage[$priority] instanceof $this) {
-                echo "a".PHP_EOL;
+                var_dump($this->_storage[$priority]);
                 $process->set_priority(
                     $this->_storage[$priority]->end()->get_priority() + 1
                 );
-                $this->_storage[$priority]->enqueue($process);
+                $this->_storage[$priority]->install($process);
             } else {
-                var_dump(spl_object_hash($this)).PHP_EOL;
+                if (XPSPL_DEBUG) {
+                    logger(XPSPL_LOG)->debug(spl_object_hash($this));
+                }
                 $this->_storage[$priority]->set_priority(0);
-                $process->set_priority(1);
                 $db = new Processes();
-                $db->enqueue(
-                    $this->_storage[$priority]
-                );
-                $db->enqueue($process);
-                var_dump($db).PHP_EOL;
-                exit;
+                $db->install($this->_storage[$priority]);
                 unset($this->_storage[$priority]);
-                var_dump($this->_storage[$priority]);
                 $this->_storage[$priority] = $db;
+                $this->install($process);
             }
         } else {
-            // echo "SETTING";
             $this->_storage[$priority] = $process;
         }
     }

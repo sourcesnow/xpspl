@@ -320,11 +320,6 @@ class Processor {
                 $this->{$_db} = new Database();
             }
         }
-        if (is_object($this->_routine)){
-            $this->_routine->reset();
-        } else {
-            $this->_routine = new Routine();
-        }
         if (false !== $this->_history){
             $this->_history = [];
         }

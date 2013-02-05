@@ -145,7 +145,9 @@ class Process {
         if (null !== $priority && !is_int($priority)) {
             return;
         }
-        echo "SET P " . $priority;
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug("Setting priority $priority");
+        }
         $this->_priority = $priority;
     }
 }

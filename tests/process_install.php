@@ -1,11 +1,21 @@
 <?php
-
+date_default_timezone_set('America/New_York');
 $database = new \XPSPL\database\Processes();
-$process_1 = high_priority(function(){});
-$database->enqueue($process_1);
-$database->enqueue($process_1);
-$database->enqueue($process_1);
-$database->enqueue($process_1);
-$database->enqueue($process_1);
-$database->enqueue($process_1);
+$process_1 = new \XPSPL\Process(function(){});
+$process_2 = high_priority(function(){});
+$database->install($process_1);
+$database->install($process_1);
+$database->install($process_1);
+$database->install($process_1);
+$database->install($process_1);
+$database->install($process_1);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
+$database->install($process_2);
 var_dump($database);
