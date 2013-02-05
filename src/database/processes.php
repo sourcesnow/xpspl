@@ -70,7 +70,6 @@ class Processes extends \XPSPL\Database {
                 );
             }
             if ($this->_storage[$priority] instanceof $this) {
-                var_dump($this->_storage[$priority]);
                 $process->set_priority(
                     $this->_storage[$priority]->end()->get_priority() + 1
                 );

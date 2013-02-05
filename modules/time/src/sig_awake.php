@@ -66,7 +66,7 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
      * 
      * @return  boolean
      */
-    public function routine($routine = null)
+    public function routine(\XPSPL\Routine $routine = null)
     {
         if ($this->_idle->has_time_passed()) {
             $routine->add_signal($this);

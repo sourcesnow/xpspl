@@ -45,7 +45,7 @@ class Process {
      * 
      * @return  void
      */
-    public function __construct(callable $callable, $exhaust = PROCESS_DEFAULT_EXHAUST, $priority = PROCESS_DEFAULT_PRIORITY)
+    public function __construct($callable, $exhaust = PROCESS_DEFAULT_EXHAUST, $priority = PROCESS_DEFAULT_PRIORITY)
     {
         // set exhaust rate
         $this->set_exhaust($exhaust);

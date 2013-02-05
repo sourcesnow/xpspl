@@ -40,5 +40,11 @@ class Library extends Database {
         $path = $dir.'/'.$name;
         $this->_storage[$name] = true;
         require_once $path.'/__init__.php';
+        if (!defined(strtoupper(sprintf('%s_version', $name)))) {
+            throw new \RuntimeException(sprintf(
+                'Module %s does not specify a version',
+                $name
+            ));
+        }
     }
 }

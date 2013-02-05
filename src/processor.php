@@ -6,7 +6,11 @@ namespace XPSPL;
  * that can be found in the LICENSE file.
  */
 
-use \XPSPL\processor\exception as exceptions;
+import('logger');
+import('time');
+
+use \XPSPL\processor\exception as exceptions,
+    \XPSPL\database\Signals as Signals;
 
 /**
  * Processor
@@ -92,12 +96,23 @@ class Processor {
     private $_signal = [];
 
     /**
+     * The routine
+     */
+    private $_routine = null;
+
+    /**
      * Starts the processor.
      *
      * @return  void
      */
     public function __construct()
     {
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Starting XPSPL Judy Support %s',
+                (XPSPL_JUDY_SUPPORT) ? 'true' : 'false'
+            ));
+        }
         $this->set_state(STATE_DECLARED);
         $this->flush(); 
     }
@@ -129,6 +144,9 @@ class Processor {
             $sig_awake->analysis = microseconds();
             $sig_awake->count = 0;
         } else {
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug('HERE');
+            }
             if (0 === ($sig_awake - microseconds()) >> 10) {
                 if ($sig_awake->count > 5) {
                     $this->shutdown();
@@ -155,13 +173,16 @@ class Processor {
          * with an intelligent time based analysis.
          */
         $this->emit(new processor\SIG_Startup());
-        if (class_exists('time\\SIG_Awake', true)) {
-            $this->signal(
-                new \time\SIG_Awake(35, TIME_MICROSECONDS), 
-                new Process([$this, 'analyze_runtime'], null, 0)
-            );
-        }
+        $this->signal(
+            new \time\SIG_Awake(35, TIME_MICROSECONDS), 
+            new Process([$this, 'analyze_runtime'], null, 0)
+        );
         routine:
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Entering Wait Loop'
+            ));
+        }
         if ($this->_routine()) {
             $signals = $this->_routine->get_signals();
             if (count($signals) !== 0) {
@@ -176,11 +197,12 @@ class Processor {
             }
             goto routine;
         }
+        var_dump($this);
         $this->emit(new processor\SIG_Shutdown());
     }
 
     /**
-     * Runs the complex signal routine for the processor loop.
+     * Runs the signal routine for the processor loop.
      *
      * @todo unittest
      * 
@@ -189,7 +211,14 @@ class Processor {
     private function _routine()
     {
         // allow for external shutdown signal before running anything
-        if ($this->get_state() === STATE_HALTED) return false;
+        if ($this->get_state() === STATE_HALTED) {
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(sprintf(
+                    'Halting processor due to halt state'
+                ));
+            }
+            return false;
+        }
         // run the routines
         foreach ($this->_sig_routine->storage() as $_routine) {
             $_routine[0]->routine($this->_routine);
@@ -200,13 +229,28 @@ class Processor {
             // it still leaves the possibility for triggering exhausted signals
             foreach ($this->_routine->get_signals() as $_signal) {
                 if (false === $this->has_signal_exhausted($_signal[0])) {
+                    if (XPSPL_DEBUG) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Emittable signal detected'
+                        ));
+                    }
                     return true;
                 }
             }
         }
         // Check idle
         if (null !== $this->_routine->get_idle()) {
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(sprintf(
+                    'Idle function detected'
+                ));
+            }
             return true;
+        }
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'No activity found halting'
+            ));
         }
         return false;
     }
@@ -300,28 +344,31 @@ class Processor {
         foreach ($database as $_db) {
             if (is_object($this->{$_db})) {
                 if (XPSPL_DEBUG) {
-                    import('unittest');
-                    \unittest\Output::send(sprintf(
-                        '%s - Flush'.PHP_EOL.
-                        '%i - Mem Start'.PHP_EOL,
-                        $_db,
-                        $this->{$_db}->storage()->memoryUsage()
-                    ));
+                    if (XPSPL_JUDY_SUPPORT) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Memory Before Flush: %s',
+                            $this->{$_db}->storage()->memoryUsage()
+                        ));
+                    }
                 }
                 $this->{$_db}->free();
                 if (XPSPL_DEBUG) {
-                    import('unittest');
-                    \unittest\Output::send(sprintf(
-                        '%i - Mem Finish'.PHP_EOL,
-                        $this->{$_db}->storage()->memoryUsage()
-                    ));
+                    if (XPSPL_JUDY_SUPPORT) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Memory After Flush : %s',
+                            $this->{$_db}->storage()->memoryUsage()
+                        ));
+                    }
                 }
             } else {
-                $this->{$_db} = new Database();
+                $this->{$_db} = new Signals();
             }
         }
         if (false !== $this->_history){
             $this->_history = [];
+        }
+        if (null === $this->_routine) {
+            $this->_routine = new Routine();
         }
     }
 
@@ -360,11 +407,11 @@ class Processor {
         }
         $memory = $this->find_signal($signal);
         if (null === $memory) {
-            $queue = $this->register_signal($signal);
+            $db = $this->register_signal($signal);
         } else {
-            $queue = $memory[1];
+            $db = $memory[1];
         }
-        $queue->enqueue($process, $process->get_priority());
+        $db->install($process, $process->get_priority());
         return $process;
     }
 
@@ -373,17 +420,17 @@ class Processor {
      *
      * @param  string|integer|object  $signal  Signal
      *
-     * @return  boolean|object  false|XPSPL\Queue
+     * @return  boolean|object  false|XPSPL\database\Processes
      */
     public function register_signal(SIG $signal)
     {
         if (!$signal instanceof SIG) {
             $signal = new SIG($signal);
         }
-        $queue = new \XPSPL\database\Queue();
-        $db = $this->get_database($signal);
-        $db->register_signal($signal, $queue);
-        return $queue;
+        $db = new \XPSPL\database\Processes();
+        $sig_db = $this->get_database($signal);
+        $sig_db->register_signal($signal, $db);
+        return $db;
     }
 
     /**

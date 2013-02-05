@@ -5,6 +5,8 @@
  * that can be found in the LICENSE file.
  */
 
+function _(){}
+
 /**
  * Registers a signal in the processor.
  * 

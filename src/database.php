@@ -49,4 +49,20 @@ class Database {
             $this->_storage = [];
         }
     }
+
+    /**
+     * Access the last node in the database.
+     * 
+     * @return  Node at end of database
+     */
+    public function end(/* ... */)
+    {
+        if (XPSPL_JUDY_SUPPORT) {
+            return $this->_storage[
+                $this->_storage->byCount($this->_storage->count())
+            ];
+        } else {
+            return end($this->_storage);
+        }
+    }
 }
