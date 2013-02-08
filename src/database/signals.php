@@ -28,9 +28,8 @@ class Signals extends \XPSPL\Database {
      */
     public function find_signal(\XPSPL\SIG $signal)
     {
-        $index = $signal->get_index();
-        if (isset($this->_storage[$index])) {
-            return $this->_storage[$index];
+        if ($this->offsetExists($signal->get_index())) {
+            return $this->offsetGet($signal->get_index());
         }
         return null;
     }

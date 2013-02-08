@@ -11,9 +11,9 @@ namespace unittest;
  * 
  * The assertions class stores all assertions which can be called.
  */
-class Assertions {
+class Assertions extends \XPSPL\Storage {
 
-    use \XPSPL\Storage, \XPSPL\Singleton;
+    use \XPSPL\Singleton;
 
     /**
      * Adds a new assertion function.

@@ -156,13 +156,6 @@ class SIG {
     protected $_index = null;
 
     /**
-     * Result of the signal.
-     * 
-     * @var  mixed
-     */
-    protected $_result = null;
-
-    /**
      * Parent signal.
      * 
      * @var  object
@@ -203,26 +196,6 @@ class SIG {
     public function get_index(/* ... */) 
     {
         return $this->_index;
-    }
-
-    /**
-     * Sets the result of the signal.
-     * 
-     * @param  mixed  $result
-     */
-    public function set_result($result)
-    {
-        $this->_result = $result;
-    }
-
-    /**
-     * Returns the result of the signal.
-     * 
-     * @return  mixed
-     */
-    public function get_result(/* ... */)
-    {
-        return $this->_result;
     }
 
     /**

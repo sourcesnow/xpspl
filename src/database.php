@@ -21,9 +21,7 @@ use \Judy;
  * To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support 
  * will be used if Judy is installed and enabled on the PHP installation.
  */
-class Database {
-
-    use Storage;
+class Database extends Storage {
     
     /**
      * Constructs a new Database.

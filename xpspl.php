@@ -9,7 +9,7 @@
 define('XPSPL_VERSION', '4.0.0');
 
 // The creator
-define('XPSPL_MASTERMIND', 'Nickolas Whiting');
+define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
 
 // Add this to include path
 if (!defined('XPSPL_PATH')) {

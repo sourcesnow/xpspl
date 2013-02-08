@@ -9,7 +9,7 @@ $usage =
               <file>
 Options:
   -c/--config   Load the giving file for configuration
-  -d            Debug Mode
+  -d            XPSPL Debug Mode
   -h/--help     Show this help message.
   -j/--judy     Enable judy support
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
@@ -82,13 +82,11 @@ foreach ($options as $_i => $_arg) {
             break;
         case 'd':
             define('XPSPL_DEBUG', true);
+            define('LOGGER_BLOCK', true);
             break;
         case 'test':
         case 'test-cover':
             $unittest = true;
-            if (!defined('XPSPL_DEBUG')) {
-                define('XPSPL_DEBUG', true);
-            }
             if ($_i === 'test-cover') {
                 define('GENERATE_CODE_COVERAGE', true);
             }

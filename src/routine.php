@@ -58,7 +58,7 @@ final class Routine {
     }
 
     /**
-     * Returns the objects createed to idle the processor.
+     * Returns the objects created to idle the processor.
      *
      * @return  integer
      */
@@ -114,9 +114,9 @@ final class Routine {
      *
      * @return  array
      */
-    public function add_signal($signal, $context = null)
+    public function add_signal($signal)
     {
-        return $this->_signals[] = [$signal, $context];
+        return $this->_signals[] = $signal;
     }
 
     /**

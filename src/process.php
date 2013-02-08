@@ -45,7 +45,7 @@ class Process {
      * 
      * @return  void
      */
-    public function __construct($callable, $exhaust = PROCESS_DEFAULT_EXHAUST, $priority = PROCESS_DEFAULT_PRIORITY)
+    public function __construct($callable, $exhaust = XPSPL_PROCESS_DEFAULT_EXHAUST, $priority = XPSPL_PROCESS_DEFAULT_PRIORITY)
     {
         // set exhaust rate
         $this->set_exhaust($exhaust);
@@ -144,9 +144,6 @@ class Process {
         # Invalid or negative exhausting sets the rate to 1.
         if (null !== $priority && !is_int($priority)) {
             return;
-        }
-        if (XPSPL_DEBUG) {
-            logger(XPSPL_LOG)->debug("Setting priority $priority");
         }
         $this->_priority = $priority;
     }

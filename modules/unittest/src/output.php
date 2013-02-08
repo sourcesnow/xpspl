@@ -31,7 +31,7 @@ if (!defined('SHORT_VARS')) {
  * Level of verbosity for output
  */
 if (!defined('VERBOSITY_LEVEL')) {
-    define('VERBOSITY_LEVEL', 1);
+    define('VERBOSITY_LEVEL', 2);
 }
 
 /**

@@ -32,9 +32,7 @@ function create_assertion($function, $name, $message = null) {
  * @return  array  [Process, Signal]
  */
 function test($function, $name = null) {
-    $signal = new SIG_Test($name);
-    $process = signal($signal, $function);
-    return $signal;
+    return signal(new SIG_Test($name), $function);
 }
 
 /**
@@ -62,11 +60,17 @@ function generate_output() {
 
     // Startup
     on_start(function(){
+        if (XPSPL_DEBUG){
+            logger(XPSPL_LOG)->debug('Unittest begin');
+        }
         define('UNITTEST_START_TIME', milliseconds());
     });
 
     // Shutdown
     on_shutdown(function(){
+        if (XPSPL_DEBUG){
+            logger(XPSPL_LOG)->debug('Unittest end');
+        }
         define('UNITTEST_END_TIME', milliseconds());
         $tests = 0;
         $pass = 0;

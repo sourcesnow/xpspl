@@ -48,7 +48,7 @@ if (!defined('XPSPL_MODULE_DIR')) {
     define('XPSPL_MODULE_DIR', XPSPL_PATH . '/modules');
 }
 
-if (!defined('PROCESS_DEFAULT_EXHAUST')) {
+if (!defined('XPSPL_PROCESS_DEFAULT_EXHAUST')) {
     /**
      * Default process exhaustion
      *
@@ -56,10 +56,10 @@ if (!defined('PROCESS_DEFAULT_EXHAUST')) {
      *
      * By default it is ``1``.
      */
-    define('PROCESS_DEFAULT_EXHAUST', 1);
+    define('XPSPL_PROCESS_DEFAULT_EXHAUST', 1);
 }
 
-if (!defined('PROCESS_DEFAULT_PRIORITY')) {
+if (!defined('XPSPL_PROCESS_DEFAULT_PRIORITY')) {
     /**
      * Process default priority
      * 
@@ -67,7 +67,7 @@ if (!defined('PROCESS_DEFAULT_PRIORITY')) {
      *
      * By default it is ``10``.
      */
-    define('PROCESS_DEFAULT_PRIORITY', 10);
+    define('XPSPL_PROCESS_DEFAULT_PRIORITY', 10);
 }
 
 if (!defined('XPSPL_JUDY_SUPPORT')) {

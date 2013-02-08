@@ -18,13 +18,14 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
  * This allows for unit testing using signals.
  * 
  * Testing is performed as:
+ *
+ * import('unittest');
  * 
- * XPSPL\unit_test\api\test(function(){
- *     $this->true(true);
- *     $this->false(false);
- *     $this->null(null);
- *     etc ...
- * });
+ * unittest\test(function($test){
+ *     $test->true(true);
+ *     $test->false(false);
+ *     $test->null(null);
+ * }, 'Test Name');
  */
 class SIG_Test extends \XPSPL\SIG_Routine {
 
@@ -46,6 +47,11 @@ class SIG_Test extends \XPSPL\SIG_Routine {
     protected $_failed = false;
 
     /**
+     * If the test has been run.
+     */
+    protected $_run = false;
+
+    /**
      * The test name.
      *
      * @var  string
@@ -59,10 +65,10 @@ class SIG_Test extends \XPSPL\SIG_Routine {
      * 
      * @return  void
      */
-    public function __construct($name = null, $suite = false)
+    public function __construct($name = null)
     {
-        $this->_suite = $suite;
         $this->_index = 'test-'.$name.'-';
+        $this->name = $name;
         parent::__construct();
     }
 
@@ -147,7 +153,8 @@ class SIG_Test extends \XPSPL\SIG_Routine {
      */
     public function routine(\XPSPL\Routine $routine)
     {
-        if (!$this->_suite) {
+        if (!$this->_run) {
+            $this->_run = true;
             $routine->add_signal($this);
         }
     }

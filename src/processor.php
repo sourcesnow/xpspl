@@ -10,7 +10,8 @@ import('logger');
 import('time');
 
 use \XPSPL\processor\exception as exceptions,
-    \XPSPL\database\Signals as Signals;
+    \XPSPL\database\Signals,
+    \XPSPL\database\Processes;
 
 /**
  * Processor
@@ -145,7 +146,7 @@ class Processor {
             $sig_awake->count = 0;
         } else {
             if (XPSPL_DEBUG) {
-                logger(XPSPL_LOG)->debug('HERE');
+                logger(XPSPL_LOG)->debug('Analyzing runtime');
             }
             if (0 === ($sig_awake - microseconds()) >> 10) {
                 if ($sig_awake->count > 5) {
@@ -172,32 +173,29 @@ class Processor {
          * The original method found in the loop has been replaced
          * with an intelligent time based analysis.
          */
-        $this->emit(new processor\SIG_Startup());
-        $this->signal(
-            new \time\SIG_Awake(35, TIME_MICROSECONDS), 
-            new Process([$this, 'analyze_runtime'], null, 0)
-        );
+        // $this->emit(new processor\SIG_Startup());
+        // $this->signal(
+        //     new \time\SIG_Awake(35, TIME_MICROSECONDS), 
+        //     new Process([$this, 'analyze_runtime'], null, 0)
+        // );
         routine:
-        if (XPSPL_DEBUG) {
-            logger(XPSPL_LOG)->debug(sprintf(
-                'Entering Wait Loop'
-            ));
-        }
+        // if (XPSPL_DEBUG) {
+        //     logger(XPSPL_LOG)->debug(sprintf(
+        //         'Entering Wait Loop'
+        //     ));
+        // }
         if ($this->_routine()) {
-            $signals = $this->_routine->get_signals();
-            if (count($signals) !== 0) {
-                foreach ($signals as $_signal) {
-                    $this->emit($_signal[0], $_signal[1]);
+            if (count($this->_routine->get_signals()) !== 0) {
+                foreach ($this->_routine->get_signals() as $_signal) {
+                    $this->emit($_signal);
                 }
             }
-            $idle = $this->_routine->get_idle();
             // check for idle function
-            if (null !== $idle) {
-                $idle->idle($this);
+            if (null !== $this->_routine->get_idle()) {
+                $this->_routine->get_idle()->idle($this);
             }
             goto routine;
         }
-        var_dump($this);
         $this->emit(new processor\SIG_Shutdown());
     }
 
@@ -220,7 +218,7 @@ class Processor {
             return false;
         }
         // run the routines
-        foreach ($this->_sig_routine->storage() as $_routine) {
+        foreach ($this->_sig_routine as $_routine) {
             $_routine[0]->routine($this->_routine);
         }
         // Check signals
@@ -228,10 +226,11 @@ class Processor {
             // This checks only for one possible signal that has not exhausted
             // it still leaves the possibility for triggering exhausted signals
             foreach ($this->_routine->get_signals() as $_signal) {
-                if (false === $this->has_signal_exhausted($_signal[0])) {
+                if (false === $this->has_signal_exhausted($_signal)) {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
-                            'Emittable signal detected'
+                            '%s emittable signal detected',
+                            spl_object_hash($_signal)
                         ));
                     }
                     return true;
@@ -242,7 +241,8 @@ class Processor {
         if (null !== $this->_routine->get_idle()) {
             if (XPSPL_DEBUG) {
                 logger(XPSPL_LOG)->debug(sprintf(
-                    'Idle function detected'
+                    '%s idle function detected', 
+                    spl_object_hash($this->_routine->get_idle())
                 ));
             }
             return true;
@@ -276,11 +276,11 @@ class Processor {
      */
     public function has_signal_exhausted(SIG $signal)
     {
-        $memory = $this->find_signal_database($signal);
-        if (null === $memory || $memory[1]->count() === 0) {
+        $db = $this->find_signal_database($signal);
+        if (null === $db || $db->count() === 0) {
             return true;
         }
-        return true === $this->are_processes_exhausted($memory[1]);
+        return true === $this->are_processes_exhausted($db);
     }
 
     /**
@@ -452,7 +452,7 @@ class Processor {
     }
 
     /**
-     * Finds an installed signals process database.
+     * Finds an installed signals processes database.
      *
      * @param  object  $signal  SIG
      * 
@@ -481,7 +481,7 @@ class Processor {
             return null;
         }
         $signals = [];
-        foreach ($this->_sig_complex->storage() as $_node) {
+        foreach ($this->_sig_complex as $_node) {
             $eval = $_node[0]->evaluate($signal);
             if (false !== $eval) {
                 $signals[] = $_node[1];
@@ -496,16 +496,12 @@ class Processor {
     /**
      * Emits a signal.
      *
-     * @param  mixed  $signal  Signal instance or signal.
-     * @param  object|null  $context  Context to execute
+     * @param  object  $signal  \XPSPL\SIG
      *
      * @return  object  Event
      */
-    public function emit(SIG $signal, $context = null)
+    public function emit(SIG $signal)
     {
-        if (!$signal instanceof SIG) {
-            $signal = new SIG($signal);
-        }
         // Store the history of the signal
         if (false !== $this->_history) {
             $this->_history[] = [$signal, microtime()];
@@ -521,55 +517,38 @@ class Processor {
         }
         // Set as currently emitted signal
         $this->_signal[] = $signal;
-        // The queues to execute and later purge
-        $dbs = [$memory];
-        // evaluate complex signals
+        // evaluate
         $evaluated = $this->evaluate_signals($signal);
         if (null !== $evaluated) {
-            $dbs = array_merge($queues, $evaluated);
-        }
-        // run the execution
-        $db = new \XPSPL\database\Processes();
-        foreach ($dbs as $_db) {
-            $db->merge($_db->storage());
-        }
-        $this->_execute((null === $context) ? $signal : $context, $queue);
-        // purge exhausted processs
-        if (XPSPL_PURGE_EXHAUSTED) {
-            foreach ($queues as $_queue) {
-                foreach ($_queue->storage() as $_node) {
-                    if ($_node[0]->is_exhausted()) {
-                        $_queue->dequeue($_node[0]);
-                    }
-                }
+            foreach ($evaluated as $_db) {
+                $memory->merge($_db);
             }
         }
+        $this->_execute($signal, $memory);
         // Remove the last signal
         array_pop($this->_signal);
         return $signal;
     }
 
     /**
-     * Executes a queue.
+     * Executes a database of processes.
      * 
-     * This will monitor the event status and break on a HALT or ERROR state.
-     * 
-     * Executes interruption functions before and after queue execution.
+     * This will monitor the signal status and break on a HALT or ERROR state.
      *
-     * @param  object  $signal  Signal instance.
-     * @param  object  $queue  Queue instance.
+     * @param  object  $signal  \XPSPL\SIG
+     * @param  object  $db  \XPSPL\database\Processes
      * @param  boolean  $interupt  Run the interrupt functions.
      *
      * @return  void
      */
-    private function _execute(SIG $signal, Queue $queue, $interrupt = true)
+    private function _execute(SIG $signal, Processes $db, $interrupt = true)
     {
         // process pre interupt functions
         if ($interrupt) {
             $this->_interrupt($signal, self::INTERRUPT_PRE);
         }
-        // execute the Queue
-        $this->_queue_execute($queue, $signal);
+        // execute the processes database
+        $this->_processes_execute($signal, $db);
         // process interupt functions
         if ($interrupt) {
             $this->_interrupt($signal, self::INTERRUPT_POST);
@@ -577,63 +556,68 @@ class Processor {
     }
 
     /**
-     * Executes a queue.
+     * Executes a processes database.
      *
-     * If XPSPL_EXHAUSTION_PURGE is true processs will be purged once they 
+     * If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they 
      * reach exhaustion.
      *
-     * @param  object  $queue  XPSPL\Queue
-     * @param  object  $signal  XPSPL\Signal
+     * @param  object  $db  XPSPL\Queue
+     * @param  object  $db  \XPSPL\database\Processes
      *
      * @return  void
      */
-    private function _queue_execute(Queue $queue, SIG $signal)
+    private function _processes_execute(SIG $signal, Processes $db)
     {
-        // execute sig processs
-        $queue->sort();
-        reset($queue->storage());
-        $result = null;
-        foreach ($queue->storage() as $_node) {
-            $_process = $_node[0];
+        $db->reset();
+        foreach ($db as $_process) {
             # Always check state first
             if ($signal->get_state() === STATE_HALTED) {
                 break;
             }
-            # test for exhaustion
-            if ($_process->is_exhausted()) {
-                continue;
-            }
-            $_process->decrement_exhaust();
-            $result = $this->_process_exec(
-                $_process->get_function(),
-                $signal
-            );
-            if (false === $result) {
-                $signal->halt();
-                break;
+            # n+1 constant
+            if ($_process instanceof Processes) {
+                $this->_processes_execute($signal, $_process);
+            } else {
+                if ($_process->is_exhausted()) {
+                    continue;
+                }
+                $_process->decrement_exhaust();
+                if ($_process->is_exhausted()) {
+                    if (XPSPL_PURGE_EXHAUSTED) {
+                        $db->delete($_process);
+                    }
+                }
+                if (false === $this->_process_exec(
+                    $signal,
+                    $_process->get_function()
+                )) {
+                    $signal->halt();
+                    break;
+                }
             }
         }
-        $signal->set_result($result);
     }
 
     /**
      * Executes a callable processor function.
      *
-     * @param  callable  $function  Function to execute
-     * @param  object  $signal  Signal context to execute within
+     * This currently uses a hand built method in PHP ... really this 
+     * should be done in C within the core ... but call_user_* is slow ...
+     *
+     * @param  object  $signal  \XPSPL\SIG
+     * @param  mixed  $function  Callable variable
      * 
      * @return  boolean
      */
-    private function _process_exec(Process $function, SIG $signal)
+    private function _process_exec(SIG $signal, $function = null)
     {
         if (is_array($function)) {
             if (count($function) >= 2) {
                 if (is_object($function[0])) {
-                    $class = $function[0];
+                    return $function[0]->$function[1]($signal);
                 } else {
-                    $class = new $function[0];
+                    return (new $function[0])->$function[1]($signal);
                 }
-                return $class->$function[1]($signal);
             }
             return $function[0]($signal);
         }
@@ -762,12 +746,13 @@ class Processor {
      */
     private function _interrupt(SIG $signal, $interrupt = null)
     {
-        $database = $this->_get_int_database($interrupt);
-        $memory = $database->find_signal_database($signal);
-        if (null === $memory) {
+        $db = $this->_get_int_database($interrupt)->find_processes_database(
+            $signal
+        );
+        if (null === $db) {
             return;
         }
-        $this->_queue_execute($memory[1], $signal);
+        $this->_execute($signal, $db);
     }
 
     /**
@@ -783,6 +768,7 @@ class Processor {
      */
     public function clean($history = false)
     {
+        throw new \Exception('Not Implemented');
         $storages = [
             self::SIG_STORAGE, self::COMPLEX_STORAGE, self::INTERRUPT_STORAGE
         ];

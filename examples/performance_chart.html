@@ -5,31 +5,27 @@
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart(){
-    var ProcessesInstalled = [["Time in us", "Processes Installed"]];
-ProcessesInstalled.push([0.00011920928955078, 2]);
-ProcessesInstalled.push([0.00011491775512695, 4]);
-ProcessesInstalled.push([0.00031614303588867, 8]);
-ProcessesInstalled.push([0.00049996376037598, 16]);
-ProcessesInstalled.push([0.0009300708770752, 32]);
-ProcessesInstalled.push([0.0019299983978271, 64]);
-ProcessesInstalled.push([0.0038268566131592, 128]);
-ProcessesInstalled.push([0.0076630115509033, 256]);
-ProcessesInstalled.push([0.016026973724365, 512]);
-ProcessesInstalled.push([0.043665170669556, 1024]);
-ProcessesInstalled.push([0.061379194259644, 2048]);
-ProcessesInstalled.push([0.13727307319641, 4096]);
-ProcessesInstalled.push([0.29030990600586, 8192]);
-ProcessesInstalled.push([0.62397885322571, 16384]);
-ProcessesInstalled.push([1.1396598815918, 32768]);
-ProcessesInstalled.push([2.3718481063843, 65536]);
-ProcessesInstalled.push([4.6448910236359, 131072]);
-ProcessesInstalled.push([10.075897932053, 262144]);
-var ProcessesInstalled_graph = google.visualization.arrayToDataTable(ProcessesInstalled);
-var ProcessesInstalled_chart = new google.visualization.LineChart(document.getElementById("ProcessesInstalled"));
-ProcessesInstalled_chart.draw(ProcessesInstalled_graph, {title: "Processes Installed"});
+    var SignalsEmitted = [["Time in us", "Signals Emitted"]];
+SignalsEmitted.push([2.0980834960938E-5, 2]);
+SignalsEmitted.push([2.9802322387695E-5, 4]);
+SignalsEmitted.push([5.793571472168E-5, 8]);
+SignalsEmitted.push([0.00011014938354492, 16]);
+SignalsEmitted.push([0.00021696090698242, 32]);
+SignalsEmitted.push([0.00043606758117676, 64]);
+SignalsEmitted.push([0.00086092948913574, 128]);
+SignalsEmitted.push([0.0017712116241455, 256]);
+SignalsEmitted.push([0.0034301280975342, 512]);
+SignalsEmitted.push([0.0068650245666504, 1024]);
+SignalsEmitted.push([0.013852119445801, 2048]);
+SignalsEmitted.push([0.027618885040283, 4096]);
+SignalsEmitted.push([0.054884910583496, 8192]);
+SignalsEmitted.push([0.1105420589447, 16384]);
+var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
+var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
+SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Signals Emitted"});
     }
     </script>
   </head>
   <body>
-    <div id="ProcessesInstalled" style="width: 450px; height: 250px; float:left;"></div>  </body>
+    <div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div>  </body>
 </html>
