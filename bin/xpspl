@@ -11,7 +11,7 @@ Options:
   -c/--config   Load the giving file for configuration
   -d            Debug Mode
   -h/--help     Show this help message.
-  -j/--judy     Disable judy support
+  -j/--judy     Enable judy support
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
   --test-cover  Run unit tests and generate code coverage.
@@ -55,7 +55,7 @@ foreach ($options as $_i => $_arg) {
     switch ($_i) {
         case 'j':
         case 'judy':
-            define('XPSPL_JUDY_SUPPORT', false);
+            define('XPSPL_JUDY_SUPPORT', true);
             break;
         case 'p':
         case 'passthru':
@@ -119,7 +119,6 @@ if (isset($showversion)) {
 }
 
 if (isset($unittest)) {
-    import('unittest');
     require XPSPL_PATH.'/tests/run.php';
 }
 

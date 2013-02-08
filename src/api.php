@@ -5,14 +5,12 @@
  * that can be found in the LICENSE file.
  */
 
-function _(){}
-
 /**
  * Registers a signal in the processor.
  * 
  * @param  string|integer|object  $signal  Signal
  *
- * @return  object  Queue
+ * @return  object  Database
  */
 function register_signal($signal)
 {

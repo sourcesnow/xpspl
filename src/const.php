@@ -59,7 +59,7 @@ if (!defined('PROCESS_DEFAULT_EXHAUST')) {
     define('PROCESS_DEFAULT_EXHAUST', 1);
 }
 
-if (!defined('QUEUE_DEFAULT_PRIORITY')) {
+if (!defined('PROCESS_DEFAULT_PRIORITY')) {
     /**
      * Process default priority
      * 
@@ -77,8 +77,11 @@ if (!defined('XPSPL_JUDY_SUPPORT')) {
      * http://xpspl.prggmr.org/en/xspel/install.html#optional
      *
      * Currently this is experimental as an attempt to improve performance.
+     *
+     * Once stable this will automatically be enabled if Judy is detected.
      */
-    define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
+    define('XPSPL_JUDY_SUPPORT', false);
+    //define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
 }
 
 if (!defined('XPSPL_ANALYZE_TIME')) {

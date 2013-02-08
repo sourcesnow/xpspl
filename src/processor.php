@@ -270,38 +270,40 @@ class Processor {
     /**
      * Determines if the given signal has exhausted.
      * 
-     * @param  string|integer|object  $queue
+     * @param  object  $signal  \XPSPL\SIG
      * 
      * @return  boolean
      */
     public function has_signal_exhausted(SIG $signal)
     {
-        $memory = $this->find_signal($signal);
+        $memory = $this->find_signal_database($signal);
         if (null === $memory || $memory[1]->count() === 0) {
             return true;
         }
-        return true === $this->queue_exhausted($memory[1]);
+        return true === $this->are_processes_exhausted($memory[1]);
     }
 
     /**
-     * Determine if all queue processs are exhausted.
+     * Determine if the given database processes are exhausted.
      *
-     * @param  object  $queue  \XPSPL\database\Queue
+     * @param  object  $queue  \XPSPL\database\Processes
      * 
      * @return  boolean
      */
-    public function queue_exhausted($queue)
+    public function are_processes_exhausted(\XPSPL\database\Processes $database)
     {
-        if ($queue->count() === 0) {
+        if ($database->count() === 0) {
             return true;
         }
-        $queue->reset();
-        while($queue->valid()) {
-            // if a non exhausted process is found return false
-            if (!$queue->current()[0]->is_exhausted()) {
+        $database->reset();
+        while($database->valid()) {
+            if ($database->current() instanceof \XPSPL\database\Processes &&
+                !$this->are_processes_exhausted($database->current())) {
+                return false;
+            } elseif (!$database->current()->is_exhausted()) {
                 return false;
             }
-            $queue->next();
+            $database->next();
         }
         return true;
     }
@@ -312,15 +314,15 @@ class Processor {
      * @param  mixed  $signal  Signal instance or signal.
      * @param  mixed  $process  Process instance or identifier.
      * 
-     * @return  void
+     * @return  boolean
      */
-    public function remove_process($signal, $process)
+    public function remove_process(SIG $signal, Process $process)
     {
-        $queue = $this->find_signal($signal);
-        if (null === $queue) {
-            return;
+        $database = $this->find_signal_database($signal);
+        if (null === $database) {
+            return false;
         }
-        return $queue->dequeue($process);
+        return $database[1]->delete($process);
     }
 
     /**
@@ -343,13 +345,11 @@ class Processor {
         ];
         foreach ($database as $_db) {
             if (is_object($this->{$_db})) {
-                if (XPSPL_DEBUG) {
-                    if (XPSPL_JUDY_SUPPORT) {
-                        logger(XPSPL_LOG)->debug(sprintf(
-                            'Memory Before Flush: %s',
-                            $this->{$_db}->storage()->memoryUsage()
-                        ));
-                    }
+                if (XPSPL_JUDY_SUPPORT) {
+                    logger(XPSPL_LOG)->debug(sprintf(
+                        'Memory Before Flush: %s',
+                        $this->{$_db}->storage()->memoryUsage()
+                    ));
                 }
                 $this->{$_db}->free();
                 if (XPSPL_DEBUG) {
@@ -405,11 +405,9 @@ class Processor {
         if (!$process instanceof Process) {
             $process = new Process($process);
         }
-        $memory = $this->find_signal($signal);
-        if (null === $memory) {
+        $db = $this->find_signal_database($signal);
+        if (null === $db) {
             $db = $this->register_signal($signal);
-        } else {
-            $db = $memory[1];
         }
         $db->install($process, $process->get_priority());
         return $process;
@@ -454,19 +452,20 @@ class Processor {
     }
 
     /**
-     * Finds an installed signal.
+     * Finds an installed signals process database.
      *
      * @param  object  $signal  SIG
      * 
-     * @return  object  \XPSPL\Queue
+     * @return  null|object  \XPSPL\database\Signals
      */
-    private function find_signal(SIG $signal)
+    private function find_signal_database(SIG $signal)
     {
         $db = $this->get_database($signal);
-        $memory = $db->find_signal($signal);
+        $memory = $db->find_processes_database($signal);
         if (null !== $memory) {
             return $memory;
         }
+        return null;
     }
 
     /**
@@ -516,23 +515,23 @@ class Processor {
             $signal->set_parent($this->current_signal());
         }
         // Check if signal is installed
-        $memory = $this->find_signal($signal);
+        $memory = $this->find_signal_database($signal);
         if (null === $memory) {
             return $signal;
         }
         // Set as currently emitted signal
         $this->_signal[] = $signal;
         // The queues to execute and later purge
-        $queues = [$memory[1]];
+        $dbs = [$memory];
         // evaluate complex signals
         $evaluated = $this->evaluate_signals($signal);
         if (null !== $evaluated) {
-            $queues = array_merge($queues, $evaluated);
+            $dbs = array_merge($queues, $evaluated);
         }
         // run the execution
-        $queue = new Queue();
-        foreach ($queues as $_queue) {
-            $queue->merge($_queue->storage());
+        $db = new \XPSPL\database\Processes();
+        foreach ($dbs as $_db) {
+            $db->merge($_db->storage());
         }
         $this->_execute((null === $context) ? $signal : $context, $queue);
         // purge exhausted processs
@@ -716,7 +715,7 @@ class Processor {
         if (!$process instanceof Process) {
             $process = new Process($process);
         }
-        $memory = $this->find_signal($signal);
+        $memory = $this->find_signal_database($signal);
         if (null === $signal) {
             throw new exceptions\Unregistered_Signal(sprintf(
                 'Signal %s must be registered before installing interruptions',
@@ -724,14 +723,12 @@ class Processor {
             ));
         }
         $database = $this->_get_int_database($interrupt);
-        $memory = $database->find_signal($signal);
+        $db = $database->find_processes_database($signal);
         if (null === $memory) {
-            $queue = new Queue();
-            $database->register_signal($signal, $queue);
-        } else {
-            $queue = $memory[1];
+            $db = new \XPSPL\database\Processes();
+            $database->register_signal($signal, $db);
         }
-        $queue->enqueue($process);
+        $db->install($process);
         return true;
     }
 
@@ -766,7 +763,7 @@ class Processor {
     private function _interrupt(SIG $signal, $interrupt = null)
     {
         $database = $this->_get_int_database($interrupt);
-        $memory = $database->find_signal($signal);
+        $memory = $database->find_signal_database($signal);
         if (null === $memory) {
             return;
         }

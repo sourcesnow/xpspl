@@ -39,7 +39,7 @@ class Signals extends \XPSPL\Database {
      * Registers a signal in the database with the given processes database.
      *
      * @param  object  $signal \XPSPL\SIG
-     * @param  object  $queue  \XPSPL\database\Processes
+     * @param  object  $database  \XPSPL\database\Processes
      *
      * @return  void
      */
@@ -47,5 +47,21 @@ class Signals extends \XPSPL\Database {
     {
         $index = $signal->get_index();
         $this->_storage[$index] = [$signal, $database];
+    }
+
+    /**
+     * Finds and returns the given signals processes database.
+     *
+     * @param  object  $signal  \XPSPL\Sig
+     *
+     * @return  null|object  Processes
+     */
+    public function find_processes_database(\XPSPL\SIG $signal)
+    {
+        $find = $this->find_signal($signal);
+        if (null === $find) {
+            return null;
+        }
+        return $find[1];
     }
 }

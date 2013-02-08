@@ -5,6 +5,8 @@
  * that can be found in the LICENSE file.
  */
 
+date_default_timezone_set('America/New_York');
+
 import("unittest");
 
 // load the standard unittest output

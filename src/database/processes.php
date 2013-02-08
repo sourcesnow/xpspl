@@ -57,27 +57,13 @@ class Processes extends \XPSPL\Database {
     {
         $process = clone $process;
         $priority = $process->get_priority();
-        if (XPSPL_DEBUG) {
-            logger(XPSPL_LOG)->debug(sprintf(
-                'Entering process install priority %s',
-                $priority
-            ));
-        }
         if (isset($this->_storage[$priority])) {
-            if (XPSPL_DEBUG) {
-                logger(XPSPL_DEBUG)->debug(
-                    "Entering matrix"
-                );
-            }
             if ($this->_storage[$priority] instanceof $this) {
                 $process->set_priority(
                     $this->_storage[$priority]->end()->get_priority() + 1
                 );
                 $this->_storage[$priority]->install($process);
             } else {
-                if (XPSPL_DEBUG) {
-                    logger(XPSPL_LOG)->debug(spl_object_hash($this));
-                }
                 $this->_storage[$priority]->set_priority(0);
                 $db = new Processes();
                 $db->install($this->_storage[$priority]);
@@ -107,7 +93,7 @@ class Processes extends \XPSPL\Database {
         reset($this->_storage);
         foreach ($this->_storage as $_key => $_node) {
             if ($_node instanceof Processes) {
-                if ($_node->dequeue($process)) {
+                if ($_node->delete($process)) {
                     return true;
                 }
             } else {
@@ -118,5 +104,29 @@ class Processes extends \XPSPL\Database {
             }
         }
         return false;
+    }
+
+    /**
+     * Merges another Processes database into the current.
+     *
+     * @param  object  $processes  Processes
+     *
+     * @return  void
+     */
+    public function merge($array)
+    {
+        if (!$array instanceof Processes) {
+            throw new \InvalidArgumentException;
+        }
+        foreach ($array->storage() as $_priority => $_process) {
+            if ($_process instanceof Processes) {
+                foreach ($_process->storage() as $_sub_process) {
+                    $_sub_process->set_priority($_priority);
+                    $this->install($_sub_process);
+                }
+            } else {
+                $this->install($_process);
+            }
+        }
     }
 }
