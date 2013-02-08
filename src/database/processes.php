@@ -67,22 +67,18 @@ class Processes extends \XPSPL\Database {
             if ($this->offsetGet($priority) instanceof Processes) {
                 if (XPSPL_DEBUG) {
                     logger(XPSPL_LOG)->debug(sprintf(
-                        '%s sub-database fifo',
-                        spl_object_hash($this->offsetGet($priority))
-                    ));
-                    logger(XPSPL_LOG)->debug(sprintf(
-                        '%s last node',
+                        '%s sub-database root',
                         spl_object_hash($this->offsetGet($priority))
                     ));
                     logger(XPSPL_LOG)->debug(sprintf(
                         '%s next priority',
-                        $this->offsetGet($priority)->end()->get_priority()
+                        $this->offsetGet($priority)->end()->get_priority() + 1
                     ));
                 }
                 $process->set_priority(
                     $this->offsetGet($priority)->end()->get_priority() + 1
                 );
-                $this->_storage[$priority]->install($process);
+                $this->offsetGet($priority)->install($process);
             } else {
                 if (XPSPL_DEBUG) {
                     logger(XPSPL_LOG)->debug(sprintf(
@@ -90,17 +86,17 @@ class Processes extends \XPSPL\Database {
                         spl_object_hash($this->offsetGet($priority))
                     ));
                 }
-                $this->_storage[$priority]->set_priority(0);
+                $this->offsetGet($priority)->set_priority(1);
                 $db = new Processes();
-                $db->install($this->_storage[$priority]);
-                unset($this->_storage[$priority]);
-                $this->_storage[$priority] = $db;
+                $db->install($this->offsetGet($priority));
+                $this->offsetUnset($priority);
+                $this->offsetSet($priority, $db);
                 $this->install($process);
             }
         } else {
             if (XPSPL_DEBUG) {
                 logger(XPSPL_LOG)->debug(sprintf(
-                    '%s installation',
+                    '%s process installed',
                     spl_object_hash($process)
                 ));
             }

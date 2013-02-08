@@ -1,4 +1,4 @@
-.. process.php generated using docpx on 01/31/13 10:43pm
+.. process.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\Process
@@ -14,7 +14,7 @@ Methods
 __construct
 +++++++++++
 
-.. function:: __construct($callable, [$exhaust = 1, [$priority = false]])
+.. function:: __construct($callable, [$exhaust = 1, [$priority = 10]])
 
 
     Constructs a new process object.
@@ -116,4 +116,4 @@ set_priority
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

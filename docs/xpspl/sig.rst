@@ -1,4 +1,4 @@
-.. sig.php generated using docpx on 01/31/13 10:43pm
+.. sig.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\SIG
@@ -50,30 +50,6 @@ get_index
     Returns the signal index.
 
     :rtype: boolean 
-
-
-
-set_result
-++++++++++
-
-.. function:: set_result($result)
-
-
-    Sets the result of the signal.
-
-    :param mixed: 
-
-
-
-get_result
-++++++++++
-
-.. function:: get_result()
-
-
-    Returns the result of the signal.
-
-    :rtype: mixed 
 
 
 
@@ -185,4 +161,4 @@ __unset
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

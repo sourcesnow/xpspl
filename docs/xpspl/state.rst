@@ -1,4 +1,4 @@
-.. state.php generated using docpx on 01/31/13 10:43pm
+.. state.php generated using docpx on 02/08/13 05:30pm
 
 
 Trait - XPSPL\\State
@@ -81,4 +81,4 @@ STATE_HALTED
 The object has declared to stop any further execution.
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

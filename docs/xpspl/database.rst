@@ -1,4 +1,4 @@
-.. database.php generated using docpx on 01/31/13 10:43pm
+.. database.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\Database
@@ -6,11 +6,7 @@ Class - XPSPL\\Database
 
 Database
 
-A signal database.
-
-All signals are stored in a database by their index.
-
-Each signal stored has a copy of the signal and it's queue.
+A database is a storage mechanism for arbirtary data.
 
 Methods
 -------
@@ -27,37 +23,6 @@ __construct
 
 
 
-find_signal
-+++++++++++
-
-.. function:: find_signal($signal)
-
-
-    Finds the signal in the database.
-    
-    Returns null if the signal does not exit.
-
-    :param object: 
-
-    :rtype: object 
-
-
-
-register_signal
-+++++++++++++++
-
-.. function:: register_signal($signal, $queue)
-
-
-    Registers a signal in the database with the given queue.
-
-    :param object: \XPSPL\SIG
-    :param object: \XPSPL\Queue
-
-    :rtype: void 
-
-
-
 free
 ++++
 
@@ -68,42 +33,17 @@ free
 
 
 
-Class - XPSPL\\Database
-***********************
+end
++++
 
-Methods
--------
-
-find_signal
-+++++++++++
-
-.. function:: find_signal($signal)
+.. function:: end()
 
 
-    Finds the signal in the database.
-    
-    Returns null if the signal does not exit.
+    Access the last node in the database.
 
-    :param object: 
-
-    :rtype: object 
-
-
-
-register_signal
-+++++++++++++++
-
-.. function:: register_signal($signal, $queue)
-
-
-    Registers a signal in the database with the given queue.
-
-    :param object: \XPSPL\SIG
-    :param object: \XPSPL\Queue
-
-    :rtype: void 
+    :rtype: Node at end of database
 
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

@@ -1,26 +1,9 @@
-.. api.php generated using docpx on 01/31/13 10:43pm
-
-
-Function - signal_history
-*************************
-
-signal_history
-==============
-
-.. function:: signal_history()
-
-
-    Returns the signal history.
-
-    :rtype: array 
-
+.. api.php generated using docpx on 02/08/13 05:30pm
 
 
 Function - register_signal
 **************************
 
-register_signal
-===============
 
 .. function:: register_signal($signal)
 
@@ -29,15 +12,13 @@ register_signal
 
     :param string|integer|object: Signal
 
-    :rtype: object Queue
+    :rtype: object Database
 
 
 
 Function - search_signals
 *************************
 
-search_signals
-==============
 
 .. function:: search_signals($signal, [$index = false])
 
@@ -55,8 +36,6 @@ search_signals
 Function - wait_loop
 ********************
 
-wait_loop
-=========
 
 .. function:: wait_loop()
 
@@ -70,8 +49,6 @@ wait_loop
 Function - shutdown
 *******************
 
-shutdown
-========
 
 .. function:: shutdown()
 
@@ -85,8 +62,6 @@ shutdown
 Function - import
 *****************
 
-import
-======
 
 .. function:: import($name, [$dir = false])
 
@@ -103,8 +78,6 @@ import
 Function - before
 *****************
 
-before
-======
 
 .. function:: before($signal, $process)
 
@@ -122,8 +95,6 @@ before
 Function - after
 ****************
 
-after
-=====
 
 .. function:: after($signal, $process)
 
@@ -141,8 +112,6 @@ after
 Function - XPSPL
 ****************
 
-XPSPL
-=====
 
 .. function:: XPSPL()
 
@@ -156,8 +125,6 @@ XPSPL
 Function - clean
 ****************
 
-clean
-=====
 
 .. function:: clean([$history = false])
 
@@ -173,8 +140,6 @@ clean
 Function - delete_signal
 ************************
 
-delete_signal
-=============
 
 .. function:: delete_signal($signal, [$history = false])
 
@@ -191,8 +156,6 @@ delete_signal
 Function - erase_signal_history
 *******************************
 
-erase_signal_history
-====================
 
 .. function:: erase_signal_history($signal)
 
@@ -208,8 +171,6 @@ erase_signal_history
 Function - disable_signaled_exceptions
 **************************************
 
-disable_signaled_exceptions
-===========================
 
 .. function:: disable_signaled_exceptions([$history = false])
 
@@ -225,8 +186,6 @@ disable_signaled_exceptions
 Function - erase_history
 ************************
 
-erase_history
-=============
 
 .. function:: erase_history()
 
@@ -240,8 +199,6 @@ erase_history
 Function - set_signal_history
 *****************************
 
-set_signal_history
-==================
 
 .. function:: set_signal_history($flag)
 
@@ -257,8 +214,6 @@ set_signal_history
 Function - listen
 *****************
 
-listen
-======
 
 .. function:: listen($listener)
 
@@ -274,8 +229,6 @@ listen
 Function - dir_include
 **********************
 
-dir_include
-===========
 
 .. function:: dir_include($dir, [$listen = false, [$path = false]])
 
@@ -295,8 +248,6 @@ dir_include
 Function - current_signal
 *************************
 
-current_signal
-==============
 
 .. function:: current_signal([$offset = false])
 
@@ -312,8 +263,6 @@ current_signal
 Function - current_event
 ************************
 
-current_event
-=============
 
 .. function:: current_event([$offset = false])
 
@@ -329,8 +278,6 @@ current_event
 Function - on_shutdown
 **********************
 
-on_shutdown
-===========
 
 .. function:: on_shutdown($function)
 
@@ -346,8 +293,6 @@ on_shutdown
 Function - on_start
 *******************
 
-on_start
-========
 
 .. function:: on_start($function)
 
@@ -363,8 +308,6 @@ on_start
 Function - XPSPL_flush
 **********************
 
-XPSPL_flush
-===========
 
 .. function:: XPSPL_flush()
 
@@ -376,4 +319,4 @@ XPSPL_flush
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

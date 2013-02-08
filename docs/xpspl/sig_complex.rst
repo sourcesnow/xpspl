@@ -1,4 +1,4 @@
-.. sig_complex.php generated using docpx on 01/31/13 10:43pm
+.. sig_complex.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\SIG_Complex
@@ -24,4 +24,4 @@ evaluate
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

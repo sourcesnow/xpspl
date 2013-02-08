@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart(){
+    var SignalsEmitted = [["Time in us", "Signals Emitted"]];
+SignalsEmitted.push([2, 8.1062316894531E-6]);
+SignalsEmitted.push([4, 1.5020370483398E-5]);
+SignalsEmitted.push([8, 3.6001205444336E-5]);
+SignalsEmitted.push([16, 7.5101852416992E-5]);
+SignalsEmitted.push([32, 0.00012707710266113]);
+SignalsEmitted.push([64, 0.00021004676818848]);
+SignalsEmitted.push([128, 0.00042080879211426]);
+SignalsEmitted.push([256, 0.00084877014160156]);
+SignalsEmitted.push([512, 0.0018479824066162]);
+SignalsEmitted.push([1024, 0.0044100284576416]);
+var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
+var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
+SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Time taken (us)"});
+    }
+    </script>
+  </head>
+  <body>
+    <div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div>  </body>
+</html>

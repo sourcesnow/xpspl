@@ -1,4 +1,4 @@
-.. processor.php generated using docpx on 01/31/13 10:43pm
+.. processor.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\Processor
@@ -69,7 +69,7 @@ _routine
 .. function:: _routine()
 
 
-    Runs the complex signal routine for the processor loop.
+    Runs the signal routine for the processor loop.
 
 
     :rtype: boolean|array 
@@ -97,21 +97,21 @@ has_signal_exhausted
 
     Determines if the given signal has exhausted.
 
-    :param string|integer|object: 
+    :param object: \XPSPL\SIG
 
     :rtype: boolean 
 
 
 
-queue_exhausted
-+++++++++++++++
+are_processes_exhausted
++++++++++++++++++++++++
 
-.. function:: queue_exhausted($queue)
+.. function:: are_processes_exhausted($database)
 
 
-    Determine if all queue processs are exhausted.
+    Determine if the given database processes are exhausted.
 
-    :param object: \XPSPL\Queue
+    :param object: \XPSPL\database\Processes
 
     :rtype: boolean 
 
@@ -128,7 +128,7 @@ remove_process
     :param mixed: Signal instance or signal.
     :param mixed: Process instance or identifier.
 
-    :rtype: void 
+    :rtype: boolean 
 
 
 
@@ -188,7 +188,7 @@ register_signal
 
     :param string|integer|object: Signal
 
-    :rtype: boolean|object false|XPSPL\Queue
+    :rtype: boolean|object false|XPSPL\database\Processes
 
 
 
@@ -206,17 +206,17 @@ get_database
 
 
 
-find_signal
-+++++++++++
+find_signal_database
+++++++++++++++++++++
 
-.. function:: find_signal($signal)
+.. function:: find_signal_database($signal)
 
 
-    Finds an installed signal.
+    Finds an installed signals processes database.
 
     :param object: SIG
 
-    :rtype: object Queue
+    :rtype: null|object \XPSPL\database\Signals
 
 
 
@@ -237,13 +237,12 @@ evaluate_signals
 emit
 ++++
 
-.. function:: emit($signal, [$context = false])
+.. function:: emit($signal)
 
 
     Emits a signal.
 
-    :param mixed: Signal instance or signal.
-    :param object|null: Context to execute
+    :param object: \XPSPL\SIG
 
     :rtype: object Event
 
@@ -252,36 +251,34 @@ emit
 _execute
 ++++++++
 
-.. function:: _execute($signal, $queue, [$interrupt = true])
+.. function:: _execute($signal, $db, [$interrupt = true])
 
 
-    Executes a queue.
+    Executes a database of processes.
     
-    This will monitor the event status and break on a HALT or ERROR state.
-    
-    Executes interruption functions before and after queue execution.
+    This will monitor the signal status and break on a HALT or ERROR state.
 
-    :param object: Signal instance.
-    :param object: Queue instance.
+    :param object: \XPSPL\SIG
+    :param object: \XPSPL\database\Processes
     :param boolean: Run the interrupt functions.
 
     :rtype: void 
 
 
 
-_queue_execute
-++++++++++++++
+_processes_execute
+++++++++++++++++++
 
-.. function:: _queue_execute($queue, $signal)
+.. function:: _processes_execute($signal, $db)
 
 
-    Executes a queue.
+    Executes a processes database.
     
-    If XPSPL_EXHAUSTION_PURGE is true processs will be purged once they 
+    If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they 
     reach exhaustion.
 
     :param object: XPSPL\Queue
-    :param object: XPSPL\Signal
+    :param object: \XPSPL\database\Processes
 
     :rtype: void 
 
@@ -290,13 +287,16 @@ _queue_execute
 _process_exec
 +++++++++++++
 
-.. function:: _process_exec($function, $signal)
+.. function:: _process_exec($signal, [$function = false])
 
 
     Executes a callable processor function.
+    
+    This currently uses a hand built method in PHP ... really this 
+    should be done in C within the core ... but call_user_* is slow ...
 
-    :param callable: Function to execute
-    :param object: Signal context to execute within
+    :param object: \XPSPL\SIG
+    :param mixed: Callable variable
 
     :rtype: boolean 
 
@@ -496,4 +496,4 @@ INTERRUPT_POST
 Interruption after emittion
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

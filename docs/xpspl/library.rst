@@ -1,4 +1,4 @@
-.. library.php generated using docpx on 01/31/13 10:43pm
+.. library.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\Library
@@ -22,9 +22,9 @@ load
     :param string: Module name.
     :param string|null: Location of the module.
 
-    :rtype: boolean 
+    :rtype: void 
 
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

@@ -1,11 +1,9 @@
-.. utils.php generated using docpx on 01/31/13 10:43pm
+.. utils.php generated using docpx on 02/08/13 05:30pm
 
 
 Function - milliseconds
 ***********************
 
-milliseconds
-============
 
 .. function:: milliseconds()
 
@@ -19,8 +17,6 @@ milliseconds
 Function - microseconds
 ***********************
 
-microseconds
-============
 
 .. function:: microseconds()
 
@@ -34,8 +30,6 @@ microseconds
 Function - signal_exceptions
 ****************************
 
-signal_exceptions
-=================
 
 .. function:: signal_exceptions($exception)
 
@@ -53,8 +47,6 @@ signal_exceptions
 Function - signal_errors
 ************************
 
-signal_errors
-=============
 
 .. function:: signal_errors($errno, $errstr, $errfile, $errline)
 
@@ -75,8 +67,6 @@ signal_errors
 Function - bin_search
 *********************
 
-bin_search
-==========
 
 .. function:: bin_search($needle, $haystack, [$compare = false])
 
@@ -100,8 +90,6 @@ bin_search
 Function - get_class_name
 *************************
 
-get_class_name
-==============
 
 .. function:: get_class_name([$object = false])
 
@@ -119,8 +107,6 @@ get_class_name
 Function - backtrace
 ********************
 
-backtrace
-=========
 
 .. function:: backtrace([$args = false])
 
@@ -139,4 +125,4 @@ XPSPL_AUTOLOADER
 Autoloader
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

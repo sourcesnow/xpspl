@@ -1,8 +1,8 @@
-.. processor/exception/module_load_failure.php generated using docpx on 01/31/13 10:43pm
+.. exception/module_load_failure.php generated using docpx on 02/08/13 05:30pm
 
 
-Class - XPSPL\\processor\\exception\\Module_Load_Failure
-********************************************************
+Class - XPSPL\\exception\\Module_Load_Failure
+*********************************************
 
 Module load failure
 
@@ -11,4 +11,4 @@ An attempted module load failed.
 This is generated immediately after php_declare(import).
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

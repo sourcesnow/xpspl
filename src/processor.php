@@ -179,11 +179,11 @@ class Processor {
         //     new Process([$this, 'analyze_runtime'], null, 0)
         // );
         routine:
-        // if (XPSPL_DEBUG) {
-        //     logger(XPSPL_LOG)->debug(sprintf(
-        //         'Entering Wait Loop'
-        //     ));
-        // }
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Entering Wait Loop'
+            ));
+        }
         if ($this->_routine()) {
             if (count($this->_routine->get_signals()) !== 0) {
                 foreach ($this->_routine->get_signals() as $_signal) {

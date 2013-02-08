@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 14);) {
+        for($a=1;$a<(1 << 10);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {
@@ -131,5 +131,5 @@ ob_start();
 include dirname(realpath(__FILE__)).'/performance/chart.php';
 $data = ob_get_contents();
 ob_end_clean();
-file_put_contents('performance_chart.html', $data);
+file_put_contents('performance_chart_another.html', $data);
 echo "Performance chart in performance_chart.html".PHP_EOL;

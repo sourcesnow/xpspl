@@ -1,4 +1,4 @@
-.. const.php generated using docpx on 01/31/13 10:43pm
+.. const.php generated using docpx on 02/08/13 05:30pm
 
 
 Constants
@@ -35,21 +35,31 @@ Directory to look for modules.
 
 By default it is set to the ``module`` directory in XPSPL.
 
-PROCESS_DEFAULT_EXHAUST
-+++++++++++++++++++++++
+XPSPL_PROCESS_DEFAULT_EXHAUST
++++++++++++++++++++++++++++++
 Default process exhaustion
 
 Integer option defining the default exhausting of a process.
 
 By default it is ``1``.
 
-PROCESS_DEFAULT_PRIORITY
-++++++++++++++++++++++++
+XPSPL_PROCESS_DEFAULT_PRIORITY
+++++++++++++++++++++++++++++++
 Process default priority
 
 Integer option defining the default priority of all processes.
 
 By default it is ``10``.
+
+XPSPL_JUDY_SUPPORT
+++++++++++++++++++
+Judy is an optional database configuration.
+
+http://xpspl.prggmr.org/en/xspel/install.html#optional
+
+Currently this is experimental as an attempt to improve performance.
+
+Once stable this will automatically be enabled if Judy is detected.
 
 XPSPL_JUDY_SUPPORT
 ++++++++++++++++++
@@ -59,10 +69,10 @@ For more information see http://php.net/manual/en/book.judy.php
 
 Currently this is experimental as an attempt to improve performance.
 
-WINDOWS
-+++++++
-WINDOWS
-+++++++
+XPSPL_LOG
++++++++++
+XPSPL Log
+
 TIME_SECONDS
 ++++++++++++
 TIME_MILLISECONDS
@@ -70,4 +80,4 @@ TIME_MILLISECONDS
 TIME_MICROSECONDS
 +++++++++++++++++
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

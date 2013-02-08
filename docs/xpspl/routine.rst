@@ -1,4 +1,4 @@
-.. routine.php generated using docpx on 01/31/13 10:43pm
+.. routine.php generated using docpx on 02/08/13 05:30pm
 
 
 Class - XPSPL\\Routine
@@ -51,7 +51,7 @@ get_idles_available
 .. function:: get_idles_available()
 
 
-    Returns the objects createed to idle the processor.
+    Returns the objects created to idle the processor.
 
     :rtype: integer 
 
@@ -74,7 +74,7 @@ add_idle
 add_signal
 ++++++++++
 
-.. function:: add_signal($signal, [$context = false])
+.. function:: add_signal($signal)
 
 
     Adds a signal to trigger in the loop.
@@ -96,4 +96,4 @@ reset
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

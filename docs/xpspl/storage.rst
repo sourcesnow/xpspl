@@ -1,10 +1,10 @@
-.. storage.php generated using docpx on 01/31/13 10:43pm
+.. storage.php generated using docpx on 02/08/13 05:30pm
 
 
-Trait - XPSPL\\Storage
+Class - XPSPL\\Storage
 **********************
 
-Storage trait.
+Storage.
 
 The Storage trait is designed to allow objects to act as a storage, the
 trait only provides an interface to the normal PHP functions used for
@@ -31,7 +31,7 @@ storage
 merge
 +++++
 
-.. function:: merge()
+.. function:: merge($array)
 
 
     Merge an array with the current storage.
@@ -43,7 +43,7 @@ merge
 walk
 ++++
 
-.. function:: walk()
+.. function:: walk($func)
 
 
     Apply the given function to every node in storage.
@@ -133,16 +133,51 @@ sort
 usort
 +++++
 
-.. function:: usort()
+.. function:: usort($cmp)
 
 
 
 uasort
 ++++++
 
-.. function:: uasort()
+.. function:: uasort($cmp)
+
+
+
+offsetExists
+++++++++++++
+
+.. function:: offsetExists($offset)
+
+
+
+offsetSet
++++++++++
+
+.. function:: offsetSet($offset, $value)
+
+
+
+offsetGet
++++++++++
+
+.. function:: offsetGet($offset)
+
+
+
+offsetUnset
++++++++++++
+
+.. function:: offsetUnset($offset)
+
+
+
+rewind
+++++++
+
+.. function:: rewind()
 
 
 
 
-Last updated on 01/31/13 10:43pm
+Last updated on 02/08/13 05:30pm

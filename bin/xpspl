@@ -117,7 +117,7 @@ if (isset($showversion)) {
 }
 
 if (isset($unittest)) {
-    require XPSPL_PATH.'/tests/run.php';
+    require XPSPL_PATH.'/tests/all.php';
 }
 
 if (false !== $runfile) {

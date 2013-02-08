@@ -8,7 +8,7 @@ function push_to_array($array1, $js_array) {
         }
         $average = round(count($_result) / $time, 5);
         echo sprintf('%s.push([%s, %s]);'.PHP_EOL,
-          $js_array, $_time, $_num
+          $js_array, $_num, $_time
         );
     }
 }
@@ -29,7 +29,7 @@ function makeChart($name, $data) {
     );
     echo sprintf(
         '%s_chart.draw(%s_graph, {title: "%s"});'.PHP_EOL,
-        $js_array, $js_array, $name
+        $js_array, $js_array, 'Time taken (us)'
     );
 }
 ?>
