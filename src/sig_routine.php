@@ -25,7 +25,7 @@ use \XPSPL\processor\exception\Not_Implemented;
  * SIG_Routines are designed for signals that will need to idle the processor 
  * to wait for emitting in the future.
  */
-class SIG_Routine extends SIG {
+abstract class SIG_Routine extends SIG {
 
     protected $_unique = true;
 
@@ -39,8 +39,5 @@ class SIG_Routine extends SIG {
      * 
      * @return  void
      */
-    public function routine(Routine $routine) {
-        throw new Not_Implemented();
-    }
-
+    abstract public function routine(Routine $routine);
 }

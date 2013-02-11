@@ -65,34 +65,6 @@ function import($name, $dir = null)
 }
 
 /**
- * Registers a function to interrupt the signal stack before a signal fires,
- * allowing for manipulation of the event before it is passed to processs.
- *
- * @param  string|object  $signal  Signal instance or class name
- * @param  object  $process  Process to execute
- * 
- * @return  boolean  True|False false is failure
- */
-function before($signal, $process)
-{
-    return XPSPL::instance()->before($signal, $process);
-}
-
-/**
- * Registers a function to interrupt the signal stack after a signal fires.
- * allowing for manipulation of the event after it is passed to processs.
- *
- * @param  string|object  $signal  Signal instance or class name
- * @param  object  $process  Process to execute
- * 
- * @return  boolean  True|False false is failure
- */
-function after($signal, $process)
-{
-    return XPSPL::instance()->after($signal, $process);
-}
-
-/**
  * Returns the XPSPL processor.
  * 
  * @return  object  XPSPL\Processor

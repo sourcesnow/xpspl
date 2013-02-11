@@ -5,11 +5,18 @@
  * that can be found in the LICENSE file.
  */
 
+require_once dirname(realpath(__FILE__)).'/../__init__.php';
+
 import('unittest');
 
 /**
  * Emit Unitest
  */
 unittest\test(function($test){
-    $test->equal('a', 'a');
+    $foo = SIG('foo');
+    signal($foo, function($foo){
+        $foo->foo = 'foo';
+    });
+    emit($foo);
+    $test->equal($foo->foo, 'foo');
 });

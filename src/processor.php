@@ -21,7 +21,7 @@ use \XPSPL\processor\exception as exceptions,
  * @since v0.3.0 
  * 
  * The loop is now run in respect to the currently available processes,
- * this prevents the processor from running contionusly forever when there is not
+ * this prevents the processor from running continuously forever when there is not
  * anything that it needs to do.
  *
  * To achieve this the processor uses routines.
@@ -173,7 +173,7 @@ class Processor {
          * The original method found in the loop has been replaced
          * with an intelligent time based analysis.
          */
-        // $this->emit(new processor\SIG_Startup());
+        $this->emit(new processor\SIG_Startup());
         // $this->signal(
         //     new \time\SIG_Awake(35, TIME_MICROSECONDS), 
         //     new Process([$this, 'analyze_runtime'], null, 0)
@@ -297,9 +297,10 @@ class Processor {
         }
         $database->reset();
         while($database->valid()) {
-            if ($database->current() instanceof \XPSPL\database\Processes &&
-                !$this->are_processes_exhausted($database->current())) {
-                return false;
+            if ($database->current() instanceof \XPSPL\database\Processes) {
+                if (!$this->are_processes_exhausted($database->current())) {
+                    return false;
+                }
             } elseif (!$database->current()->is_exhausted()) {
                 return false;
             }
@@ -316,7 +317,7 @@ class Processor {
      * 
      * @return  boolean
      */
-    public function remove_process(SIG $signal, Process $process)
+    public function delete_process(SIG $signal, Process $process)
     {
         $database = $this->find_signal_database($signal);
         if (null === $database) {
@@ -348,7 +349,7 @@ class Processor {
                 if (XPSPL_JUDY_SUPPORT) {
                     logger(XPSPL_LOG)->debug(sprintf(
                         'Memory Before Flush: %s',
-                        $this->{$_db}->storage()->memoryUsage()
+                        $this->{$_db}->get_storage()->memoryUsage()
                     ));
                 }
                 $this->{$_db}->free();
@@ -356,7 +357,7 @@ class Processor {
                     if (XPSPL_JUDY_SUPPORT) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             'Memory After Flush : %s',
-                            $this->{$_db}->storage()->memoryUsage()
+                            $this->{$_db}->get_storage()->memoryUsage()
                         ));
                     }
                 }
@@ -458,7 +459,7 @@ class Processor {
      * 
      * @return  null|object  \XPSPL\database\Signals
      */
-    private function find_signal_database(SIG $signal)
+    public function find_signal_database(SIG $signal)
     {
         $db = $this->get_database($signal);
         $memory = $db->find_processes_database($signal);
@@ -502,6 +503,12 @@ class Processor {
      */
     public function emit(SIG $signal)
     {
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                '%s emitted',
+                $signal
+            ));
+        }
         // Store the history of the signal
         if (false !== $this->_history) {
             $this->_history[] = [$signal, microtime()];
@@ -561,7 +568,7 @@ class Processor {
      * If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they 
      * reach exhaustion.
      *
-     * @param  object  $db  XPSPL\Queue
+     * @param  object  $sig \XPSPL\SIG
      * @param  object  $db  \XPSPL\database\Processes
      *
      * @return  void
@@ -621,17 +628,13 @@ class Processor {
             }
             return $function[0]($signal);
         }
-        if ($function === null) {
-            throw new exceptions\Invalid_Process(sprintf(
-                'Signal (%s) encountered a null process during execution',
-                $signal->get_index()
-            ));
-        }
         return $function($signal);
     }
     
     /**
      * Returns the signal history.
+     *
+     * @todo Make this a database.
      * 
      * @return  array
      */
@@ -661,7 +664,7 @@ class Processor {
      * 
      * @return  boolean  True|False false is failure
      */
-    public function before($signal, $process)
+    public function before(SIG $signal, Process $process)
     {
         return $this->_signal_interrupt($signal, $process, Processor::INTERRUPT_PRE);
     }
@@ -669,14 +672,12 @@ class Processor {
     /**
      * Registers a function to interrupt the signal stack after a signal emits.
      * 
-     * This allows for analysis of a signal after execution in processes.
-     *
      * @param  string|object  $signal  Signal instance or class name
      * @param  object  $process  Process to execute
      * 
      * @return  boolean  True|False false is failure
      */
-    public function after($signal, $process)
+    public function after(SIG $signal, Process $process)
     {
         return $this->_signal_interrupt($signal, $process, Processor::INTERRUPT_POST);
     }
@@ -691,8 +692,14 @@ class Processor {
      * 
      * @return  boolean  True|False false is failure
      */
-    protected function _signal_interrupt($signal, $process, $interrupt = null) 
+    protected function _signal_interrupt(SIG $signal, Process $process, $interrupt = null) 
     {
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                '%s %d interrupt installed',
+                $signal, $interrupt
+            ));
+        }
         if (!$signal instanceof SIG) {
             $sig = new SIG($signal);
         }
@@ -752,7 +759,13 @@ class Processor {
         if (null === $db) {
             return;
         }
-        $this->_execute($signal, $db);
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                '%s %d interruption processes executing',
+                $signal, $interrupt
+            ));
+        }
+        $this->_execute($signal, $db, false);
     }
 
     /**

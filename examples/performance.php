@@ -15,10 +15,10 @@ class Lst extends \XPSPL\Listener {
 $output = unittest\Output::instance();
 
 $tests = [
-    // 'Processes Installed' =>
-    // function($i){
-    //     signal($i, function(){}); 
-    // },
+    'Processes Installed' =>
+    function($i){
+        signal($i, function(){}); 
+    },
     'Signals Emitted' => 
     function($i){
         emit($i);
@@ -102,9 +102,10 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 10);) {
+        for($a=1;$a<(1 << 18);) {
             $a = $a << 1;
             $tc = $a;
+            echo $a.PHP_EOL;
             if ($a === 1) {
                 $setup = true;
             } else {

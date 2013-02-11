@@ -9,7 +9,14 @@ require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
 import('unittest');
 
+/**
+ * Emit Unitest
+ */
 unittest\test(function($test){
-    $process = low_priority(null);
-    $test->equal(PHP_INT_MAX, $process->get_priority());
+    $foo = SIG('foo');
+    $process = process(null);
+    signal($foo, $process);
+    delete_process($foo, $process);
+    emit($foo);
+    $test->equal($foo->foo, 'foo');
 });

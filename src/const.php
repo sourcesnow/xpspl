@@ -86,6 +86,8 @@ if (!defined('XPSPL_JUDY_SUPPORT')) {
 
 if (!defined('XPSPL_ANALYZE_TIME')) {
     /**
+     * **Experimental**
+     * 
      * Judy is an array implementation.
      *
      * For more information see http://php.net/manual/en/book.judy.php
@@ -97,10 +99,59 @@ if (!defined('XPSPL_ANALYZE_TIME')) {
 
 /**
  * XPSPL Log
+ *
+ * Logger identifier for XPSPL's log.
  */
 define('XPSPL_LOG', 0);
-
-// define time instructions
-define('TIME_SECONDS', 1);
-define('TIME_MILLISECONDS', 2);
-define('TIME_MICROSECONDS', 3);
+/**
+ * Seconds second timing instruction
+ * 
+ * This declares operations based on time in seconds.
+ */
+define('TIME_SECONDS', 4);
+/**
+ * Millisecond timing instruction
+ * 
+ * This declares operations based on time in milliseconds.
+ */
+define('TIME_MILLISECONDS', 3);
+/**
+ * Microsecond timing instruction
+ * 
+ * This declares operations based on time in microseconds.
+ */
+define('TIME_MICROSECONDS', 2);
+/**
+ * Nanosecond timing instruction
+ * 
+ * This declares operations based on time in nanoseconds.
+ */
+define('TIME_NANOSECONDS', 1);
+/**
+ * Declared for use.
+ */
+define('STATE_DECLARED' , 0x00001);
+/**
+ * Currently running in execution.
+ */
+define('STATE_RUNNING'  , 0x00002);
+/**
+ * Execution finised.
+ */
+define('STATE_EXITED'   , 0x00003);
+/**
+ * Error encountered.
+ */
+define('STATE_ERROR'    , 0x00004);
+/**
+ * Successfully ran through a lifecycle and reused.
+ */
+define('STATE_RECYCLED' , 0x00005);
+/**
+ * Corrupted during runtime execution and recovery was succesful.
+ */
+define('STATE_RECOVERED', 0x00006);
+/**
+ * The object has declared to stop any further execution.
+ */
+define('STATE_HALTED'   , 0x00007);

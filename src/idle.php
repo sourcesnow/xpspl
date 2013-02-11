@@ -8,6 +8,8 @@ namespace XPSPL;
 
 /**
  * Idle
+ *
+ * @version 1.0.0
  * 
  * The idle class is used for idling the processor, the base provides no 
  * functionality in itself and must be extended.

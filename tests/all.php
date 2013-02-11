@@ -5,15 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-date_default_timezone_set('America/New_York');
-
-import("unittest");
-
-// load the standard unittest output
-unittest\generate_output();
-
-// make sure we save the event history
-set_signal_history(true);
+require_once '__init__.php';
 
 /**
  * Replace with the dir_load function
@@ -28,83 +20,3 @@ foreach ($dir as $_file) {
         require_once $i;
     }, $_file);
 }
-
-if (defined('GENERATE_CODE_COVERAGE')) {
-
-    if (!function_exists('xdebug_start_code_coverage')) {
-        \XPSPL\unittest\Output::send(
-            'Coverage skipped xdebug not installed', 
-            \XPSPL\unittest\Output::ERROR, 
-            true
-        );
-    } else {
-
-    on_start(function(){
-        xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-    });
-
-    on_shutdown(function(){
-        $exclude = [
-            '/api.php', '/XPSPL.php'
-        ];
-        $coverage = xdebug_get_code_coverage();
-        xdebug_stop_code_coverage();
-        $dir = new \RegexIterator(
-            new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator(XPSPL_PATH)
-            ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
-        );
-        $avg = [];
-        foreach ($dir as $_file) {
-            array_map(function($i) use ($coverage, &$avg, $exclude){
-                $file = trim(str_replace(XPSPL_PATH, '', $i));
-                if (!in_array($file, $exclude) && isset($coverage[$i])) {
-                    $lines = count($coverage[$i]);
-                    $total = 0;
-                    foreach ($coverage[$i] as $_v) {
-                        if ($_v >= 1) {
-                            $total++;
-                        }
-                    }
-                    $avg[$file] = round(($total / $lines) * 100, 2);
-                }
-            }, $_file);
-        }
-        $total = 0.00;
-        foreach ($avg as $_c) {
-            $total += $_c;
-        }
-        \XPSPL\unittest\Output::send(
-            '--------------------', 
-            \XPSPL\unittest\Output::DEBUG, 
-            true
-        );
-        \XPSPL\unittest\Output::send(sprintf(
-            'Total Test Coverage : %s%%',
-            round(($total / (count($avg) * 100)) * 100, 2)
-        ), \XPSPL\unittest\Output::DEBUG, true);
-        \XPSPL\unittest\Output::send(
-            '--------------------', 
-            \XPSPL\unittest\Output::DEBUG, 
-            true
-        );
-        foreach ($avg as $_k => $_c) {
-            \XPSPL\unittest\Output::send(sprintf(
-                'File : %s',
-                str_replace(XPSPL_PATH, '', $_k)
-            ), \XPSPL\unittest\Output::DEBUG, true);
-            \XPSPL\unittest\Output::send(sprintf(
-                'Coverage : %s%%',
-                $_c
-            ), \XPSPL\unittest\Output::DEBUG, true);
-            \XPSPL\unittest\Output::send(
-                '--------------------', 
-                \XPSPL\unittest\Output::DEBUG, 
-                true
-            );
-        }
-    });
-    
-    }
-}
-

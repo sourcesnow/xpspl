@@ -11,7 +11,9 @@ use \Judy;
 /**
  * Database
  * 
- * A database is a storage mechanism for arbirtary data.
+ * A database is a storage mechanism for arbitrary data.
+ *
+ * @version 1.0.0
  *
  * @experimental
  *

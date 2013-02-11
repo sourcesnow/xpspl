@@ -49,10 +49,7 @@ class Process {
     {
         // set exhaust rate
         $this->set_exhaust($exhaust);
-        if (null !== $priority && !is_int($priority)) {
-            $priority = null;
-        }
-        $this->_priority = $priority;
+        $this->set_priority($priority);
         $this->_callable = $callable;
     }
 
@@ -65,6 +62,7 @@ class Process {
     {
         if (null !== $this->_exhaustion) {
             $this->_exhaustion--;
+            return;
         }
     }
 
@@ -125,8 +123,9 @@ class Process {
      */
     public function set_exhaust($rate)
     {
-        # Invalid or negative exhausting sets the rate to 1.
+        # Invalid or negative exhausting sets the rate to XPSPL_PROCESS_DEFAULT_EXHAUST.
         if (null !== $rate && (!is_int($rate) || $rate <= -1)) {
+            $this->_exhaustion = XPSPL_PROCESS_DEFAULT_EXHAUST;
             return;
         }
         $this->_exhaustion = $rate;
@@ -141,8 +140,9 @@ class Process {
      */
     public function set_priority($priority)
     {
-        # Invalid or negative exhausting sets the rate to 1.
+        # Invalid or negative exhausting sets the rate to XPSPL_PROCESS_DEFAULT_PRIORITY.
         if (null !== $priority && !is_int($priority)) {
+            $this->_priority = XPSPL_PROCESS_DEFAULT_PRIORITY;
             return;
         }
         $this->_priority = $priority;

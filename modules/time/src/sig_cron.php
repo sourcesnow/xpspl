@@ -23,9 +23,11 @@ if (!class_exists('\Cron\CronExpression', false)) {
  /**
  * Cron signal
  *
- * Signal event based on the UNIX cron definition
+ * Signal based on the UNIX cron definition.
+ *
+ * Module has been made possible due to Michael Dowling's CronExpression.
  */
-class SIG_CRON extends \XPSPL\signal\Complex {
+class SIG_CRON extends \XPSPL\SIG_Routine {
 
     /**
      * Cron-Expression object
@@ -68,14 +70,16 @@ class SIG_CRON extends \XPSPL\signal\Complex {
      * 
      * @return  integer
      */
-    public function routine($history = null)
+    public function routine(\XPSPL\Routine $routine = null)
     {
         $diff = $this->_next_run - time();
         if ($diff <= 0) {
             $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
-            $this->signal_this();
+            $routine->add_signal($this);
         } else {
-            $this->_routine->set_idle(new Time($diff, TIME_SECONDS));
+            $this->_idle = new Time(
+                $this->_time, $this->_instruction
+            );
         }
         return true;
     }

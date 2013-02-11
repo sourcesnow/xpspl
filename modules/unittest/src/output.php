@@ -7,34 +7,6 @@ namespace unittest;
  */
 
 /**
- * Output colors
- */
-if (!defined('OUTPUT_COLORS')) {
-    define('OUTPUT_COLORS', true);
-}
-
-/**
- * Maximum depth to transverse a tree or object while outputing.
- */
-if (!defined('MAX_DEPTH')) {
-    define('MAX_DEPTH', 2);
-}
-
-/**
- * Use shorterned variables within the output
- */
-if (!defined('SHORT_VARS')) {
-    define('SHORT_VARS', false);
-}
-
-/**
- * Level of verbosity for output
- */
-if (!defined('VERBOSITY_LEVEL')) {
-    define('VERBOSITY_LEVEL', 2);
-}
-
-/**
  * Generates output for a unit test.
  */
 class Output {
@@ -299,7 +271,7 @@ class Output {
      */
     public function unknown_assertion($signal, $func, $args, $assertion) 
     {
-        $assertions = array_keys($assertion->storage());
+        $assertions = array_keys($assertion->get_storage());
         $suggestions = array_filter($assertions, 
             function($var) use ($func){
                 if (\similar_text($var, $func) >= 5) return true;

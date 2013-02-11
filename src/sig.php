@@ -178,12 +178,14 @@ class SIG {
      */
     public function __construct($index = null)
     {
+        $this->set_state(STATE_DECLARED);
         if ($this->_unique) {
             $this->_index = $this->_index . spl_object_hash($this);
             return;
         }
         if (null === $index) {
-            $index = get_class($this);
+            $this->_index = get_class($this);
+            return;
         }
         $this->_index = $index;
     }
@@ -225,7 +227,7 @@ class SIG {
      * 
      * @return  void
      */
-    public function set_parent(Signal $signal)
+    public function set_parent(SIG $signal)
     {
         // Detect if parent is itself to avoid circular referencing
         if ($this === $signal) $signal = SIGNAL_SELF_PARENT;
@@ -241,6 +243,10 @@ class SIG {
     {
         return ($this->_parent === SIGNAL_SELF_PARENT) ? $this : $this->_parent;
     }
+
+    // --------------------------------------------------------------------- \\
+    // INTERNAL FUNCTIONS
+    // --------------------------------------------------------------------- \\
 
     /**
      * Get a variable in the signal.
@@ -301,5 +307,15 @@ class SIG {
             ));
         }
         unset($this->$key);
+    }
+
+    /**
+     * String representation.
+     *
+     * @return  string
+     */
+    public function __toString(/* ... */)
+    {
+        return $this->_index;
     }
 }

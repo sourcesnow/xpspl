@@ -9,12 +9,13 @@ namespace XPSPL;
 /**
  * Storage.
  * 
- * The Storage trait is designed to allow objects to act as a storage, the
- * trait only provides an interface to the normal PHP functions used for
+ * Storage is designed to allow objects to act as a storage.
+ * 
+ * Storage provides an interface to the normal PHP functions used for
  * transversing an array, keeping all data within a central storage.
  * 
  * See the PHP Manual for more information regarding the functions used
- * in this trait.
+ * in Storage.
  */
 class Storage implements \ArrayAccess, \Iterator {
 
@@ -30,7 +31,7 @@ class Storage implements \ArrayAccess, \Iterator {
      * 
      * @return  array
      */
-    public function &storage(/* ... */)
+    public function &get_storage(/* ... */)
     {
         return $this->_storage;
     }
@@ -68,6 +69,8 @@ class Storage implements \ArrayAccess, \Iterator {
 
     /**
      * Procedures.
+     *
+     * Method declares for interfaces ArrayAccess and Iterator.
      */
     public function count(/* ... */)
     {
@@ -100,18 +103,6 @@ class Storage implements \ArrayAccess, \Iterator {
     public function valid(/* ... */)
     {
         return current($this->_storage) !== false;
-    }
-    public function sort(/* ... */)
-    {
-        return sort($this->_storage);
-    }
-    public function usort($cmp)
-    {
-        return usort($this->_storage, $cmp);
-    }
-    public function uasort($cmp)
-    {
-        return uasort($this->_storage, $cmp);
     }
     public function offsetExists($offset)
     {

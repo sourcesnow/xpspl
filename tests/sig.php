@@ -4,12 +4,15 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
+
+require_once '__init__.php';
+
 import('unittest');
 
 unittest\suite(function($suite){
 
     $suite->setup(function($test){
-        $test->signal = new XPSPL\Signal();
+        $test->signal = new \XPSPL\SIG();
     });
 
     $suite->teardown(function($test){
@@ -17,20 +20,14 @@ unittest\suite(function($suite){
     });
 
     $suite->test(function($test){
-        $test->signal->set_result(true);
-        $test->true($test->signal->get_result());
-        $test->signal->set_result(false);
-        $test->false($test->signal->get_result());
-    }, "signal_result");
-
-    $suite->test(function($test){
+        logger(XPSPL_LOG)->info($test->signal->get_state());
         $test->equal($test->signal->get_state(), STATE_DECLARED);
         $test->signal->halt();
         $test->equal($test->signal->get_state(), STATE_HALTED);
     }, "signal_halt");
 
     $suite->test(function($test){
-        $parent = new XPSPL\Event();
+        $parent = new \XPSPL\SIG();
         $test->false($test->signal->is_child());
         $test->signal->set_parent($parent);
         $test->true($test->signal->is_child());
@@ -40,7 +37,7 @@ unittest\suite(function($suite){
     }, "signal_parent_child");
 
     $suite->test(function($test){
-        $test->exception('LogicException', function(){
+        $test->exception('LogicException', function() use ($test){
             $test->signal->a++;
         });
         $test->signal->a = "Test";
@@ -48,7 +45,7 @@ unittest\suite(function($suite){
         $test->equal($test->signal->a, "Test");
         unset($test->signal->a);
         $test->false(isset($test->signal->a));
-        $test->exception('LogicException', function(){
+        $test->exception('LogicException', function() use ($test){
             $test->signal->a++;
         });
     }, "signal_data");

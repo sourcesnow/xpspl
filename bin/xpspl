@@ -83,6 +83,9 @@ foreach ($options as $_i => $_arg) {
         case 'd':
             define('XPSPL_DEBUG', true);
             define('LOGGER_BLOCK', true);
+            define('GENERATE_CODE_COVERAGE', true);
+            define('SHORT_VARS', false);
+            define('VERBOSITY_LEVEL', 2);
             break;
         case 'test':
         case 'test-cover':

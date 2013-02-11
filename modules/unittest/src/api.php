@@ -61,7 +61,7 @@ function generate_output() {
     // Startup
     on_start(function(){
         if (XPSPL_DEBUG){
-            logger(XPSPL_LOG)->debug('Unittest begin');
+            logger(XPSPL_LOG)->info('Unittest begin');
         }
         define('UNITTEST_START_TIME', milliseconds());
     });
@@ -69,7 +69,7 @@ function generate_output() {
     // Shutdown
     on_shutdown(function(){
         if (XPSPL_DEBUG){
-            logger(XPSPL_LOG)->debug('Unittest end');
+            logger(XPSPL_LOG)->info('Unittest end');
         }
         define('UNITTEST_END_TIME', milliseconds());
         $tests = 0;

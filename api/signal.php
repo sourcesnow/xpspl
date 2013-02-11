@@ -83,7 +83,7 @@
  * .. note::
  *
  *     Once a null exhaust process is installed it must be removed using 
- *     ``remove_process``.
+ *     ``delete_process``.
  *
  * .. code-block:: php
  *
@@ -103,13 +103,10 @@
  *     // foo
  *     // ...
  */
-function signal($signal, $process)
+function signal(\XPSPL\SIG $signal, $process)
 {
     if (!$process instanceof \XPSPL\Process) {
         $process = new \XPSPL\Process($process);
-    }
-    if (!$signal instanceof \XPSPL\SIG) {
-        $signal = new \XPSPL\SIG($signal);
     }
     return XPSPL::instance()->signal($signal, $process);
 }

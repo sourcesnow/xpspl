@@ -5,17 +5,47 @@
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart(){
-    var SignalsEmitted = [["Time in us", "Signals Emitted"]];
-SignalsEmitted.push([2, 8.1062316894531E-6]);
-SignalsEmitted.push([4, 1.5020370483398E-5]);
-SignalsEmitted.push([8, 3.6001205444336E-5]);
-SignalsEmitted.push([16, 7.5101852416992E-5]);
-SignalsEmitted.push([32, 0.00012707710266113]);
-SignalsEmitted.push([64, 0.00021004676818848]);
-SignalsEmitted.push([128, 0.00042080879211426]);
-SignalsEmitted.push([256, 0.00084877014160156]);
-SignalsEmitted.push([512, 0.0018479824066162]);
-SignalsEmitted.push([1024, 0.0044100284576416]);
+    var ProcessesInstalled = [["Time in us", "Processes Installed"]];
+ProcessesInstalled.push([2, 0.00017118453979492]);
+ProcessesInstalled.push([4, 0.00013995170593262]);
+ProcessesInstalled.push([8, 0.00046586990356445]);
+ProcessesInstalled.push([16, 0.00058293342590332]);
+ProcessesInstalled.push([32, 0.0012309551239014]);
+ProcessesInstalled.push([64, 0.0023000240325928]);
+ProcessesInstalled.push([128, 0.0046532154083252]);
+ProcessesInstalled.push([256, 0.01546311378479]);
+ProcessesInstalled.push([512, 0.016371011734009]);
+ProcessesInstalled.push([1024, 0.037978887557983]);
+ProcessesInstalled.push([2048, 0.088846921920776]);
+ProcessesInstalled.push([4096, 0.16782903671265]);
+ProcessesInstalled.push([8192, 0.34998083114624]);
+ProcessesInstalled.push([16384, 0.66908812522888]);
+ProcessesInstalled.push([32768, 1.3431510925293]);
+ProcessesInstalled.push([65536, 2.7405788898468]);
+ProcessesInstalled.push([131072, 5.5682609081268]);
+ProcessesInstalled.push([262144, 11.963701963425]);
+var ProcessesInstalled_graph = google.visualization.arrayToDataTable(ProcessesInstalled);
+var ProcessesInstalled_chart = new google.visualization.LineChart(document.getElementById("ProcessesInstalled"));
+ProcessesInstalled_chart.draw(ProcessesInstalled_graph, {title: "Time taken (us)"});
+var SignalsEmitted = [["Time in us", "Signals Emitted"]];
+SignalsEmitted.push([2, 2.9087066650391E-5]);
+SignalsEmitted.push([4, 4.9114227294922E-5]);
+SignalsEmitted.push([8, 9.2983245849609E-5]);
+SignalsEmitted.push([16, 0.00018000602722168]);
+SignalsEmitted.push([32, 0.00035405158996582]);
+SignalsEmitted.push([64, 0.00070619583129883]);
+SignalsEmitted.push([128, 0.0015051364898682]);
+SignalsEmitted.push([256, 0.0028510093688965]);
+SignalsEmitted.push([512, 0.0056500434875488]);
+SignalsEmitted.push([1024, 0.011284112930298]);
+SignalsEmitted.push([2048, 0.024404048919678]);
+SignalsEmitted.push([4096, 0.045657157897949]);
+SignalsEmitted.push([8192, 0.092664957046509]);
+SignalsEmitted.push([16384, 0.20377588272095]);
+SignalsEmitted.push([32768, 0.38378190994263]);
+SignalsEmitted.push([65536, 0.71964406967163]);
+SignalsEmitted.push([131072, 1.4723219871521]);
+SignalsEmitted.push([262144, 2.8985199928284]);
 var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
 var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
 SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Time taken (us)"});
@@ -23,5 +53,5 @@ SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Time taken (us)"});
     </script>
   </head>
   <body>
-    <div id="SignalsEmitted" style="width: 450px; height: 250px; float:left;"></div>  </body>
+    <div id="ProcessesInstalled" style="width: 800px; height: 500px; float:left;"></div><div id="SignalsEmitted" style="width: 800px; height: 500px; float:left;"></div>  </body>
 </html>

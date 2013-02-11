@@ -19,7 +19,7 @@ use \LogicException,
  *
  * - Signals to emit
  */
-class SIG_Complex extends SIG {
+abstract class SIG_Complex extends SIG {
 
     protected $_unique = true;
 
@@ -30,8 +30,5 @@ class SIG_Complex extends SIG {
      *
      * @return  boolean|object  False|XPSPL\Evaluation
      */
-    public function evaluate($signal = null) 
-    {
-        throw new Not_Implemented();
-    }
+    abstract public function evaluate($signal = null);
 }

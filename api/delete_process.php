@@ -24,9 +24,9 @@
  *    <?php
  *    $process = signal('foo', function(){});
  *    
- *    remove_process('foo', $process);
+ *    delete_process('foo', $process);
  */
-function remove_process($signal, $process)
+function delete_process($signal, $process)
 {
-    return XPSPL::instance()->remove_process($signal, $process);   
+    return XPSPL::instance()->delete_process($signal, $process);   
 }
