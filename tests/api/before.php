@@ -10,6 +10,11 @@ require_once dirname(realpath(__FILE__)).'/../__init__.php';
 import('unittest');
 
 unittest\test(function($test){
-    $process = exhaust(10, null);
-    $test->equal(10, $process->exhaustion());
+    $foo = SIG('foo');
+    signal($foo, function(){});
+    before($foo, function($foo){
+        $foo->foo = 'foo';
+    });
+    emit($foo);
+    $test->equal($foo->foo, 'foo');
 });

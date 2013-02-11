@@ -17,7 +17,7 @@ $output = unittest\Output::instance();
 $tests = [
     'Processes Installed' =>
     function($i){
-        signal($i, function(){}); 
+        signal(SIG($i), null); 
     },
     'Signals Emitted' => 
     function($i){
@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 18);) {
+        for($a=1;$a<(1 << 2);) {
             $a = $a << 1;
             $tc = $a;
             echo $a.PHP_EOL;

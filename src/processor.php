@@ -715,7 +715,7 @@ class Processor {
         }
         $database = $this->_get_int_database($interrupt);
         $db = $database->find_processes_database($signal);
-        if (null === $memory) {
+        if (null === $db) {
             $db = new \XPSPL\database\Processes();
             $database->register_signal($signal, $db);
         }

@@ -10,6 +10,7 @@ require_once dirname(realpath(__FILE__)).'/../__init__.php';
 import('unittest');
 
 unittest\test(function($test){
-    $process = exhaust(10, null);
-    $test->equal(10, $process->exhaustion());
+    $foo = SIG('foo');
+    register_signal($foo);
+    $this->instanceof(find_signal_database($foo), 'XPSPL\database\Processes');
 });
