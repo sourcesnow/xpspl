@@ -1,11 +1,10 @@
-.. processor/signal/base.php generated using docpx on 01/30/13 08:17pm
+.. processor/signal/base.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\processor\\signal\\Base
-==============================
+Class - XPSPL\\processor\\signal\\Base
+**************************************
 
 The base for any processor signal.
 
+
+Last updated on 02/01/13 07:27am

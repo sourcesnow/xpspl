@@ -1,11 +1,8 @@
-.. processor.php generated using docpx on 01/30/13 08:17pm
+.. processor.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Processor
-================
+Class - XPSPL\\Processor
+************************
 
 Processor
 
@@ -27,7 +24,7 @@ Methods
 __construct
 +++++++++++
 
-.. function:: __construct()
+.. function:: __construct([$signal_history = true])
 
 
     Starts the processor.
@@ -68,7 +65,7 @@ erase_history
 loop
 ++++
 
-.. function:: loop()
+.. function:: loop([$ttr = false])
 
 
     Start the event loop.
@@ -109,7 +106,7 @@ get_routine
 has_signal_exhausted
 ++++++++++++++++++++
 
-.. function:: has_signal_exhausted()
+.. function:: has_signal_exhausted($signal)
 
 
     Determines if the given signal has exhausted.
@@ -123,7 +120,7 @@ has_signal_exhausted
 queue_exhausted
 +++++++++++++++
 
-.. function:: queue_exhausted()
+.. function:: queue_exhausted($queue)
 
 
     Determine if all queue handles are exhausted.
@@ -137,7 +134,7 @@ queue_exhausted
 remove_handle
 +++++++++++++
 
-.. function:: remove_handle()
+.. function:: remove_handle($signal, $handle)
 
 
     Removes a signal handler.
@@ -164,7 +161,7 @@ flush
 listen
 ++++++
 
-.. function:: listen()
+.. function:: listen($listener)
 
 
     Registers an object listener.
@@ -178,7 +175,7 @@ listen
 signal
 ++++++
 
-.. function:: signal()
+.. function:: signal($signal, $handle)
 
 
     Creates a new signal handler.
@@ -193,7 +190,7 @@ signal
 register_signal
 +++++++++++++++
 
-.. function:: register_signal()
+.. function:: register_signal($signal)
 
 
     Registers a signal a new signal
@@ -207,7 +204,7 @@ register_signal
 search_signals
 ++++++++++++++
 
-.. function:: search_signals()
+.. function:: search_signals($signal, [$index = false])
 
 
     Searches for a signal in storage returning its storage queue if found,
@@ -223,7 +220,7 @@ search_signals
 evaluate_signals
 ++++++++++++++++
 
-.. function:: evaluate_signals()
+.. function:: evaluate_signals($signal)
 
 
     Runs the evaluation for the registered complex signals using the given
@@ -238,7 +235,7 @@ evaluate_signals
 _event
 ++++++
 
-.. function:: _event()
+.. function:: _event($signal, [$event = false, [$ttl = false]])
 
 
     Loads an event for the current signal.
@@ -254,7 +251,7 @@ _event
 _event_exit
 +++++++++++
 
-.. function:: _event_exit()
+.. function:: _event_exit($event)
 
 
     Exits the event from the processor.
@@ -266,7 +263,7 @@ _event_exit
 emit
 ++++
 
-.. function:: emit()
+.. function:: emit($signal, [$event = false, [$ttl = false]])
 
 
     Emits a signal.
@@ -281,7 +278,7 @@ emit
 _execute
 ++++++++
 
-.. function:: _execute()
+.. function:: _execute($signal, $queue, $event, [$interrupt = true])
 
 
     Executes a queue.
@@ -302,7 +299,7 @@ _execute
 _queue_execute
 ++++++++++++++
 
-.. function:: _queue_execute()
+.. function:: _queue_execute($queue, $event)
 
 
     Executes a queue.
@@ -320,7 +317,7 @@ _queue_execute
 _func_exec
 ++++++++++
 
-.. function:: _func_exec()
+.. function:: _func_exec($function, $event)
 
 
     Executes a callable processor function.
@@ -371,7 +368,7 @@ event_analysis
 before
 ++++++
 
-.. function:: before()
+.. function:: before($signal, $handle)
 
 
     Registers a function to interrupt the signal stack before a signal fires,
@@ -387,7 +384,7 @@ before
 after
 +++++
 
-.. function:: after()
+.. function:: after($signal, $handle)
 
 
     Registers a function to interrupt the signal stack after a signal fires,
@@ -403,7 +400,7 @@ after
 _signal_interrupt
 +++++++++++++++++
 
-.. function:: _signal_interrupt()
+.. function:: _signal_interrupt($signal, $handle, [$interrupt = false])
 
 
     Registers a function to interrupt the signal stack before or after a 
@@ -420,7 +417,7 @@ _signal_interrupt
 _interrupt
 ++++++++++
 
-.. function:: _interrupt()
+.. function:: _interrupt($signal, $type, $event)
 
 
     Handle signal interuption functions.
@@ -435,7 +432,7 @@ _interrupt
 clean
 +++++
 
-.. function:: clean()
+.. function:: clean([$history = false])
 
 
     Cleans any exhausted signals from the processor.
@@ -449,7 +446,7 @@ clean
 delete_signal
 +++++++++++++
 
-.. function:: delete_signal()
+.. function:: delete_signal($signal, [$history = false])
 
 
     Delete a signal from the processor.
@@ -464,7 +461,7 @@ delete_signal
 erase_signal_history
 ++++++++++++++++++++
 
-.. function:: erase_signal_history()
+.. function:: erase_signal_history($signal)
 
 
     Erases any history of a signal.
@@ -478,7 +475,7 @@ erase_signal_history
 save_signal_history
 +++++++++++++++++++
 
-.. function:: save_signal_history()
+.. function:: save_signal_history($flag)
 
 
     Sets the flag for storing the event history.
@@ -494,7 +491,7 @@ save_signal_history
 current_signal
 ++++++++++++++
 
-.. function:: current_signal()
+.. function:: current_signal([$offset = 1])
 
 
     Returns the current signal in execution.
@@ -508,7 +505,7 @@ current_signal
 current_event
 +++++++++++++
 
-.. function:: current_event()
+.. function:: current_event([$offset = false])
 
 
     Returns the current event.
@@ -524,20 +521,17 @@ Constants
 
 HASH_STORAGE
 ++++++++++++
-
 Storage container node indices
 
 COMPLEX_STORAGE
 +++++++++++++++
-
 INTERRUPT_STORAGE
 +++++++++++++++++
-
 INTERRUPT_PRE
 +++++++++++++
-
 Interuption Types
 
 INTERRUPT_POST
 ++++++++++++++
 
+Last updated on 02/01/13 07:27am

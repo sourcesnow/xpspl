@@ -1,11 +1,8 @@
-.. queue.php generated using docpx on 01/30/13 08:17pm
+.. queue.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Queue
-============
+Class - XPSPL\\Queue
+********************
 
 As of v0.3.0 Queues no longer maintain a reference to a signal.
 
@@ -20,7 +17,7 @@ Methods
 enqueue
 +++++++
 
-.. function:: enqueue()
+.. function:: enqueue($node, [$priority = false])
 
 
     Pushes a new handler into the queue.
@@ -37,7 +34,7 @@ enqueue
 dequeue
 +++++++
 
-.. function:: dequeue()
+.. function:: dequeue($node)
 
 
     Removes a handle from the queue.
@@ -67,11 +64,11 @@ Constants
 
 QUEUE_MAX_SIZE
 ++++++++++++++
-
 Defines the maximum number of handlers allowed within a Queue.
 
 QUEUE_DEFAULT_PRIORITY
 ++++++++++++++++++++++
-
 Defines the default priority of queue nodes
 
+
+Last updated on 02/01/13 07:27am

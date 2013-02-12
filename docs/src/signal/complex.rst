@@ -1,11 +1,8 @@
-.. signal/complex.php generated using docpx on 01/30/13 08:17pm
+.. signal/complex.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\signal\\Complex
-======================
+Class - XPSPL\\signal\\Complex
+******************************
 
 Added in v0.3.0
 
@@ -30,7 +27,7 @@ __construct
 evaluate
 ++++++++
 
-.. function:: evaluate()
+.. function:: evaluate([$signal = false])
 
 
     Compares the event signal given aganist itself.
@@ -45,7 +42,7 @@ evaluate
 routine
 +++++++
 
-.. function:: routine()
+.. function:: routine([$history = false])
 
 
     Runs the routine calculations which allows for a complex signal to 
@@ -79,7 +76,7 @@ get_routine
 event
 +++++
 
-.. function:: event()
+.. function:: event([$event = false])
 
 
     Returns the event assigned to this signal.
@@ -91,7 +88,7 @@ event
 signal_this
 +++++++++++
 
-.. function:: signal_this()
+.. function:: signal_this([$event = false, [$ttl = false]])
 
 
     Method for adding this signal to signal itself within a routine.
@@ -103,3 +100,5 @@ signal_this
 
 
 
+
+Last updated on 02/01/13 07:27am

@@ -1,11 +1,8 @@
-.. routine.php generated using docpx on 01/30/13 08:17pm
+.. routine.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\Routine
-==============
+Class - XPSPL\\Routine
+**********************
 
 Routine
 
@@ -63,7 +60,7 @@ get_idles_available
 add_idle
 ++++++++
 
-.. function:: add_idle()
+.. function:: add_idle($idle)
 
 
     Adds a new function to idle the engine.
@@ -77,7 +74,7 @@ add_idle
 set_idle
 ++++++++
 
-.. function:: set_idle()
+.. function:: set_idle($idle)
 
 
     Sets a new function to idle the processor.
@@ -91,7 +88,7 @@ set_idle
 add_signal
 ++++++++++
 
-.. function:: add_signal()
+.. function:: add_signal($signal, [$vars = false, [$event = false]])
 
 
     Adds a signal to trigger in the loop.
@@ -112,3 +109,5 @@ reset
 
 
 
+
+Last updated on 02/01/13 07:27am

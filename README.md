@@ -1,6 +1,6 @@
 # XPSPL
 
-XPSPL is a high performance signal processor for the PHP programming language.
+High-Performance Signal Processor designed to change the way we write PHP.
 
 ## Documentation
 

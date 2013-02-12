@@ -1,11 +1,8 @@
-.. idle/time.php generated using docpx on 01/30/13 08:17pm
+.. idle/time.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\idle\\Time
-=================
+Class - XPSPL\\idle\\Time
+*************************
 
 Idles the processor for a specific amount of time.
 
@@ -17,7 +14,7 @@ Methods
 __construct
 +++++++++++
 
-.. function:: __construct()
+.. function:: __construct($time, $instruction)
 
 
     Constructs the time idle.
@@ -27,7 +24,7 @@ __construct
 idle
 ++++
 
-.. function:: idle()
+.. function:: idle($processor)
 
 
     Runs the idle function, this will call either sleep or usleep
@@ -88,7 +85,7 @@ get_time_left
 convert_length
 ++++++++++++++
 
-.. function:: convert_length()
+.. function:: convert_length($length, $to)
 
 
     Converts length of times from and to seconds, milliseconds and 
@@ -116,7 +113,7 @@ has_time_passed
 override
 ++++++++
 
-.. function:: override()
+.. function:: override($time)
 
 
     Determine if the given time idle function is less than the current.
@@ -127,3 +124,5 @@ override
 
 
 
+
+Last updated on 02/01/13 07:27am

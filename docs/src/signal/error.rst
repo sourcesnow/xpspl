@@ -1,11 +1,8 @@
-.. processor/signal/error.php generated using docpx on 01/30/13 08:17pm
+.. processor/signal/error.php generated using docpx on 02/01/13 07:27am
 
 
-Class
-*****
-
-XPSPL\\processor\\signal\\Error
-===============================
+Class - XPSPL\\processor\\signal\\Error
+***************************************
 
 The error event
 
@@ -15,7 +12,7 @@ Methods
 __construct
 +++++++++++
 
-.. function:: __construct()
+.. function:: __construct([$error = false, [$exception = false]])
 
 
     Constructs a new signal.
@@ -51,3 +48,5 @@ get_exception
 
 
 
+
+Last updated on 02/01/13 07:27am
