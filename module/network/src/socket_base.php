@@ -85,7 +85,6 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
             $wr = $ex = [];
             foreach ($this->_clients as $_k => $_c) {
                 $_r = $_c->get_resource();
-                var_dump($_r);
                 // test if socket is still connected
                 // send disconnect if disconnect detected
                 if (!is_resource($_r)) {
@@ -101,9 +100,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
                     $ex[] = $_r;
                 }
             }
-            var_dump($this->_clients);
             if (false !== $count = socket_select($re, $wr, $ex, $time)) {
-                var_dump($count, $re, $wr, $ex);
                 if ($count == 0) return true;
                 if (count($re) !== 0) {
                     foreach ($re as $_r) {
