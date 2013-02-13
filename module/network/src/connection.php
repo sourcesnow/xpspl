@@ -72,7 +72,7 @@ class Connection {
      * @return  string
      */
     public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = null) 
-    {   
+    {
         if (null !== $flags) {
             $r = null;
             if (false !== @socket_recv(
