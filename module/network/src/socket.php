@@ -59,7 +59,17 @@ class Socket extends Socket_Base {
             $this->_options['type'], 
             $this->_options['protocol']
         ));
-        $bind = @socket_bind(
+        // timeout
+        socket_set_option(
+            $this->connection->get_resource(), 
+            SOL_SOCKET, 
+            SO_RCVTIMEO,
+            [
+                'sec' => XPSPL_NETWORK_TIMEOUT_SECONDS, 
+                'usec' => XPSPL_NETWORK_TIMEOUT_MICROSECONDS
+            ]
+        );
+        $bind = socket_bind(
             $this->connection->get_resource(), 
             $this->_address, 
             $this->_options['port']

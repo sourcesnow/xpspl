@@ -6,6 +6,14 @@
  */
 $dir = dirname(realpath(__FILE__));
 
+if (!defined('XPSPL_NETWORK_TIMEOUT_MICROSECONDS')) {
+    define('XPSPL_NETWORK_TIMEOUT_MICROSECONDS', 0);
+}
+
+if (!defined('XPSPL_NETWORK_TIMEOUT_SECONDS')) {
+    define('XPSPL_NETWORK_TIMEOUT_SECONDS', 15);
+}
+
 /**
  * Autoload the socket signals.
  */

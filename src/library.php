@@ -6,8 +6,8 @@ namespace XPSPL;
  * that can be found in the LICENSE file.
  */
 
-use processor\signal\Module_Load_Failure,
-    processor\event\Error;
+use XPSPL\processor\signal\Module_Load_Failure,
+    XPSPL\processor\event\Error;
 
 /**
  * Library
