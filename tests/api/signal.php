@@ -12,5 +12,5 @@ import('unittest');
 unittest\test(function($test){
     $foo = SIG('foo');
     signal($foo, null);
-    $this->instanceof(find_signal_database($foo), 'XPSPL\database\Processes');
+    $test->instanceof(find_signal_database($foo), 'XPSPL\database\Processes');
 });

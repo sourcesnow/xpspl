@@ -13,7 +13,7 @@ use XPSPL\idle\Time;
  *
  * Sends an awake signal after a specified amount of time has passed.
  */
-class SIG_Walltime extends \XPSPL\SIG_Routine {
+class SIG_Awake extends \XPSPL\SIG_Routine {
 
     /**
      * Time to awake in.

@@ -18,9 +18,9 @@ set_signal_history(true);
 if (defined('GENERATE_CODE_COVERAGE')) {
 
     if (!function_exists('xdebug_start_code_coverage')) {
-        \XPSPL\unittest\Output::send(
+        \unittest\Output::send(
             'Coverage skipped xdebug not installed', 
-            \XPSPL\unittest\Output::ERROR, 
+            \unittest\Output::ERROR, 
             true
         );
     } else {
@@ -60,32 +60,32 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         foreach ($avg as $_c) {
             $total += $_c;
         }
-        \XPSPL\unittest\Output::send(
+        \unittest\Output::send(
             '--------------------', 
-            \XPSPL\unittest\Output::DEBUG, 
+            \unittest\Output::DEBUG, 
             true
         );
-        \XPSPL\unittest\Output::send(sprintf(
+        \unittest\Output::send(sprintf(
             'Total Test Coverage : %s%%',
             round(($total / (count($avg) * 100)) * 100, 2)
-        ), \XPSPL\unittest\Output::DEBUG, true);
-        \XPSPL\unittest\Output::send(
+        ), \unittest\Output::DEBUG, true);
+        \unittest\Output::send(
             '--------------------', 
-            \XPSPL\unittest\Output::DEBUG, 
+            \unittest\Output::DEBUG, 
             true
         );
         foreach ($avg as $_k => $_c) {
-            \XPSPL\unittest\Output::send(sprintf(
+            \unittest\Output::send(sprintf(
                 'File : %s',
                 str_replace(XPSPL_PATH, '', $_k)
-            ), \XPSPL\unittest\Output::DEBUG, true);
-            \XPSPL\unittest\Output::send(sprintf(
+            ), \unittest\Output::DEBUG, true);
+            \unittest\Output::send(sprintf(
                 'Coverage : %s%%',
                 $_c
-            ), \XPSPL\unittest\Output::DEBUG, true);
-            \XPSPL\unittest\Output::send(
+            ), \unittest\Output::DEBUG, true);
+            \unittest\Output::send(
                 '--------------------', 
-                \XPSPL\unittest\Output::DEBUG, 
+                \unittest\Output::DEBUG, 
                 true
             );
         }

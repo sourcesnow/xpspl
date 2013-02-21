@@ -316,6 +316,6 @@ class SIG {
      */
     public function __toString(/* ... */)
     {
-        return $this->_index;
+        return (string) $this->_index;
     }
 }

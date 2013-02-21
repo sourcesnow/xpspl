@@ -107,6 +107,8 @@ class Processes extends \XPSPL\Database {
     /**
      * Deletes a process from the database.
      *
+     * @todo Improve this so it first checks priority then searches ...
+     *
      * @param  object  $process  \XPSPL\Process
      *
      * @return  boolean

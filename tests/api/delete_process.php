@@ -18,5 +18,7 @@ unittest\test(function($test){
     signal($foo, $process);
     delete_process($foo, $process);
     emit($foo);
-    $test->equal($foo->foo, 'foo');
+    $test->exception('LogicException', function() use ($foo){
+        echo $foo->foo;
+    });
 });

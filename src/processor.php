@@ -323,7 +323,7 @@ class Processor {
         if (null === $database) {
             return false;
         }
-        return $database[1]->delete($process);
+        return $database->delete($process);
     }
 
     /**
