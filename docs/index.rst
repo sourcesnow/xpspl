@@ -33,24 +33,24 @@ XPSPL API.
 All API functions are non-namespaced, globally available.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :glob:
 
    api/*
 
-Modules
--------
+.. Modules
+.. -------
 
-XPSPL Bundled modules.
+.. XPSPL Bundled modules.
 
-These modules are bundled directly with XPSPL available without installation.
+.. These modules are bundled directly with XPSPL available without installation.
 
-.. toctree::
-   :maxdepth: 1
-   :glob:
+.. .. toctree::
+..    :maxdepth: 2
+..    :glob:
 
 
-   modules/ftp
+..    modules/ftp
 
 
 Source

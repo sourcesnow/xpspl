@@ -14,11 +14,11 @@
 import('network');
 
 $socket = network\connect('0.0.0.0', ['port' => '1337'], function(){
-    echo "Server Running on " . $this->socket->get_address() . PHP_EOL;
+    echo "Server Running". PHP_EOL;
 });
 
 $socket->on_client(null_exhaust(function(){
     echo "Connection " . PHP_EOL;
-    $this->socket->write($this->socket->read());
-    $this->socket->disconnect();
+    // $this->socket->write($this->socket->read());
+    // $this->socket->disconnect();
 }));
