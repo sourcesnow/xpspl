@@ -49,6 +49,22 @@ class Signals extends \XPSPL\Database {
     }
 
     /**
+     * Deletes a signal from the database.
+     *
+     * @param  object  $signal  \XPSPL\SIG
+     *
+     * @return  void
+     */
+    public function delete_signal(\XPSPL\SIG $signal)
+    {
+        if ($this->offsetExists($signal->get_index())) {
+            $this->offsetUnset($signal->get_index());
+            return;
+        }
+        return;
+    }
+
+    /**
      * Finds and returns the given signals processes database.
      *
      * @param  object  $signal  \XPSPL\Sig

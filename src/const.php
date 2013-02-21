@@ -155,3 +155,7 @@ define('STATE_RECOVERED', 0x00006);
  * The object has declared to stop any further execution.
  */
 define('STATE_HALTED'   , 0x00007);
+/**
+ * Signal is a parent of itself.
+ */
+define('SIGNAL_SELF_PARENT', 0x01);

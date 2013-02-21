@@ -1,5 +1,5 @@
 <?php
-namespace XPSPL\exception;
+namespace XPSPL\processor\exception;
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
@@ -12,6 +12,6 @@ namespace XPSPL\exception;
  * 
  * An attempted module load failed.
  *
- * This is generated immediately after php_declare(import).
+ * This is generated immediately after import('module').
  */
 class Module_Load_Failure extends \Exception {}

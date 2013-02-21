@@ -59,7 +59,7 @@ class Time extends \XPSPL\Idle {
      */
     public function __construct($time, $instruction)
     {
-        if ($instruction <= 0 || $instruction >= 4) {
+        if ($instruction <= 0 || $instruction >= 5) {
             throw new \InvalidArgumentException(
                 "Invalid idle time instruction"
             );

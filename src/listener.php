@@ -36,6 +36,9 @@ class Listener {
             if (isset($this->$_signal)) {
                 $_signal = eval($this->{$_signal});
             }
+            if (!$_signal instanceof SIG) {
+                $_signal = new SIG($_signal);
+            }
             $this->_signals[] = $_signal;
         }
     }

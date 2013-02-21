@@ -385,7 +385,7 @@ class Processor {
     public function listen(Listener $listener)
     {
         foreach ($listener->_get_signals() as $_signal) {
-            $this->signal($_signal, [$listener, $_signal]);
+            $this->signal($_signal, new Process([$listener, $_signal->get_index()]));
         }
         $listener->_reset();
     }
@@ -583,7 +583,11 @@ class Processor {
             }
             # n+1 constant
             if ($_process instanceof Processes) {
+                if (XPSPL_DEBUG) {
+                    logger(XPSPL_LOG)->debug('Descending into a sub-database');
+                }
                 $this->_processes_execute($signal, $_process);
+                continue;
             } else {
                 if ($_process->is_exhausted()) {
                     continue;
@@ -618,6 +622,9 @@ class Processor {
      */
     private function _process_exec(SIG $signal, $function = null)
     {
+        if (null === $function) {
+            return;
+        }
         if (is_array($function)) {
             if (count($function) >= 2) {
                 if (is_object($function[0])) {
@@ -808,42 +815,16 @@ class Processor {
      * @param  string|object|int  $signal  Signal to delete.
      * @param  boolean  $history  Erase any history of the signal.
      * 
-     * @return  boolean
+     * @return  void
      */
-    public function delete_signal($signal, $history = false)
+    public function delete_signal(SIG $signal, $history = false)
     {
-        $index = false;
-        if ($signal instanceof signal\Standard) {
-            if ($signal instanceof signal\Complex) {
-                $obj = spl_object_hash($signal);
-                if (!isset($this->_sig_complex[$obj])) {
-                    return false;
-                }
-                unset($this->_sig_complex[$obj]);
-            } else {
-                $index = $signal->get_index();
-            }
-        } else {
-            if (!is_string($signal) && !is_int($signal)) {
-                throw new exceptions\Invalid_Signal(
-                    "Delete signal"
-                );
-                return false;
-            }
-            $index = $signal;
-        }
-
-        if (false !== $index) {
-            if (!isset($this->_sig_index[$index])) {
-                return false;
-            }
-            unset($this->_sig_index[$index]);
-        }
-
+        $db = $this->get_database($signal);
+        $db->delete_signal($signal);
         if ($history) {
             $this->erase_signal_history($signal);
         }
-        return true;
+        return;
     }
 
     /**

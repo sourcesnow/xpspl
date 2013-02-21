@@ -14,7 +14,7 @@ use \XPSPL\idle\Process,
  *
  * Base signal for a socket.
  */
-abstract class Socket_Base extends \XPSPL\signal\Complex {
+abstract class Socket_Base extends \XPSPL\SIG_Routine {
 
     /**
      * Socket connection object
@@ -56,15 +56,15 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
      *
      * @return  void
      */
-    protected function _register_idle_process(/* ... */)
+    public function routine(\XPSPL\Routine $routine, $history = null)
     {
-        $this->_routine->set_idle(new Process(function($processor){
-            $idle = $processor->get_routine()->get_idles_available();
+        $routine->set_idle(function($processor) use ($routine){
+            $idle = $routine->get_idles_available();
             // 30 second default wait
             $time = 30;
             // Determine if another function has requested to execute in x
             // amount of time
-            if (count($this->_routine->get_signals()) !== 0) {
+            if (count($routine->get_signals()) !== 0) {
                 // If we have signals to process only poll and continue
                 $time = 0;
             } elseif (count($idle) >= 2) {
@@ -79,55 +79,63 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
                 }
             }
             // establish sockets
-            $re = $wr = $ex = [
+            $re = [
                 $this->connection->get_resource()
             ];
+            $wr = $ex = [];
             foreach ($this->_clients as $_k => $_c) {
                 $_r = $_c->get_resource();
                 // test if socket is still connected
                 // send disconnect if disconnect detected
-                if (!is_resource($_r)) {
+                if (!is_resource($_r) || $_c->read() === false) {
                     emit(
                         new SIG_Disconnect($this),
                         new EV_Disconnect($_c)
                     );
                     unset($this->_clients[$_k]);
                     continue;
+                } else {
+                    $re[] = $_r;
+                    $wr[] = $_r;
+                    $ex[] = $_r;
                 }
-                $re[] = $_r;
-                $wr[] = $_r;
-                $ex[] = $_r;
             }
-            if (false !== $count = socket_select($re, $write, $ex, $time)) {
+            if (false !== $count = socket_select($re, $wr, $ex, $time)) {
                 if ($count == 0) return true;
                 if (count($re) !== 0) {
                     foreach ($re as $_r) {
-                        if (!isset($this->_clients[$_r])) {
-                            $client = new Client($_r);
-                            $this->_routine->add_signal(
-                                new SIG_Connect($this),
-                                new EV_Connect($client)
-                            );
-                            $this->_clients[$client->get_resource()] = $client;
+                        $id = intval($_r);
+                        if (!isset($this->_clients[$id])) {
+                            try {
+                                $client = new Client($_r);
+                                $id = intval($client->get_resource());
+                                $routine->add_signal(
+                                    new SIG_Connect($this),
+                                    new EV_Connect($client)
+                                );
+                                $this->_clients[$id] = $client;
+                            } catch (\RuntimeException $e) {
+                                // connection error
+                                // $routine->add_signal(
+                                //     new SIG_Error($e)
+                                // );
+                            }
                         } else {
-                            $this->_routine->add_signal(
+                            $routine->add_signal(
                                 new SIG_Read($this),
-                                new EV_Read($this->_clients[$_r])
+                                new EV_Read($this->_clients[$id])
                             );
                         }
                     }
                 }
-                if (count($write) !== 0) {
-                    foreach ($write as $_write) {
-                        $this->_routine->add_signal(
+                if (count($wr) !== 0) {
+                    foreach ($wr as $_write) {
+                        $routine->add_signal(
                             new SIG_Write($this),
-                            new EV_Write($this->_clients[$_w])
+                            new EV_Write($this->_clients[intval($_write)])
                         );
                     }
                 }
-            } else {
-                // socket error
-                throw_socket_error();
             }
         }));
     }
@@ -146,7 +154,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new process for disconnections.
+     * Registers a new handle for disconnections.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -158,7 +166,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new process for client read.
+     * Registers a new handle for client read.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -170,7 +178,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new process for client write.
+     * Registers a new handle for client write.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -182,7 +190,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Registers a new process for new client connections.
+     * Registers a new handle for new client connections.
      *
      * @param  callable  $function  Function to call on connect.
      *
@@ -191,17 +199,6 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
     public function on_client($function)
     {
         return signal(new SIG_Connect($this), $function);
-    }
-
-    /**
-     * Runs the server routine, this will register the idle function to
-     * listen on the given socket.
-     *
-     * @return  boolean
-     */
-    public function routine($history = null) 
-    {
-        return true;
     }
 
     /**

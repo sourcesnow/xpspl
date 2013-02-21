@@ -72,7 +72,7 @@ class Connection {
      * @return  string
      */
     public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = null) 
-    {   
+    {
         if (null !== $flags) {
             $r = null;
             if (false !== @socket_recv(
@@ -147,5 +147,5 @@ function sys_disconnect(EV_Disconnect $event)
  */
 signal(
     new SIG_Disconnect(), 
-    low_priority(null_exhaust('\socket\sys_disconnect'))
+    low_priority(null_exhaust('\network\sys_disconnect'))
 );

@@ -11,22 +11,20 @@ namespace network;
  * 
  * Base socket signal.
  */
-class SIG_Base extends \XPSPL\Signal {
+class SIG_Base extends \XPSPL\SIG {
 
     /**
      * Socket signals use the connection and socket hash
      * 
      * @return  void
      */
-    public function __construct($connection = null)
+    public function __construct($info = null)
     {
-        parent::__construct();
-
         if (null === $info) {
+            parent::__construct();
             return;
         }
-
-        $this->_info = spl_object_hash($signal).$this->_info;
+        $this->_info = spl_object_hash($info).'.'.get_class($this);
     }
 
 }
