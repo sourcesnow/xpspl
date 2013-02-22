@@ -9,6 +9,8 @@ date_default_timezone_set('America/New_York');
 
 import("unittest");
 
+ini_set('memory_limit', -1);
+
 // load the standard unittest output
 unittest\generate_output();
 

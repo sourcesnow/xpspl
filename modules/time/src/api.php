@@ -17,8 +17,10 @@ namespace time;
  */
 function awake($time, $callback, $instruction = TIME_SECONDS)
 {
-    $signal = new SIG_Awake($time, $instruction);
-    return [$signal, signal($signal, $callback)];
+    if (!$time instanceof SIG_Awake) {
+        $time = new SIG_Awake($time, $instruction);
+    }
+    return signal($time, $callback);
 }
 
 /**

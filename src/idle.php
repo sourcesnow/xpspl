@@ -55,13 +55,13 @@ abstract class Idle {
      *
      * Creating a function that does not properly idle, does not respect the
      * processor specs or is poorly designed will result in terrible performance, 
-     * unexpected results and damaging to your system ... use caution.
+     * unexpected results and can be damaging to your system ... use caution.
      * 
-     * @param  object  $processor  The processor that wishes to idle.
+     * @param  object  $processor  \XPSPL\Processor
      *
      * @return  void
      */
-    public function idle($processor)
+    public function idle(\XPSPL\Processor $processor)
     {
         throw new \BadMethodCallException(sprintf(
             "Idle function for %s has not been implemented"

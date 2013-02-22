@@ -73,6 +73,9 @@ class Time extends \XPSPL\Idle {
             case TIME_MILLISECONDS:
                 $this->_stop_time = $time + milliseconds();
                 break;
+            case TIME_MICROSECONDS:
+                $this->_stop_time = $time + microtime(true);
+                break;
         }
     }
 
@@ -84,18 +87,26 @@ class Time extends \XPSPL\Idle {
      */
     public function idle($processor)
     {
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Idle using %s for %s',
+                $this->_instruction, $this->get_time_left()
+            ));
+        }
+        if ($this->get_time_left() <= 0) {
+            return;
+        }
         switch ($this->_instruction) {
             case TIME_SECONDS:
                 sleep($this->get_time_left());
                 break;
             case TIME_MILLISECONDS:
-                $left = $this->get_time_left();
-                if ($left < 0) {
-                    time_nanosleep(0, $left * -1);
-                } else {
-                    usleep($this->get_time_left() * 1000);
-                }
+                usleep($this->get_time_left() * 1000);
                 break;
+            case TIME_MICROSECONDS:
+                usleep($this->get_time_left());
+                break;
+
         }
     }
 
@@ -143,6 +154,9 @@ class Time extends \XPSPL\Idle {
             case TIME_MILLISECONDS:
                 return $this->_stop_time - milliseconds();
                 break;
+            case TIME_MICROSECONDS:
+                return $this->_stop_time - microtime(true);
+                break;
         } 
     }
 
@@ -163,6 +177,8 @@ class Time extends \XPSPL\Idle {
                     case TIME_MILLISECONDS:
                         return $length / 1000;
                         break;
+                    case TIME_MICROSECONDS:
+                        return $length / 1000000;
                 }
                 break;
             case TIME_MILLISECONDS:
@@ -170,8 +186,19 @@ class Time extends \XPSPL\Idle {
                     case TIME_SECONDS:
                         return $length * .0001;
                         break;
+                    case TIME_MICROSECONDS:
+                        return $length * 1000;
                 }
                 break;
+            case TIME_MICROSECONDS:
+                switch($to) {
+                    case TIME_SECONDS:
+                        return $length * .00000001;
+                        break;
+                    case TIME_MILLISECONDS:
+                        return $length * .0001;
+                        break;
+                }
         }
         return $length;
     }
@@ -189,6 +216,9 @@ class Time extends \XPSPL\Idle {
                 break;
             case TIME_MILLISECONDS:
                 return $this->_stop_time <= milliseconds();
+                break;
+            case TIME_MILLISECONDS:
+                return $this->_stop_time <= microtime(true);
                 break;
         }
     }

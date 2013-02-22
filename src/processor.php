@@ -192,9 +192,14 @@ class Processor {
             }
             // check for idle function
             if (null !== $this->_routine->get_idle()) {
-                $this->_routine->get_idle()->idle($this);
+                foreach ($this->_routine->get_idles_available() as $_idle) {
+                    if (false === $this->has_signal_exhausted($_idle)) {
+                        $_idle->idle($this);
+                        $this->_routine->reset();
+                        goto routine;
+                    }
+                }
             }
-            goto routine;
         }
         $this->emit(new processor\SIG_Shutdown());
     }

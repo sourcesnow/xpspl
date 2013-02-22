@@ -30,6 +30,13 @@ abstract class SIG_Routine extends SIG {
     protected $_unique = true;
 
     /**
+     * \XPSPL\Idle Object to idle the processor.
+     * 
+     * @var  object
+     */
+    protected $_idle = null;
+
+    /**
      * Runs the routine calculation.
      *
      * The method is provided a single routine object for providing the 
@@ -40,4 +47,28 @@ abstract class SIG_Routine extends SIG {
      * @return  void
      */
     abstract public function routine(Routine $routine);
+
+    /**
+     * Runs the routines idle function.
+     *
+     * This method was added in v4.0.0 as a means for the processor to 
+     * communicate to the routine to begin idling.
+     *
+     * This only provides a transport layer for going from the processor into 
+     * the signal.
+     */
+    final public function idle(\XPSPL\Processor $processor)
+    {
+        $this->_idle->idle($processor);
+    }
+
+    /**
+     * Returns the idle object for this routine.
+     *
+     * @return  object  \XPSPL\Idle
+     */
+    final public function get_idle(/* ... */)
+    {
+        return $this->_idle;
+    }
 }

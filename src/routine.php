@@ -74,33 +74,31 @@ final class Routine {
      *
      * @return  void
      */
-    public function add_idle($idle)
+    public function add_idle(SIG_Routine $routine)
     {
-        if (!$idle instanceof Idle) {
-            throw new \InvalidArgumentException(sprintf(
-                "Idle must be an instance of Idle (%s)",
-                get_class($idle)
-            ));
+        if (count($this->_idle) === 0) {
+            $this->_idle[] = $routine;
+            return;
         }
         foreach ($this->_idle as $_k => $_func) {
-            if ($_func instanceof $idle) {
-                if (!$_func->allow_override()) {
+            if (get_class($_func->get_idle()) === get_class($routine->get_idle())) {
+                if (!$_func->get_idle()->allow_override()) {
                     throw new \RuntimeException(sprintf(
                         "Idle class %s does not allow override",
                         get_class($_func)
                     ));
                 }
-                if ($_func->override($idle)) {
-                    $this->_idle[$_k] = $idle;
+                if ($_func->get_idle()->override($routine->get_idle())) {
+                    $this->_idle[$_k] = $routine;
                 }
                 return;
             }
         }
-        $this->_idle[] = $idle;
+        $this->_idle[] = $routine;
         if (count($this->_idle) >= 2) {
             usort($this->_idle, function($a, $b){
-                $a = $a->get_priority();
-                $b = $b->get_priority();
+                $a = $a->get_idle()->get_priority();
+                $b = $b->get_idle()->get_priority();
                 if ($a == $b) {
                     return 0;
                 }

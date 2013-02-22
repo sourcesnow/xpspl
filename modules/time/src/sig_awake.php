@@ -30,13 +30,6 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
     protected $_instruction = null;
 
     /**
-     * XPSPL\idle\Time object
-     *
-     * @param  object
-     */
-    protected $_idle = null;
-
-    /**
      * Constructs a awake signal.
      *
      * @param  int  $time  Amount of time before emitting the signal.
@@ -74,6 +67,7 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
                 $this->_time, $this->_instruction
             );
         }
+        $routine->add_idle($this);
         return true;
     }
 }

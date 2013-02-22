@@ -1,0 +1,4 @@
+<?php
+
+import('time');
+time\awake(1, null_exhaust(null), TIME_MICROSECONDS);

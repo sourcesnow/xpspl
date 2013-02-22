@@ -11,12 +11,17 @@ import('unittest');
 
 unittest\test(function($test){
     $database = new \XPSPL\database\Processes();
-    for ($i=0;$i<1000;$i++) {
+    $count = 10000;
+    for ($i=0;$i<$count;$i++) {
         $database->install(new \XPSPL\Process(function(){}));
     }
     $test->instanceof(
         $database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY), 
         'XPSPL\database\Processes'
     );
-    $test->count($database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY), 1000);
+    $test->count($database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY), $count);
+    $db = $database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY);
+    for($i=XPSPL_SUBDATABASE_DEFAULT_PRIORITY;$i<$count;$i++) {
+        $test->equal($db->offsetGet($i)->get_priority(), $i);
+    }
 });

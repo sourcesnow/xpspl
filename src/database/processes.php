@@ -86,7 +86,7 @@ class Processes extends \XPSPL\Database {
                         spl_object_hash($this->offsetGet($priority))
                     ));
                 }
-                $this->offsetGet($priority)->set_priority(1);
+                $this->offsetGet($priority)->set_priority(XPSPL_SUBDATABASE_DEFAULT_PRIORITY);
                 $db = new Processes();
                 $db->install($this->offsetGet($priority));
                 $this->offsetUnset($priority);

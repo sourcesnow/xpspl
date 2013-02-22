@@ -42,7 +42,7 @@ foreach ($dir as $_file) {
 // dev mode
 if (XPSPL_DEBUG) {
     define('LOGGER_DATE_FORMAT', 'm-d-y H:i:s');
-    error_reporting(E_ALL);
+    error_reporting(E_ALL ^ E_STRICT);
     import('logger');
     $log = logger(XPSPL_LOG);
     $formatter = new \logger\Formatter(
