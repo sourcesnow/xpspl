@@ -5,9 +5,6 @@ Quickstart
 
 This guide provides an introduction into programming with XPSPL.
 
-It is recommended that you have at a minimum 2 hours of time to cover this guide 
-at a glance and a full day to cover it top to bottom.
-
 This guide covers the following topics,
 
 .. contents::
