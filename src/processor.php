@@ -594,6 +594,12 @@ class Processor {
                 $this->_processes_execute($signal, $_process);
                 continue;
             } else {
+                if (XPSPL_DEBUG) {
+                    logger(XPSPL_LOG)->debug(sprintf(
+                        'Executing Process %s',
+                        get_class($_process) . ' : ' . spl_object_hash($_process)
+                    ));
+                }
                 if ($_process->is_exhausted()) {
                     continue;
                 }

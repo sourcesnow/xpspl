@@ -74,7 +74,7 @@ class Time extends \XPSPL\Idle {
                 $this->_stop_time = $time + milliseconds();
                 break;
             case TIME_MICROSECONDS:
-                $this->_stop_time = $time + microtime(true);
+                $this->_stop_time = ($time * 0.0001) + microtime(true);
                 break;
         }
     }

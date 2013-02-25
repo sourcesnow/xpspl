@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * Directly runs files in the XPSPL event loop
+ * Directly runs files into the XPSPL Processor
  */
 $usage = 
 "usage: XPSPL [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]

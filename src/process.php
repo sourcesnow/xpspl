@@ -45,8 +45,15 @@ class Process {
      * 
      * @return  void
      */
-    public function __construct($callable, $exhaust = XPSPL_PROCESS_DEFAULT_EXHAUST, $priority = XPSPL_PROCESS_DEFAULT_PRIORITY)
+    public function __construct($callable = null, $exhaust = XPSPL_PROCESS_DEFAULT_EXHAUST, $priority = XPSPL_PROCESS_DEFAULT_PRIORITY)
     {
+        if (null === $callable) {
+            $reflection = new \ReflectionClass($this);
+            if ($reflection->hasMethod('execute')) {
+                $callable = [$this, 'execute'];
+            }
+            unset($reflection);
+        }
         // set exhaust rate
         $this->set_exhaust($exhaust);
         $this->set_priority($priority);
@@ -60,7 +67,7 @@ class Process {
      */
     public function decrement_exhaust(/* ... */)
     {
-        if (null !== $this->_exhaustion) {
+        if (null !== $this->_exhaustion && $this->_exhaustion >= 0) {
             $this->_exhaustion--;
             return;
         }
