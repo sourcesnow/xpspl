@@ -24,7 +24,6 @@ set_include_path(
 // utils & traits
 require XPSPL_PATH.'/src/utils.php';
 require XPSPL_PATH.'/src/const.php';
-require XPSPL_PATH.'/src/api.php';
 
 // Load the API
 // believe it or not this is the fastest way to do this

@@ -30,14 +30,6 @@ unittest\suite(function($suite){
         $test->false($processor->signal_history());
     }, 'construct_no_history');
 
-    // $suite->test(function($test){
-    //     $test->processor->set_signal_history(true);
-    //     $test->processor->emit(new \XPSPL\SIG(new \XPSPL\SIG('test')));
-    //     $test->count($test->processor->signal_history(), 1);
-    //     $test->processor->erase_history();
-    //     $test->count($test->processor->signal_history(), 0);
-    // }, 'erase_history');
-
     $suite->test(function($test){
         $test->processor->signal(new \XPSPL\SIG('test'), new \XPSPL\Process(function(){}));
         $test->false($test->processor->has_signal_exhausted(new \XPSPL\SIG('test')));
@@ -172,18 +164,6 @@ unittest\suite(function($suite){
         $test->true($event->test);
     }, 'listen');
 
-    // $suite->test(function($test){
-    //     $test->processor_error_signaled('Invalid_Signal', function(){
-    //         $test->processor->register_signal(false);
-    //     });
-    //     $test->processor_error_not_signaled('Invalid_Signal', function(){
-    //         $test->processor->register_signal(1);
-    //     });
-    //     $queue = $test->processor->register_signal(new \XPSPL\SIG('test'));
-    //     $test->notnull($queue);
-    //     $test->instanceof($queue, 'XPSPL\database\Processes');
-    // }, 'register');
-
     $suite->test(function($test){
         $test->processor->register_signal(new \XPSPL\SIG('test'));
         $test->notnull($test->processor->find_signal_database(new \XPSPL\SIG('test')));
@@ -230,56 +210,52 @@ unittest\suite(function($suite){
         $test->null($test->processor->evaluate_signals(new \XPSPL\SIG('test')));
     }, 'evaluate_signals');
 
-    // $suite->test(function($test){
-    //     // Simple
-    //     $test->processor->signal(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal) use ($test){
-    //         var_dump($signal);
-    //         $test->isset('count', $test);
-    //         $test->equal($signal->count, 1);
-    //         $signal->count++;
-    //     }));
-    //     $test->processor->before(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal){
-    //         $signal->count = 1;
-    //     }));
-    //     $test->processor->after(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal) use ($test){
-    //         echo "HERE";
-    //         var_dump($signal);
-    //         $test->equal($signal->count, 2);
-    //     }));
-    //     $test->processor->after(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal){
-    //         var_dump($signal);
-    //         ++$signal->count;
-    //     }));
-    //     $signal = $test->processor->emit(new \XPSPL\SIG('test'));
-    //     $test->isset('count', $signal);
-    //     $test->equal($signal->count, 3);
-    //     // Complex
-    //     class CBA extends \XPSPL\SIG_Complex {
-    //         public function evaluate($signal = null) {
-    //         }
-    //     }
-    //     $test->processor->before(new CBA(), new \XPSPL\Process(function(){}));
-    //     $test->processor->emit(new \XPSPL\SIG('test'));
-    // }, 'before,after');
+    $suite->test(function($test){
+        // Simple
+        $test->processor->signal(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal) use ($test){
+            $test->isset('count', $test);
+            $test->equal($signal->count, 1);
+            $signal->count++;
+        }));
+        $test->processor->before(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal){
+            $signal->count = 1;
+        }));
+        $test->processor->after(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal) use ($test){
+            $test->equal($signal->count, 2);
+        }));
+        $test->processor->after(new \XPSPL\SIG('test'), new \XPSPL\Process(function($signal){
+            ++$signal->count;
+        }));
+        $signal = $test->processor->emit(new \XPSPL\SIG('test'));
+        $test->isset('count', $signal);
+        $test->equal($signal->count, 3);
+        // Complex
+        class CBA extends \XPSPL\SIG_Complex {
+            public function evaluate($signal = null) {
+            }
+        }
+        $test->processor->before(new CBA(), new \XPSPL\Process(function(){}));
+        $test->processor->emit(new \XPSPL\SIG('test'));
+    }, 'before,after');
 
-    // $suite->test(function($test){
-    //     $test->processor->register_signal(new \XPSPL\SIG('test'));
-    //     $test->notnull($test->processor->find_signal_database(new \XPSPL\SIG('test')));
-    //     $test->instanceof(
-    //         $test->processor->find_signal_database(new \XPSPL\SIG('test')), 
-    //         new \XPSPL\database\Processes()
-    //     );
-    //     $test->processor->clean();
-    //     $test->null($test->processor->find_signal_database(new \XPSPL\SIG('test')));
-    //     $test->processor->register_signal(new \XPSPL\SIG('test'));
-    //     $test->processor->signal(new \XPSPL\SIG('test'), function(){});
-    //     $test->notnull($test->processor->find_signal_database(new \XPSPL\SIG('test')));
-    //     $test->false($test->processor->queue_exhausted(
-    //         $test->processor->find_signal_database(new \XPSPL\SIG('test'))
-    //     ));
-    //     $test->processor->emit(new \XPSPL\SIG('test'));
-    //     $test->processor->clean(true);
-    //     $test->null($test->processor->find_signal_database(new \XPSPL\SIG('test')));
-    //     $test->count($test->processor->signal_history(), 0);
-    // }, 'clean');
+    $suite->test(function($test){
+        $test->processor->register_signal(new \XPSPL\SIG('test'));
+        $test->notnull($test->processor->find_signal_database(new \XPSPL\SIG('test')));
+        $test->instanceof(
+            $test->processor->find_signal_database(new \XPSPL\SIG('test')), 
+            new \XPSPL\database\Processes()
+        );
+        $test->processor->clean();
+        $test->null($test->processor->find_signal_database(new \XPSPL\SIG('test')));
+        $test->processor->register_signal(new \XPSPL\SIG('test'));
+        $test->processor->signal(new \XPSPL\SIG('test'), function(){});
+        $test->notnull($test->processor->find_signal_database(new \XPSPL\SIG('test')));
+        $test->false($test->processor->queue_exhausted(
+            $test->processor->find_signal_database(new \XPSPL\SIG('test'))
+        ));
+        $test->processor->emit(new \XPSPL\SIG('test'));
+        $test->processor->clean(true);
+        $test->null($test->processor->find_signal_database(new \XPSPL\SIG('test')));
+        $test->count($test->processor->signal_history(), 0);
+    }, 'clean');
 });
