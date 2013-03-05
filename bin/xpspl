@@ -114,7 +114,7 @@ start:
 
 // load XPSPL
 if (!class_exists('XPSPL')) {
-    require_once dirname(realpath(__FILE__)).'/../src/XPSPL.php';
+    require_once dirname(realpath(__FILE__)).'/../src/xpspl.php';
 }
 
 if (isset($showversion)) {
