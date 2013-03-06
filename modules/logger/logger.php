@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright 2012 X Studios Inc.
+ * Copyright 2012 Nickolas Whiting
  * 
- * This file is part of proprietary software and use of this file
- * is strictly prohibited without the written consent of the owner.
+ * Use of this source code is governed by the Apache 2 license
+ * that can be found in the LICENSE file.
  *
  * @author  Nickolas Whiting <nwhiting@xstudiosinc.com>
  */
