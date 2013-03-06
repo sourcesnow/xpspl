@@ -7,8 +7,8 @@ namespace network;
  */
 
 /**
- * Write
+ * SIG_Write
  *
- * Signaled when a socket is ready to write
+ * A socket is ready to write
  */
-class SIG_Write extends SIG_Base {}
+class SIG_Write extends SIG {}

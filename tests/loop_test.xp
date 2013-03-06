@@ -1,4 +1,21 @@
 <?php
 
-import('time');
-time\awake(0, null_exhaust(null), TIME_MICROSECONDS);
+class Test extends \XPSPL\SIG_Routine {
+
+    public function __construct(/* ... */)
+    {
+        $this->_idle = new \XPSPL\Idle\Process(function(\XPSPL\Processor $processor){
+            if (isset($this->last_runtime)) {
+                echo 'A'.PHP_EOL;
+            }
+            $this->last_runtime = microtime(true);
+        });
+    }
+
+    public function routine(\XPSPL\Routine $routine = null)
+    {
+        $routine->add_idle($this);
+    }
+}
+
+signal(new Test(), function(){});

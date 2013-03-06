@@ -9,6 +9,6 @@ namespace network;
 /**
  * Connect
  * 
- * Signaled when a socket has connected.
+ * A socket connected.
  */
-class SIG_Connect extends SIG_Base {}
+class SIG_Connect extends SIG {}

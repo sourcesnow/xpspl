@@ -172,4 +172,4 @@ api\create_assertion(function($key, $var){
         return false;
     }
     return isset($var->{$key});
-}, 'isset', '%s does not contain %s index or property');
+}, 'isset', '%s index or property does not exist in %s');

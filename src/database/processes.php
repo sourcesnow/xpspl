@@ -117,8 +117,10 @@ class Processes extends \XPSPL\Database {
     {
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
-                '%s process delete',
-                spl_object_hash($process)
+                '%s process delete from db %s (%d)',
+                spl_object_hash($process),
+                spl_object_hash($this),
+                $this->count()
             ));
         }
         if ($this->count() === 0) {
@@ -137,8 +139,10 @@ class Processes extends \XPSPL\Database {
                     $this->offsetUnset($_key);
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
-                            '%s deleted',
-                            spl_object_hash($process)
+                            '%s deleted from %s (%d)',
+                            spl_object_hash($process),
+                            spl_object_hash($this),
+                            $this->count()
                         ));
                     }
                     return true;

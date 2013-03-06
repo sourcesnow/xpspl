@@ -580,6 +580,13 @@ class Processor {
      */
     private function _processes_execute(SIG $signal, Processes $db)
     {
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                '%s Process DB Executing %s processes',
+                spl_object_hash($db),
+                $db->count()
+            ));
+        }
         $db->reset();
         foreach ($db as $_process) {
             # Always check state first
@@ -589,10 +596,11 @@ class Processor {
             # n+1 constant
             if ($_process instanceof Processes) {
                 if (XPSPL_DEBUG) {
-                    logger(XPSPL_LOG)->debug('Descending into a sub-database');
+                    logger(XPSPL_LOG)->debug(
+                        'Descending into a sub-database executing '.$_process->count().' processes'
+                    );
                 }
                 $this->_processes_execute($signal, $_process);
-                continue;
             } else {
                 if (XPSPL_DEBUG) {
                     logger(XPSPL_LOG)->debug(sprintf(
@@ -600,21 +608,28 @@ class Processor {
                         get_class($_process) . ' : ' . spl_object_hash($_process)
                     ));
                 }
-                if ($_process->is_exhausted()) {
-                    continue;
-                }
                 $_process->decrement_exhaust();
-                if ($_process->is_exhausted()) {
-                    if (XPSPL_PURGE_EXHAUSTED) {
-                        $db->delete($_process);
-                    }
-                }
                 if (false === $this->_process_exec(
                     $signal,
                     $_process->get_function()
                 )) {
+                    if (XPSPL_DEBUG) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Halting Signal %s due to false return from %s',
+                            spl_object_hash($signal),
+                            get_class($_process) . ' : ' . spl_object_hash($_process)
+                        ));
+                    }
                     $signal->halt();
-                    break;
+                }
+                if ($_process->is_exhausted()) {
+                    if (XPSPL_DEBUG) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Process %s Exhausted',
+                            get_class($_process) . ' : ' . spl_object_hash($_process)
+                        ));
+                    }
+                    $db->delete($_process);
                 }
             }
         }
@@ -779,8 +794,8 @@ class Processor {
         }
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
-                '%s %d interruption processes executing',
-                $signal, $interrupt
+                '%s %s interruption processes executing',
+                $signal, ($interrupt == 0) ? 'before' : 'after'
             ));
         }
         $this->_execute($signal, $db, false);

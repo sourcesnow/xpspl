@@ -9,6 +9,6 @@ namespace network;
 /**
  * Read
  *
- * Signaled when a socket is ready to read
+ * A socket is ready to read.
  */
-class SIG_Read extends SIG_Base {}
+class SIG_Read extends SIG {}

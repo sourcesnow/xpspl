@@ -14,7 +14,7 @@ namespace network;
 class SIG extends \XPSPL\SIG {
 
     /**
-     * Socket associated with the signal.
+     * Socket belonging to the signal.
      *
      * @var  object  \network\Socket
      */
@@ -29,16 +29,14 @@ class SIG extends \XPSPL\SIG {
      * 
      * @return  void
      */
-    public function __construct($info = null, Socket $socket = null)
+    public function __construct(/*$info = null,*/ Socket $socket = null)
     {
-        if (null === $info) {
+        if (null === $socket) {
             parent::__construct();
             return;
         }
-        if (null !== $socket) {
-            $this->_socket = $socket;
-        }
-        $this->_info = spl_object_hash($info).'.'.get_class($this);
+        $this->_socket = $socket;
+        $this->_index = spl_object_hash($socket).'\\'.get_class($this);
     }
 
     /**

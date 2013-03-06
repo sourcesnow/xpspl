@@ -10,8 +10,6 @@ namespace network;
  * Socket
  *
  * The Socket represents a low-level socket.
- *
- * Socket 
  */
 class Socket {
 
@@ -25,12 +23,12 @@ class Socket {
     /**
      * Construct a new socket.
      *
-     * An address can be provided using the standard connection string,
+     * An address can be provided using a connection string,
      *
      * tcp://0.0.0.0:8000
      * udp://0.0.0.0:8000
      *
-     * OR
+     * OR by providing the parameters manually
      *
      * __construct('0.0.0.0', [
      *     'port' => 8000,
@@ -85,13 +83,6 @@ class Socket {
         $this->_options = $options;
 
         $this->_connect();
-
-        // add the routine for this signal
-        $this->signal_this(
-            new EV_Connect($this->connection)
-        );
-
-        $this->_register_idle_process();
     }
 
     /**
@@ -128,6 +119,7 @@ class Socket {
         // listen
         socket_listen($this->_resource);
         socket_set_nonblock($this->_resource);
+        emit(new SIG_Connect($this));
     }
 
     /**
@@ -181,5 +173,31 @@ class Socket {
     {
         emit(new SIG_Disconnect($this));
         @socket_close($this->_resource);
+    }
+
+    /**
+     * Returns the socket resource.
+     *
+     * @return  resource
+     */
+    public function get_resource(/* ... */)
+    {
+        return $this->_resource;
+    }
+
+    /**
+     * Returns the address of the socket.
+     *
+     * @return  string|null
+     */
+    public function get_address(/* ... */)
+    {
+        $r = null;
+        /**
+         * This is documented as stating this should only be used
+         * for socket_connect'ed sockets ... for now this seems to work.
+         */
+        @socket_getsockname($this->get_resource(), $r);
+        return $r;
     }
 }

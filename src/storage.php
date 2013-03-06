@@ -31,7 +31,7 @@ class Storage implements \ArrayAccess, \Iterator {
      * 
      * @return  array
      */
-    public function &get_storage(/* ... */)
+    public function get_storage(/* ... */)
     {
         return $this->_storage;
     }
