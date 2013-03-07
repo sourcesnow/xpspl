@@ -87,7 +87,7 @@ abstract class Socket_Base extends \XPSPL\signal\Complex {
                 $_r = $_c->get_resource();
                 // test if socket is still connected
                 // send disconnect if disconnect detected
-                if (!is_resource($_r) || $_c->read() === false) {
+                if ($_c->is_connected() === false) {
                     emit(
                         new SIG_Disconnect($this),
                         new EV_Disconnect($_c)
