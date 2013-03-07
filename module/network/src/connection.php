@@ -23,6 +23,21 @@ class Connection {
     protected $_socket = null;
 
     /**
+     * Read Buffer
+     *
+     * @var  string|null
+     */
+    protected $_read_buffer = null;
+
+    /**
+     * Read Attempts
+     *
+     * @var  integer
+     */
+    protected $_read_attempts = 0;
+
+
+    /**
      * Constructs a new connection.
      *
      * @param  resource  $socket  Socket connection.
@@ -55,11 +70,11 @@ class Connection {
     public function write($string, $flags = null)
     {
         if ($flags !== null) {
-            return @socket_send(
+            return socket_send(
                 $this->get_resource(), $string, strlen($string), $flags
             );
         }
-        return @socket_write($this->get_resource(), $string);
+        return socket_write($this->get_resource(), $string);
     }
 
     /**
@@ -73,15 +88,48 @@ class Connection {
      */
     public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = null) 
     {
-        if (null !== $flags) {
-            $r = null;
-            if (false !== @socket_recv(
-                $this->get_resource(), $r, $length, $flags)) {
-                return $r;
+        if (null !== $this->_read_buffer) {
+            $return = $this->_read_buffer;
+            $this->_read_buffer = null;
+            return $return;
+        }
+        $r = null;
+        $read = socket_recv($this->get_resource(), $r, $length, $flags);
+        if ($read === false) {
+            if (socket_last_error($this->get_resource()) == SOCKET_EWOULDBLOCK) {
+                if ($this->_read_attempts >= 10) {
+                    return false;
+                }
+                return SOCKET_EWOULDBLOCK;
             }
             return false;
         }
-        return @socket_read($this->get_resource(), $length, $flags);
+        return $r;
+    }
+
+    /**
+     * Returns if the socket is currently connected.
+     * 
+     * @return  boolean
+     */
+    public function is_connected(/* ... */)
+    {
+        if (!is_resource($this->get_resource())) {
+            return false;
+        }
+        if (null !== $this->_read_buffer) {
+            return true;
+        }
+        $read = $this->read();
+        if (false === $read) {
+            return false;
+        }
+        if ($read === SOCKET_EWOULDBLOCK) {
+            ++$this->_read_attempts;
+            return true;
+        }
+        $this->_read_buffer = $read;
+        return true;
     }
 
     /**
@@ -111,7 +159,7 @@ class Connection {
          * This is documented as stating this should only be used
          * for socket_connect'ed sockets ... for now this seems to work.
          */
-        @socket_getsockname($this->get_resource(), $r);
+        socket_getsockname($this->get_resource(), $r);
         return $r;
     }
 
@@ -134,7 +182,8 @@ class Connection {
  */
 function sys_disconnect(EV_Disconnect $event) 
 {
-    @socket_close($event->socket->get_resource());
+    echo "CLOSING THE CONNECTION";
+    socket_close($event->socket->get_resource());
 }
 
 /**
