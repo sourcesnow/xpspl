@@ -11,19 +11,16 @@ define('XPSPL_VERSION', '4.0.0');
 // The creator
 define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
 
-// Add this to include path
-if (!defined('XPSPL_PATH')) {
-    define('XPSPL_PATH', dirname(realpath(__FILE__)));
-}
+// start'er up
+// utils & traits
+require dirname(realpath(__FILE__)).'/src/utils.php';
+require dirname(realpath(__FILE__)).'/src/const.php';
+
 set_include_path(
-    XPSPL_PATH . '/module' . PATH_SEPARATOR .
+    XPSPL_MODULE_DIR . PATH_SEPARATOR .
     XPSPL_PATH . '/..' . PATH_SEPARATOR . 
     get_include_path()
 );
-// start'er up
-// utils & traits
-require XPSPL_PATH.'/src/utils.php';
-require XPSPL_PATH.'/src/const.php';
 
 // Load the API
 // believe it or not this is the fastest way to do this

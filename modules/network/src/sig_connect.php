@@ -7,8 +7,8 @@ namespace network;
  */
 
 /**
- * Read
- *
- * Signaled when a socket is ready to read
+ * Connect
+ * 
+ * Signaled when a socket has connected.
  */
-class SIG_Read extends SIG_Base {}
+class SIG_Connect extends SIG_Base {}

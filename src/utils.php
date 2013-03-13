@@ -20,6 +20,14 @@ spl_autoload_register(function($class){
         $paths = explode('\\', $class);
         $lib = array_shift($paths);
         $file = $lib.'/src/'.strtolower(implode('/', $paths)).'.php';
+        if (XPSPL_DEBUG) {
+            if (function_exists('logger')) {
+                logger(XPSPL_LOG)->debug(sprintf(
+                    'Autoloading file %s',
+                    $file
+                ));
+            }
+        }
         $src = stream_resolve_include_path($file);
         if (false !== $src) {
             require_once $src;
@@ -29,7 +37,6 @@ spl_autoload_register(function($class){
         $file = stream_resolve_include_path(
             strtolower($class).'.php'
         );
-        echo $file;
         if (false !== $file) {
             require_once $file;
         }

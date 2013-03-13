@@ -5,6 +5,11 @@
  * that can be found in the LICENSE file.
  */
 
+// Add this to include path
+if (!defined('XPSPL_PATH')) {
+    define('XPSPL_PATH', dirname(realpath(__FILE__)).'/..');
+}
+
 if (!defined('XPSPL_DEBUG')) {
     /**
      * XPSPL Debug mode

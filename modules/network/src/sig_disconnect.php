@@ -7,8 +7,8 @@ namespace network;
  */
 
 /**
- * SIG_Disconnect
+ * Disconnect
  * 
- * A socket disconnected.
+ * Signaled when a socket disconnects
  */
-class SIG_Disconnect extends SIG {}
+class SIG_Disconnect extends SIG_Base {}

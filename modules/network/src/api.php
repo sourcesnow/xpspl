@@ -13,16 +13,10 @@ namespace network;
  * @param  string  $options  Connection options
  * @param  callback  $callback  Function to call when connected
  */
-function connect($address, $options = [], $callback = null)
+function connect($address, $options = [])
 {
     $server = new Socket($address, $options);
-
-    if (null === $callback) {
-        $callback = function(){};
-    }
-
-    signal($server, $callback);
-
+    signal($server, null_exhaust(null));
     return $server;
 }
 
