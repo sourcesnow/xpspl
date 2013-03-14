@@ -5,38 +5,63 @@
     google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart(){
-    var SignalsEmitted = [["Time in us", "Signals Emitted"]];
-SignalsEmitted.push([2, 1.1920928955078E-5]);
-SignalsEmitted.push([4, 1.9073486328125E-5]);
-SignalsEmitted.push([8, 3.6001205444336E-5]);
-SignalsEmitted.push([16, 6.8902969360352E-5]);
-SignalsEmitted.push([32, 0.00013589859008789]);
-SignalsEmitted.push([64, 0.00027108192443848]);
-SignalsEmitted.push([128, 0.00054407119750977]);
-SignalsEmitted.push([256, 0.0009758472442627]);
-SignalsEmitted.push([512, 0.0019700527191162]);
-SignalsEmitted.push([1024, 0.0039701461791992]);
-SignalsEmitted.push([2048, 0.0076441764831543]);
-SignalsEmitted.push([4096, 0.016338109970093]);
-SignalsEmitted.push([8192, 0.031198024749756]);
-SignalsEmitted.push([16384, 0.0627121925354]);
-SignalsEmitted.push([32768, 0.12677597999573]);
-SignalsEmitted.push([65536, 0.25045204162598]);
-SignalsEmitted.push([131072, 0.50037312507629]);
-SignalsEmitted.push([262144, 0.9951171875]);
-SignalsEmitted.push([524288, 1.9978730678558]);
-SignalsEmitted.push([1048576, 3.969046831131]);
-SignalsEmitted.push([2097152, 7.9837181568146]);
-SignalsEmitted.push([4194304, 15.978101015091]);
-SignalsEmitted.push([8388608, 32.034093141556]);
-SignalsEmitted.push([16777216, 64.121432065964]);
-SignalsEmitted.push([33554432, 128.91030883789]);
+    var ProcessesInstalled = [["Time in us", "Processes Installed"]];
+ProcessesInstalled.push([2, 0.00033402442932129]);
+ProcessesInstalled.push([4, 0.00053000450134277]);
+ProcessesInstalled.push([8, 0.00078988075256348]);
+ProcessesInstalled.push([16, 0.0015640258789062]);
+ProcessesInstalled.push([32, 0.003303050994873]);
+ProcessesInstalled.push([64, 0.0065371990203857]);
+ProcessesInstalled.push([128, 0.01270318031311]);
+ProcessesInstalled.push([256, 0.023931980133057]);
+ProcessesInstalled.push([512, 0.047697067260742]);
+ProcessesInstalled.push([1024, 0.098233938217163]);
+ProcessesInstalled.push([2048, 0.18959903717041]);
+ProcessesInstalled.push([4096, 0.37758994102478]);
+ProcessesInstalled.push([8192, 0.75175094604492]);
+ProcessesInstalled.push([16384, 1.5141799449921]);
+var ProcessesInstalled_graph = google.visualization.arrayToDataTable(ProcessesInstalled);
+var ProcessesInstalled_chart = new google.visualization.LineChart(document.getElementById("ProcessesInstalled"));
+ProcessesInstalled_chart.draw(ProcessesInstalled_graph, {title: "Time taken (us)"});
+var SignalsEmitted = [["Time in us", "Signals Emitted"]];
+SignalsEmitted.push([2, 0.00025010108947754]);
+SignalsEmitted.push([4, 0.00030899047851562]);
+SignalsEmitted.push([8, 0.00060892105102539]);
+SignalsEmitted.push([16, 0.0012099742889404]);
+SignalsEmitted.push([32, 0.0024178028106689]);
+SignalsEmitted.push([64, 0.0046279430389404]);
+SignalsEmitted.push([128, 0.0086009502410889]);
+SignalsEmitted.push([256, 0.017195224761963]);
+SignalsEmitted.push([512, 0.036650896072388]);
+SignalsEmitted.push([1024, 0.070698976516724]);
+SignalsEmitted.push([2048, 0.14383888244629]);
+SignalsEmitted.push([4096, 0.27838897705078]);
+SignalsEmitted.push([8192, 0.56138110160828]);
+SignalsEmitted.push([16384, 1.1384770870209]);
 var SignalsEmitted_graph = google.visualization.arrayToDataTable(SignalsEmitted);
 var SignalsEmitted_chart = new google.visualization.LineChart(document.getElementById("SignalsEmitted"));
 SignalsEmitted_chart.draw(SignalsEmitted_graph, {title: "Time taken (us)"});
+var SignalRegistration = [["Time in us", "Signal Registration"]];
+SignalRegistration.push([2, 2.6941299438477E-5]);
+SignalRegistration.push([4, 3.0994415283203E-5]);
+SignalRegistration.push([8, 6.7949295043945E-5]);
+SignalRegistration.push([16, 0.00012516975402832]);
+SignalRegistration.push([32, 0.00022196769714355]);
+SignalRegistration.push([64, 0.0038371086120605]);
+SignalRegistration.push([128, 0.00079107284545898]);
+SignalRegistration.push([256, 0.0015349388122559]);
+SignalRegistration.push([512, 0.0029821395874023]);
+SignalRegistration.push([1024, 0.0056419372558594]);
+SignalRegistration.push([2048, 0.015088081359863]);
+SignalRegistration.push([4096, 0.031913042068481]);
+SignalRegistration.push([8192, 0.061118125915527]);
+SignalRegistration.push([16384, 0.11921405792236]);
+var SignalRegistration_graph = google.visualization.arrayToDataTable(SignalRegistration);
+var SignalRegistration_chart = new google.visualization.LineChart(document.getElementById("SignalRegistration"));
+SignalRegistration_chart.draw(SignalRegistration_graph, {title: "Time taken (us)"});
     }
     </script>
   </head>
   <body>
-    <div id="SignalsEmitted" style="width: 800px; height: 500px; float:left;"></div>  </body>
+    <div id="ProcessesInstalled" style="width: 800px; height: 500px; float:left;"></div><div id="SignalsEmitted" style="width: 800px; height: 500px; float:left;"></div><div id="SignalRegistration" style="width: 800px; height: 500px; float:left;"></div>  </body>
 </html>

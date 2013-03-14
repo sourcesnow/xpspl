@@ -34,6 +34,8 @@ if (strpos($runfile, '-') === 0) {
     $runfile = false;
 }
 
+
+
 if ($runfile != false) {
     $it = false;
 }
@@ -110,7 +112,7 @@ start:
 
 // load XPSPL
 if (!class_exists('XPSPL')) {
-    require_once dirname(realpath(__FILE__)).'/../xpspl.php';
+    require_once dirname(realpath(__FILE__)).'/../__init__.php';
 }
 
 if (isset($showversion)) {
@@ -124,11 +126,15 @@ if (isset($unittest)) {
 }
 
 if (false !== $runfile) {
+    echo "LOADING $runfile";
     if (!file_exists($runfile)) {
         die("Could not open $runfile\n");
     } else {
         require_once $runfile;
     }
+} else {
+    echo "No file provided";
+    exit(1);
 }
 
 // start the loop!!

@@ -18,7 +18,7 @@ if (!defined('XPSPL_NETWORK_TIMEOUT_SECONDS')) {
     define('XPSPL_NETWORK_TIMEOUT_SECONDS', 15);
 }
 
-define('XPSPL_SOCKET_READ_LENGTH', 20000);
+define('XPSPL_SOCKET_READ_LENGTH', 2000000);
 
 /**
  * Autoload the socket signals.
@@ -26,4 +26,6 @@ define('XPSPL_SOCKET_READ_LENGTH', 20000);
 set_include_path(
     dirname(realpath(__FILE__)) . PATH_SEPARATOR .  get_include_path()
 );
-require_once $dir.'/src/api.php';
+require_once $dir.'/api.php';
+require_once $dir.'/const.php';
+unset($dir);

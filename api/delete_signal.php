@@ -15,5 +15,5 @@
  */
 function delete_signal($signal, $history = false)
 {
-    return XPSPL::instance()->delete_signal($storage, $history);
+    return XPSPL::instance()->delete_signal($signal, $history);
 }

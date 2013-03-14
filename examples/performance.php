@@ -7,26 +7,21 @@ if (function_exists('xdebug_start_code_coverage')) {
 
 import('unittest');
 
-class Cmp extends \XPSPL\signal\Complex {}
-class Lst extends \XPSPL\Listener {
-    public function foo(){}
-}
-
 $output = unittest\Output::instance();
 
 $tests = [
-    // 'Processes Installed' =>
-    // function($i){
-    //     signal(SIG($i), null); 
-    // },
+    'Processes Installed' =>
+    function($i){
+        signal(SIG($i), null); 
+    },
     'Signals Emitted' => 
     function($i){
         emit($i);
     },
-    // 'Signal Registration' =>
-    // function($i){
-    //     register_signal(SIG($i)); 
-    // },
+    'Signal Registration' =>
+    function($i){
+        register_signal(SIG($i)); 
+    },
     // 'Listners Installed' => 
     // function($i) {
     //     listen(new Lst());
@@ -102,7 +97,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 25);) {
+        for($a=1;$a<(1 << 14);) {
             $a = $a << 1;
             $tc = $a;
             echo $a.PHP_EOL;

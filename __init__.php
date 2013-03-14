@@ -13,12 +13,12 @@ define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
 
 // start'er up
 // utils & traits
-require dirname(realpath(__FILE__)).'/src/utils.php';
-require dirname(realpath(__FILE__)).'/src/const.php';
+require dirname(realpath(__FILE__)).'/XPSPL/utils.php';
+require dirname(realpath(__FILE__)).'/XPSPL/const.php';
 
 set_include_path(
     XPSPL_MODULE_DIR . PATH_SEPARATOR .
-    XPSPL_PATH . '/..' . PATH_SEPARATOR . 
+    XPSPL_PATH . PATH_SEPARATOR . 
     get_include_path()
 );
 
@@ -37,7 +37,7 @@ foreach ($dir as $_file) {
 
 // dev mode
 if (XPSPL_DEBUG) {
-    define('LOGGER_DATE_FORMAT', 'm-d-y H:i:s');
+    define('LOGGER_DATE_FORMAT', 'm-d-y H:i:s.u');
     error_reporting(E_ALL ^ E_STRICT);
     import('logger');
     $log = logger(XPSPL_LOG);

@@ -17,6 +17,15 @@ if (!defined('LOGGER_LOG_LEVEL')) {
     define('LOGGER_LOG_LEVEL', 1);
 }
 
+if (!defined('LOGGER_DATE_FORMAT')) {
+    /**
+     * LOGGER_DATE_FORMAT
+     *
+     * The default date format for log messages.
+     */
+    define('LOGGER_DATE_FORMAT', 'm-d-y H:i:s.u');
+}
+
 /**
  * Returns a logger identified by the given name.
  *
@@ -389,8 +398,9 @@ class Formatter {
                 $str_code = 'CRITICAL';
                 break;
         }
+        $date = new \DateTime('now');
         return psprintf($this->_format, [
-            'date' => date('m-d-y H:i:s e'),
+            'date' => $date->format(LOGGER_DATE_FORMAT),
             'message' => $message,
             'code' => $code,
             'str_code' => $str_code

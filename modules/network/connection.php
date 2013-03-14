@@ -36,7 +36,7 @@ class Connection {
      *
      * @var  integer
      */
-    protected $_read_attempted = false;
+    protected $_read_attempted = 0;
 
 
     /**
@@ -99,16 +99,22 @@ class Connection {
         $read = socket_recv($this->get_resource(), $r, $length, $flags);
         if ($read === false) {
             if (socket_last_error($this->get_resource()) == SOCKET_EWOULDBLOCK) {
-                if (!$this->_read_attempted) {
-                    \time\awake(XPSPL_SOCKET_TIMEOUT, function(){
-                        $this->disconnect();
-                    }, TIME_MILLISECONDS);
+                if ($this->_read_attempted >= 10) {
+                    // \time\awake(XPSPL_SOCKET_TIMEOUT, function(){
+                    //     // Allow socket to recover
+                    //     if ($this->_read_attempted) {
+                    //         $this->disconnect();
+                    //     }
+                    // }, TIME_MILLISECONDS);
                     return false;
+                } else {
+                    ++$this->_read_attemped;
                 }
                 return SOCKET_EWOULDBLOCK;
             }
             return false;
         }
+        $this->_read_attempted = 0;
         return $r;
     }
 
@@ -123,9 +129,9 @@ class Connection {
             return false;
         }
         if (null !== $this->_read_buffer) {
-            \time\awake(1, function(){
-                emit(new SIG_Read($this, $this));
-            }, TIME_MILLISECONDS);
+            // \time\awake(1, function(){
+            //     emit(new SIG_Read($this, $this));
+            // }, TIME_MILLISECONDS);
             return true;
         }
         $read = $this->read();
@@ -145,7 +151,7 @@ class Connection {
      */
     public function disconnect(/* ... */)
     {
-        return emit(new SIG_Disconnect($this));
+        return emit(new SIG_Disconnect(null, $this));
     }
 
     /**
@@ -192,7 +198,7 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
 /**
  * System socket disconnect.
  *
- * Disconnects the socket last priority.
+ * Disconnects the socket as the lowest possible priority.
  *
  * .. note::
  *
@@ -202,5 +208,5 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
  */
 signal(
     new SIG_Disconnect(), 
-    low_priority(null_exhaust('\network\system_disconnect'))
+    priority(PHP_INT_MAX, null_exhaust('\network\system_disconnect'))
 );

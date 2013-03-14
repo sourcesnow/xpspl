@@ -316,6 +316,10 @@ class SIG {
      */
     public function __toString(/* ... */)
     {
-        return (string) $this->_index;
+        return sprintf('INDEX(%s) - CLASS(%s) - HASH(%s)',
+            $this->_index,
+            get_class($this),
+            spl_object_hash($this)
+        );
     }
 }

@@ -19,7 +19,7 @@ spl_autoload_register(function($class){
     if (strpos($class, '\\') !== false) {
         $paths = explode('\\', $class);
         $lib = array_shift($paths);
-        $file = $lib.'/src/'.strtolower(implode('/', $paths)).'.php';
+        $file = $lib.'/'.strtolower(implode('/', $paths)).'.php';
         if (XPSPL_DEBUG) {
             if (function_exists('logger')) {
                 logger(XPSPL_LOG)->debug(sprintf(

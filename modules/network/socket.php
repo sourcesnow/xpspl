@@ -6,6 +6,8 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
+import('logger');
+
 use \XPSPL\idle\Process,
     \XPSPL\idle\Time;
 
@@ -66,9 +68,15 @@ class Socket extends \XPSPL\SIG_Routine {
         $this->_options = $options;
 
         $this->_idle = new Process(function($processor){
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(
+                    'Entering socket wait loop'
+                );
+            }
             $idle = $processor->get_routine()->get_idles_available();
             // 30 second default wait
             $time = 30;
+            $utime = 0;
             // Determine if another function has requested to execute in x
             // amount of time
             if (count($processor->get_routine()->get_signals()) !== 0) {
@@ -76,11 +84,15 @@ class Socket extends \XPSPL\SIG_Routine {
                 $time = 0;
             } elseif (count($idle) >= 2) {
                 foreach ($idle as $_idle) {
-                    if ($_idle instanceof Time) {
-                        $time = round($_idle->convert_length(
-                            $_idle->get_time_left(), 
+                    if ($_idle->get_idle() instanceof Time) {
+                        $time = round($_idle->get_idle()->convert_length(
+                            $_idle->get_idle()->get_time_left(), 
                             TIME_SECONDS
                         ), 3);
+                        if ($time > 0 && $time < 1) {
+                            $utime = $time * 1000;
+                            $time = 0;
+                        }
                         break;
                     }
                 }
@@ -91,8 +103,7 @@ class Socket extends \XPSPL\SIG_Routine {
             ];
             $wr = $ex = [];
             foreach ($this->_clients as $_k => $_c) {
-                var_dump($_c);
-                $_r = $_c->get_resource();
+                $_resource = $_c->get_resource();
                 // test if socket is still connected
                 // send disconnect if disconnect detected
                 if ($_c->is_connected() === false) {
@@ -102,45 +113,73 @@ class Socket extends \XPSPL\SIG_Routine {
                     unset($this->_clients[$_k]);
                     continue;
                 } else {
-                    $re[] = $_r;
-                    $wr[] = $_r;
-                    $ex[] = $_r;
+                    $re[] = $_resource;
+                    $ex[] = $_resource;
                 }
             }
-            if (false !== $count = socket_select($re, $wr, $ex, $time)) {
-                if ($count == 0) return true;
-                if (count($re) !== 0) {
-                    foreach ($re as $_r) {
-                        $id = intval($_r);
-                        if (!isset($this->_clients[$id])) {
-                            try {
-                                $client = new Client($_r);
-                                $id = intval($client->get_resource());
-                                $processor->get_routine()->add_signal(
-                                    new SIG_Connect($this, $client)
-                                );
-                                $this->_clients[$id] = $client;
-                            } catch (\RuntimeException $e) {
-                                // connection error
-                                // $this->_routine->add_signal(
-                                //     new SIG_Error($e)
-                                // );
-                            }
-                        } else {
-                            $processor->get_routine()->add_signal(
-                                new SIG_Read($this, $this->_clients[$id])
-                            );
-                        }
-                    }
+            $count = socket_select($re, $wr, $ex, $time, $utime);
+            if ($count === false) {
+                logger(XPSPL_LOG)->debug(
+                    'Socket wait loop ended PROBLEM'
+                );
+                return false;
+            } elseif ($count == 0) {
+                if (XPSPL_DEBUG) {
+                    logger(XPSPL_LOG)->debug(
+                        'Socket wait loop ended no connection changes'
+                    );
                 }
-                if (count($wr) !== 0) {
-                    foreach ($wr as $_write) {
-                        $processor->get_routine()->add_signal(
-                            new SIG_Write(
-                                $this, $this->_clients[intval($_write)]
-                            )
+                return true;
+            }
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(
+                    'Socket wait loop ended connection changes detected'
+                );
+            }
+            // Check Read
+            if (count($re) !== 0) {
+                foreach ($re as $_r) {
+                    if (XPSPL_DEBUG) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Connection Read %s',
+                            strval(intval($_r))
+                        ));
+                    }
+                    $id = intval($_r);
+                    if (!isset($this->_clients[$id])) {
+                        $client = new Client($_r);
+                        $id = intval($client->get_resource());
+                        emit(
+                            new SIG_Connect($this, $client)
+                        );
+                        $this->_clients[$id] = $client;
+                        if (XPSPL_DEBUG) {
+                            logger(XPSPL_LOG)->debug(sprintf(
+                                'Added Connection %s',
+                                strval(intval($id))
+                            ));
+                        }
+                    } else {
+                        emit(
+                            new SIG_Read($this, $this->_clients[$id])
                         );
                     }
+                }
+            }
+            // Check Write
+            if (count($wr) !== 0) {
+                foreach ($wr as $_write) {
+                    if (XPSPL_DEBUG) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Connection Write %s',
+                            strval($_write)
+                        ));
+                    }
+                    $processor->get_routine()->add_signal(
+                        new SIG_Write(
+                            $this, $this->_clients[intval($_write)]
+                        )
+                    );
                 }
             }
         });

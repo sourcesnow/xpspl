@@ -65,4 +65,18 @@ class Database extends Storage {
             return end($this->_storage);
         }
     }
+
+    /**
+     * Return a string representation of this database.
+     *
+     * @return  string
+     */
+    public function __toString(/* ... */)
+    {
+        return sprintf('CLASS(%s) HASH(%s) NODE_COUNT(%s)',
+            get_class($this), 
+            spl_object_hash($this),
+            $this->count()
+        );
+    }
 }

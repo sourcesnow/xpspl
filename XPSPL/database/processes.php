@@ -59,7 +59,7 @@ class Processes extends \XPSPL\Database {
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
                 '%s process install',
-                spl_object_hash($process)
+                $process
             ));
         }
         $priority = $process->get_priority();
@@ -68,7 +68,7 @@ class Processes extends \XPSPL\Database {
                 if (XPSPL_DEBUG) {
                     logger(XPSPL_LOG)->debug(sprintf(
                         '%s sub-database root',
-                        spl_object_hash($this->offsetGet($priority))
+                        $this->offsetGet($priority)
                     ));
                     logger(XPSPL_LOG)->debug(sprintf(
                         '%s next priority',
@@ -83,7 +83,7 @@ class Processes extends \XPSPL\Database {
                 if (XPSPL_DEBUG) {
                     logger(XPSPL_LOG)->debug(sprintf(
                         '%s create sub-database',
-                        spl_object_hash($this->offsetGet($priority))
+                        $this->offsetGet($priority)
                     ));
                 }
                 $this->offsetGet($priority)->set_priority(XPSPL_SUBDATABASE_DEFAULT_PRIORITY);
@@ -97,7 +97,7 @@ class Processes extends \XPSPL\Database {
             if (XPSPL_DEBUG) {
                 logger(XPSPL_LOG)->debug(sprintf(
                     '%s process installed',
-                    spl_object_hash($process)
+                    $process
                 ));
             }
             $this->_storage[$priority] = $process;
@@ -118,8 +118,8 @@ class Processes extends \XPSPL\Database {
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
                 '%s process delete from db %s (%d)',
-                spl_object_hash($process),
-                spl_object_hash($this),
+                $process,
+                $this,
                 $this->count()
             ));
         }
@@ -140,8 +140,8 @@ class Processes extends \XPSPL\Database {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             '%s deleted from %s (%d)',
-                            spl_object_hash($process),
-                            spl_object_hash($this),
+                            $process,
+                            $this,
                             $this->count()
                         ));
                     }
@@ -183,7 +183,7 @@ class Processes extends \XPSPL\Database {
                 if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             '%s merged',
-                            spl_object_hash($_process)
+                            $_process
                         ));
                     }
                 $this->install($_process);

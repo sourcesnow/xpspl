@@ -15,11 +15,16 @@ import('network');
 
 $server = network\connect('0.0.0.0', ['port' => '1337']);
 
-$server->on_connect(null_exhaust(function($sig_connect){
-    var_dump($sig_connect);
+$server->on_connect(null_exhaust(function(network\SIG_Connect $sig_connect){
     if (null !== $sig_connect->socket) {
         echo "Connection " . PHP_EOL;
         $sig_connect->socket->write($sig_connect->socket->read());
         $sig_connect->socket->disconnect();
     }
+}));
+
+$server->on_read(null_exhaust(function(network\SIG_Connect $sig_read){
+    echo "Connection " . PHP_EOL;
+    $sig_connect->socket->write($sig_connect->socket->read());
+    $sig_connect->socket->disconnect();
 }));

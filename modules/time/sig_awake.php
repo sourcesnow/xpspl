@@ -70,4 +70,30 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
         $routine->add_idle($this);
         return true;
     }
+
+    /**
+     * Returns the time for the signal.
+     *
+     * @return  integer
+     */
+    public function get_time(/* ... */)
+    {
+        return $this->_time;
+    }
+
+    /**
+     * String representation.
+     *
+     * @return  string
+     */
+    public function __toString(/* ... */)
+    {
+        return sprintf('INDEX(%s) - CLASS(%s) - HASH(%s) - TIME(%s) - INSTRUCT(%s)',
+            $this->_index,
+            get_class($this),
+            spl_object_hash($this),
+            $this->_time,
+            $this->_instruction
+        );
+    }
 }

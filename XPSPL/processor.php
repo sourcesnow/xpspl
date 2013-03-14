@@ -235,7 +235,7 @@ class Processor {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             '%s emittable signal detected',
-                            spl_object_hash($_signal)
+                            $_signal
                         ));
                     }
                     return true;
@@ -247,7 +247,7 @@ class Processor {
             if (XPSPL_DEBUG) {
                 logger(XPSPL_LOG)->debug(sprintf(
                     '%s idle function detected', 
-                    spl_object_hash($this->_routine->get_idle())
+                    $this->_routine->get_idle()
                 ));
             }
             return true;
@@ -413,6 +413,12 @@ class Processor {
         }
         $db = $this->find_signal_database($signal);
         if (null === $db) {
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(sprintf(
+                    'Registering signal %s',
+                    $signal
+                ));
+            }
             $db = $this->register_signal($signal);
         }
         $db->install($process, $process->get_priority());
@@ -591,7 +597,7 @@ class Processor {
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
                 '%s Process DB Executing %s processes',
-                spl_object_hash($db),
+                $db,
                 $db->count()
             ));
         }
@@ -613,7 +619,7 @@ class Processor {
                 if (XPSPL_DEBUG) {
                     logger(XPSPL_LOG)->debug(sprintf(
                         'Executing Process %s',
-                        get_class($_process) . ' : ' . spl_object_hash($_process)
+                        get_class($_process) . ' : ' . $_process
                     ));
                 }
                 $_process->decrement_exhaust();
@@ -624,8 +630,8 @@ class Processor {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             'Halting Signal %s due to false return from %s',
-                            spl_object_hash($signal),
-                            get_class($_process) . ' : ' . spl_object_hash($_process)
+                            $signal,
+                            get_class($_process) . ' : ' . $_process
                         ));
                     }
                     $signal->halt();
@@ -634,7 +640,7 @@ class Processor {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             'Process %s Exhausted',
-                            get_class($_process) . ' : ' . spl_object_hash($_process)
+                            get_class($_process) . ' : ' . $_process
                         ));
                     }
                     $db->delete($_process);

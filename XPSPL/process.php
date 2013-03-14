@@ -65,7 +65,7 @@ class Process {
      *
      * @return  void
      */
-    public function decrement_exhaust(/* ... */)
+    final public function decrement_exhaust(/* ... */)
     {
         if (null !== $this->_exhaustion && $this->_exhaustion >= 0) {
             $this->_exhaustion--;
@@ -78,7 +78,7 @@ class Process {
      *
      * @return  integer
      */
-    public function exhaustion(/* ... */)
+    final public function exhaustion(/* ... */)
     {
         return $this->_exhaustion;
     }
@@ -88,7 +88,7 @@ class Process {
      *
      * @return  boolean
      */
-    public function is_exhausted()
+    final public function is_exhausted()
     {
         if (null === $this->_exhaustion) {
             return false;
@@ -106,7 +106,7 @@ class Process {
      *
      * @return  integer
      */
-    public function get_priority(/* ... */)
+    final public function get_priority(/* ... */)
     {
         return $this->_priority;
     }
@@ -116,7 +116,7 @@ class Process {
      *
      * @return  closure|array
      */
-    public function get_function(/* ... */)
+    final public function get_function(/* ... */)
     {
         return $this->_callable;
     }
@@ -128,7 +128,7 @@ class Process {
      * 
      * @return  void
      */
-    public function set_exhaust($rate)
+    final public function set_exhaust($rate)
     {
         # Invalid or negative exhausting sets the rate to XPSPL_PROCESS_DEFAULT_EXHAUST.
         if (null !== $rate && (!is_int($rate) || $rate <= -1)) {
@@ -145,7 +145,7 @@ class Process {
      * 
      * @return  void
      */
-    public function set_priority($priority)
+    final public function set_priority($priority)
     {
         # Invalid or negative exhausting sets the rate to XPSPL_PROCESS_DEFAULT_PRIORITY.
         if (null !== $priority && !is_int($priority)) {
@@ -153,5 +153,20 @@ class Process {
             return;
         }
         $this->_priority = $priority;
+    }
+
+    /**
+     * Return a string representation of this database.
+     *
+     * @return  string
+     */
+    public function __toString(/* ... */)
+    {
+        return sprintf('CLASS(%s) - HASH(%s) - EXHAUST(%s) PRIORITY(%s)',
+            get_class($this), 
+            spl_object_hash($this),
+            (null === $this->_exhaustion) ? 'null' : $this->_exhaustion,
+            $this->_priority
+        );
     }
 }
