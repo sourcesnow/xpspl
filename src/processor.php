@@ -514,6 +514,14 @@ class Processor {
                 $signal
             ));
         }
+        if ($this->has_signal_exhausted($signal)) {
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(
+                    'Non emittable signal emitted'
+                );
+            }
+            return $signal;
+        }
         // Store the history of the signal
         if (false !== $this->_history) {
             $this->_history[] = [$signal, microtime()];

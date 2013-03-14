@@ -6,6 +6,8 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
+import('time');
+
 use \XPSPL\Idle as idle;
 
 /**
@@ -34,7 +36,7 @@ class Connection {
      *
      * @var  integer
      */
-    protected $_read_attempts = 0;
+    protected $_read_attempted = false;
 
 
     /**
@@ -97,7 +99,10 @@ class Connection {
         $read = socket_recv($this->get_resource(), $r, $length, $flags);
         if ($read === false) {
             if (socket_last_error($this->get_resource()) == SOCKET_EWOULDBLOCK) {
-                if ($this->_read_attempts >= 10) {
+                if (!$this->_read_attempted) {
+                    \time\awake(XPSPL_SOCKET_TIMEOUT, function(){
+                        $this->disconnect();
+                    }, TIME_MILLISECONDS);
                     return false;
                 }
                 return SOCKET_EWOULDBLOCK;
@@ -118,17 +123,16 @@ class Connection {
             return false;
         }
         if (null !== $this->_read_buffer) {
+            \time\awake(1, function(){
+                emit(new SIG_Read($this, $this));
+            }, TIME_MILLISECONDS);
             return true;
         }
         $read = $this->read();
         if (false === $read) {
             return false;
         }
-        if ($read === SOCKET_EWOULDBLOCK) {
-            ++$this->_read_attempts;
-            return true;
-        }
-        $this->_read_buffer = $read;
+        $this->_read_buffer .= $read;
         return true;
     }
 
@@ -141,10 +145,7 @@ class Connection {
      */
     public function disconnect(/* ... */)
     {
-        return emit(
-            new SIG_Disconnect(), 
-            new EV_Disconnect($this)
-        );
+        return emit(new SIG_Disconnect($this));
     }
 
     /**
@@ -176,25 +177,30 @@ class Connection {
 /**
  * Disconnects a socket signal.
  *
- * @param  object  $event  event\Disconnect
+ * @param  object  $sig_disconnect  \network\SIG_Disconnect
  * 
  * @return  void
  */
-function sys_disconnect(EV_Disconnect $event) 
+function system_disconnect(SIG_Disconnect $sig_disconnect) 
 {
-    echo "CLOSING THE CONNECTION";
-    socket_close($event->socket->get_resource());
+    if (XPSPL_DEBUG) {
+        logger(XPSPL_LOG)->debug('Disconnect socket');
+    }
+    socket_close($sig_disconnect->socket->get_resource());
 }
 
 /**
- * Register the disconnect
+ * System socket disconnect.
  *
- * This fires as a last priority to allow pushing content to the host.
+ * Disconnects the socket last priority.
  *
- * Though it should be noted that pushing content to a disconnected socket might 
- * not get the data.
+ * .. note::
+ *
+ *    A disconnection can occur at anytime.
+ *    
+ *    The socket may not be available for write during disconnection.
  */
 signal(
     new SIG_Disconnect(), 
-    low_priority(null_exhaust('\network\sys_disconnect'))
+    low_priority(null_exhaust('\network\system_disconnect'))
 );

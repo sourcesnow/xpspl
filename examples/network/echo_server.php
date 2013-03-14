@@ -13,12 +13,13 @@
  */
 import('network');
 
-$socket = network\connect('0.0.0.0', ['port' => '1337'], function(){
-    echo "Server Running". PHP_EOL;
-});
+$server = network\connect('0.0.0.0', ['port' => '1337']);
 
-$socket->on_client(null_exhaust(function(){
-    echo "Connection " . PHP_EOL;
-    // $this->socket->write($this->socket->read());
-    // $this->socket->disconnect();
+$server->on_connect(null_exhaust(function($sig_connect){
+    var_dump($sig_connect);
+    if (null !== $sig_connect->socket) {
+        echo "Connection " . PHP_EOL;
+        $sig_connect->socket->write($sig_connect->socket->read());
+        $sig_connect->socket->disconnect();
+    }
 }));

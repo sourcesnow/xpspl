@@ -6,3 +6,5 @@
  */
 
 define('XPSPL_NETWORK_IPV6', false);
+
+define('XPSPL_SOCKET_TIMEOUT', 1);

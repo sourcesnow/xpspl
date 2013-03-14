@@ -91,13 +91,13 @@ class Socket extends \XPSPL\SIG_Routine {
             ];
             $wr = $ex = [];
             foreach ($this->_clients as $_k => $_c) {
+                var_dump($_c);
                 $_r = $_c->get_resource();
                 // test if socket is still connected
                 // send disconnect if disconnect detected
                 if ($_c->is_connected() === false) {
                     emit(
-                        new SIG_Disconnect($this),
-                        new EV_Disconnect($_c)
+                        new SIG_Disconnect($_c)
                     );
                     unset($this->_clients[$_k]);
                     continue;
@@ -217,7 +217,7 @@ class Socket extends \XPSPL\SIG_Routine {
      *
      * @return  object
      */
-    public function on_client($function)
+    public function on_connect($function)
     {
         return signal(new SIG_Connect($this), $function);
     }
@@ -227,7 +227,7 @@ class Socket extends \XPSPL\SIG_Routine {
      *
      * @return  array
      */
-    public function get_clients(/* ... */)
+    public function get_connections(/* ... */)
     {
         return $this->_clients;
     }
