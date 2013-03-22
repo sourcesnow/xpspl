@@ -1,6 +1,8 @@
 # XPSPL
 
-High-Performance Signal Processor designed to change the way we write PHP.
+O(1) Constant Time Signal Processing in PHP.
+
+<img src="http://xpspl.prggmr.org/en/xspel/_images/emit_graph_upper.png" />
 
 ## Documentation
 
