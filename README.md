@@ -1,6 +1,9 @@
-# Development
+# XPSPL
 
-You are currently in a development branch.
+O(1) Constant Time Signal Processing in PHP.
 
-This branch is not recommended for production use and may not be backwards 
-compatible with existing versions.
+<img src="http://xpspl.prggmr.org/en/xspel/_images/emit_graph_upper.png" />
+
+## Documentation
+
+XPSPL's documentation is available at http://xpspl.prggmr.org
