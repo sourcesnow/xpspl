@@ -1,6 +1,6 @@
 # XPSPL
 
-O(1) Constant Time Microsecond PHP Signal Processing.
+O(1) Constant Time Microsecond PHP Signal Processor.
 
 <img src="http://xpspl.prggmr.org/en/xspel/_images/emit_graph_upper.png" />
 
