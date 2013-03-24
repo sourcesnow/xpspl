@@ -19,7 +19,7 @@ if (!defined('LOGGER_DATE_FORMAT')) {
 }
 
 if (!defined('LOGGER_BLOCK')) {
-    define('LOGGER_BLOCK', false);
+    define('LOGGER_BLOCK', true);
 }
 
 define('LOGGER_VERSION', 'v1.0.0');

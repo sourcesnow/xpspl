@@ -126,7 +126,6 @@ if (isset($unittest)) {
 }
 
 if (false !== $runfile) {
-    echo "LOADING $runfile";
     if (!file_exists($runfile)) {
         die("Could not open $runfile\n");
     } else {
