@@ -10,16 +10,6 @@ define('NETWORK_VERSION', 'v1.0.0');
 
 $dir = dirname(realpath(__FILE__));
 
-if (!defined('XPSPL_NETWORK_TIMEOUT_MICROSECONDS')) {
-    define('XPSPL_NETWORK_TIMEOUT_MICROSECONDS', 0);
-}
-
-if (!defined('XPSPL_NETWORK_TIMEOUT_SECONDS')) {
-    define('XPSPL_NETWORK_TIMEOUT_SECONDS', 15);
-}
-
-define('XPSPL_SOCKET_READ_LENGTH', 2000000);
-
 /**
  * Autoload the socket signals.
  */

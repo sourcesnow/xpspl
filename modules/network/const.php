@@ -5,6 +5,25 @@
  * that can be found in the LICENSE file.
  */
 
-define('XPSPL_NETWORK_IPV6', false);
+/**
+ * IPV6 Support
+ */
+define('XPSPL_NETWORK_IPV6', true);
 
-define('XPSPL_SOCKET_TIMEOUT', 1);
+if (!defined('XPSPL_NETWORK_TIMEOUT_MICROSECONDS')) {
+    define('XPSPL_NETWORK_TIMEOUT_MICROSECONDS', 0);
+}
+
+if (!defined('XPSPL_NETWORK_TIMEOUT_SECONDS')) {
+    /**
+     * Default timeout length in seconds for connections.
+     */
+    define('XPSPL_NETWORK_TIMEOUT_SECONDS', 30);
+}
+
+if (!defined('XPSPL_SOCKET_READ_LENGTH')) {
+    /**
+     * Amount of data to read in on read in bytes.
+     */
+    define('XPSPL_SOCKET_READ_LENGTH', 2000000);
+}

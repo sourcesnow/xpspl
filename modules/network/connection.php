@@ -88,29 +88,23 @@ class Connection {
      *
      * @return  string
      */
-    public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = null) 
+    public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = MSG_DONTWAIT) 
     {
-        if (null !== $this->_read_buffer) {
-            $return = $this->_read_buffer;
-            $this->_read_buffer = null;
-            return $return;
-        }
         $r = null;
-        $read = socket_recv($this->get_resource(), $r, $length, $flags);
+        $read = @socket_recv($this->get_resource(), $r, $length, $flags);
+        // Gracefull disconnect
+        if ($read === 0) {
+            return false;
+        }
         if ($read === false) {
-            if (socket_last_error($this->get_resource()) == SOCKET_EWOULDBLOCK) {
+            $error = socket_last_error($this->get_resource());
+            if ($error == SOCKET_EWOULDBLOCK) {
                 if ($this->_read_attempted >= 10) {
-                    // \time\awake(XPSPL_SOCKET_TIMEOUT, function(){
-                    //     // Allow socket to recover
-                    //     if ($this->_read_attempted) {
-                    //         $this->disconnect();
-                    //     }
-                    // }, TIME_MILLISECONDS);
                     return false;
                 } else {
                     ++$this->_read_attemped;
                 }
-                return SOCKET_EWOULDBLOCK;
+                return;
             }
             return false;
         }
@@ -128,17 +122,10 @@ class Connection {
         if (!is_resource($this->get_resource())) {
             return false;
         }
-        if (null !== $this->_read_buffer) {
-            // \time\awake(1, function(){
-            //     emit(new SIG_Read($this, $this));
-            // }, TIME_MILLISECONDS);
-            return true;
-        }
-        $read = $this->read();
-        if (false === $read) {
+        // peek into the connection reading 1 byte
+        if (false === $this->read(1, MSG_DONTWAIT ^ MSG_PEEK)) {
             return false;
         }
-        $this->_read_buffer .= $read;
         return true;
     }
 
@@ -194,19 +181,3 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
     }
     socket_close($sig_disconnect->socket->get_resource());
 }
-
-/**
- * System socket disconnect.
- *
- * Disconnects the socket as the lowest possible priority.
- *
- * .. note::
- *
- *    A disconnection can occur at anytime.
- *    
- *    The socket may not be available for write during disconnection.
- */
-signal(
-    new SIG_Disconnect(), 
-    priority(PHP_INT_MAX, null_exhaust('\network\system_disconnect'))
-);

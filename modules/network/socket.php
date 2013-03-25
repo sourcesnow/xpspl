@@ -188,6 +188,8 @@ class Socket extends \XPSPL\SIG_Routine {
                 }
             }
         });
+
+        $this->on_disconnect(priority(PHP_INT_MAX, null_exhaust('\network\system_disconnect')));
     }
 
     /**
@@ -302,7 +304,37 @@ class Socket extends \XPSPL\SIG_Routine {
             ]
         );
         // establish bind
-        for ($i = 0; $i != 5; $i++) {
+        // for ($i = 0; $i != 5; $i++) {
+        //     try {
+        //         (false === socket_bind(
+        //             $this->_connection->get_resource(), 
+        //             $this->_address, 
+        //             $this->_options['port']
+        //         )) ? throw_socket_error() : null;
+        //         if (XPSPL_DEBUG) {
+        //             logger(XPSPL_DEBUG)->debug('Main connection established');
+        //         }
+        //         break;
+        //     } catch (\RuntimeException $e) {
+        //         if ($i >= 5) {
+        //             if (XPSPL_DEBUG) {
+        //                 logger(XPSPL_DEBUG)->debug(sprintf(
+        //                     'FAILED CONNECTION %s',
+        //                     $e->getMessage()
+        //                 ));
+        //             }
+        //             exit(1);
+        //         } else {
+        //             if (XPSPL_DEBUG) {
+        //                 logger(XPSPL_DEBUG)->debug(
+        //                     'Reattempt connection in 30 sec'
+        //                 );
+        //             }
+        //             sleep(30);
+        //         }
+        //     }
+        // }
+        for ($i = 0; $i != 1000; $i++) {
             try {
                 (false === socket_bind(
                     $this->_connection->get_resource(), 
@@ -314,7 +346,7 @@ class Socket extends \XPSPL\SIG_Routine {
                 }
                 break;
             } catch (\RuntimeException $e) {
-                if ($i >= 5) {
+                if ($i >= 250) {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_DEBUG)->debug(sprintf(
                             'FAILED CONNECTION %s',
@@ -325,10 +357,10 @@ class Socket extends \XPSPL\SIG_Routine {
                 } else {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_DEBUG)->debug(
-                            'Reattempt connection in 30 sec'
+                            'Reattempt connection in '.(((log($i, 2)) * .1000000) * 1000000).'us'
                         );
                     }
-                    sleep(30);
+                    usleep(((log($i, 2)) * .1000000) * 1000000);
                 }
             }
         }
@@ -337,35 +369,3 @@ class Socket extends \XPSPL\SIG_Routine {
         socket_set_nonblock($this->_connection->get_resource());
     }
 }
-
-// 
-// for ($i = 0; $i != 1000; $i++) {
-//     try {
-//         (false === socket_bind(
-//             $this->_connection->get_resource(), 
-//             $this->_address, 
-//             $this->_options['port']
-//         )) ? throw_socket_error() : null;
-//         if (XPSPL_DEBUG) {
-//             logger(XPSPL_DEBUG)->debug('Main connection established');
-//         }
-//         break;
-//     } catch (\RuntimeException $e) {
-//         if ($i >= 800) {
-//             if (XPSPL_DEBUG) {
-//                 logger(XPSPL_DEBUG)->debug(sprintf(
-//                     'FAILED CONNECTION %s',
-//                     $e->getMessage()
-//                 ));
-//             }
-//             exit(1);
-//         } else {
-//             if (XPSPL_DEBUG) {
-//                 logger(XPSPL_DEBUG)->debug(
-//                     'Reattempt connection in '.(((log($i, 2)) * .0050000) * 1000000).'us'
-//                 );
-//             }
-//             usleep(((log($i, 2)) * .0050000) * 1000000);
-//         }
-//     }
-// }
