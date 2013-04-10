@@ -36,6 +36,13 @@ final class Routine {
     protected $_idle = [];
 
     /**
+     * Routine is stale receiving no changes.
+     *
+     * @var  boolean
+     */
+    protected $_is_stale = true;
+
+    /**
      * Returns the signals to trigger in the loop.
      *
      * @return  array
@@ -76,6 +83,9 @@ final class Routine {
      */
     public function add_idle(SIG_Routine $routine)
     {
+        if (!$this->_is_stale) {
+            $this->_is_stale = false;
+        }
         if (count($this->_idle) === 0) {
             $this->_idle[] = $routine;
             return;
@@ -114,6 +124,9 @@ final class Routine {
      */
     public function add_signal($signal)
     {
+        if (!$this->_is_stale) {
+            $this->_is_stale = false;
+        }
         return $this->_signals[] = $signal;
     }
 
@@ -126,5 +139,15 @@ final class Routine {
     {
         $this->_signals = [];
         $this->_idle = [];
+    }
+
+    /**
+     * Returns if the routine is stale.
+     *
+     * @return  boolean
+     */
+    public function is_stale(/* ... */)
+    {
+        return $this->_is_stale;
     }
 }

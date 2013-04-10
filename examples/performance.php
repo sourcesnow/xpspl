@@ -10,18 +10,18 @@ import('unittest');
 $output = unittest\Output::instance();
 
 $tests = [
-    'Processes Installed' =>
-    function($i){
-        signal(SIG($i), null); 
-    },
-    'Signals Emitted' => 
-    function($i){
-        emit($i);
-    },
-    'Signal Registration' =>
-    function($i){
-        register_signal(SIG($i)); 
-    },
+    // 'Processes Installed' =>
+    // function($i){
+    //     signal(SIG($i), null); 
+    // },
+    // 'Signals Emitted' => 
+    // function($i){
+    //     emit($i);
+    // },
+    // 'Signal Registration' =>
+    // function($i){
+    //     register_signal(SIG($i)); 
+    // },
     // 'Listners Installed' => 
     // function($i) {
     //     listen(new Lst());
@@ -30,10 +30,10 @@ $tests = [
     // // function($i){
     // //     before($i, function(){}); 
     // // },
-    // 'Loops Performed' => 
-    // function($i) {
-    //     wait_loop();
-    // },
+    'Loops Performed' => 
+    function($i) {
+        wait_loop();
+    },
     // 'Interruption before emit' => 
     // function($i) {
     //     before($i, function(){});
