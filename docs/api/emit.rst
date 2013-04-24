@@ -1,13 +1,11 @@
-.. emit.php generated using docpx on 02/21/13 08:52pm
+.. /emit.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - emit
+***************
 
-emit
-====
 
-.. function:: emit()
+.. function:: emit($signal, [$context = false])
 
 
     Emit a signal. 
@@ -34,7 +32,7 @@ emit
 
 
 Emitting a unique signal
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+########################
 
 When a unique signal is emitted
 
@@ -59,3 +57,5 @@ When a unique signal is emitted
 
 
 
+
+Last updated on 04/23/13 11:40pm

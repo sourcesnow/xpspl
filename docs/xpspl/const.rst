@@ -1,4 +1,4 @@
-.. const.php generated using docpx on 02/08/13 05:30pm
+.. XPSPL/const.php generated using docpx on 04/23/13 11:50pm
 
 
 Constants
@@ -8,22 +8,24 @@ XPSPL_DEBUG
 +++++++++++
 XPSPL Debug mode
 
-When debug mode is turned off an exception handler is installed that 
-automatically removes the processor traces from the stack.
+When turned on XPSPL generates a log of all activity to STDOUT.
+
+When turned off XPSPL removes its processor traces from uncaught exceptions.
 
 XPSPL_SIGNAL_HISTORY
 ++++++++++++++++++++
 Signal History
 
-Boolean option for the signal history. 
+Default setting for the saving the signal history. 
 
-By default it is ``false``.
+By default this is ``false``.
 
 XPSPL_PURGE_EXHAUSTED
 +++++++++++++++++++++
 Remove Exhausted processes
 
-Boolean option to automatically remove exhausted signals from the processor.
+When turned on this automatically removes installed processes from the 
+processor once it determines they can no longer be used.
 
 By default this settings is ``true``.
 
@@ -61,23 +63,78 @@ Currently this is experimental as an attempt to improve performance.
 
 Once stable this will automatically be enabled if Judy is detected.
 
-XPSPL_JUDY_SUPPORT
+XPSPL_ANALYZE_TIME
 ++++++++++++++++++
-Judy is an array implementation.
+**UNUSED**
 
-For more information see http://php.net/manual/en/book.judy.php
-
-Currently this is experimental as an attempt to improve performance.
+This is an unused configuration option that will later add support 
+for analyzing the processor timing to auto correct signal timing.
 
 XPSPL_LOG
 +++++++++
 XPSPL Log
 
+Logger identifier for XPSPL's log.
+
 TIME_SECONDS
 ++++++++++++
+Seconds second timing instruction
+
+This declares operations based on time in seconds.
+
 TIME_MILLISECONDS
 +++++++++++++++++
+Millisecond timing instruction
+
+This declares operations based on time in milliseconds.
+
 TIME_MICROSECONDS
 +++++++++++++++++
+Microsecond timing instruction
 
-Last updated on 02/08/13 05:30pm
+This declares operations based on time in microseconds.
+
+TIME_NANOSECONDS
+++++++++++++++++
+Nanosecond timing instruction
+
+This declares operations based on time in nanoseconds.
+
+STATE_DECLARED
+++++++++++++++
+Declared for use.
+
+STATE_RUNNING
++++++++++++++
+Currently running in execution.
+
+STATE_EXITED
+++++++++++++
+Execution finised.
+
+STATE_ERROR
++++++++++++
+Error encountered.
+
+STATE_RECYCLED
+++++++++++++++
+Successfully ran through a lifecycle and reused.
+
+STATE_RECOVERED
++++++++++++++++
+Corrupted during runtime execution and recovery was succesful.
+
+STATE_HALTED
+++++++++++++
+The object has declared to stop any further execution.
+
+SIGNAL_SELF_PARENT
+++++++++++++++++++
+Signal is a parent of itself.
+
+XPSPL_SUBDATABASE_DEFAULT_PRIORITY
+++++++++++++++++++++++++++++++++++
+Default priority for subdatabase processes
+
+
+Last updated on 04/23/13 11:50pm

@@ -8,6 +8,33 @@ Requirements
 
 XPSPL requires  **>= PHP 5.4**.
 
+XPSPL does not require **any** additional modules or configuration options.
+
+Install
+=======
+
+XPSPL installation is over the network with a CLI. (link_)
+
+.. _link: https://raw.github.com/prggmr/xpspl/master/install
+
+The installation requires the **CURL** and **ZIP** libraries to be installed 
+on the system.
+
+.. code-block:: console
+
+    curl -s https://raw.github.com/prggmr/xpspl/master/install | sudo sh
+
+Once installed the ``xpspl`` command becomes available.
+
+Updates
+=======
+
+Peform updates by running ``xpspl`` with option ``--update``.
+
+.. code-block:: console
+
+    xpspl --update
+
 Optional
 ========
 
@@ -17,41 +44,13 @@ PECL Judy 0.1.4
 The Judy library demonstrates improving the database by giving storage a linear 
 scale of ~39us up to the tested 262144.
 
-Both required libraries are bundled in the ``library`` folder with XPSPL.
+The Judy C library is bundled in the ``library`` folder with XPSPL.
 
 For installation of Judy C see the README.
 
-For installation of Judy PECL.
+For installation of Judy PECL visit here_.
 
-.. code-block:: sh
-
-    $: phpize
-    $: ./configure
-    $: make
-    $: make test
-    $: sudo make install
-
-Install
-=======
-
-XPSPL installation is over the network with a CLI script_.
-
-.. _script: https://raw.github.com/prggmr/xpspl/master/install
-
-The installation requires the **CURL** and **ZIP** libraries.
-
-.. code-block:: console
-
-    curl -s https://raw.github.com/prggmr/xpspl/master/install | sudo sh
-
-Updates
-=======
-
-Once installed updates can be performed by using the ``--update`` option and simply follow the prompt.
-
-.. code-block:: console
-
-    xpspl --update
+.. _here: http://pecl.php.net/package/Judy
 
 Windows
 =======

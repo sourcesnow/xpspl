@@ -3,31 +3,34 @@
 Configuration
 =============
 
-Configuration options are defined in constants before loading the library.
+Configuration values are defined using constants before loading XPSPL.
 
 Constants
 ---------
+
 
 XPSPL_DEBUG
 +++++++++++
 XPSPL Debug mode
 
-When debug mode is turned off an exception handler is installed that 
-automatically removes the processor traces from the stack.
+When turned on XPSPL generates a log of all activity to STDOUT.
+
+When turned off XPSPL removes its processor traces from uncaught exceptions.
 
 XPSPL_SIGNAL_HISTORY
 ++++++++++++++++++++
 Signal History
 
-Boolean option for the signal history. 
+Default setting for the saving the signal history. 
 
-By default it is ``false``.
+By default this is ``false``.
 
 XPSPL_PURGE_EXHAUSTED
 +++++++++++++++++++++
 Remove Exhausted processes
 
-Boolean option to automatically remove exhausted signals from the processor.
+When turned on this automatically removes installed processes from the 
+processor once it determines they can no longer be used.
 
 By default this settings is ``true``.
 
@@ -65,4 +68,12 @@ Currently this is experimental as an attempt to improve performance.
 
 Once stable this will automatically be enabled if Judy is detected.
 
-Last updated on 02/08/13 05:30pm
+XPSPL_ANALYZE_TIME
+++++++++++++++++++
+**UNUSED**
+
+This is an unused configuration option that will later add support 
+for analyzing the processor timing to auto correct signal timing ... at least 
+that is the theory.
+
+Last updated on 04/23/13 11:50pm

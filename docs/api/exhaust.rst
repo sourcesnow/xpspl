@@ -1,13 +1,11 @@
-.. exhaust.php generated using docpx on 02/21/13 08:52pm
+.. /exhaust.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - exhaust
+******************
 
-exhaust
-=======
 
-.. function:: exhaust()
+.. function:: exhaust($limit, $process)
 
 
     Registers the given process to have the given exhaust rate.
@@ -23,7 +21,7 @@ exhaust
 
 
 Defining process exhaust.
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+#########################
 
 Defines the given process with an exhaust of 5.
 
@@ -42,5 +40,35 @@ Defines the given process with an exhaust of 5.
    // results
    // foofoofoofoofoo
 
+Null exhaust process.
+#####################
+
+Install a process that never exhausts.
+
+.. note::
+
+    Once a null exhaust process is installed it must be removed using 
+    ``delete_process``.
+
+.. code-block:: php
+
+    <?php
+
+    signal(SIG('foo'), null_exhaust(function(){
+        echo "foo";
+    }));
+
+    for ($i=0;$i<35;$i++) {
+        emit(SIG('foo'));
+    }
+    // results
+    // foo
+    // foo
+    // foo
+    // foo
+    // ...
 
 
+
+
+Last updated on 04/23/13 11:40pm

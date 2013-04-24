@@ -37,6 +37,35 @@
  *    
  *    // results
  *    // foofoofoofoofoo
+ *
+ * @example
+ *
+ * Null exhaust process.
+ *
+ * Install a process that never exhausts.
+ *
+ * .. note::
+ *
+ *     Once a null exhaust process is installed it must be removed using 
+ *     ``delete_process``.
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     signal(SIG('foo'), null_exhaust(function(){
+ *         echo "foo";
+ *     }));
+ *
+ *     for ($i=0;$i<35;$i++) {
+ *         emit(SIG('foo'));
+ *     }
+ *     // results
+ *     // foo
+ *     // foo
+ *     // foo
+ *     // foo
+ *     // ...
  */ 
 function exhaust($limit, $process)
 {

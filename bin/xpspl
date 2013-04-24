@@ -127,14 +127,15 @@ if (isset($unittest)) {
 
 if (false !== $runfile) {
     if (!file_exists($runfile)) {
-        die("Could not open $runfile\n");
+        echo ("Could not open $runfile\n");
+        exit(1);
     } else {
         require_once $runfile;
     }
 } else {
-    echo "No file provided";
     exit(1);
 }
 
 // start the loop!!
 wait_loop($ttr);
+exit(0);

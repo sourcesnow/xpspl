@@ -1,13 +1,11 @@
-.. sig.php generated using docpx on 02/21/13 08:52pm
+.. /sig.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - SIG
+**************
 
-SIG
-===
 
-.. function:: SIG()
+.. function:: SIG($signal)
 
 
     Generates an XPSPL SIG object from the given ``$signal``.
@@ -20,7 +18,7 @@ SIG
 
 
 Creating a SIG.
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+###############
 
 This will create a SIG idenitified by 'foo'.
 
@@ -35,3 +33,5 @@ This will create a SIG idenitified by 'foo'.
 
 
 
+
+Last updated on 04/23/13 11:40pm

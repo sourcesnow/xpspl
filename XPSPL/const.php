@@ -14,8 +14,9 @@ if (!defined('XPSPL_DEBUG')) {
     /**
      * XPSPL Debug mode
      *
-     * When debug mode is turned off an exception handler is installed that 
-     * automatically removes the processor traces from the stack.
+     * When turned on XPSPL generates a log of all activity to STDOUT.
+     * 
+     * When turned off XPSPL removes its processor traces from uncaught exceptions.
      */
     define('XPSPL_DEBUG', false);
 }
@@ -24,9 +25,9 @@ if (!defined('XPSPL_SIGNAL_HISTORY')) {
     /**
      * Signal History
      * 
-     * Boolean option for the signal history. 
+     * Default setting for the saving the signal history. 
      * 
-     * By default it is ``false``.
+     * By default this is ``false``.
      */
     define('XPSPL_SIGNAL_HISTORY', false);
 }
@@ -35,7 +36,8 @@ if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     /**
      * Remove Exhausted processes
      * 
-     * Boolean option to automatically remove exhausted signals from the processor.
+     * When turned on this automatically removes installed processes from the 
+     * processor once it determines they can no longer be used.
      *
      * By default this settings is ``true``.
      */
@@ -91,15 +93,12 @@ if (!defined('XPSPL_JUDY_SUPPORT')) {
 
 if (!defined('XPSPL_ANALYZE_TIME')) {
     /**
-     * **Experimental**
+     * **UNUSED**
      * 
-     * Judy is an array implementation.
-     *
-     * For more information see http://php.net/manual/en/book.judy.php
-     *
-     * Currently this is experimental as an attempt to improve performance.
+     * This is an unused configuration option that will later add support 
+     * for analyzing the processor timing to auto correct signal timing.
      */
-    define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
+    define('XPSPL_ANALYZE_TIME', class_exists('Judy', false));
 }
 
 /**

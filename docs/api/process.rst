@@ -1,13 +1,11 @@
-.. process.php generated using docpx on 02/21/13 08:52pm
+.. /process.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - process
+******************
 
-process
-=======
 
-.. function:: process()
+.. function:: process($callable)
 
 
     Creates a new XPSPL Process object.
@@ -23,7 +21,7 @@ process
 
 
 Creates a new XPSPL Process object.
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+###################################
 
 .. code-block::php
 
@@ -35,3 +33,5 @@ RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RS
 
 
 
+
+Last updated on 04/23/13 11:40pm

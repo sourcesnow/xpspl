@@ -1,13 +1,11 @@
-.. find_signal_database.php generated using docpx on 02/21/13 08:52pm
+.. /find_signal_database.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - find_signal_database
+*******************************
 
-find_signal_database
-====================
 
-.. function:: find_signal_database()
+.. function:: find_signal_database($signal)
 
 
     Finds an installed signals processes database.
@@ -18,3 +16,5 @@ find_signal_database
 
 
 
+
+Last updated on 04/23/13 11:40pm

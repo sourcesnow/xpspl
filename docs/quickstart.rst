@@ -12,17 +12,14 @@ This guide covers the following topics,
 Signal Driven Programming with XPSPL
 ====================================
 
-Signal driven programming is the development of software using a design where 
+Signal driven programming (SDP) is the development of software using a design where 
 the flow is determined by signals.
 
 It relies heavily on the use of signaled processes, interruptions, mutable data and 
 insane levels of decoupling.
 
-The idea is nothing new and is in use right now on the device your reading this 
-with, unless your on paper.
-
 Designing software using SDP is not much different than designing it using 
-OOP or functional type designs only in that it provides programmers more power 
+OOP or functional type designs only in that it provides more control 
 in directing and interrupting flow.
 
 SDP is not a replacement for your current software design.
