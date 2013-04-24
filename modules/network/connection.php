@@ -138,6 +138,7 @@ class Connection {
      */
     public function disconnect(/* ... */)
     {
+        socket_close($this->_socket);
         return emit(new SIG_Disconnect(null, $this));
     }
 

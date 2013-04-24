@@ -226,6 +226,7 @@ class Processor {
         foreach ($this->_sig_routine as $_routine) {
             $_routine[0]->routine($this->_routine);
         }
+        return $this->_routine->is_stale();
         // Check signals
         if (count($this->_routine->get_signals()) != 0) {
             // This checks only for one possible signal that has not exhausted
