@@ -1,20 +1,14 @@
 Quickstart
 ----------
 
-*Updated - Jan 1st 2013*
-
-This guide provides an introduction into programming with XPSPL.
-
-It is recommended that you have at a minimum 2 hours of time to cover this guide 
-at a glance and a full day to cover it top to bottom.
-
-This guide covers the following topics,
+This guide provides an introduction into programming with XPSPL covering the following topics.
 
 .. contents::
 
 Signal Driven Programming with XPSPL
 ====================================
 
+<<<<<<< HEAD
 Signal driven programming is the development of software using a design where 
 the flow is determined by signals.
 

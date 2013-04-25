@@ -40,9 +40,9 @@ install() {
         rm "$BINPATH/xpspl"
     fi;
     echo "Installed XPSPL to $INSTALL_PATH/XPSPL"
-    echo "Installed executable to $BINPATH/xpspl"
+    echo "Installed executable to $BINPATH/XPSPL"
     ln -s "$INSTALL_PATH/XPSPL/bin/xpspl" "$BINPATH"
-    xpspl -v
+    XPSPL -v
     echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
     echo "Running Unit Tests"
     xpspl --test
@@ -56,7 +56,7 @@ install() {
 }
 
 #
-# Handle execution
+# Process execution
 #
 main() {
 

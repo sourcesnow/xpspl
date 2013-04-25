@@ -1,5 +1,20 @@
 ## 3.0.0 01202013
 
+* Moved the Queue into the \XPSPL\database namespace.
+* Removed the Process::set_priority method
+* Queue priority is now index based
+* Removed the Queue::sort method
+* Added Judy as the Database array.
+* save_signal_history rennamed to set_signal_history
+* Processor::search_signals renamed to Processor::find_signal_database
+* State::get/set_state are now final.
+* signal\Standard renamed to SIG_Base
+* Signal renamed to SIG
+* signal\Complex renamed to SIG_Complex
+* Removed constant XPSPL_ENGINE_EXCEPTIONS
+* Default exception handler added that removes redudant processor steps
+* Exceptions are now thrown
+* Handle renamed to Process
 * Routine reset no longer resets the idle object.
 * Idle and Routine objects are now in the global XPSPL namespace.
 * Renamed engine\signal\* to processor\SIG_*

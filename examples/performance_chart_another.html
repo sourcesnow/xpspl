@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart(){
+    var LoopsPerformed = [["Time in us", "Loops Performed"]];
+LoopsPerformed.push([2, 2.4080276489258E-5]);
+LoopsPerformed.push([4, 4.2200088500977E-5]);
+LoopsPerformed.push([8, 0.00010490417480469]);
+LoopsPerformed.push([16, 0.00021696090698242]);
+LoopsPerformed.push([32, 0.0004429817199707]);
+LoopsPerformed.push([64, 0.00073504447937012]);
+LoopsPerformed.push([128, 0.0015380382537842]);
+LoopsPerformed.push([256, 0.0030860900878906]);
+LoopsPerformed.push([512, 0.0058560371398926]);
+LoopsPerformed.push([1024, 0.01201605796814]);
+LoopsPerformed.push([2048, 0.023972034454346]);
+LoopsPerformed.push([4096, 0.050920963287354]);
+LoopsPerformed.push([8192, 0.095731019973755]);
+LoopsPerformed.push([16384, 0.19314193725586]);
+var LoopsPerformed_graph = google.visualization.arrayToDataTable(LoopsPerformed);
+var LoopsPerformed_chart = new google.visualization.LineChart(document.getElementById("LoopsPerformed"));
+LoopsPerformed_chart.draw(LoopsPerformed_graph, {title: "Time taken (us)"});
+    }
+    </script>
+  </head>
+  <body>
+    <div id="LoopsPerformed" style="width: 800px; height: 500px; float:left;"></div>  </body>
+</html>

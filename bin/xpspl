@@ -1,16 +1,17 @@
 #!/usr/bin/env php
 <?php
 /**
- * Directly runs files in the XPSPL event loop
+ * Directly runs files into the XPSPL Processor
  */
 $usage = 
-"usage: XPSPL [-c|--config=<file>][-h|--help][-p|--passthru][--test]
-              [--test-cover][-t|--time=<time>][-v|--version][--update]
+"usage: XPSPL [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
+              [--test-cover] [-t|--time=<time>] [-v|--version] [-j|--judy]
               <file>
 Options:
   -c/--config   Load the giving file for configuration
-  -d            Turn on XPSPL_DEBUG
+  -d            XPSPL Debug Mode
   -h/--help     Show this help message.
+  -j/--judy     Enable judy support
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
   --test-cover  Run unit tests and generate code coverage.
@@ -34,6 +35,8 @@ if (strpos($runfile, '-') === 0) {
     $runfile = false;
 }
 
+
+
 if ($runfile != false) {
     $it = false;
 }
@@ -41,7 +44,8 @@ if ($runfile != false) {
 $options = getopt(
     'qwert:yuiopasdfghjklzxc:vbnm',
     [
-        'help', 'config:', 'version', 'time:', 'test', 'test-cover', 'update'
+        'help', 'config:', 'version', 'time:', 'test', 'test-cover',
+        'judy'
     ]
 );
 $tmp = $argv;
@@ -52,6 +56,10 @@ foreach ($options as $_i => $_arg) {
     // Hack
     $break = false;
     switch ($_i) {
+        case 'j':
+        case 'judy':
+            define('XPSPL_JUDY_SUPPORT', true);
+            break;
         case 'p':
         case 'passthru':
             $break = true;
@@ -77,13 +85,14 @@ foreach ($options as $_i => $_arg) {
             break;
         case 'd':
             define('XPSPL_DEBUG', true);
+            define('LOGGER_BLOCK', true);
+            define('GENERATE_CODE_COVERAGE', true);
+            define('SHORT_VARS', false);
+            define('VERBOSITY_LEVEL', 2);
             break;
         case 'test':
         case 'test-cover':
             $unittest = true;
-            if (!defined('XPSPL_DEBUG')) {
-                define('XPSPL_DEBUG', true);
-            }
             if ($_i === 'test-cover') {
                 define('GENERATE_CODE_COVERAGE', true);
             }
@@ -114,7 +123,7 @@ start:
 
 // load XPSPL
 if (!class_exists('XPSPL')) {
-    require_once dirname(realpath(__FILE__)).'/../src/XPSPL.php';
+    require_once dirname(realpath(__FILE__)).'/../__init__.php';
 }
 
 if (isset($showversion)) {
@@ -124,18 +133,20 @@ if (isset($showversion)) {
 }
 
 if (isset($unittest)) {
-    import('unittest');
-    require XPSPL_PATH.'/tests/run.php';
+    require XPSPL_PATH.'/tests/all.php';
 }
 
 if (false !== $runfile) {
     if (!file_exists($runfile)) {
-        die("Could not open $runfile\n");
+        echo ("Could not open $runfile\n");
+        exit(1);
     } else {
         require_once $runfile;
     }
-} else if ($it) {
+} else {
+    exit(1);
 }
 
 // start the loop!!
-loop($ttr);
+wait_loop($ttr);
+exit(0);
