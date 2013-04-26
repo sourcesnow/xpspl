@@ -1,13 +1,11 @@
-.. before.php generated using docpx on 02/21/13 08:52pm
+.. /before.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - before
+*****************
 
-before
-======
 
-.. function:: before()
+.. function:: before($signal, $process)
 
 
     Installs the given process to interrupt the signal ``$signal`` when emitted.
@@ -32,7 +30,7 @@ before
 
 
 Install a interrupt process before foo
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+######################################
 
 High priority process will always execute first immediatly following 
 interruptions.
@@ -53,7 +51,7 @@ interruptions.
    // foobefore foo
 
 Before Interrupt Process Priority
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+#################################
 
 Install before interrupt processes with priority.
 
@@ -79,3 +77,5 @@ Install before interrupt processes with priority.
 
 
 
+
+Last updated on 04/23/13 11:40pm

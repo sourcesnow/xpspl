@@ -1,13 +1,11 @@
-.. import.php generated using docpx on 02/21/13 08:52pm
+.. /import.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - import
+*****************
 
-import
-======
 
-.. function:: import()
+.. function:: import($name, [$dir = false])
 
 
     Import a module.
@@ -19,3 +17,5 @@ import
 
 
 
+
+Last updated on 04/23/13 11:40pm

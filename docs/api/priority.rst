@@ -1,13 +1,11 @@
-.. priority.php generated using docpx on 02/21/13 08:52pm
+.. /priority.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - priority
+*******************
 
-priority
-========
 
-.. function:: priority()
+.. function:: priority($priority, $process)
 
 
     Registers the given process to have the given priority.
@@ -36,7 +34,7 @@ priority
 
 
 Installing multiple priorities
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+##############################
 
 This installs multiple process each with a seperate ascending priority.
 
@@ -65,3 +63,5 @@ This installs multiple process each with a seperate ascending priority.
 
 
 
+
+Last updated on 04/23/13 11:40pm

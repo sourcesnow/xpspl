@@ -1,13 +1,11 @@
-.. low_priority.php generated using docpx on 02/21/13 08:52pm
+.. /low_priority.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - low_priority
+***********************
 
-low_priority
-============
 
-.. function:: low_priority()
+.. function:: low_priority($process)
 
 
     Registers the given process to have a low priority.
@@ -35,7 +33,7 @@ low_priority
 
 
 Install a process with low priority
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+###################################
 
 Low priority processes always execute last.
 
@@ -56,3 +54,5 @@ Low priority processes always execute last.
 
 
 
+
+Last updated on 04/23/13 11:40pm

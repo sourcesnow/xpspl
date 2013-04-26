@@ -1,11 +1,9 @@
-.. signal_history.php generated using docpx on 02/21/13 08:52pm
+.. /signal_history.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - signal_history
+*************************
 
-signal_history
-==============
 
 .. function:: signal_history()
 
@@ -26,7 +24,7 @@ signal_history
 
 
 Counting emitted signals
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+########################
 
 This counts the number of ``SIG('foo')`` signals that were emitted.
 
@@ -48,3 +46,5 @@ This counts the number of ``SIG('foo')`` signals that were emitted.
 
 
 
+
+Last updated on 04/23/13 11:40pm

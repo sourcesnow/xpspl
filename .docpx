@@ -4,4 +4,4 @@
  */
 
 date_default_timezone_set('America/New_York');
-require 'xpspl.php';
+require '__init__.php';

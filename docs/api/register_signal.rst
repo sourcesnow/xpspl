@@ -1,13 +1,11 @@
-.. register_signal.php generated using docpx on 02/21/13 08:52pm
+.. /register_signal.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - register_signal
+**************************
 
-register_signal
-===============
 
-.. function:: register_signal()
+.. function:: register_signal($signal)
 
 
     Registers a signal in the processor.
@@ -18,3 +16,5 @@ register_signal
 
 
 
+
+Last updated on 04/23/13 11:40pm

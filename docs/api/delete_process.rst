@@ -1,13 +1,11 @@
-.. delete_process.php generated using docpx on 02/21/13 08:52pm
+.. /delete_process.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - delete_process
+*************************
 
-delete_process
-==============
 
-.. function:: delete_process()
+.. function:: delete_process($signal, $process)
 
 
     Removes an installed signal process.
@@ -19,7 +17,7 @@ delete_process
 
 
 Removing installed processes
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+############################
 
 Removes the installed process from the foo signal.
 
@@ -32,3 +30,5 @@ Removes the installed process from the foo signal.
 
 
 
+
+Last updated on 04/23/13 11:40pm

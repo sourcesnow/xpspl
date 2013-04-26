@@ -1,11 +1,9 @@
-.. shutdown.php generated using docpx on 02/21/13 08:52pm
+.. /shutdown.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - shutdown
+*******************
 
-shutdown
-========
 
 .. function:: shutdown()
 
@@ -16,3 +14,5 @@ shutdown
 
 
 
+
+Last updated on 04/23/13 11:40pm

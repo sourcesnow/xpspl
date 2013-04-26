@@ -1,13 +1,11 @@
-.. after.php generated using docpx on 02/21/13 08:52pm
+.. /after.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
+Function - after
+****************
 
-after
-=====
 
-.. function:: after()
+.. function:: after($signal, $process)
 
 
     Installs the given process to interrupt the signal ``$signal`` when emitted.
@@ -32,7 +30,7 @@ after
 
 
 Install a interrupt process after foo
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+#####################################
 
 High priority process will always execute first immediatly following 
 interruptions.
@@ -53,7 +51,7 @@ interruptions.
    // fooafter foo
 
 After Interrupt Process Priority
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+################################
 
 Install after interrupt processes with priority.
 
@@ -79,3 +77,5 @@ Install after interrupt processes with priority.
 
 
 
+
+Last updated on 04/23/13 11:40pm

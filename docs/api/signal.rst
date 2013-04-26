@@ -1,69 +1,62 @@
-.. signal.php generated using docpx on 02/21/13 08:52pm
+.. /signal.php generated using docpx on 04/23/13 11:40pm
 
 
-Function
-********
-
-signal
-======
-
-.. function:: signal()
+Function - signal
+*****************
 
 
-    Installs a process to execute when the given signal is emitted.
+.. function:: signal($signal, $process)
+
+
+    Installs a new process to execute when the given signal is emitted.
     
     .. note::
     
-       All processes unless otherwise specified have a default exhaust of 1 and 
-       execute in FIFO order.
+       All processes unless otherwise specified have a default exhaust of ``XPSPL_EXHAUST_DEFAULT``.
+    
+    .. note::
+    
+       Processes installed to the same signal execute in FIFO order without priority.
 
-    :param string|integer|object: Signal to attach the process.
-    :param object: Callable
+    :param object: Signal to install process on.
+    :param object: PHP Callable
 
-    :rtype: object|boolean Process, boolean if error
+    :rtype: object | boolean - \XPSPL\Process otherwise boolean on error
 
+Beginning in XPSPL v4.0.0 all signals were converted to strictly objects.
 
-Object Signals
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
-
-Objects signals are the prefered method of installing and emit signals as it 
-helps remove user-error, provides easier development, debugging and 
-refactoring.
-
-An object signal can represent both and index and unique signal.
-
-In this example an object signal of Foo is created.
+To use a string or integer as a signal it must be wrapped in a ``SIG``.
 
 .. note::
 
-   When using object signals that are non-unique always provide a new 
-   instance of the object.
-   
-   The processor is optimized to deal with large amounts of objects and will 
-   destroy any unessecary instances.
+   Any signals wrapped in SIG cannot be unique.
+
+
+Install a new process.
+######################
+
+This demonstrates installing a new process to execute on ``SIG(foo)``.
 
 .. code-block:: php
 
     <?php
-    // Create our Foo signal object
-    class Foo extends \XPSPL\SIG {}
-    // Install a process for Foo
-    signal(new Foo(), function(){
-        echo "Foo";
+    signal(SIG('foo'), function(){
+        echo "foo was emitted";
     });
-    // Emit Foo
-    emit(new Foo());
 
-String and Integer signals
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
+    emit('foo');
 
-When using only strings and integers as a signal the string or integer can 
-be provided directly rather than giving an object.
+**Results**
 
-.. note::
+.. code-block:: text
+    
+    foo was emitted
 
-   String and integer signals are treated as index signals and cannot be 
-   unique.
+String or Integer signals
+#########################
+
+When using strings or integers as a signal the string or integer must be 
+wrapped in the ``SIG`` function.
 
 .. code-block:: php
 
@@ -77,33 +70,7 @@ be provided directly rather than giving an object.
     // results
     // foo
 
-Null exhaust process.
-RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5RST_H5
-
-Install a process that never exhausts.
-
-.. note::
-
-    Once a null exhaust process is installed it must be removed using 
-    ``delete_process``.
-
-.. code-block:: php
-
-    <?php
-
-    signal(SIG('foo'), null_exhaust(function(){
-        echo "foo";
-    }));
-
-    for ($i=0;$i<35;$i++) {
-        emit(SIG('foo'));
-    }
-    // results
-    // foo
-    // foo
-    // foo
-    // foo
-    // ...
 
 
 
+Last updated on 04/23/13 11:40pm

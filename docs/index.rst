@@ -4,15 +4,7 @@
 XPSPL - PHP Signal Processing Library
 =====================================
 
-XPSPL is a high performance signal processor designed to change the way we right PHP.
-
-Development
------------
-
-The current version of documentation you are reading belongs to the xspel branch 
-of development.
-
-This branch is not considered stable and should not be used for production software.
+XPSPL is a high performance signal processor for the PHP programming language.
 
 Table of Contents
 -----------------
@@ -23,7 +15,7 @@ Table of Contents
 
    install
    configuration
-   quickstart
+   .. quickstart
 
 API
 ---
@@ -33,24 +25,22 @@ XPSPL API.
 All API functions are non-namespaced, globally available.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
 
    api/*
 
-.. Modules
-.. -------
+Modules
+-------
 
-.. XPSPL Bundled modules.
+XPSPL Bundled modules.
 
-.. These modules are bundled directly with XPSPL available without installation.
-
-.. .. toctree::
-..    :maxdepth: 2
-..    :glob:
+.. toctree::
+   :maxdepth: 2
+   :glob:
 
 
-..    modules/ftp
+   modules/ftp
 
 
 Source
@@ -67,9 +57,11 @@ These tests were generated using v4.0.0 on a 2.7GHZ i5 processor.
 
 .. image:: emit_graph_upper.png
 
-The above benchmark demonstrates scaling to an upperbound of 500 million emitted signals, the vertical axis represents the amount of time in seconds with the horizontal axis representing the amount of signals emitted.
+The above benchmark demonstrates scaling to an upperbound of 500 million emitted signals, 
+the vertical axis represents the amount of time in seconds 
+with the horizontal axis representing the amount of signals emitted.
 
-The benchmark demonstrates linear scale of ~3.512us per emit allowing for emitting ~284,000 signals per second.
+The benchmark demonstrates almost linear scale of ~3.5us per emit equating to ~284,000 signals per second.
 
 Author
 ------
@@ -81,19 +73,19 @@ Support
 
 Support for XPSPL is offered through two support channels.
 
-Core
-----
+.. Core
+.. ----
 
-XPSPL Internal Documentation
+.. XPSPL Internal Documentation
 
-The core classes and functions of XPSPL.
+.. The core classes and functions of XPSPL.
 
-.. toctree::
-   :maxdepth: 1
-   :glob:
+.. .. toctree::
+..    :maxdepth: 1
+..    :glob:
 
-   xpspl/*
-   xpspl/*/*
+..    xpspl/*
+..    xpspl/*/*
 
 Mailing list
 ____________
