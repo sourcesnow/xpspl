@@ -2,17 +2,16 @@
 function push_to_array($array1, $js_array) {
     $times = [];
     foreach ($array1 as $_num => $_result) {
-        $time = 0.0;
+        $time = 0.000;
         foreach ($_result as $_time) {
             $time = $time + $_time;
         }
-        $average = round(count($_result) / $time, 5);
-        echo sprintf('%s.push([%s, %s]);'.PHP_EOL,
-          $js_array, $_num, $_time
+        // $average = round(count($_result) / $time, 5);
+        echo sprintf('%s.push([%f, %f]);'.PHP_EOL,
+          $js_array, $_num, $time
         );
     }
 }
-
 function makeChart($name, $data) {
     $js_array = str_replace(" ", "", $name);
     echo sprintf('var %s = [["Time in us", "%s"]];'.PHP_EOL,
@@ -51,7 +50,7 @@ function makeChart($name, $data) {
   <body>
     <?php
     foreach ($results as $_name => $_data) {
-        echo '<div id="'.str_replace(" ", "", $_name).'" style="width: 800px; height: 500px; float:left;"></div>';
+        echo '<div id="'.str_replace(" ", "", $_name).'" style="width: 800px; height: 300px; float:left;"></div>';
     }
     ?>
   </body>

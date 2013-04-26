@@ -174,10 +174,6 @@ class Processor {
          * with an intelligent time based analysis.
          */
         $this->emit(new processor\SIG_Startup());
-        // $this->signal(
-        //     new \time\SIG_Awake(35, TIME_MICROSECONDS), 
-        //     new Process([$this, 'analyze_runtime'], null, 0)
-        // );
         routine:
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
