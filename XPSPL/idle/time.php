@@ -74,8 +74,10 @@ class Time extends \XPSPL\Idle {
                 $this->_stop_time = $time + milliseconds();
                 break;
             case TIME_MICROSECONDS:
-                $this->_stop_time = ($time * 0.0001) + microtime(true);
+                $this->_stop_time = ($time * 0.000001) + microtime(true);
                 break;
+            // case TIME_NANOSECONDS:
+            //     $this->_stop_time = ($time)
         }
     }
 
@@ -104,7 +106,16 @@ class Time extends \XPSPL\Idle {
                 usleep($this->get_time_left() * 1000);
                 break;
             case TIME_MICROSECONDS:
-                usleep($this->get_time_left());
+            echo $this->get_time_left();
+                if (0 >= $this->get_time_left()) {
+                    return;
+                }
+                if ($this->get_time_left() > 0 && 1 > $this->get_time_left()) {
+                    time_nanosleep(0, $this->get_time_left() * 1000);
+                } else {
+                    echo XPSPL_AVERAGE_LOOPTIME.PHP_EOL;
+                    usleep($this->get_time_left() - XPSPL_AVERAGE_LOOPTIME);
+                }
                 break;
 
         }
@@ -155,7 +166,7 @@ class Time extends \XPSPL\Idle {
                 return $this->_stop_time - milliseconds();
                 break;
             case TIME_MICROSECONDS:
-                return $this->_stop_time - microtime(true);
+                return ($this->_stop_time - microtime(true)) / 0.000001;
                 break;
         } 
     }
@@ -193,7 +204,7 @@ class Time extends \XPSPL\Idle {
             case TIME_MICROSECONDS:
                 switch($to) {
                     case TIME_SECONDS:
-                        return $length * .00000001;
+                        return $length * .000001;
                         break;
                     case TIME_MILLISECONDS:
                         return $length * .0001;
@@ -217,7 +228,7 @@ class Time extends \XPSPL\Idle {
             case TIME_MILLISECONDS:
                 return $this->_stop_time <= milliseconds();
                 break;
-            case TIME_MILLISECONDS:
+            case TIME_MICROSECONDS:
                 return $this->_stop_time <= microtime(true);
                 break;
         }

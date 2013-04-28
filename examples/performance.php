@@ -19,10 +19,10 @@ $tests = [
     // function($i){
     //     signal(SIG($i), null); 
     // },
-    // 'Signals Emitted' => 
-    // function($i){
-    //     emit($i);
-    // },
+    'Signals Emitted' => 
+    function($i){
+        emit($i);
+    },
     // 'Signal Registration' =>
     // function($i){
     //     register_signal(SIG($i)); 
@@ -102,7 +102,7 @@ foreach ($tests as $_test => $_func) {
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 14);) {
+        for($a=1;$a<(1 << 16);) {
             $a = $a << 1;
             $tc = $a;
             echo $a.PHP_EOL;
@@ -128,6 +128,8 @@ foreach ($tests as $_test => $_func) {
         $_test
     ));
 }
+var_dump($results);
+exit;
 ob_start();
 include dirname(realpath(__FILE__)).'/performance/chart.php';
 $data = ob_get_contents();
