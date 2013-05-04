@@ -177,7 +177,6 @@ class Processes extends \XPSPL\Database {
                     $_sub_process->set_priority($_priority);
                     $_sub_process->set_exhaust(1);
                     $this->install($_sub_process);
-
                 }
             } else {
                 if (XPSPL_DEBUG) {

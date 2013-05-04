@@ -1,15 +1,12 @@
 <?php
 
 import('time');
-$precision = 75;
+$precision = 500;
 $signal = new \time\SIG_Awake($precision, TIME_MICROSECONDS);
 $signal->time = microtime(true);
 $precision_timing = [];
-signal($signal, exhaust(500, function($signal) use ($precision, &$precision_timing){
-    echo $signal->time - microseconds().PHP_EOL;
-    echo $signal->time . PHP_EOL  . microseconds().PHP_EOL;
+signal($signal, exhaust(2000, function($signal) use ($precision, &$precision_timing){
     $timing = (floatval((microseconds() - $signal->time) * 1000000) - $precision);
-    echo $timing.PHP_EOL;
     if ($timing > 100000 || $timing < 0) {
         // Second change
         $timing = 0;

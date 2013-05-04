@@ -6,7 +6,6 @@
  */
 
 require_once '__init__.php';
-
 /**
  * Replace with the dir_load function
  */

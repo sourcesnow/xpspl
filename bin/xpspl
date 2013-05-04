@@ -15,7 +15,7 @@ Options:
   -p/--passthru Ignore any subsequent arguments and pass to <file>.
   --test        Run the XPSPL unit tests.
   --test-cover  Run unit tests and generate code coverage.
-  --update      Update XPSPL to the latest stable version.
+  --update      Update XPSPL to the latest available version.
   -t/--time     Run for the given amount of milliseconds.
   -v/--version  Displays current XPSPL version.
 ";
@@ -69,7 +69,7 @@ foreach ($options as $_i => $_arg) {
             if (false === $_arg || !is_int($_arg + 0)) {
                 exit("invalid option 't'\n".$usage);
             }
-            $ttr = $_arg + 0;
+            define('XPSPL_RUNTIME', $_arg);
             break;
         case 'h':
         case 'help':
@@ -134,6 +134,7 @@ if (isset($showversion)) {
 
 if (isset($unittest)) {
     require XPSPL_PATH.'/tests/all.php';
+    goto loop;
 }
 
 if (false !== $runfile) {
@@ -147,6 +148,7 @@ if (false !== $runfile) {
     exit(1);
 }
 
+loop:
 // start the loop!!
 wait_loop($ttr);
 exit(0);

@@ -50,7 +50,7 @@ function makeChart($name, $data) {
   <body>
     <?php
     foreach ($results as $_name => $_data) {
-        echo '<div id="'.str_replace(" ", "", $_name).'" style="width: 800px; height: 300px; float:left;"></div>';
+        echo '<div id="'.str_replace(" ", "", $_name).'" style="width: 900px; height: 400px; float:left;"></div>';
     }
     ?>
   </body>

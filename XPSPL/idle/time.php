@@ -106,15 +106,16 @@ class Time extends \XPSPL\Idle {
                 usleep($this->get_time_left() * 1000);
                 break;
             case TIME_MICROSECONDS:
-            echo $this->get_time_left();
-                if (0 >= $this->get_time_left()) {
+                var_dump($this->get_time_left() <= 0);
+                if ($this->get_time_left() <= 0) {
+                    echo $this->get_time_left();
                     return;
                 }
                 if ($this->get_time_left() > 0 && 1 > $this->get_time_left()) {
+                    echo $this->get_time_left();;
                     time_nanosleep(0, $this->get_time_left() * 1000);
                 } else {
-                    echo XPSPL_AVERAGE_LOOPTIME.PHP_EOL;
-                    usleep($this->get_time_left() - XPSPL_AVERAGE_LOOPTIME);
+                    usleep($this->get_time_left());
                 }
                 break;
 

@@ -15,9 +15,7 @@ unittest\test(function($test){
     $p2 = high_priority(new \XPSPL\Process(null));
     $db->install($p1);
     $db->install($p2);
-    var_dump($db);
     $db->delete($p1);
-    var_dump($db);
-    // $test->equal($process->exhaustion(), XPSPL_PROCESS_DEFAULT_EXHAUST);
-    // $test->equal($process->get_priority(), XPSPL_PROCESS_DEFAULT_PRIORITY);
+    $test->equal($db->count(), 1);
+    $test->equal($db->current()->get_priority(), 0);
 }, "process delete");

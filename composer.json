@@ -1,13 +1,37 @@
 {
-    "name": "prggmr/prggmr",
-    "description": "The event library that will change the way you write PHP forever...",
-    "keywords": ["event-dispatcher", "event-processor", "complex-event-processor", "signal-library", "signals", "events"],
+    "name": "prggmr/XPSPL",
+    "type": "library",
+    "description": "Signals for PHP",
+    "homepage": "http://prggmr.com",
+    "keywords": [
+        "signal",
+        "signals",
+        "event",
+        "events",
+        "sockets",
+        "i/o",
+        "non-blocking",
+        "non-blocking i/o",
+        "ftp",
+        "non-blocking ftp",
+        "time",
+        "timer",
+        "timed event",
+        "http",
+        "tcp",
+        "udp",
+        "event dispatcher", 
+        "event processor",
+        "complex event processor",
+        "complex event processing",
+        "signal library", 
+        ],
     "license": "Apache 2.0",
     "authors": [
         {
             "name": "Nickolas Whiting",
             "email": "prggmr@gmail.com",
-            "homepage": "http://prggmr.org"
+            "homepage": "http://prggmr.com"
         }
     ],
     "require": {

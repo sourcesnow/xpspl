@@ -33,15 +33,15 @@ function dir_include($dir, $listen = false, $path = null)
             if (!$listen) {
                 return false;
             }
-            if (WINDOWS) {
-                $x = '\\';
-            } else {
-                $x = '/';
-            }
-            $data = explode($x, str_replace([$path, '.php'], '', $i));
-            $class = array_pop($data);
-            $namespace = implode('\\', $data);
-            $process = $namespace.'\\'.ucfirst($class);
+            $process = sprintf(
+                '%s\\%s',
+                // Namespace
+                implode('\\', array_pop(explode(
+                    (WINDOWS) ? '\\' : '/', 
+                    str_replace([$path, '.php'], '', $i)
+                ))),
+                ucfirst($class)
+            );
             if (class_exists($process, false) && 
                 is_subclass_of($process, '\XPSPL\Listener')) {
                 listen(new $process());
