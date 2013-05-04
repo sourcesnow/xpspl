@@ -126,6 +126,14 @@ class Connection {
         if (false === $this->read(1, MSG_DONTWAIT ^ MSG_PEEK)) {
             return false;
         }
+        if (null !== $this->_read_buffer) {
+            return true;
+        }
+        $read = $this->read();
+        if (false === $read) {
+            return false;
+        }
+        $this->_read_buffer = $read;
         return true;
     }
 
@@ -177,7 +185,8 @@ class Connection {
  */
 function system_disconnect(SIG_Disconnect $sig_disconnect) 
 {
-    @socket_close($event->socket->get_resource());
+    echo "CLOSING THE CONNECTION";
+    socket_close($event->socket->get_resource());
 }
 
 /**

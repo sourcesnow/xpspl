@@ -1,14 +1,13 @@
 Quickstart
 ----------
 
-This guide provides an introduction into programming with XPSPL covering the following topics.
+This guide covers the following topics,
 
 .. contents::
 
 Signal Driven Programming with XPSPL
 ====================================
 
-<<<<<<< HEAD
 Signal driven programming is the development of software using a design where 
 the flow is determined by signals.
 
@@ -330,18 +329,20 @@ It ships with the ``xpspl`` command for transparently loading into the environme
 
 XPSPL understands the following commands.
 
-=============  ===============
-Command        Performs Action
-=============  ===============
--c,--config    Loads the giving file for XPSPL's runtime configuration
--h,--help      Displays the XPSPL help message
--p,--passthru  Ignore any subsequent arguments and pass them to the loaded file.
---test         Run XPSPL's unittests
---test-cover   Run XPSPL's unittests and include code coverage information (Requires xdebug)
---update       Update XPSPL to the latest version
--t/--time      Inform the loop to run for the given amount of milliseconds before shutting down.
--v/--version   Prints the current version of XPSPL.
-=============  ===============
+  usage: XPSPL [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
+                [--test-cover] [-t|--time=<time>] [-v|--version] [-j|--judy]
+                <file>
+  Options:
+    -c/--config   Load the giving file for configuration
+    -d            XPSPL Debug Mode
+    -h/--help     Show this help message.
+    -j/--judy     Enable judy support
+    -p/--passthru Ignore any subsequent arguments and pass to <file>.
+    --test        Run the XPSPL unit tests.
+    --test-cover  Run unit tests and generate code coverage.
+    --update      Update XPSPL to the latest available version.
+    -t/--time     Run for the given amount of milliseconds.
+    -v/--version  Displays current XPSPL version.
 
 How it works
 ____________

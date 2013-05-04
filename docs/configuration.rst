@@ -3,9 +3,6 @@
 Configuration
 =============
 
-<<<<<<< HEAD
-Configuration options for XPSPL are defined in constants before loading the library.
-=======
 Configuration values are defined using constants before loading XPSPL.
 
 Constants
@@ -80,4 +77,3 @@ for analyzing the processor timing to auto correct signal timing ... at least
 that is the theory.
 
 Last updated on 04/23/13 11:50pm
->>>>>>> 8854d911bb09a6616ef66cf49434649cec0c148a
