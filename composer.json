@@ -24,8 +24,8 @@
         "event processor",
         "complex event processor",
         "complex event processing",
-        "signal library", 
-        ],
+        "signal library"
+    ],
     "license": "Apache 2.0",
     "authors": [
         {
