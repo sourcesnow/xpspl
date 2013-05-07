@@ -1,33 +1,18 @@
-# Development
+# XPSPL
 
-You are currently in a development branch.
+Signals for PHP.
 
-This branch is not recommended for production use and may not be backwards 
-compatible.
+## Documentation
 
-# Unittest
+XPSPL's documentation is available at http://prggmr.com
 
-This branch is for developing and refactoring for unittests and improved 
-performance.
+Performance
+===========
 
-# Contribute
+<img src="http://prggmr.com/en/xspel/_images/emit_graph_upper.png" />
 
-Currently a majority of the internal source is tested modules need to be tested.
+* Emitting a signal - 3.5<sub>us</sub>
+* Installing a signal - 5<sub>us</sub>
+* Registering a signal - 15<sub>us</sub>
 
-If you are interested in contributing to the recursion contact me through one of 
-the support channels below.
-
-# Documentation & Support
-
-Documentation for this branch currently does not exist.
-
-## Mailing list
-
-[Google Group](https://groups.google.com/forum/?fromgroups#!forum/prggmr).
-
-
-## IRC
-
-```#prggmr``` on ```irc.freenode.net```.
-
-*I am usually idle in the channel when available.*
+Times are microseconds (us).
