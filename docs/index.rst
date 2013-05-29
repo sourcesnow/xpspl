@@ -4,7 +4,7 @@
 XPSPL - PHP Signal Processing Library
 =====================================
 
-XPSPL is a high performance signal processor for the PHP programming language.
+XPSPL a high performance signal library for PHP.
 
 Table of Contents
 -----------------
