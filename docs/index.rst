@@ -1,10 +1,10 @@
 .. prggmr documentation master file, created by
    sphinx-quickstart on Wed Dec 19 20:57:45 2012.
 
-XPSPL - PHP Signal Processing Library
+XPSPL - Signal Library for PHP.
 =====================================
 
-XPSPL a high performance signal library for PHP.
+XPSPL high performance signal library for PHP.
 
 Table of Contents
 -----------------
