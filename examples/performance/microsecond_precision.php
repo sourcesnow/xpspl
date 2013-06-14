@@ -1,16 +1,25 @@
 <?php
-
+$start = microtime(true);
+usleep(10);
+$end = microtime(true);
+echo $start.PHP_EOL;
+echo $end.PHP_EOL;
+echo $end - $start.PHP_EOL;
+exit;
 import('time');
 $precision = 500;
 $signal = new \time\SIG_Awake($precision, TIME_MICROSECONDS);
-$signal->time = microtime(true);
 $precision_timing = [];
-signal($signal, exhaust(2000, function($signal) use ($precision, &$precision_timing){
-    $timing = (floatval((microseconds() - $signal->time) * 1000000) - $precision);
-    if ($timing > 100000 || $timing < 0) {
-        // Second change
-        $timing = 0;
+signal($signal, exhaust(500, function($signal) use ($precision, &$precision_timing){
+    if (!isset($signal->time)) {
+        $signal->time = microtime(true);
+        return true;
     }
+    $timing = (floatval((microseconds() - $signal->time) * 1000000) - $precision);
+    // if ($timing > 100000 || $timing < 0) {
+    //     // Second change
+    //     $timing = 0;
+    // }
     $precision_timing[] = [$timing, 0];
     $signal->time = microseconds();
 }));

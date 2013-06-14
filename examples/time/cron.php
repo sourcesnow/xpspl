@@ -4,7 +4,6 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-
 date_default_timezone_set('America/New_York');
 
 /**
@@ -14,6 +13,6 @@ date_default_timezone_set('America/New_York');
  */
 import('time');
 
-time\CRON('*/1 * * * *', function(){
+time\CRON('*/1 * * * *', null_exhaust(function(){
     echo "Every Minute!".PHP_EOL;
-});
+}));

@@ -15,26 +15,26 @@ import('unittest');
 $output = unittest\Output::instance();
 
 $tests = [
-    // 'Processes Installed' =>
-    // function($i){
-    //     signal(SIG($i), null); 
-    // },
+    'Processes Installed' =>
+    function($i){
+        signal(SIG($i), null); 
+    },
     'Signals Emitted' => 
     function($i){
         emit($i);
     },
-    // 'Signal Registration' =>
-    // function($i){
-    //     register_signal(SIG($i)); 
-    // },
+    'Signal Registration' =>
+    function($i){
+        register_signal(SIG($i)); 
+    },
     // 'Listners Installed' => 
     // function($i) {
     //     listen(new Lst());
     // },
-    // // 'Interruptions Installed' =>
-    // // function($i){
-    // //     before($i, function(){}); 
-    // // },
+    // 'Interruptions Installed' =>
+    // function($i){
+    //     before($i, function(){}); 
+    // },
     'Loops Performed' => 
     function($i) {
         wait_loop();
@@ -90,10 +90,10 @@ $tests = [
     //     emit(new Cmp());
     // },
 ];
-
-$output::send('Beginning performance tests');
+$output::send('Beginning performance tests ... please be patient.');
 $results = [];
-$average_perform = 2;
+$average_perform = 10;
+$total_tests = 0;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     for ($i=1;$i<$average_perform+1;$i++) {
@@ -105,7 +105,6 @@ foreach ($tests as $_test => $_func) {
         for($a=1;$a<(1 << 16);) {
             $a = $a << 1;
             $tc = $a;
-            echo $a.PHP_EOL;
             if ($a === 1) {
                 $setup = true;
             } else {
@@ -114,12 +113,15 @@ foreach ($tests as $_test => $_func) {
             if (!isset($results[$_test][$tc])) {
                 $results[$_test][$tc] = [];
             }
-            $start = microtime(true);
             for ($c=0;$c<$tc;$c++) {
+                // do the test
+                $start = microtime(true);
                 $_func($c, $setup);
+                $end = microtime(true);
+                // add test time
+                $results[$_test][$tc][] = $end - $start;
+                ++$total_tests;
             }
-            $end = microtime(true);
-            $results[$_test][$tc][] = $end - $start;
             XPSPL_flush();
         }
     }
@@ -128,11 +130,11 @@ foreach ($tests as $_test => $_func) {
         $_test
     ));
 }
-var_dump($results);
-exit;
-ob_start();
-include dirname(realpath(__FILE__)).'/performance/chart.php';
-$data = ob_get_contents();
-ob_end_clean();
-file_put_contents('performance_chart.html', $data);
-echo "Performance chart in performance_chart.html".PHP_EOL;
+echo '--------------------------------------'.PHP_EOL;
+echo "Total tests performed " . number_format($total_tests).PHP_EOL;
+// ob_start();
+include dirname(realpath(__FILE__)).'/performance/averages_output.php';
+// $data = ob_get_contents();
+// ob_end_clean();
+// file_put_contents('performance_chart.html', $data);
+// echo "Performance chart in performance_chart.html".PHP_EOL;
