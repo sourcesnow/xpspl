@@ -66,6 +66,16 @@ class Time extends \XPSPL\Idle {
         }
         $this->_idle_length = $time;
         $this->_instruction = $instruction;
+        $this->set_time($time);
+    }
+
+    /**
+     * Sets the time.
+     * 
+     * @param  integer  $time  Length of time.
+     */
+    public function set_time($time) 
+    {
         switch ($this->_instruction) {
             case TIME_SECONDS:
                 $this->_stop_time = $time + time();
@@ -74,7 +84,8 @@ class Time extends \XPSPL\Idle {
                 $this->_stop_time = $time + milliseconds();
                 break;
             case TIME_MICROSECONDS:
-                $this->_stop_time = ($time * 0.000001) + microtime(true);
+                $this->_stop_time = (($time * 0.000001) - XPSPL_AVERAGE_LOOPTIME) + microtime(true);
+                //$this->_stop_time = (($time * 0.000001)) + microtime(true);
                 break;
             // case TIME_NANOSECONDS:
             //     $this->_stop_time = ($time)
@@ -106,17 +117,7 @@ class Time extends \XPSPL\Idle {
                 usleep($this->get_time_left() * 1000);
                 break;
             case TIME_MICROSECONDS:
-                var_dump($this->get_time_left() <= 0);
-                if ($this->get_time_left() <= 0) {
-                    echo $this->get_time_left();
-                    return;
-                }
-                if ($this->get_time_left() > 0 && 1 > $this->get_time_left()) {
-                    echo $this->get_time_left();;
-                    time_nanosleep(0, $this->get_time_left() * 1000);
-                } else {
-                    usleep($this->get_time_left());
-                }
+                usleep($this->get_time_left());
                 break;
 
         }

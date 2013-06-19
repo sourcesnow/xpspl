@@ -24,15 +24,20 @@ function awake($time, $callback, $instruction = TIME_SECONDS)
 }
 
 /**
- * Wakes the system using CRON expressions.
+ * Wakes the system using the Unix CRON expressions.
+ *
+ * If no priority is provided with the ```$process``` it is set to null.
  *
  * @param  string  $cron  CRON Expression
- * @param  callable  $callback  Callback function to run
+ * @param  callable  $process  Callback function to run
  *
  * @return  array [signal, process]
  */
-function CRON($cron, $callback)
+function CRON($cron, $process)
 {
+    if (!$process instanceof \XPSPL\Process) {
+        $process = null_exhaust($process);
+    }
     $signal = new SIG_CRON($cron);
-    return [$signal, signal($signal, $callback)];
+    return [$signal, signal($signal, $process)];
 }

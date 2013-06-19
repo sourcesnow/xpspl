@@ -15,9 +15,9 @@ namespace network;
  */
 function connect($address, $options = [])
 {
-    $server = new Socket($address, $options);
-    signal($server, null_exhaust(null));
-    return $server;
+    $socket = new Socket($address, $options);
+    signal($socket, null_exhaust(null));
+    return $socket;
 }
 
 /**
@@ -29,9 +29,8 @@ function connect($address, $options = [])
  */
 function throw_socket_error() {
     $code = socket_last_error();
-    $str = socket_strerror($code);
     throw new \RuntimeException(sprintf(
         '(%s) - %s',
-        $code, $str
+        $code, socket_strerror($code)
     ));
 }

@@ -71,4 +71,14 @@ abstract class SIG_Routine extends SIG {
     {
         return $this->_idle;
     }
+
+    /**
+     * Sets the idle object for this routine.
+     *
+     * @return  object  \XPSPL\Idle
+     */
+    final public function set_idle(\XPSPL\Idle $idle)
+    {
+        $this->_idle = $idle;
+    }
 }

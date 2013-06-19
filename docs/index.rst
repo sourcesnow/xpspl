@@ -1,10 +1,10 @@
 .. prggmr documentation master file, created by
    sphinx-quickstart on Wed Dec 19 20:57:45 2012.
 
-XPSPL - Signal Library for PHP.
+XPSPL - Signal and Event Library for PHP.
 =====================================
 
-XPSPL high performance signal library for PHP.
+XPSPL high performance signal and event library for PHP.
 
 Table of Contents
 -----------------
@@ -13,9 +13,9 @@ Table of Contents
    :maxdepth: 2
    :glob:
 
-   install
-   configuration
-   .. quickstart
+   *
+
+.. contents::
 
 API
 ---
@@ -48,39 +48,43 @@ XPSPL is hosted on Github_.
 Performance
 -----------
 
-These tests were generated using v4.0.0 on a 2.7GHZ i5 processor.
+Performance testing using a 2.0 GHz Intel Core 2 Duo.
+
+Linear signal emit performance.
 
 .. image:: emit_graph_upper.png
 
-The above benchmark demonstrates scaling to an upperbound of 500 million emitted signals, 
-the vertical axis represents the amount of time in seconds 
-with the horizontal axis representing the amount of signals emitted.
+Performance Tests
+%%%%%%%%%%%%%%%%%
 
-The benchmark demonstrates almost linear scale of ~3.5us per emit equating to ~284,000 signals per second.
+.. code-block:: php
+
+   --------------------------------------
+   Total tests performed 5,242,800
+   --------------------------------------
+   Average Processes Installed - 0.0009126066 seconds
+   Tests Performed : 1,310,700
+   --------------------------------------
+   --------------------------------------
+   Average Signals Emitted - 0.0001160003 seconds
+   Tests Performed : 1,310,700
+   --------------------------------------
+   --------------------------------------
+   Average Signal Registration - 0.0003996142 seconds
+   Tests Performed : 1,310,700
+   --------------------------------------
+   --------------------------------------
+   Average Loops Performed - 0.0003038336 seconds
+   Tests Performed : 1,310,700
+   --------------------------------------
 
 Author
 ------
 
-XPSPL has been designed and developed by Nickolas C. Whiting.
+XPSPL has been designed and developed by Nickolas Whiting.
 
 Support
 -------
-
-Support for XPSPL is offered through two support channels.
-
-.. Core
-.. ----
-
-.. XPSPL Internal Documentation
-
-.. The core classes and functions of XPSPL.
-
-.. .. toctree::
-..    :maxdepth: 1
-..    :glob:
-
-..    xpspl/*
-..    xpspl/*/*
 
 Mailing list
 ____________
@@ -90,13 +94,25 @@ A mailing list provided by Google Groups_.
 .. _Groups: https://groups.google.com/forum/?fromgroups#!forum/prggmr
 
 
-IRC
-___
+.. IRC
+.. ___
 
-An IRC channel by irc.freenode.net ``#prggmr``.
+.. An IRC channel by irc.freenode.net ``#prggmr``.
 
-Search
+Source
 ------
 
-* :ref:`search`
+XPSPL is hosted on Github_.
 
+.. _Github: http://github.com/prggmr/XPSPL
+
+XPSPL Internal Documentation
+
+The core classes and functions of XPSPL.
+
+.. toctree::
+   :maxdepth: 1
+   :glob:
+
+   src/*
+   src/*/*

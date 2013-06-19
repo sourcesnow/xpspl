@@ -4,7 +4,7 @@
  * Directly runs files into the XPSPL Processor
  */
 $usage = 
-"usage: XPSPL [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
+"usage: phpsignals [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
               [--test-cover] [-t|--time=<time>] [-v|--version] [-j|--judy]
               <file>
 Options:

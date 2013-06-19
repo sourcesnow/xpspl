@@ -61,6 +61,7 @@ class SIG_CRON extends \XPSPL\SIG_Routine {
         }
         $this->_cron = \Cron\CronExpression::factory($expression);
         $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
+        $this->set_idle(new Time($this->_next_run - time(), TIME_SECONDS));
         parent::__construct();
     }
     
@@ -72,15 +73,12 @@ class SIG_CRON extends \XPSPL\SIG_Routine {
      */
     public function routine(\XPSPL\Routine $routine = null)
     {
-        $diff = $this->_next_run - time();
-        if ($diff <= 0) {
+        if ($this->get_idle()->has_time_passed()) {
             $this->_next_run = $this->_cron->getNextRunDate()->getTimestamp();
             $routine->add_signal($this);
-        } else {
-            $this->_idle = new Time(
-                $this->_time, $this->_instruction
-            );
         }
+        $this->get_idle()->set_time($this->_next_run - time());
+        $routine->add_idle($this);
         return true;
     }
 }

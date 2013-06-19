@@ -9,9 +9,12 @@ namespace time;
 use XPSPL\idle\Time;
 
  /**
- * Awake Routine
+ * SIG_Awake
  *
- * Sends an awake signal after a specified amount of time has passed.
+ * Send a signal to awake once a length of time has passed.
+ *
+ * Instructions are those defined as TIME_SECONDS, TIME_MILLISECONDS,
+ * TIME_MICROSECONDS.
  */
 class SIG_Awake extends \XPSPL\SIG_Routine {
 
@@ -48,7 +51,7 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
         parent::__construct();
         $this->_time = $time;
         $this->_instruction = $instruction;
-        $this->_idle = new Time($time, $instruction);
+        $this->set_idle(new Time($time, $instruction));
     }
     
     /**
@@ -61,11 +64,9 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
      */
     public function routine(\XPSPL\Routine $routine = null)
     {
-        if ($this->_idle->has_time_passed()) {
+        if ($this->get_idle()->has_time_passed()) {
             $routine->add_signal($this);
-            $this->_idle = new Time(
-                $this->_time, $this->_instruction
-            );
+            $this->get_idle()->set_time($this->_time);
         }
         $routine->add_idle($this);
         return true;

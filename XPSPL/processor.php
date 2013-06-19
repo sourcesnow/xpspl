@@ -115,7 +115,7 @@ class Processor {
             ));
         }
         $this->set_state(STATE_DECLARED);
-        $this->flush(); 
+        $this->flush();
     }
 
     /**
@@ -223,38 +223,6 @@ class Processor {
             $_routine[0]->routine($this->_routine);
         }
         return $this->_routine->is_stale();
-        // Check signals
-        if (count($this->_routine->get_signals()) != 0) {
-            // This checks only for one possible signal that has not exhausted
-            // it still leaves the possibility for triggering exhausted signals
-            foreach ($this->_routine->get_signals() as $_signal) {
-                if (false === $this->has_signal_exhausted($_signal)) {
-                    if (XPSPL_DEBUG) {
-                        logger(XPSPL_LOG)->debug(sprintf(
-                            '%s emittable signal detected',
-                            $_signal
-                        ));
-                    }
-                    return true;
-                }
-            }
-        }
-        // Check idle
-        if (null !== $this->_routine->get_idle()) {
-            if (XPSPL_DEBUG) {
-                logger(XPSPL_LOG)->debug(sprintf(
-                    '%s idle function detected', 
-                    $this->_routine->get_idle()
-                ));
-            }
-            return true;
-        }
-        if (XPSPL_DEBUG) {
-            logger(XPSPL_LOG)->debug(sprintf(
-                'No activity found halting'
-            ));
-        }
-        return false;
     }
 
     /**

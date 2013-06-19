@@ -6,10 +6,10 @@
  */
 
 // library version
-define('XPSPL_VERSION', '4.0.0');
+define('XPSPL_VERSION', '4.0.1');
 
 // The creator
-define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
+define('XPSPL_MASTERMIND', 'Nickolas Whiting');
 
 // start'er up
 // utils & traits
@@ -54,18 +54,23 @@ if (XPSPL_DEBUG) {
  * 
  * XPSPL is a globally available singleton used for communication access via the 
  * API.
+ *
+ * .. note::
+ *
+ *    Using the API 
+ *
+ * 
  */
 final class XPSPL extends \XPSPL\Processor {
     use XPSPL\Singleton;
 }
 
 $timing = [];
-for($i=0;$i<1000;$i++) {
-    $start = microseconds();
+for($i=0;$i<5000;$i++) {
+    $start = microtime(true);
     wait_loop();
-    $timing[] = microseconds() - $start;
+    $timing[] = microtime(true) - $start;
 }
-define('XPSPL_AVERAGE_LOOPTIME', (array_sum($timing) / count($timing)));
 
 /**
  * Start the processor VROOOOOOM!

@@ -8,7 +8,12 @@ Requirements
 
 XPSPL requires  **>= PHP 5.4**.
 
-XPSPL does not require **any** additional modules or configuration options.
+Optional
+========
+
+PHP FTP_ extension for XPSPL FTP module support.
+
+.. _FTP: http://php.net/manual/en/book.ftp.php
 
 Install
 =======
@@ -42,7 +47,7 @@ C Judy 1.0.4
 PECL Judy 0.1.4
 
 The Judy library demonstrates improving the database by giving storage a linear 
-scale of ~39us up to the tested 262144.
+average performance of 39us per write to a tested 262144.
 
 The Judy C library is bundled in the ``library`` folder with XPSPL.
 
