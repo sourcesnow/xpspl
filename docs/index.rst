@@ -6,6 +6,10 @@ XPSPL - Signal and Event Library for PHP.
 
 XPSPL high performance signal and event library for PHP.
 
+Made in Orlando_.
+
+.. _Orlando:  http://orlandote.ch/
+
 Table of Contents
 -----------------
 
