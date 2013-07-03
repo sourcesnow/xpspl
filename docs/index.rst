@@ -45,9 +45,8 @@ XPSPL Bundled modules.
 Source
 ------
 
-XPSPL is hosted on Github_.
+XPSPL is hosted on https://github.com/prggmr/XPSPL.
 
-.. _Github: https://github.com/prggmr/XPSPL
 
 Performance
 -----------
