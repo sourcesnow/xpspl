@@ -1,7 +1,3 @@
-# XPSPL
-
-Signals for PHP.
-
 ## Documentation
 
 XPSPL's documentation is available at http://prggmr.com
