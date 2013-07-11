@@ -101,5 +101,5 @@ The core classes and functions of XPSPL.
    :maxdepth: 1
    :glob:
 
-   src/*
-   src/*/*
+   XPSPL/*
+   XPSPL/*/*
