@@ -8,7 +8,7 @@ Made in `Orlando
 <http://orlandote.ch>`_.
 
 Table of Contents
------------------`
+-----------------
 
 .. toctree::
    :maxdepth: 2
