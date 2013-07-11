@@ -1,17 +1,14 @@
 .. prggmr documentation master file, created by
    sphinx-quickstart on Wed Dec 19 20:57:45 2012.
 
-XPSPL - Signal and Event Library for PHP.
+XPSPL - PHP Signal and Event Library.
 =====================================
 
-XPSPL high performance signal and event library for PHP.
-
-Made in Orlando_.
-
-.. _Orlando:  http://orlandote.ch/
+Made in `Orlando
+<http://orlandote.ch>`_.
 
 Table of Contents
------------------
+-----------------`
 
 .. toctree::
    :maxdepth: 2
@@ -45,15 +42,23 @@ XPSPL Bundled modules.
 Source
 ------
 
-XPSPL is hosted on https://github.com/prggmr/XPSPL.
+XPSPL is hosted on `Github
+<https://github.com/prggmr/XPSPL>`_.
 
+Support
+-------
+
+Have an issue?
+
+File a bug report in `Github issues
+<https://github.com/prggmr/XPSPL/issues>`_.
 
 Performance
 -----------
 
 Performance testing using a 2.0 GHz Intel Core 2 Duo.
 
-Linear signal emit performance.
+Demonstrating a linear signal emit performance.
 
 .. image:: emit_graph_upper.png
 
@@ -84,32 +89,11 @@ Performance Tests
 Author
 ------
 
-XPSPL has been designed and developed by Nickolas Whiting.
+XPSPL has been designed and developed by `Nickolas Whiting
+<https://plus.google.com/103257674267659844067?rel=author>`_.
 
-Support
--------
-
-Mailing list
-____________
-
-A mailing list provided by Google Groups_.
-
-.. _Groups: https://groups.google.com/forum/?fromgroups#!forum/prggmr
-
-
-.. IRC
-.. ___
-
-.. An IRC channel by irc.freenode.net ``#prggmr``.
-
-Source
-------
-
-XPSPL is hosted on Github_.
-
-.. _Github: http://github.com/prggmr/XPSPL
-
-XPSPL Internal Documentation
+XPSPL Internal Source
+---------------------
 
 The core classes and functions of XPSPL.
 
