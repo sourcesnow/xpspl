@@ -22,6 +22,10 @@ set_include_path(
     get_include_path()
 );
 
+$classLoader = new SplClassLoader('XPSPL', XPSPL_PATH);
+$classLoader->register();
+unset($register);
+
 // Load the API
 // believe it or not this is the fastest way to do this
 $dir = new \RegexIterator(
