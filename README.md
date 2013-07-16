@@ -16,3 +16,5 @@ Performance
 * Registering a signal - 15<sub>us</sub>
 
 Times are microseconds (us).
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/prggmr/xpspl/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
