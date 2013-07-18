@@ -184,7 +184,9 @@ class Connection {
  */
 function system_disconnect(SIG_Disconnect $sig_disconnect) 
 {
-    socket_close($sig_disconnect->socket->get_resource());
+    if (is_resource($sig_disconnect->socket->get_resource())) {
+        socket_close($sig_disconnect->socket->get_resource());
+    }
 }
 
 /**
