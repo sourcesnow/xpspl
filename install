@@ -15,7 +15,8 @@ install() {
     cd /tmp
     echo "Inflating"
     unzip XPSPL.zip
-    cd XPSPL-master
+    cd XPSPL-4.0.1
+    echo $PWD
     echo "Running installation"
     PHPPATH=$(php -r "echo get_include_path();") 
     INSTALLPATH=""
@@ -39,8 +40,8 @@ install() {
     if [ -f "$BINPATH/xpspl" ]; then
         rm "$BINPATH/xpspl"
     fi;
-    echo "Installed XPSPL to $INSTALL_PATH/XPSPL"
-    echo "Installed executable to $BINPATH/XPSPL"
+    echo "Installed XPSPL to $INSTALL_PATH/xpspl"
+    echo "Installed executable to $BINPATH/xpspl"
     ln -s "$INSTALL_PATH/XPSPL/bin/xpspl" "$BINPATH"
     XPSPL -v
     echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
