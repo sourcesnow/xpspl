@@ -11,7 +11,7 @@ install() {
         exit;
     fi;
     echo "Downloading XPSPL"
-    curl -L -o /tmp/XPSPL.zip https://github.com/prggmr/XPSPL/archive/master.zip
+    curl -L -o /tmp/XPSPL.zip https://github.com/prggmr/XPSPL/archive/v4.0.1.zip
     cd /tmp
     echo "Inflating"
     unzip XPSPL.zip
