@@ -53,7 +53,7 @@ install() {
     cd ..
     rm -rf /tmp/XPSPL-master
     rm /tmp/XPSPL.zip
-    echo "Done"
+    xpspl -v
 }
 
 #
