@@ -6,10 +6,10 @@
  */
 
 // library version
-define('XPSPL_VERSION', '4.0.0');
+define('XPSPL_VERSION', '4.0.1');
 
 // The creator
-define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
+define('XPSPL_MASTERMIND', 'Nickolas Whiting');
 
 // start'er up
 // utils & traits
