@@ -106,7 +106,6 @@ class Time extends \XPSPL\Idle {
                 usleep($this->get_time_left() * 1000);
                 break;
             case TIME_MICROSECONDS:
-                var_dump($this->get_time_left() <= 0);
                 if ($this->get_time_left() <= 0) {
                     echo $this->get_time_left();
                     return;

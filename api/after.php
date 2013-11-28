@@ -11,6 +11,9 @@
  * Interruption processes installed using this function interrupt directly 
  * after a signal is emitted.
  *
+ * High priority process will always execute first immediatly following 
+ * interruptions.
+ *
  * .. warning:: 
  *
  *    Interruptions are not a fix for improperly executing process priorities 
@@ -29,9 +32,6 @@
  * @example
  *
  * Install a interrupt process after foo
- *
- * High priority process will always execute first immediatly following 
- * interruptions.
  *
  * .. code-block:: php
  * 

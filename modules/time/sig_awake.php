@@ -96,4 +96,42 @@ class SIG_Awake extends \XPSPL\SIG_Routine {
             $this->_instruction
         );
     }
+
+    /**
+     * Modify the idle time length to the given instruction.
+     *
+     * @param  int  $time  Length of time.
+     * @param  int  $instruction  Time instruction.
+     *
+     * @throws  InvalidArgumentException
+     *
+     * @return  void
+     */
+    public function modify_time($time, $instruction = TIME_SECONDS)
+    {
+        if ((!is_int($time) || !is_float($time)) && $time < 0) {
+            throw new \InvalidArgumentException(
+                "Time must be greater than 0"
+            );
+        }
+        $this->_time = $time;
+        $this->_instruction = $instruction;
+        $this->_idle = new Time($time, $instruction);
+        if (XPSPL_DEBUG) {
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Modify time - INDEX(%s) - TIME(%s) - INSTRUCT(%s)',
+                $this->_index, $time, $instruction
+            ));
+        }
+    }
+
+    /**
+     * Returns the time instruction.
+     *
+     * @return  integer
+     */
+    public function get_instruction(/* ... */)
+    {
+        return $this->_instruction;
+    }
 }

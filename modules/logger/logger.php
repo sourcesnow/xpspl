@@ -152,7 +152,6 @@ class Logger {
         $this->_handlers[] = $handler;
         if (count($this->_loggers) != 0) {
             foreach ($this->_loggers as $_logger) {
-                echo "ADDING GLOBAL HANDLER";
                 $this->_loggers[$_logger]->add_handler($handler);
             }
         }
@@ -330,10 +329,10 @@ class Handler {
                 touch($this->_output);
             }
             $this->_output = fopen($this->_output, 'w+');
-            @stream_set_blocking($this->_output, false);
+            // @stream_set_blocking($this->_output, false);
             return true;
         } else {
-            @stream_set_blocking($this->_output, false);
+            // @stream_set_blocking($this->_output, false);
         }
     }
 }
@@ -412,6 +411,6 @@ class Formatter {
  * Returns a formatted string. Accepts named arguments.
  */
 function psprintf($str, $params) {
-    return preg_replace('/{(\w+)}/e', '$params["\\1"]', $str);
+    return @preg_replace('/{(\w+)}/e', '$params["\\1"]', $str);
 }
 }
