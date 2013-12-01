@@ -102,6 +102,11 @@ class Processor {
     private $_routine = null;
 
     /**
+     * Active processing threads.
+     */ 
+    public $active_threads = [];
+
+    /**
      * Starts the processor.
      *
      * @return  void
@@ -620,18 +625,34 @@ class Processor {
                     ));
                 }
                 $_process->decrement_exhaust();
-                if (false === $this->_process_exec(
-                    $signal,
-                    $_process->get_function()
-                )) {
+                if ($_process->get_function() instanceof Process\Thread) {
+                    // DO NOT EXECUTE THE SAME PROCESS WHILE ANOTHER IS RUNNING
+                    // if (in_array($_process->get_function(), $this->active_threads)) {
+                    //     continue;
+                    // }
+                    $this->active_threads[] = $_process->get_function();
+                    var_dump(end($this->active_threads)->start());
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
-                            'Halting Signal %s due to false return from %s',
-                            $signal,
+                            'Starting thread %s %s',
+                            end($this->active_threads),
                             get_class($_process) . ' : ' . $_process
                         ));
                     }
-                    $signal->halt();
+                } else {
+                    if (false === $this->_process_exec(
+                        $signal,
+                        $_process->get_function()
+                    )) {
+                        if (XPSPL_DEBUG) {
+                            logger(XPSPL_LOG)->debug(sprintf(
+                                'Halting Signal %s due to false return from %s',
+                                $signal,
+                                get_class($_process) . ' : ' . $_process
+                            ));
+                        }
+                        $signal->halt();
+                    }
                 }
                 if ($_process->is_exhausted()) {
                     if (XPSPL_DEBUG) {

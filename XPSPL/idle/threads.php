@@ -20,7 +20,8 @@ class Threaded extends \XPSPL\Time
     public function idle($processor) 
     {
         foreach ($processor->active_threads as $_key => $_thread) {
-            if ($_thread->is_active() === False) {
+            // Add better checks
+            if ($_thread->isRunning() === False) {
                 unset($process->active_threads[$_key]);
             }
         }

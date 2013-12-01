@@ -59,13 +59,13 @@ final class XPSPL extends \XPSPL\Processor {
     use XPSPL\Singleton;
 }
 
-$timing = [];
-for($i=0;$i<1000;$i++) {
-    $start = microseconds();
-    wait_loop();
-    $timing[] = microseconds() - $start;
-}
-define('XPSPL_AVERAGE_LOOPTIME', (array_sum($timing) / count($timing)));
+// $timing = [];
+// for($i=0;$i<1000;$i++) {
+//     $start = microseconds();
+//     wait_loop();
+//     $timing[] = microseconds() - $start;
+// }
+// define('XPSPL_AVERAGE_LOOPTIME', (array_sum($timing) / count($timing)));
 
 /**
  * Start the processor VROOOOOOM!

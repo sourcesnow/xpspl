@@ -45,7 +45,9 @@ class Process {
      * 
      * @return  void
      */
-    public function __construct($callable = null, $exhaust = XPSPL_PROCESS_DEFAULT_EXHAUST, $priority = XPSPL_PROCESS_DEFAULT_PRIORITY)
+    public function __construct(
+        $callable = null, $exhaust = XPSPL_PROCESS_DEFAULT_EXHAUST, 
+        $priority = XPSPL_PROCESS_DEFAULT_PRIORITY, $threaded = False)
     {
         if (null === $callable) {
             $reflection = new \ReflectionClass($this);
@@ -57,7 +59,11 @@ class Process {
         // set exhaust rate
         $this->set_exhaust($exhaust);
         $this->set_priority($priority);
-        $this->_callable = $callable;
+        if ($threaded) {
+            $this->_callable = new process\Thread($callable);
+        } else {
+            $this->_callable = $callable;
+        }
     }
 
     /**
@@ -154,6 +160,22 @@ class Process {
         }
         $this->_priority = $priority;
     }
+
+    /**
+     * 
+     *
+     * @param  integer  $priority  Integer Priority
+     * 
+     * @return  void
+     */
+    final public function enable_threads(/* ... */)
+    {
+        if (!$this->_callable instanceof process\Thread) {
+            $this->_callable = new process\Thread($this->_callable);
+        }
+        return;
+    }
+
 
     /**
      * Return a string representation of this database.
