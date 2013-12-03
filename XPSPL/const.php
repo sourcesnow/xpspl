@@ -101,6 +101,22 @@ if (!defined('XPSPL_ANALYZE_TIME')) {
     define('XPSPL_ANALYZE_TIME', class_exists('Judy', false));
 }
 
+if (!defined('XPSPL_THREADS_SUPPORT')) {
+    /**
+     * Enables threads ... this is automatically enabled when pthreads is 
+     * detected.
+     *
+     * When enabled all processes will be executed in their own inidividual 
+     * thread.
+     */
+    if (class_exists('Thread')) {
+        define('XPSPL_THREAD_SUPPORT', true);
+    } else {
+        define('XPSPL_THREAD_SUPPORT', false);
+    }
+    //define('XPSPL_JUDY_SUPPORT', class_exists('Judy', false));
+}
+
 /**
  * XPSPL Log
  *

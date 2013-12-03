@@ -6,6 +6,8 @@ namespace XPSPL\idle;
  * that can be found in the LICENSE file.
  */
 
+use \XPSPL\Processor as Processor;
+
 /**
  * Idles the processor for a specific amount of time.
  *
@@ -98,7 +100,7 @@ class Time extends \XPSPL\Idle {
      *
      * @return  void
      */
-    public function idle($processor)
+    public function idle(Processor $processor)
     {
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(

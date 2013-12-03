@@ -37,6 +37,13 @@ class Process {
     protected $_priority = null;
 
     /**
+     * Threads enabled for this process.
+     *
+     * @var  boolean
+     */
+    protected $_threads = false;
+
+    /**
      * Constructs a new process object.
      *
      * @param  mixed  $callable  A callable php variable.
@@ -168,5 +175,37 @@ class Process {
             (null === $this->_exhaustion) ? 'null' : $this->_exhaustion,
             $this->_priority
         );
+    }
+
+    /**
+     * Enable threads for this process.
+     *
+     * @param  integer  $priority  Integer Priority
+     * 
+     * @return  void
+     */
+    final public function enable_threads(/* ... */)
+    {
+        $this->_threads = true;
+        // if (!$this->_callable instanceof process\Thread) {
+        //     if (!(is_array($this->_callable) && $this->_callable[0] === $this)) {
+        //         throw new \RuntimeException(
+        //             'Threaded processes must be implemented using the `execute` method.'
+        //         );
+        //     }
+        //     $this->_callable = new process\Thread($this->_callable);
+        //     var_dump($this);
+        // }
+        return;
+    }
+
+    /**
+     * Returns if threads are enabled for this process.
+     *
+     * @return  boolean
+     */
+    public function threads_enabled(/* ... */)
+    {
+        return $this->_threads;
     }
 }

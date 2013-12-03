@@ -6,6 +6,8 @@ namespace XPSPL\idle;
  * that can be found in the LICENSE file.
  */
 
+use \XPSPL\Processor as Processor;
+
 /**
  * Idles the processor using a function process.
  */
@@ -42,7 +44,7 @@ class Process extends \XPSPL\Idle
     /**
      * Run the idle function.
      */
-    public function idle($processor) 
+    public function idle(Processor $processor) 
     {
         return call_user_func_array($this->_function, [$processor]);
     }

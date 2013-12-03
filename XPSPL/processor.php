@@ -110,8 +110,12 @@ class Processor {
     {
         if (XPSPL_DEBUG) {
             logger(XPSPL_LOG)->debug(sprintf(
-                'Starting XPSPL Judy Support %s',
+                'Judy Support %s',
                 (XPSPL_JUDY_SUPPORT) ? 'true' : 'false'
+            ));
+            logger(XPSPL_LOG)->debug(sprintf(
+                'Thread Support %s',
+                (XPSPL_THREAD_SUPPORT) ? 'true' : 'false'
             ));
         }
         $this->set_state(STATE_DECLARED);
@@ -340,6 +344,12 @@ class Processor {
         }
         if (null === $this->_routine) {
             $this->_routine = new Routine();
+        }
+        if (XPSPL_THREAD_SUPPORT) {
+            $this->register_signal(new SIG\threads\Routine());
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug('Installed thread manager');
+            }
         }
     }
 
@@ -588,18 +598,34 @@ class Processor {
                     ));
                 }
                 $_process->decrement_exhaust();
-                if (false === $this->_process_exec(
-                    $signal,
-                    $_process->get_function()
-                )) {
+                if (XPSPL_THREAD_SUPPORT && $_process->threads_enabled()) {
+                    // DO NOT EXECUTE THE SAME PROCESS WHILE ANOTHER IS RUNNING
+                    // if (in_array($_process->get_function(), $this->active_threads)) {
+                    //     continue;
+                    // }
+                    $this->active_threads[] = new process\Thread(clone $_process);
+                    end($this->active_threads)->start();
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
-                            'Halting Signal %s due to false return from %s',
-                            $signal,
+                            'Starting thread %s %s',
+                            end($this->active_threads),
                             get_class($_process) . ' : ' . $_process
                         ));
                     }
-                    $signal->halt();
+                } else {
+                    if (false === $this->_process_exec(
+                        $signal,
+                        $_process->get_function()
+                    )) {
+                        if (XPSPL_DEBUG) {
+                            logger(XPSPL_LOG)->debug(sprintf(
+                                'Halting Signal %s due to false return from %s',
+                                $signal,
+                                get_class($_process) . ' : ' . $_process
+                            ));
+                        }
+                        $signal->halt();
+                    }
                 }
                 if ($_process->is_exhausted()) {
                     if (XPSPL_DEBUG) {

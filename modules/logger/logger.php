@@ -412,6 +412,6 @@ class Formatter {
  * Returns a formatted string. Accepts named arguments.
  */
 function psprintf($str, $params) {
-    return preg_replace('/{(\w+)}/e', '$params["\\1"]', $str);
+    return @preg_replace('/{(\w+)}/e', '$params["\\1"]', $str);
 }
 }

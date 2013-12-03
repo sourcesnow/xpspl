@@ -13,8 +13,8 @@ define('XPSPL_MASTERMIND', 'Nickolas Whiting');
 
 // start'er up
 // utils & traits
-require dirname(realpath(__FILE__)).'/XPSPL/utils.php';
 require dirname(realpath(__FILE__)).'/XPSPL/const.php';
+require dirname(realpath(__FILE__)).'/XPSPL/utils.php';
 
 set_include_path(
     XPSPL_MODULE_DIR . PATH_SEPARATOR .
@@ -69,12 +69,12 @@ final class XPSPL extends \XPSPL\Processor {
     use XPSPL\Singleton;
 }
 
-$timing = [];
-for($i=0;$i<5000;$i++) {
-    $start = microtime(true);
-    wait_loop();
-    $timing[] = microtime(true) - $start;
-}
+// $timing = [];
+// for($i=0;$i<5000;$i++) {
+//     $start = microtime(true);
+//     wait_loop();
+//     $timing[] = microtime(true) - $start;
+// }
 
 /**
  * Start the processor VROOOOOOM!
