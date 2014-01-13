@@ -7,7 +7,7 @@
 
 /**
  * Utilities
- * 
+ *
  * These are utility functions used within or in conjunction with XPSPL.
  */
 
@@ -43,60 +43,60 @@ define('XPSPL_AUTOLOADER', true);
 //     }
 // });
 
-if (!XPSPL_DEBUG) {
-/**
- * Exception Processr
- */
-set_exception_handler(function($exception){
-    if (null !== $exception) {
-        $trace = array_reverse($exception->getTrace());
-        $error = get_class($exception);
-        $message = $exception->getMessage();
-        $line = $exception->getLine();
-        $file = $exception->getFile();
-    } else {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        $stack = array_pop($trace);
-        $message = $processor->current_signal()->get_error();
-        $error = get_class($processor->current_signal());
-        $file = $stack['file'];
-        $line = $stack['line'];
-    }
-    $stacktrace = '';
-    $i=0;
-    $path = str_replace('/..', '', XPSPL_PATH);
-    foreach ($trace as $_trace) {
-        if (strstr($_trace['file'], $path) === false) {
-            $stacktrace .= sprintf(
-                $i.': # %s:%s(%s)'.PHP_EOL,
-                (isset($_trace['file'])) ? $_trace['file'] : '-',
-                (isset($_trace['line'])) ? $_trace['line'] : '-',
-                ((isset($_trace['class'])) 
-                    ? $_trace['class'] . $_trace['type'] : '') 
-                . $_trace['function']
-            );
-            $i++;
-        }
-    }
-    echo sprintf(
-        'Exception: %s'.PHP_EOL.''
-        .'Message: %s'.PHP_EOL.''
-        .'Line: %s'.PHP_EOL.''
-        .'File: %s'.PHP_EOL.''
-        .'Trace:'.PHP_EOL.''
-        .'%s',
-        $error,
-        $message,
-        $line,
-        $file,
-        $stacktrace
-    );
-});
-}
+// if (!XPSPL_DEBUG) {
+// /**
+//  * Exception Processr
+//  */
+// set_exception_handler(function($exception){
+//     if (null !== $exception) {
+//         $trace = array_reverse($exception->getTrace());
+//         $error = get_class($exception);
+//         $message = $exception->getMessage();
+//         $line = $exception->getLine();
+//         $file = $exception->getFile();
+//     } else {
+//         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+//         $stack = array_pop($trace);
+//         $message = $processor->current_signal()->get_error();
+//         $error = get_class($processor->current_signal());
+//         $file = $stack['file'];
+//         $line = $stack['line'];
+//     }
+//     $stacktrace = '';
+//     $i=0;
+//     $path = str_replace('/..', '', XPSPL_PATH);
+//     foreach ($trace as $_trace) {
+//         if (strstr($_trace['file'], $path) === false) {
+//             $stacktrace .= sprintf(
+//                 $i.': # %s:%s(%s)'.PHP_EOL,
+//                 (isset($_trace['file'])) ? $_trace['file'] : '-',
+//                 (isset($_trace['line'])) ? $_trace['line'] : '-',
+//                 ((isset($_trace['class']))
+//                     ? $_trace['class'] . $_trace['type'] : '')
+//                 . $_trace['function']
+//             );
+//             $i++;
+//         }
+//     }
+//     echo sprintf(
+//         'Exception: %s'.PHP_EOL.''
+//         .'Message: %s'.PHP_EOL.''
+//         .'Line: %s'.PHP_EOL.''
+//         .'File: %s'.PHP_EOL.''
+//         .'Trace:'.PHP_EOL.''
+//         .'%s',
+//         $error,
+//         $message,
+//         $line,
+//         $file,
+//         $stacktrace
+//     );
+// });
+// }
 
 /**
  * Returns the current time since epox in milliseconds.
- * 
+ *
  * @return  integer
  */
 function milliseconds(/* ... */) {
@@ -114,35 +114,35 @@ function microseconds(/* ... */) {
 
 /**
  * Transforms PHP exceptions into a signal.
- * 
+ *
  * The signal fired is \XPSPL\processor\Signal::GLOBAL_EXCEPTION
- * 
+ *
  * @param  object  $exception  \Exception
- * 
+ *
  * @return void
  */
 function signal_exceptions($exception) {
     // \XPSPL\signal(
-    //     new \XPSPL\processor\exception\Error(), 
+    //     new \XPSPL\processor\exception\Error(),
     //     new \XPSPL\processor\event\Error($exception)
     // );
 }
 
 /**
  * Transforms PHP errors into a signal.
- * 
+ *
  * The signal fired is \XPSPL\processor\Signal::GLOBAL_ERROR
- * 
+ *
  * @param  int  $errno
  * @param  string  $errstr
  * @param  string  $errfile
  * @param  int  $errline
- * 
+ *
  * @return  void
  */
 function signal_errors($errno, $errstr, $errfile, $errline) {
     // \XPSPL\signal(
-    //     new \XPSPL\processor\exception\Error($errstr), 
+    //     new \XPSPL\processor\exception\Error($errstr),
     //     new \XPSPL\processor\event\Error([
     //     $errstr, 0, $errno, $errfile, $errline
     // ]));
@@ -150,17 +150,17 @@ function signal_errors($errno, $errstr, $errfile, $errline) {
 
 /**
  * Performs a binary search for the given node returning the index.
- * 
+ *
  * Logic:
- * 
+ *
  * 0 - Match
  * > 0 - Move backwards
  * < 0 - Move forwards
- * 
+ *
  * @param  mixed  $needle  Needle
  * @param  array  $haystack  Hackstack
  * @param  closure  $compare  Comparison function
- * 
+ *
  * @return  null|integer  index, null locate failure
  */
 function bin_search($needle, $haystack, $compare = null) {
@@ -177,7 +177,7 @@ function bin_search($needle, $haystack, $compare = null) {
             }
         };
     }
-    
+
     if (count($haystack) === 0) return null;
 
     $low = 0;
@@ -223,7 +223,7 @@ function get_class_name($object = null)
     if (!is_object($object) && !is_string($object)) {
         return false;
     }
-    
+
     $class = explode('\\', (is_string($object) ? $object : get_class($object)));
     return $class[count($class) - 1];
 }
@@ -273,7 +273,7 @@ class SplClassLoader
     /**
      * Creates a new <tt>SplClassLoader</tt> that loads classes of the
      * specified namespace.
-     * 
+     *
      * @param string $ns The namespace to use.
      */
     public function __construct($ns = null, $includePath = null)
@@ -284,7 +284,7 @@ class SplClassLoader
 
     /**
      * Sets the namespace separator used by classes in the namespace of this class loader.
-     * 
+     *
      * @param string $sep The separator to use.
      */
     public function setNamespaceSeparator($sep)
@@ -304,7 +304,7 @@ class SplClassLoader
 
     /**
      * Sets the base include path for all class files in the namespace of this class loader.
-     * 
+     *
      * @param string $includePath
      */
     public function setIncludePath($includePath)
@@ -324,7 +324,7 @@ class SplClassLoader
 
     /**
      * Sets the file extension of class files in the namespace of this class loader.
-     * 
+     *
      * @param string $fileExtension
      */
     public function setFileExtension($fileExtension)

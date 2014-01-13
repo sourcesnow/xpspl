@@ -1,17 +1,17 @@
 <?php
 
 import('time');
-$precision = 1000;
+$precision = 10;
 $signal = new \time\SIG_Awake($precision, TIME_MILLISECONDS);
 $signal->time = milliseconds();
 $precision_timing = [];
-$function = exhaust(10, function($signal) use ($precision, &$precision_timing){
+$function = exhaust(100, function($signal) use ($precision, &$precision_timing){
     $timing = (intval(floatval((milliseconds() - $signal->time))) - $precision);
     echo $timing.PHP_EOL;
-    if ($timing > 100000) {
-        // Second change
-        $timing = 0;
-    }
+    // if ($timing > 100000) {
+    //     // Second change
+    //     $timing = 0;
+    // }
     $precision_timing[] = [$timing, 0];
     $signal->time = milliseconds();
 });

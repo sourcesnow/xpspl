@@ -4,14 +4,14 @@
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-$dir = dirname(realpath(__FILE__));
 
-/**
- * Autoload the ftp signals.
- */
-require_once $dir.'/src/api.php';
-set_include_path(
-    dirname(realpath(__FILE__)) . '/../' .
-    PATH_SEPARATOR . 
-    get_include_path()
-);
+define('FTP_VERSION', '1.0.0');
+
+$dir = dirname(realpath(__FILE__));
+$required = [
+    'api', 'file', 'sig_base', 'sig_complete', 'sig_finished', 'sig_failure',
+    'sig_upload'
+];
+foreach ($required as $_r) {
+    require_once $dir.'/src/'.$_r.'.php';
+}

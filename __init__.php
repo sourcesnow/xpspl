@@ -18,7 +18,7 @@ require dirname(realpath(__FILE__)).'/XPSPL/utils.php';
 
 set_include_path(
     XPSPL_MODULE_DIR . PATH_SEPARATOR .
-    XPSPL_PATH . PATH_SEPARATOR . 
+    XPSPL_PATH . PATH_SEPARATOR .
     get_include_path()
 );
 
@@ -55,15 +55,9 @@ if (XPSPL_DEBUG) {
 
 /**
  * XPSPL
- * 
- * XPSPL is a globally available singleton used for communication access via the 
+ *
+ * XPSPL is a globally available singleton used for communication access via the
  * API.
- *
- * .. note::
- *
- *    Using the API 
- *
- * 
  */
 final class XPSPL extends \XPSPL\Processor {
     use XPSPL\Singleton;

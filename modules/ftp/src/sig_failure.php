@@ -8,10 +8,10 @@ namespace ftp;
 
 /**
  * SIG_Complete
- * 
+ *
  * Emitted when a file as completed transfer.
  */
-class SIG_Failure extends \XPSPL\Signal {
+class SIG_Failure extends SIG_Base {
 
     protected $_unique = true;
 

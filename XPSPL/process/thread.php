@@ -8,23 +8,32 @@ namespace XPSPL\process;
  * that can be found in the LICENSE file.
  */
 
+if (!class_exists('\\Thread')) {
+    // used for the docs ...
+    namespace \ {
+        class Thread {
+
+        }
+    }
+}
+
 /**
  * A Threaded process.
- * 
+ *
  */
 class Thread extends \Thread {
 
 	public $_callable = '';
 
-	public function __construct(\XPSPL\Process $process) 
+	public function __construct(\XPSPL\Process $process)
     {
         $this->_callable = $process->get_function();
 	}
 
-	public function run() 
+	public function run()
 	{
 
-        var_dump(call_user_func_array($this->_callable, [current_signal(), $this]));
+        call_user_func_array($this->_callable, [current_signal(), $this]);
         // if (is_array($callable)) {
         //     if (count($callable) >= 2) {
         //         if (is_object($callable[0])) {
@@ -48,7 +57,7 @@ class Thread extends \Thread {
     public function __toString(/* ... */)
     {
         return sprintf('CLASS(%s) - HASH(%s) - THREAD(%s) MAIN(%s)',
-            get_class($this), 
+            get_class($this),
             spl_object_hash($this),
             $this->getThreadId(),
             $this->getCreatorId()

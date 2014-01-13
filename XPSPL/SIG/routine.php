@@ -11,19 +11,19 @@ use \XPSPL\processor\exception\Not_Implemented;
 /**
  * SIG_Routine
  *
- * @since 2.0.0
- *
  * A SIG_Routine object indicates to the processor a routine that must be run.
  *
  * Each routine is ran at the beginning of the loop.
- * 
+ *
  * It allows for giving the processor the following information.
  *
  * - Signals to emit
  * - How to idle until the next loop
  *
- * SIG_Routines are designed for signals that will need to idle the processor 
+ * SIG_Routines are designed for signals that will need to idle the processor
  * to wait for emitting in the future.
+ *
+ * @since 2.0.0
  */
 abstract class SIG_Routine extends SIG {
 
@@ -31,7 +31,7 @@ abstract class SIG_Routine extends SIG {
 
     /**
      * \XPSPL\Idle Object to idle the processor.
-     * 
+     *
      * @var  object
      */
     protected $_idle = null;
@@ -39,11 +39,11 @@ abstract class SIG_Routine extends SIG {
     /**
      * Runs the routine calculation.
      *
-     * The method is provided a single routine object for providing the 
+     * The method is provided a single routine object for providing the
      * processor information.
      *
      * @param  object  $routine  Processor routine.
-     * 
+     *
      * @return  void
      */
     abstract public function routine(Routine $routine);
@@ -51,10 +51,10 @@ abstract class SIG_Routine extends SIG {
     /**
      * Runs the routines idle function.
      *
-     * This method was added in v4.0.0 as a means for the processor to 
+     * This method was added in v4.0.0 as a means for the processor to
      * communicate to the routine to begin idling.
      *
-     * This only provides a transport layer for going from the processor into 
+     * This only provides a transport layer for going from the processor into
      * the signal.
      */
     final public function idle(\XPSPL\Processor $processor)

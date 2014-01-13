@@ -1,15 +1,19 @@
 <?php
 
-// When foo is emitted insert bar into the event
-before(SIG('foo'), function($signal){
-    echo "I RAN";
-    $signal->bar = 'foo';
-});
-
 // Handle Foo
 signal(SIG('foo'), function($signal){
     echo $signal->bar;
 });
+
+// When foo is emitted insert bar into the event
+before(SIG('foo'), function($signal){
+    echo "I RAN".PHP_EOL;
+    $signal->bar = 'foo';
+});
+
+before(SIG('foo'), high_priority(function($signal){
+    echo "I RAN BEFORE".PHP_EOL;
+}));
 
 // After foo is emitted unset bar in the event
 after(SIG('foo'), function($signal){
@@ -17,5 +21,4 @@ after(SIG('foo'), function($signal){
 });
 
 $signal = emit(SIG('foo'));
-var_dump($signal);
 var_dump(isset($signal->bar));
