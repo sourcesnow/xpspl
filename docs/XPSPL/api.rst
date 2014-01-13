@@ -1,4 +1,4 @@
-.. /api.php generated using Docpx v1.0.0 on 01/13/14 04:48pm
+.. /api.php generated using docpx v1.0.0 on 01/13/14 04:53pm
 
 
 Function - clean
@@ -397,4 +397,4 @@ PHP File @ /api.php
 	    return XPSPL::instance()->flush();
 	}
 
-Last updated on 01/13/14 04:48pm
+Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_

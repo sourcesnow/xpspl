@@ -1,4 +1,4 @@
-.. /SIG/routine.php generated using Docpx v1.0.0 on 01/13/14 04:48pm
+.. /SIG/routine.php generated using docpx v1.0.0 on 01/13/14 04:53pm
 
 
 Class - XPSPL\\SIG_Routine
@@ -28,13 +28,13 @@ routine
 
 
     Runs the routine calculation.
-
+    
     The method is provided a single routine object for providing the
     processor information.
 
     :param object: Processor routine.
 
-    :rtype: void
+    :rtype: void 
 
 
 
@@ -45,10 +45,10 @@ idle
 
 
     Runs the routines idle function.
-
+    
     This method was added in v4.0.0 as a means for the processor to
     communicate to the routine to begin idling.
-
+    
     This only provides a transport layer for going from the processor into
     the signal.
 
@@ -91,9 +91,9 @@ PHP File @ /SIG/routine.php
 	 * Use of this source code is governed by the Apache 2 license
 	 * that can be found in the LICENSE file.
 	 */
-
+	
 	use \XPSPL\processor\exception\Not_Implemented;
-
+	
 	/**
 	 * SIG_Routine
 	 *
@@ -112,16 +112,16 @@ PHP File @ /SIG/routine.php
 	 * @since 2.0.0
 	 */
 	abstract class SIG_Routine extends SIG {
-
+	
 	    protected $_unique = true;
-
+	
 	    /**
 	     * \XPSPL\Idle Object to idle the processor.
 	     *
 	     * @var  object
 	     */
 	    protected $_idle = null;
-
+	
 	    /**
 	     * Runs the routine calculation.
 	     *
@@ -133,7 +133,7 @@ PHP File @ /SIG/routine.php
 	     * @return  void
 	     */
 	    abstract public function routine(Routine $routine);
-
+	
 	    /**
 	     * Runs the routines idle function.
 	     *
@@ -147,7 +147,7 @@ PHP File @ /SIG/routine.php
 	    {
 	        $this->_idle->idle($processor);
 	    }
-
+	
 	    /**
 	     * Returns the idle object for this routine.
 	     *
@@ -157,7 +157,7 @@ PHP File @ /SIG/routine.php
 	    {
 	        return $this->_idle;
 	    }
-
+	
 	    /**
 	     * Sets the idle object for this routine.
 	     *
@@ -169,4 +169,4 @@ PHP File @ /SIG/routine.php
 	    }
 	}
 
-Last updated on 01/13/14 04:48pm
+Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -1,4 +1,4 @@
-.. /idle.php generated using Docpx v1.0.0 on 01/13/14 04:48pm
+.. /idle.php generated using docpx v1.0.0 on 01/13/14 04:53pm
 
 
 Class - XPSPL\\Idle
@@ -185,4 +185,4 @@ PHP File @ /idle.php
 	    }
 	}
 
-Last updated on 01/13/14 04:48pm
+Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_

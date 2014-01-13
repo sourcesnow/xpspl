@@ -1,4 +1,4 @@
-.. /processor/exception/exception.php generated using Docpx v1.0.0 on 01/13/14 04:48pm
+.. /processor/exception/exception.php generated using docpx v1.0.0 on 01/13/14 04:53pm
 
 
 Class - XPSPL\\processor\\exception\\Exception
@@ -30,4 +30,4 @@ PHP File @ /processor/exception/exception.php
 	 */
 	class Exception extends \Exception {}
 
-Last updated on 01/13/14 04:48pm
+Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_

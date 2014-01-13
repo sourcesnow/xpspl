@@ -1,4 +1,4 @@
-.. /processor/exception/routine/calculation/error.php generated using Docpx v1.0.0 on 01/13/14 04:48pm
+.. /processor/exception/routine/calculation/error.php generated using docpx v1.0.0 on 01/13/14 04:53pm
 
 
 Class - XPSPL\\processor\\exception\\Routine_Calculation_Error
@@ -26,4 +26,4 @@ PHP File @ /processor/exception/routine/calculation/error.php
 	 */
 	class Routine_Calculation_Error extends Exception {}
 
-Last updated on 01/13/14 04:48pm
+Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_
