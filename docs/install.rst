@@ -18,11 +18,19 @@ PHP FTP_ extension for XPSPL FTP module support.
 Install
 =======
 
-XPSPL installation is over the network with a CLI. (link_)
+Composer
+++++++++
+
+
+
+Manual
+++++++
+
+Manual installation is over the network with a CLI. (link_)
 
 .. _link: https://raw.github.com/prggmr/xpspl/master/install
 
-The installation requires the **CURL** and **ZIP** libraries to be installed 
+The installation requires the **CURL** and **ZIP** libraries to be installed
 on the system.
 
 .. code-block:: console
@@ -46,10 +54,8 @@ Optional
 C Judy 1.0.4
 PECL Judy 0.1.4
 
-The Judy library demonstrates improving the database by giving storage a linear 
+The Judy library demonstrates improving the database by giving storage a linear
 average performance of 39us per write to a tested 262144.
-
-The Judy C library is bundled in the ``library`` folder with XPSPL.
 
 For installation of Judy C see the README.
 

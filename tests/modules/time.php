@@ -5,7 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-require_once '../__init__.php';
+require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
 import('unittest');
 import('time');
