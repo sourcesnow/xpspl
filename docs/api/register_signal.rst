@@ -1,4 +1,4 @@
-.. /register_signal.php generated using docpx on 04/23/13 11:40pm
+.. /register_signal.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
 
 
 Function - register_signal
@@ -16,5 +16,29 @@ Function - register_signal
 
 
 
+register_signal
+===============
+PHP File @ /register_signal.php
 
-Last updated on 04/23/13 11:40pm
+.. code-block:: php
+
+	<?php
+	/**
+	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
+	 * Use of this source code is governed by the Apache 2 license
+	 * that can be found in the LICENSE file.
+	 */
+	
+	/**
+	 * Registers a signal in the processor.
+	 * 
+	 * @param  string|integer|object  $signal  Signal
+	 *
+	 * @return  object  Database
+	 */
+	function register_signal($signal)
+	{
+	    return XPSPL::instance()->register_signal($signal);
+	}
+
+Last updated on 01/13/14 04:39pm

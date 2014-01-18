@@ -6,9 +6,30 @@
  */
 
 /**
- * Makes a new or current process threaded.
+ * Enables a process to execute within it's own thread.
  *
- * @param  boolean  $flag
+ * This works only when the PECL package pthreads is installed.
+ *
+ * .. warning::
+ *
+ *    Threaded functionality within XPSPL is still *highly* experiemental...
+ *
+ *    Use this at your own RISK!.
+ *
+ * @example
+ *
+ * Executing processes in their own thread.
+ *
+ * .. code-block:: php
+ *
+ *    <?php
+ *
+ *    signal(SIG('foo'), threaded_process(function($sig){
+ *        print 'Executed in own thread';
+ *        sleep(10);
+ *    });
+ *
+ * @param  callable  $process  PHP Callable
  *
  * @return  void
  */

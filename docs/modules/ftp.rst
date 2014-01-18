@@ -20,7 +20,7 @@ Requirements
 PHP
 ^^^
 
-PHP FTP_ extension must be installed and enabled. 
+PHP FTP_ extension must be installed and enabled.
 
 .. _FTP: http://php.net/manual/en/book.ftp.php
 
@@ -41,7 +41,7 @@ Importing
 %%%%%%%%%
 
 .. code-block:: php
-    
+
     <?php
 
     import('ftp');
@@ -50,7 +50,7 @@ Uploading Files
 %%%%%%%%%%%%%%%
 
 .. code-block:: php
-    
+
     <?php
 
     import('ftp');
@@ -64,19 +64,23 @@ Uploading Files
 
     $upload = ftp\upload($files, $server);
 
-    ftp\complete($upload, null_exhaust(function(){
-        $file = $this->get_file();
+    ftp\complete($upload, null_exhaust(function(\ftp\SIG_Complete $sig){
+        $file = $sig->get_file();
         echo sprintf('%s has uploaded'.PHP_EOL,
-            $file->get_name() 
+            $file->get_name()
         );
     }));
 
-    ftp\failure($upload, null_exhaust(function(){
-        $file = $this->get_file();
+    ftp\failure($upload, null_exhaust(function(\ftp\SIG_Failure $sig){
+        $file = $sig->get_file();
         echo sprintf('%s has failed to upload'.PHP_EOL,
-            $file->get_name() 
+            $file->get_name()
         );
     }));
+
+    ftp\finished($upload, function(\ftp\SIG_Finished $sig){
+        echo 'FTP Transfer complete';
+    })
 
 API
 ___
@@ -87,12 +91,12 @@ All functions and classes are under the ``ftp`` namespace.
 
    Performs a non-blocking FTP upload of the given file(s).
 
-   When multiple files are given they will be uploaded simultaneously using 
+   When multiple files are given they will be uploaded simultaneously using
    separate connections to the given ``$connection``.
 
    The ``$callback`` will be called once the files begin uploading.
 
-   It is expected that the absolute path to the file will be given, failure to 
+   It is expected that the absolute path to the file will be given, failure to
    do so will cause unexpected behavior.
 
    The connection array accepts,

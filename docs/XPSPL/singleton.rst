@@ -1,4 +1,4 @@
-.. /singleton.php generated using docpx on 07/11/13 12:02am
+.. /singleton.php generated using docpx v1.0.0 on 01/13/14 04:53pm
 
 
 Trait - XPSPL\\Singleton
@@ -31,5 +31,50 @@ __clone
 
 
 
+singleton
+=========
+PHP File @ /singleton.php
 
-Last updated on 07/11/13 12:02am
+.. code-block:: php
+
+	<?php
+	namespace XPSPL;
+	/**
+	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
+	 * Use of this source code is governed by the Apache 2 license
+	 * that can be found in the LICENSE file.
+	 */
+	
+	/**
+	 * Singleton trait used for making a singleton object.
+	 */
+	trait Singleton {
+	
+	    /**
+	     * @var  object|null  Instanceof the singleton
+	     */
+	    private static $_instance = null;
+	
+	    /**
+	     * Returns an instance of the singleton.
+	     * 
+	     * Passes args to constructor
+	     */
+	    final public static function instance(/* ... */)
+	    {
+	        if (null === static::$_instance) {
+	            static::$_instance = new self(func_get_args());
+	        }
+	
+	        return self::$_instance;
+	    }
+	
+	    /**
+	     * Disallow cloning
+	     */
+	    final public function __clone() {
+	        return false;
+	    }
+	}
+
+Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_

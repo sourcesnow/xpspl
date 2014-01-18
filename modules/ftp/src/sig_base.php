@@ -7,11 +7,16 @@ namespace ftp;
  */
 
 /**
- * EV_Finished
- * 
- * Emitted when a uploader finishes all transfers.
+ * SIG_Base
+ *
+ * Used as the base for upload and complete FTP signals.
  */
-class EV_Finished extends \XPSPL\Event {
+abstract class SIG_Base extends \XPSPL\SIG {
+
+    /**
+     * FTP Transfers are unique.
+     */
+    protected $_unique = true;
 
     /**
      * SIG_Upload object
@@ -19,13 +24,13 @@ class EV_Finished extends \XPSPL\Event {
     protected $_upload = null;
 
     /**
-     * Constructs a new finished event.
+     * Sets the file uploaded.
      *
      * @param  object  $upload  Upload object
-     * 
+     *
      * @return  void
      */
-    public function __construct($upload)
+    public function set_upload($upload)
     {
         $this->_upload = $upload;
     }
@@ -40,4 +45,13 @@ class EV_Finished extends \XPSPL\Event {
         return $this->_upload;
     }
 
+    /**
+     * Returns the uploaded file.
+     *
+     * @return  object  \ftp\File
+     */
+    public function get_file(/* ... */)
+    {
+        return $this->get_upload();
+    }
 }

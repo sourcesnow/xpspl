@@ -1,6 +1,7 @@
 #!/bin/bash
 
 install() {
+    XPSPL_VERSION='4.0.1'
     VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
     if [ $VERSION != '1' ];
     then
@@ -10,17 +11,17 @@ install() {
         php -v
         exit;
     fi;
-    echo "Downloading XPSPL"
-    curl -L -o /tmp/XPSPL.zip https://github.com/prggmr/XPSPL/archive/v4.0.1.zip
+    echo "Downloading XPSPL $XPSPL_VERSION"
+    curl -L -o /tmp/XPSPL.zip "https://github.com/prggmr/XPSPL/archive/v$XPSPL_VERSION.zip"
     cd /tmp
     echo "Inflating"
     unzip XPSPL.zip
-    cd XPSPL-4.0.1
+    cd "XPSPL-$XPSPL_VERSION"
     echo $PWD
     echo "Running installation"
-    PHPPATH=$(php -r "echo get_include_path();") 
+    PHPPATH=$(php -r "echo get_include_path();")
     INSTALLPATH=""
-    BINPATH="/usr/bin"
+    BINPATH="/usr/local/bin"
     for x in $(echo $PHPPATH | tr ":" "\n")
     do
         if [ "$x" != "." ]; then
@@ -40,19 +41,17 @@ install() {
     if [ -f "$BINPATH/xpspl" ]; then
         rm "$BINPATH/xpspl"
     fi;
-    echo "Installed XPSPL to $INSTALL_PATH/xpspl"
-    echo "Installed executable to $BINPATH/xpspl"
     ln -s "$INSTALL_PATH/XPSPL/bin/xpspl" "$BINPATH"
-    XPSPL -v
-    echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
     echo "Running Unit Tests"
     xpspl --test
-    echo "Enjoy"
-    echo "Install finished"
     echo "Cleaning up"
     cd ..
     rm -rf /tmp/XPSPL-master
     rm /tmp/XPSPL.zip
+    echo "Finished"
+    echo "Installed XPSPL to $INSTALL_PATH/xpspl"
+    echo "Installed executable to $BINPATH/xpspl"
+    echo "Report bugs to https://github.com/prggmr/XPSPL/issues"
     xpspl -v
 }
 

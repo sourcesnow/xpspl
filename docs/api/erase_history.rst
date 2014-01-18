@@ -1,4 +1,4 @@
-.. /erase_history.php generated using docpx on 04/23/13 11:40pm
+.. /erase_history.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
 
 
 Function - erase_history
@@ -14,5 +14,27 @@ Function - erase_history
 
 
 
+erase_history
+=============
+PHP File @ /erase_history.php
 
-Last updated on 04/23/13 11:40pm
+.. code-block:: php
+
+	<?php
+	/**
+	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
+	 * Use of this source code is governed by the Apache 2 license
+	 * that can be found in the LICENSE file.
+	 */
+	
+	/**
+	 * Cleans out the entire signal history.
+	 *
+	 * @return  void
+	 */
+	function erase_history()
+	{
+	    return XPSPL::instance()->erase_history();
+	}
+
+Last updated on 01/13/14 04:39pm

@@ -22,15 +22,12 @@ if (!defined('XPSPL_NETWORK_TIMEOUT_SECONDS')) {
  * Autoload the socket signals.
  */
 $files = [
-    'sig_base',
-    'sig_connect',
-    'sig_disconnect',
-    'sig_read',
-    'sig_write',
-    'connection',
-    'client',
-    'socket'
+    'sig_base','sig_connect','sig_disconnect','sig_read','sig_write',
+    'connection','client','socket'
 ];
+foreach ($files as $_f) {
+    require_once dirname(realpath(__FILE__)) . '/' . $_f . '.php';
+}
 require_once $dir.'/api.php';
 require_once $dir.'/const.php';
 foreach ($files as $_file) {

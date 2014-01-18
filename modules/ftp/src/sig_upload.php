@@ -9,12 +9,13 @@ namespace ftp;
 use \XPSPL\idle\Process;
 
 /**
+ * SIG_Upload
+ *
  * Performs an FTP upload of the given file(s) to the given host.
  *
- * Once transfered it will trigger the SIG_FTP_Transfer_Complete signal with 
- * the completed filename.
+ * Once all files are transfered it will emit a \ftp\SIG_Finished signal.
  */
-class SIG_Upload extends \XPSPL\signal\Complex {
+class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
 
     /**
      * Files to be uploaded.
@@ -70,16 +71,16 @@ class SIG_Upload extends \XPSPL\signal\Complex {
      *
      * @param  array  $files  Files to upload
      * @param  array  $options  FTP Connection options.
-     * 
+     *
      * @return  void
      */
     public function __construct($files, $options = [])
-    {   
+    {
         parent::__construct();
         $this->signal_this();
         $this->_sig_complete = new SIG_Complete();
         $this->_sig_failure = new SIG_Failure();
-        $this->_sig_finished = new SIG_Finished();
+        $this->_sig_finished = new SIG_Finished($this);
         $defaults = [
             'hostname' => null,
             'port' => 21,
@@ -102,18 +103,14 @@ class SIG_Upload extends \XPSPL\signal\Complex {
                     continue;
                 }
                 if ($status === FTP_FINISHED) {
-                    emit(
-                        $this->_sig_complete,
-                        new EV_Complete($_file[1])
-                    );
+                    $this->_sig_complete->set_upload($_file[1]);
+                    emit($this->_sig_complete);
                     // Close the FTP connection to that file
                     ftp_close($_file[0]);
                     $this->_uploaded[] = $_file[1];
                 } else {
-                    emit(
-                        $this->_sig_failure,
-                        new EV_Failure($_file[1])
-                    );
+                    $this->_sig_failure->set_upload($_file[1]);
+                    emit($this->_sig_failure);
                     // Close the FTP connection to that file
                     ftp_close($_file[0]);
                 }
@@ -121,10 +118,7 @@ class SIG_Upload extends \XPSPL\signal\Complex {
             }
             // Cleanup once finished
             if (count($this->_uploading) == 0) {
-                emit(
-                    $this->_sig_finished, 
-                    new EV_Finished($this)
-                );
+                emit($this->_sig_finished);
                 delete_signal($this);
                 delete_signal($this->_sig_complete);
                 delete_signal($this->_sig_failure);
@@ -142,11 +136,11 @@ class SIG_Upload extends \XPSPL\signal\Complex {
     }
 
     /**
-     * Processes any files awaiting to upload and attempts to begin the upload 
+     * Processes any files awaiting to upload and attempts to begin the upload
      * transfer.
      *
      * @todo  Add an emit for failure to connect, incorrect file.
-     * 
+     *
      * @return  void
      */
     protected function _init_transfers()
@@ -156,16 +150,16 @@ class SIG_Upload extends \XPSPL\signal\Complex {
                 continue;
             }
             $connection = ftp_connect(
-                $this->_options['hostname'], 
-                $this->_options['port'], 
+                $this->_options['hostname'],
+                $this->_options['port'],
                 $this->_options['timeout']
             );
             if (false === $connection) {
                 break;
             }
             $login = ftp_login(
-                $connection, 
-                $this->_options['username'], 
+                $connection,
+                $this->_options['username'],
                 $this->_options['password']
             );
             if ($login === false) {
@@ -191,18 +185,14 @@ class SIG_Upload extends \XPSPL\signal\Complex {
                     ];
                 } else {
                     if ($transfer == FTP_FINISHED) {
-                        emit(
-                            $this->_sig_complete,
-                            new EV_Complete($_file)
-                        );
+                        $this->_sig_complete->set_upload($_file);
+                        emit($this->_sig_complete);
                         // Close the FTP connection to that file
                         ftp_close($connection);
                         $this->_uploaded[] = $_file;
                     } else {
-                        emit(
-                            $this->_sig_failure,
-                            new EV_Failure($_file)
-                        );
+                        $this->_sig_failure->set_upload($_file)
+                        emit($this->_sig_failure);
                         // Close the FTP connection to that file
                         ftp_close($connection);
                     }

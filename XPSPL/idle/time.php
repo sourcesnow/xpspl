@@ -86,8 +86,8 @@ class Time extends \XPSPL\Idle {
                 $this->_stop_time = $time + milliseconds();
                 break;
             case TIME_MICROSECONDS:
-                $this->_stop_time = (($time * 0.000001) - XPSPL_AVERAGE_LOOPTIME) + microtime(true);
-                //$this->_stop_time = (($time * 0.000001)) + microtime(true);
+                // $this->_stop_time = (($time * 0.000001) - XPSPL_AVERAGE_LOOPTIME) + microtime(true);
+                $this->_stop_time = (($time * 0.000001)) + microtime(true);
                 break;
             // case TIME_NANOSECONDS:
             //     $this->_stop_time = ($time)

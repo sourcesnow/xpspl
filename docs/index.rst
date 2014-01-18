@@ -4,9 +4,6 @@
 XPSPL - PHP Signal and Event Library.
 =====================================
 
-Made in `Orlando
-<http://orlandote.ch>`_.
-
 Table of Contents
 -----------------
 
