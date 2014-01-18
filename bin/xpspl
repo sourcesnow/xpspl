@@ -6,7 +6,6 @@
 $usage =
 "usage: xpspl [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
               [--test-cover] [-v|--version] [-j|--judy]
-
               <file>
 Options:
   -c/--config   Load the giving file for configuration
@@ -84,7 +83,6 @@ foreach ($options as $_i => $_arg) {
             define('GENERATE_CODE_COVERAGE', true);
             define('SHORT_VARS', false);
             define('VERBOSITY_LEVEL', 2);
-            define('XPSPL_LOG_LOCATION', '/var/log/xpspl/debug.log');
             break;
         case 'test':
         case 'test-cover':
@@ -145,4 +143,5 @@ if (false !== $runfile) {
 
 loop:
 // start the loop!!
-wait_loop($ttr);
+xp_wait_loop($ttr);
+exit(0);

@@ -1,11 +1,11 @@
-.. /shutdown.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /shutdown.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - shutdown
-*******************
+Function - xp_shutdown
+**********************
 
 
-.. function:: shutdown()
+.. function:: xp_shutdown()
 
 
     Sends the loop the shutdown signal.
@@ -32,9 +32,9 @@ PHP File @ /shutdown.php
 	 *
 	 * @return  void
 	 */
-	function shutdown()
+	function xp_shutdown()
 	{
 	    return XPSPL::instance()->shutdown();
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

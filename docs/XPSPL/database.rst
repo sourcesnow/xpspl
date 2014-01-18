@@ -1,4 +1,4 @@
-.. /database.php generated using docpx v1.0.0 on 01/13/14 04:53pm
+.. /database.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
 Class - XPSPL\\Database
@@ -7,6 +7,14 @@ Class - XPSPL\\Database
 Database
 
 A database is a storage mechanism for arbitrary data.
+
+.. warning::
+
+Judy is currently being experimented as a storage mechanism for performance
+improvements.
+
+To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support
+will be used if Judy is installed and enabled on the PHP installation.
 
 Methods
 -------
@@ -75,21 +83,19 @@ PHP File @ /database.php
 	
 	/**
 	 * Database
-	 * 
+	 *
 	 * A database is a storage mechanism for arbitrary data.
 	 *
-	 * @version 1.0.0
+	 * .. warning::
 	 *
-	 * @experimental
-	 *
-	 * Judy is currently being experimented as a storage mechanism for performance 
+	 * Judy is currently being experimented as a storage mechanism for performance
 	 * improvements.
 	 *
-	 * To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support 
+	 * To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support
 	 * will be used if Judy is installed and enabled on the PHP installation.
 	 */
 	class Database extends Storage {
-	    
+	
 	    /**
 	     * Constructs a new Database.
 	     *
@@ -117,7 +123,7 @@ PHP File @ /database.php
 	
 	    /**
 	     * Access the last node in the database.
-	     * 
+	     *
 	     * @return  Node at end of database
 	     */
 	    public function end(/* ... */)
@@ -139,7 +145,7 @@ PHP File @ /database.php
 	    public function __toString(/* ... */)
 	    {
 	        return sprintf('CLASS(%s) HASH(%s) NODE_COUNT(%s)',
-	            get_class($this), 
+	            get_class($this),
 	            spl_object_hash($this),
 	            $this->count()
 	        );
@@ -147,4 +153,4 @@ PHP File @ /database.php
 	}
 	
 
-Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

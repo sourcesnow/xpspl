@@ -1,24 +1,14 @@
-.. /after.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /after.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - after
-****************
+Function - xp_after
+*******************
 
 
-.. function:: after($signal, $process)
+.. function:: xp_after($signal, $process)
 
 
-    Installs the given process to interrupt the signal ``$signal`` after it is emitted.
-    
-    Interruption processes installed using this function interrupt directly
-    after a signal is emitted.
-    
-    .. warning::
-    
-       Interruptions are not a fix for improperly executing process priorities
-       within a signal.
-    
-       If unexpected process priority are being executed debug them...
+    Installs the given process to execute after the signal ``$signal`` is emitted.
     
     .. note::
     
@@ -36,39 +26,16 @@ Install a interrupt process after foo.
 
    <?php
 
-   signal(SIG('foo'), function(){
+   xp_signal(XP_SIG('foo'), function(){
        echo 'foo';
    });
 
-   after(SIG('foo'), function(){
+   xp_after(XP_SIG('foo'), function(){
        echo 'after foo';
    });
 
    // results when foo is emitted
    // fooafter foo
-
-Interrupting using process priorities.
-######################################
-
-.. code-block:: php
-
-   <?php
-   signal(SIG('foo'), function(){
-       echo 'foo';
-   })
-
-   after(SIG('foo'), low_priority(function(){
-       echo 'low priority foo';
-   }));
-
-   after(SIG('foo'), high_priority(function(){
-       echo 'high priority foo';
-   }));
-
-   emit(SIG('foo'));
-
-   // results
-   // foo highpriorityfoo lowpriorityfoo
 
 
 
@@ -86,17 +53,7 @@ PHP File @ /after.php
 	 */
 	
 	/**
-	 * Installs the given process to interrupt the signal ``$signal`` after it is emitted.
-	 *
-	 * Interruption processes installed using this function interrupt directly
-	 * after a signal is emitted.
-	 *
-	 * .. warning::
-	 *
-	 *    Interruptions are not a fix for improperly executing process priorities
-	 *    within a signal.
-	 *
-	 *    If unexpected process priority are being executed debug them...
+	 * Installs the given process to execute after the signal ``$signal`` is emitted.
 	 *
 	 * .. note::
 	 *
@@ -114,42 +71,18 @@ PHP File @ /after.php
 	 *
 	 *    <?php
 	 *
-	 *    signal(SIG('foo'), function(){
+	 *    xp_signal(XP_SIG('foo'), function(){
 	 *        echo 'foo';
 	 *    });
 	 *
-	 *    after(SIG('foo'), function(){
+	 *    xp_after(XP_SIG('foo'), function(){
 	 *        echo 'after foo';
 	 *    });
 	 *
 	 *    // results when foo is emitted
 	 *    // fooafter foo
-	 *
-	 * @example
-	 *
-	 * Interrupting using process priorities.
-	 *
-	 * .. code-block:: php
-	 *
-	 *    <?php
-	 *    signal(SIG('foo'), function(){
-	 *        echo 'foo';
-	 *    })
-	 *
-	 *    after(SIG('foo'), low_priority(function(){
-	 *        echo 'low priority foo';
-	 *    }));
-	 *
-	 *    after(SIG('foo'), high_priority(function(){
-	 *        echo 'high priority foo';
-	 *    }));
-	 *
-	 *    emit(SIG('foo'));
-	 *
-	 *    // results
-	 *    // foo highpriorityfoo lowpriorityfoo
 	 */
-	function after($signal, $process)
+	function xp_after($signal, $process)
 	{
 	    if (!$signal instanceof \XPSPL\SIG) {
 	        $signal = new \XPSPL\SIG($signal);
@@ -160,4 +93,4 @@ PHP File @ /after.php
 	    return XPSPL::instance()->after($signal, $process);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

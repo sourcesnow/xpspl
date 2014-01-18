@@ -10,12 +10,12 @@
  *
  * This example demonstrates how to awake XPSPL.
  */
-import('time');
+xp_import('time');
 
 time\awake(10, function(){
     echo "10 Seconds just passed!".PHP_EOL;
 });
 
-time\awake(5, null_exhaust(function(){
+time\awake(5, xp_null_exhaust(function(){
     echo "Every 5 seconds".PHP_EOLz;
 }));

@@ -1,30 +1,25 @@
-.. /low_priority.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /low_priority.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - low_priority
-***********************
+Function - xp_low_priority
+**************************
 
 
-.. function:: low_priority($process)
+.. function:: xp_low_priority($process)
 
 
     Registers the given process to have a low priority.
     
-    Processes registered with a low priority will be executed after those with 
+    Processes registered with a low priority will be executed after those with
     a high and default priority.
-    
-    This allows for controlling the order of processes rather than using FIFO.
-    
-    A low priority process is useful when multiple processes will execute and it 
-    must always be one of the very last to run.
-    
-    This registers the priority as *PHP_INT_MAX*.
     
     .. note::
     
+       This registers the priority as *PHP_INT_MAX*.
+    
        This is not an interruption.
-       
-       Installed interruptions will still be executed after a low priority 
+    
+       After signal interrupts will still be executed after a low priority
        process.
 
     :param callable|process: PHP Callable or \XPSPL\Process.
@@ -32,22 +27,24 @@ Function - low_priority
     :rtype: object Process
 
 
-Install a process with low priority
-###################################
+Using low priority processes
+############################
 
 Low priority processes always execute last.
 
 .. code-block:: php
 
    <?php
-   
-   signal('foo', function(){
+
+   xp_signal(XP_SIG('foo'), function(){
        echo 'foo';
    });
-   
-   signal('foo', low_priority(function(){
+
+   xp_signal(XP_SIG('foo'), low_priority(function(){
        echo 'bar';
    }));
+
+   xp_emit(XP_SIG('foo'));
 
    // results when foo is emitted
    // foobar
@@ -70,21 +67,16 @@ PHP File @ /low_priority.php
 	/**
 	 * Registers the given process to have a low priority.
 	 *
-	 * Processes registered with a low priority will be executed after those with 
+	 * Processes registered with a low priority will be executed after those with
 	 * a high and default priority.
 	 *
-	 * This allows for controlling the order of processes rather than using FIFO.
-	 *
-	 * A low priority process is useful when multiple processes will execute and it 
-	 * must always be one of the very last to run.
-	 *
-	 * This registers the priority as *PHP_INT_MAX*.
-	 * 
 	 * .. note::
 	 *
+	 *    This registers the priority as *PHP_INT_MAX*.
+	 *
 	 *    This is not an interruption.
-	 *    
-	 *    Installed interruptions will still be executed after a low priority 
+	 *
+	 *    After signal interrupts will still be executed after a low priority
 	 *    process.
 	 *
 	 * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
@@ -93,28 +85,30 @@ PHP File @ /low_priority.php
 	 *
 	 * @example
 	 *
-	 * Install a process with low priority
+	 * Using low priority processes
 	 *
 	 * Low priority processes always execute last.
 	 *
 	 * .. code-block:: php
-	 * 
+	 *
 	 *    <?php
-	 *    
-	 *    signal('foo', function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), function(){
 	 *        echo 'foo';
 	 *    });
-	 *    
-	 *    signal('foo', low_priority(function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), low_priority(function(){
 	 *        echo 'bar';
 	 *    }));
+	 *
+	 *    xp_emit(XP_SIG('foo'));
 	 *
 	 *    // results when foo is emitted
 	 *    // foobar
 	 */
-	function low_priority($process)
+	function xp_low_priority($process)
 	{
-	    return priority(PHP_INT_MAX, $process);
+	    return xp_priority(PHP_INT_MAX, $process);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

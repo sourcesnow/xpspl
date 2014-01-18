@@ -36,7 +36,7 @@ function awake($time, $callback, $instruction = TIME_SECONDS)
 function CRON($cron, $process)
 {
     if (!$process instanceof \XPSPL\Process) {
-        $process = null_exhaust($process);
+        $process = xp_null_exhaust($process);
     }
     $signal = new SIG_CRON($cron);
     return [$signal, signal($signal, $process)];

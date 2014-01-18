@@ -6,11 +6,11 @@
  */
 
 /**
- * Cleans out the entire signal history.
+ * Erases the entire signal history.
  *
  * @return  void
  */
-function erase_history()
+function xp_erase_history()
 {
     return XPSPL::instance()->erase_history();
 }

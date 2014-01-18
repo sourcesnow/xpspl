@@ -7,12 +7,12 @@
 
 /**
  * Erases any history of a signal.
- * 
+ *
  * @param  string|object  $signal  Signal to be erased from history.
- * 
+ *
  * @return  void
  */
-function erase_signal_history($signal)
+function xp_erase_signal_history($signal)
 {
     return XPSPL::instance()->erase_signal_history($signal);
 }

@@ -7,10 +7,10 @@
 
 /**
  * Returns the XPSPL processor.
- * 
+ *
  * @return  object  XPSPL\Processor
  */
-function XPSPL()
+function XPSPL(/* ... */)
 {
     return XPSPL::instance();
 }

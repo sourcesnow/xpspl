@@ -15,18 +15,18 @@
  *
  * @example
  *
- * Removing installed processes
+ * Delete installed process
  *
  * Removes the installed process from the foo signal.
  *
  * .. code-block::php
  *
  *    <?php
- *    $process = signal('foo', function(){});
- *    
- *    delete_process('foo', $process);
+ *    $process = xp_signal(XP_SIG('foo'), function(){});
+ *
+ *    xp_delete_process(XP_SIG('foo'), $process);
  */
-function delete_process($signal, $process)
+function xp_delete_process($signal, $process)
 {
-    return XPSPL::instance()->delete_process($signal, $process);   
+    return XPSPL::instance()->delete_process($signal, $process);
 }

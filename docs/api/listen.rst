@@ -1,14 +1,14 @@
-.. /listen.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /listen.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - listen
-*****************
+Function - xp_listen
+********************
 
 
-.. function:: listen($listener)
+.. function:: xp_listen($listener)
 
 
-    Registers a new event listener object in the processor.
+    Registers a new object listener.
 
     :param object: The event listening object
 
@@ -30,15 +30,15 @@ PHP File @ /listen.php
 	 */
 	
 	/**
-	 * Registers a new event listener object in the processor.
-	 * 
+	 * Registers a new object listener.
+	 *
 	 * @param  object  $listener  The event listening object
-	 * 
+	 *
 	 * @return  void
 	 */
-	function listen($listener)
+	function xp_listen($listener)
 	{
 	    return XPSPL::instance()->listen($listener);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

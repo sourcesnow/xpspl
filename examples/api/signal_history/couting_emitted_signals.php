@@ -2,7 +2,7 @@
 $sig = SIG('foo');
 // Emit a few foo objects
 for($i=0;$i<5;$i++){
-    emit($sig);
+    xp_emit($sig);
 }
 $emitted = 0;
 foreach(signal_history() as $_node) {

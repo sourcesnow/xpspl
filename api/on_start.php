@@ -7,12 +7,12 @@
 
 /**
  * Call the provided function on processor start.
- * 
+ *
  * @param  callable|object  $function  Function or process object
- * 
+ *
  * @return  object  \XPSPL\Process
  */
-function on_start($function)
+function xp_on_start($function)
 {
-    return signal(new \XPSPL\processor\SIG_Startup(), $function);
+    return xp_signal(new \XPSPL\processor\SIG_Startup(), $function);
 }

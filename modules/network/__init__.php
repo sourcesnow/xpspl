@@ -30,7 +30,4 @@ foreach ($files as $_f) {
 }
 require_once $dir.'/api.php';
 require_once $dir.'/const.php';
-foreach ($files as $_file) {
-    require_once $dir.'/'.$_file.'.php';
-}
 unset($dir);

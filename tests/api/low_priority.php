@@ -7,9 +7,9 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
-    $process = low_priority(null);
+    $process = xp_low_priority(null);
     $test->equal(PHP_INT_MAX, $process->get_priority());
 });

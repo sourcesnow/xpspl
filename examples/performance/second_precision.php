@@ -1,6 +1,6 @@
 <?php
 
-import('time');
+xp_import('time');
 $precision = 1;
 $signal = new \time\SIG_Awake($precision, TIME_SECONDS);
 $signal->time = time();

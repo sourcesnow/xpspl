@@ -283,11 +283,6 @@ class Handler {
     protected $_level = null;
 
     /**
-     * Original location of the log.
-     */
-    protected $_original_output = null;
-
-    /**
      * Sets the formatter.
      *
      * @param  object  $formatter
@@ -301,7 +296,6 @@ class Handler {
     {
         $this->_formatter = $formatter;
         $this->_output = $output;
-        $this->_original_output = $output;
         $this->_level = $level;
         $this->_make_writeable();
     }
@@ -318,23 +312,6 @@ class Handler {
     {
         if ($code >= $this->_level) {
             $message = $this->_formatter->format($code, $message);
-            clearstatcache();
-            if (filesize($this->_original_output) > 5242880) {
-                $i = 0;
-                while(True) {
-                    if (!file_exists($this->_original_output.'.'.$i)) {
-                        rename(
-                            $this->_original_output,
-                            $this->_original_output.'.'.$i
-                        );
-                        touch($this->_original_output);
-                        $this->_output = $this->_original_output;
-                        $this->_make_writeable();
-                        break;
-                    }
-                    $i++;
-                }
-            }
             fwrite($this->_output, $message);
         }
     }

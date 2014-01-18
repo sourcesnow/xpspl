@@ -1,11 +1,11 @@
-.. /set_signal_history.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /set_signal_history.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - set_signal_history
-*****************************
+Function - xp_set_signal_history
+********************************
 
 
-.. function:: set_signal_history($flag)
+.. function:: xp_set_signal_history($flag)
 
 
     Sets the flag for storing the event history.
@@ -36,9 +36,9 @@ PHP File @ /set_signal_history.php
 	 *
 	 * @return  void
 	 */
-	function set_signal_history($flag)
+	function xp_set_signal_history($flag)
 	{
 	    return XPSPL::instance()->set_signal_history($flag);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

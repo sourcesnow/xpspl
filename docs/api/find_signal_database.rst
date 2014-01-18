@@ -1,14 +1,14 @@
-.. /find_signal_database.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /find_signal_database.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - find_signal_database
-*******************************
+Function - xp_find_signal_database
+**********************************
 
 
-.. function:: find_signal_database($signal)
+.. function:: xp_find_signal_database($signal)
 
 
-    Finds an installed signals processes database.
+    Returns an installed signal database or null if it cannot be found.
 
     :param object: SIG
 
@@ -30,13 +30,13 @@ PHP File @ /find_signal_database.php
 	 */
 	
 	/**
-	 * Finds an installed signals processes database.
+	 * Returns an installed signal database or null if it cannot be found.
 	 *
 	 * @param  object  $signal  SIG
-	 * 
+	 *
 	 * @return  null|object  \XPSPL\database\Signals
 	 */
-	function find_signal_database($signal)
+	function xp_find_signal_database($signal)
 	{
 	    if (!$signal instanceof \XPSPL\SIG) {
 	        $signal = new \XPSPL\SIG();
@@ -44,4 +44,4 @@ PHP File @ /find_signal_database.php
 	    return XPSPL::instance()->find_signal_database($signal);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

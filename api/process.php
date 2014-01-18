@@ -6,11 +6,11 @@
  */
 
 /**
- * Creates a new XPSPL Process object.
+ * Generates a \XPSPL\Process object from the given PHP callable.
  *
  * .. note::
- *    
- *    See the ``priority`` and ``exhaust`` functions for setting the priority 
+ *
+ *    See the ``priority`` and ``exhaust`` functions for setting the priority
  *    and exhaust of the created process.
  *
  * @param  callable  $callable
@@ -24,13 +24,13 @@
  * .. code-block::php
  *
  *    <?php
- *    
- *    $process = process(function(){});
  *
- *    signal(SIG('foo'), $process);
- *    
+ *    $process = xp_process(function(){});
+ *
+ *    xp_signal(XP_SIG('foo'), $process);
+ *
  */
-function process($callable)
+function xp_process($callable)
 {
     return new \XPSPL\Process($callable);
 }

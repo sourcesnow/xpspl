@@ -1,16 +1,19 @@
-.. /clean.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /clean.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - clean
-****************
+Function - xp_clean
+*******************
 
 
-.. function:: clean([$history = false])
+.. function:: xp_clean([$history = false])
 
 
-    Cleans any exhausted signals from the processor.
+    Cleans the processor removing exhausted signals and their processes from
+    the processor.
+    
+    Optionally the history of cleanable signals can be erased from the history.
 
-    :param boolean: Also erase any history of the signals cleaned.
+    :param boolean: Erase any history of the signals cleaned.
 
     :rtype: void 
 
@@ -30,15 +33,18 @@ PHP File @ /clean.php
 	 */
 	
 	/**
-	 * Cleans any exhausted signals from the processor.
-	 * 
-	 * @param  boolean  $history  Also erase any history of the signals cleaned.
-	 * 
+	 * Cleans the processor removing exhausted signals and their processes from
+	 * the processor.
+	 *
+	 * Optionally the history of cleanable signals can be erased from the history.
+	 *
+	 * @param  boolean  $history  Erase any history of the signals cleaned.
+	 *
 	 * @return  void
 	 */
-	function clean($history = false)
+	function xp_clean($history = false)
 	{
 	    return XPSPL::instance()->clean($history);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

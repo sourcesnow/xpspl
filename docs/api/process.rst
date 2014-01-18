@@ -1,18 +1,18 @@
-.. /process.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /process.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - process
-******************
+Function - xp_process
+*********************
 
 
-.. function:: process($callable)
+.. function:: xp_process($callable)
 
 
-    Creates a new XPSPL Process object.
+    Generates a \XPSPL\Process object from the given PHP callable.
     
     .. note::
-       
-       See the ``priority`` and ``exhaust`` functions for setting the priority 
+    
+       See the ``priority`` and ``exhaust`` functions for setting the priority
        and exhaust of the created process.
 
     :param callable: 
@@ -26,10 +26,10 @@ Creates a new XPSPL Process object.
 .. code-block::php
 
    <?php
-   
-   $process = process(function(){});
 
-   signal(SIG('foo'), $process);
+   $process = xp_process(function(){});
+
+   xp_signal(XP_SIG('foo'), $process);
 
 
 
@@ -47,11 +47,11 @@ PHP File @ /process.php
 	 */
 	
 	/**
-	 * Creates a new XPSPL Process object.
+	 * Generates a \XPSPL\Process object from the given PHP callable.
 	 *
 	 * .. note::
-	 *    
-	 *    See the ``priority`` and ``exhaust`` functions for setting the priority 
+	 *
+	 *    See the ``priority`` and ``exhaust`` functions for setting the priority
 	 *    and exhaust of the created process.
 	 *
 	 * @param  callable  $callable
@@ -65,15 +65,15 @@ PHP File @ /process.php
 	 * .. code-block::php
 	 *
 	 *    <?php
-	 *    
-	 *    $process = process(function(){});
 	 *
-	 *    signal(SIG('foo'), $process);
-	 *    
+	 *    $process = xp_process(function(){});
+	 *
+	 *    xp_signal(XP_SIG('foo'), $process);
+	 *
 	 */
-	function process($callable)
+	function xp_process($callable)
 	{
 	    return new \XPSPL\Process($callable);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

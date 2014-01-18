@@ -6,7 +6,7 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
-import('logger');
+xp_import('logger');
 
 use \XPSPL\idle\Process,
     \XPSPL\idle\Time;
@@ -52,7 +52,7 @@ class Socket extends \XPSPL\SIG_Routine {
      *
      * @return  void
      */
-    public function __construct($address, $options = []) 
+    public function __construct($address, $options = [])
     {
         parent::__construct();
 
@@ -69,7 +69,7 @@ class Socket extends \XPSPL\SIG_Routine {
 
         /**
          * TODO
-         * 
+         *
          * Shorten this entire loop.
          */
         $this->_idle = new Process(function($processor){
@@ -91,7 +91,7 @@ class Socket extends \XPSPL\SIG_Routine {
                 foreach ($idle as $_idle) {
                     if ($_idle->get_idle() instanceof Time) {
                         $time = round($_idle->get_idle()->convert_length(
-                            $_idle->get_idle()->get_time_left(), 
+                            $_idle->get_idle()->get_time_left(),
                             TIME_SECONDS
                         ), 3);
                         if ($time > 0 && $time < 1) {
@@ -189,7 +189,7 @@ class Socket extends \XPSPL\SIG_Routine {
             }
         });
 
-        $this->on_disconnect(priority(PHP_INT_MAX, null_exhaust('\network\system_disconnect')));
+        $this->on_disconnect(priority(PHP_INT_MAX, xp_null_exhaust('\network\system_disconnect')));
     }
 
     /**
@@ -289,56 +289,25 @@ class Socket extends \XPSPL\SIG_Routine {
             return;
         }
         $this->_connection = new Connection(socket_create(
-            $this->_options['domain'], 
-            $this->_options['type'], 
+            $this->_options['domain'],
+            $this->_options['type'],
             $this->_options['protocol']
         ));
         // timeout
         socket_set_option(
-            $this->_connection->get_resource(), 
-            SOL_SOCKET, 
+            $this->_connection->get_resource(),
+            SOL_SOCKET,
             SO_RCVTIMEO,
             [
-                'sec' => XPSPL_NETWORK_TIMEOUT_SECONDS, 
+                'sec' => XPSPL_NETWORK_TIMEOUT_SECONDS,
                 'usec' => XPSPL_NETWORK_TIMEOUT_MICROSECONDS
             ]
         );
-        // establish bind
-        // for ($i = 0; $i != 5; $i++) {
-        //     try {
-        //         (false === socket_bind(
-        //             $this->_connection->get_resource(), 
-        //             $this->_address, 
-        //             $this->_options['port']
-        //         )) ? throw_socket_error() : null;
-        //         if (XPSPL_DEBUG) {
-        //             logger(XPSPL_DEBUG)->debug('Main connection established');
-        //         }
-        //         break;
-        //     } catch (\RuntimeException $e) {
-        //         if ($i >= 5) {
-        //             if (XPSPL_DEBUG) {
-        //                 logger(XPSPL_DEBUG)->debug(sprintf(
-        //                     'FAILED CONNECTION %s',
-        //                     $e->getMessage()
-        //                 ));
-        //             }
-        //             exit(1);
-        //         } else {
-        //             if (XPSPL_DEBUG) {
-        //                 logger(XPSPL_DEBUG)->debug(
-        //                     'Reattempt connection in 30 sec'
-        //                 );
-        //             }
-        //             sleep(30);
-        //         }
-        //     }
-        // }
         for ($i = 0; $i != 1000; $i++) {
             try {
                 (false === socket_bind(
-                    $this->_connection->get_resource(), 
-                    $this->_address, 
+                    $this->_connection->get_resource(),
+                    $this->_address,
                     $this->_options['port']
                 )) ? throw_socket_error() : null;
                 if (XPSPL_DEBUG) {
@@ -349,7 +318,7 @@ class Socket extends \XPSPL\SIG_Routine {
                 if ($i >= 250) {
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_DEBUG)->debug(sprintf(
-                            'FAILED CONNECTION %s',
+                            'Could not connect %s',
                             $e->getMessage()
                         ));
                     }

@@ -7,8 +7,8 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
-import('time');
+xp_import('unittest');
+xp_import('time');
 
 unittest\test(function($test){
 

@@ -9,7 +9,7 @@
  * Installs a new process to execute when the given signal is emitted.
  *
  * .. note::
- * 
+ *
  *    All processes unless otherwise specified have a default exhaust of ``XPSPL_EXHAUST_DEFAULT``.
  *
  * .. note::
@@ -33,43 +33,43 @@
  *
  * Install a new process.
  *
- * This demonstrates installing a new process to execute on ``SIG(foo)``.
+ * This demonstrates installing a new process to execute on ``XP_SIG(foo)``.
  *
  * .. code-block:: php
  *
  *     <?php
- *     signal(SIG('foo'), function(){
+ *     xp_signal(XP_SIG('foo'), function(){
  *         echo "foo was emitted";
  *     });
  *
- *     emit('foo');
+ *     xp_emit('foo');
  *
  * **Results**
  *
  * .. code-block:: text
- *     
+ *
  *     foo was emitted
  *
  * @example
  *
  * String or Integer signals
  *
- * When using strings or integers as a signal the string or integer must be 
+ * When using strings or integers as a signal the string or integer must be
  * wrapped in the ``SIG`` function.
  *
  * .. code-block:: php
- * 
+ *
  *     <?php
  *     // install a process for foo
- *     signal('foo', function(){
+ *     xp_signal('foo', function(){
  *         echo 'foo';
  *     });
  *     // emit foo
- *     emit('foo');
+ *     xp_emit(XP_SIG('foo'));
  *     // results
  *     // foo
  */
-function signal(\XPSPL\SIG $signal, $process)
+function xp_signal(\XPSPL\SIG $signal, $process)
 {
     if (!$process instanceof \XPSPL\Process) {
         $process = new \XPSPL\Process($process);

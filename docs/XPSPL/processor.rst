@@ -1,4 +1,4 @@
-.. /processor.php generated using docpx v1.0.0 on 01/13/14 04:53pm
+.. /processor.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
 Class - XPSPL\\Processor
@@ -7,6 +7,23 @@ Class - XPSPL\\Processor
 Processor
 
 The brainpower of XPSPL.
+
+v0.3.0
+
+The loop is now run in respect to the currently available processes,
+this prevents the processor from running continuously forever when there is not
+anything that it needs to do.
+
+To achieve this the processor uses routines.
+
+v3.0.0
+
+Signal storages have been upgraded to a database object, the routine and
+evaluation methods for the complex signal have also been moved into their
+own classes.
+
+The loop has been replaced with a goto statement, measurements indicate that
+it performs faster than a loop ... though should it?
 
 Methods
 -------
@@ -41,7 +58,7 @@ anaylze_runtime
 .. function:: anaylze_runtime($sig_awake)
 
 
-    Analyzes the processor runtime and shutdowns when no activity is 
+    Analyzes the processor runtime and shutdowns when no activity is
     detected.
 
     :param object: SIG_Awake
@@ -140,7 +157,7 @@ flush
 
     Flush
     
-    Resets the signal databases, the routine object and cleans the history 
+    Resets the signal databases, the routine object and cleans the history
     if tracked.
 
     :rtype: void 
@@ -274,7 +291,7 @@ _processes_execute
 
     Executes a processes database.
     
-    If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they 
+    If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they
     reach exhaustion.
 
     :param object: \XPSPL\SIG
@@ -292,7 +309,7 @@ _process_exec
 
     Executes a callable processor function.
     
-    This currently uses a hand built method in PHP ... really this 
+    This currently uses a hand built method in PHP ... really this
     should be done in C within the core ... but call_user_* is slow ...
 
     :param object: \XPSPL\SIG
@@ -335,7 +352,7 @@ before
 
     Registers a function to interrupt the signal stack before a signal emits.
     
-    This allows for manipulation of the signal before it is passed to any 
+    This allows for manipulation of the signal before it is passed to any
     processes.
 
     :param string|object: Signal instance or class name
@@ -366,7 +383,7 @@ _signal_interrupt
 .. function:: _signal_interrupt($signal, $process, [$interrupt = false])
 
 
-    Registers a function to interrupt the signal stack before or after a 
+    Registers a function to interrupt the signal stack before or after a
     signal emits.
 
     :param string|object: 
@@ -506,8 +523,8 @@ PHP File @ /processor.php
 	 * that can be found in the LICENSE file.
 	 */
 	
-	import('logger');
-	import('time');
+	xp_import('logger');
+	xp_import('time');
 	
 	use \XPSPL\processor\exception as exceptions,
 	    \XPSPL\database\Signals,
@@ -517,23 +534,23 @@ PHP File @ /processor.php
 	 * Processor
 	 *
 	 * The brainpower of XPSPL.
-	 * 
-	 * @since v0.3.0 
-	 * 
+	 *
+	 * v0.3.0
+	 *
 	 * The loop is now run in respect to the currently available processes,
 	 * this prevents the processor from running continuously forever when there is not
 	 * anything that it needs to do.
 	 *
 	 * To achieve this the processor uses routines.
 	 *
-	 * @since v3.0.0
+	 * v3.0.0
 	 *
-	 * Signal storages have been upgraded to a database object, the routine and 
-	 * evaluation methods for the complex signal have also been moved into their 
+	 * Signal storages have been upgraded to a database object, the routine and
+	 * evaluation methods for the complex signal have also been moved into their
 	 * own classes.
 	 *
-	 * The loop has been replaced with a goto statement, measurements indicate that 
-	 * it performs faster than a loop ... though should it? 
+	 * The loop has been replaced with a goto statement, measurements indicate that
+	 * it performs faster than a loop ... though should it?
 	 */
 	class Processor {
 	
@@ -556,7 +573,7 @@ PHP File @ /processor.php
 	    private $_sig_complex = null;
 	    /**
 	     * SIG_Routine storage database.
-	     * 
+	     *
 	     * @var  array
 	     */
 	    private $_sig_routine = null;
@@ -586,7 +603,7 @@ PHP File @ /processor.php
 	    const INTERRUPT_POST = 1;
 	    /**
 	     * Signal history.
-	     * 
+	     *
 	     * @var  boolean|array
 	     */
 	    protected $_history = false;
@@ -636,7 +653,7 @@ PHP File @ /processor.php
 	    }
 	
 	    /**
-	     * Analyzes the processor runtime and shutdowns when no activity is 
+	     * Analyzes the processor runtime and shutdowns when no activity is
 	     * detected.
 	     *
 	     * @param  object  $sig_awake  SIG_Awake
@@ -668,7 +685,7 @@ PHP File @ /processor.php
 	     * Waits for the next signal to occur.
 	     *
 	     * @todo unittest
-	     * 
+	     *
 	     * @return  void
 	     */
 	    public function wait_loop()
@@ -708,7 +725,7 @@ PHP File @ /processor.php
 	     * Runs the signal routine for the processor loop.
 	     *
 	     * @todo unittest
-	     * 
+	     *
 	     * @return  boolean|array
 	     */
 	    private function _routine()
@@ -743,9 +760,9 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Determines if the given signal has exhausted.
-	     * 
+	     *
 	     * @param  object  $signal  \XPSPL\SIG
-	     * 
+	     *
 	     * @return  boolean
 	     */
 	    public function has_signal_exhausted(SIG $signal)
@@ -761,7 +778,7 @@ PHP File @ /processor.php
 	     * Determine if the given database processes are exhausted.
 	     *
 	     * @param  object  $queue  \XPSPL\database\Processes
-	     * 
+	     *
 	     * @return  boolean
 	     */
 	    public function are_processes_exhausted(\XPSPL\database\Processes $database)
@@ -788,7 +805,7 @@ PHP File @ /processor.php
 	     *
 	     * @param  mixed  $signal  Signal instance or signal.
 	     * @param  mixed  $process  Process instance or identifier.
-	     * 
+	     *
 	     * @return  boolean
 	     */
 	    public function delete_process(SIG $signal, Process $process)
@@ -803,7 +820,7 @@ PHP File @ /processor.php
 	    /**
 	     * Flush
 	     *
-	     * Resets the signal databases, the routine object and cleans the history 
+	     * Resets the signal databases, the routine object and cleans the history
 	     * if tracked.
 	     *
 	     * @return void
@@ -812,10 +829,10 @@ PHP File @ /processor.php
 	    {
 	        // Databases to flush
 	        $database = [
-	            '_sig_index', 
+	            '_sig_index',
 	            '_sig_complex',
 	            '_sig_routine',
-	            '_int_before', 
+	            '_int_before',
 	            '_int_after'
 	        ];
 	        foreach ($database as $_db) {
@@ -855,7 +872,7 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Listen
-	     * 
+	     *
 	     * Registers an object listener.
 	     *
 	     * @param  object  $listener  XPSPL\Listener
@@ -922,7 +939,7 @@ PHP File @ /processor.php
 	     * Returns the signal database for the given signal.
 	     *
 	     * @param  object  $signal
-	     * 
+	     *
 	     * @return  array
 	     */
 	    public function get_database(SIG $signal)
@@ -942,7 +959,7 @@ PHP File @ /processor.php
 	     * Finds an installed signals processes database.
 	     *
 	     * @param  object  $signal  SIG
-	     * 
+	     *
 	     * @return  null|object  \XPSPL\database\Signals
 	     */
 	    public function find_signal_database(SIG $signal)
@@ -1033,7 +1050,7 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Executes a database of processes.
-	     * 
+	     *
 	     * This will monitor the signal status and break on a HALT or ERROR state.
 	     *
 	     * @param  object  $signal  \XPSPL\SIG
@@ -1059,7 +1076,7 @@ PHP File @ /processor.php
 	    /**
 	     * Executes a processes database.
 	     *
-	     * If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they 
+	     * If XPSPL_EXHAUSTION_PURGE is true processes will be purged once they
 	     * reach exhaustion.
 	     *
 	     * @param  object  $sig \XPSPL\SIG
@@ -1143,12 +1160,12 @@ PHP File @ /processor.php
 	    /**
 	     * Executes a callable processor function.
 	     *
-	     * This currently uses a hand built method in PHP ... really this 
+	     * This currently uses a hand built method in PHP ... really this
 	     * should be done in C within the core ... but call_user_* is slow ...
 	     *
 	     * @param  object  $signal  \XPSPL\SIG
 	     * @param  mixed  $function  Callable variable
-	     * 
+	     *
 	     * @return  boolean
 	     */
 	    private function _process_exec(SIG $signal, $function = null)
@@ -1168,12 +1185,12 @@ PHP File @ /processor.php
 	        }
 	        return $function($signal);
 	    }
-	    
+	
 	    /**
 	     * Returns the signal history.
 	     *
 	     * @todo Make this a database.
-	     * 
+	     *
 	     * @return  array
 	     */
 	    public function signal_history(/* ... */)
@@ -1193,13 +1210,13 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Registers a function to interrupt the signal stack before a signal emits.
-	     * 
-	     * This allows for manipulation of the signal before it is passed to any 
+	     *
+	     * This allows for manipulation of the signal before it is passed to any
 	     * processes.
 	     *
 	     * @param  string|object  $signal  Signal instance or class name
 	     * @param  object  $process  Process to execute
-	     * 
+	     *
 	     * @return  boolean  True|False false is failure
 	     */
 	    public function before(SIG $signal, Process $process)
@@ -1209,10 +1226,10 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Registers a function to interrupt the signal stack after a signal emits.
-	     * 
+	     *
 	     * @param  string|object  $signal  Signal instance or class name
 	     * @param  object  $process  Process to execute
-	     * 
+	     *
 	     * @return  boolean  True|False false is failure
 	     */
 	    public function after(SIG $signal, Process $process)
@@ -1221,16 +1238,16 @@ PHP File @ /processor.php
 	    }
 	
 	    /**
-	     * Registers a function to interrupt the signal stack before or after a 
+	     * Registers a function to interrupt the signal stack before or after a
 	     * signal emits.
 	     *
 	     * @param  string|object  $signal
 	     * @param  object  $process  Process to execute
 	     * @param  int|null  $place  Interuption location. INTERUPT_PRE|INTERUPT_POST
-	     * 
+	     *
 	     * @return  boolean  True|False false is failure
 	     */
-	    protected function _signal_interrupt(SIG $signal, Process $process, $interrupt = null) 
+	    protected function _signal_interrupt(SIG $signal, Process $process, $interrupt = null)
 	    {
 	        if (XPSPL_DEBUG) {
 	            logger(XPSPL_LOG)->debug(sprintf(
@@ -1263,9 +1280,9 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Returns the interruption storage database.
-	     * 
+	     *
 	     * @param  integer  $type  The interruption type
-	     * 
+	     *
 	     * @return  object  \XPSPL\Database
 	     *
 	     * @since  v4.0.0
@@ -1283,10 +1300,10 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Process signal interuption functions.
-	     * 
+	     *
 	     * @param  object  $signal  Signal
 	     * @param  int  $interupt  Interupt type
-	     * 
+	     *
 	     * @return  boolean
 	     */
 	    private function _interrupt(SIG $signal, $interrupt = null)
@@ -1308,14 +1325,14 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Cleans any exhausted signals from the processor.
-	     * 
+	     *
 	     * @param  boolean  $history  Erase any history of the signals cleaned.
-	     * 
+	     *
 	     * @return  void
 	     *
 	     * @todo
 	     *
-	     * Clean this ugly code ... 
+	     * Clean this ugly code ...
 	     */
 	    public function clean($history = false)
 	    {
@@ -1342,10 +1359,10 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Delete a signal from the processor.
-	     * 
+	     *
 	     * @param  string|object|int  $signal  Signal to delete.
 	     * @param  boolean  $history  Erase any history of the signal.
-	     * 
+	     *
 	     * @return  void
 	     */
 	    public function delete_signal(SIG $signal, $history = false)
@@ -1360,9 +1377,9 @@ PHP File @ /processor.php
 	
 	    /**
 	     * Erases any history of a signal.
-	     * 
+	     *
 	     * @param  string|object  $signal  Signal to be erased from history.
-	     * 
+	     *
 	     * @return  void
 	     */
 	    public function erase_signal_history($signal)
@@ -1433,4 +1450,4 @@ PHP File @ /processor.php
 	    }
 	}
 
-Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

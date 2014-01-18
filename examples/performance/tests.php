@@ -10,81 +10,81 @@ if (function_exists('xdebug_start_code_coverage')) {
     exit('xdebug code coverage detected disable to run performance tests');
 }
 
-import('unittest');
+xp_import('unittest');
 
 $output = unittest\Output::instance();
 
 $tests = [
     'Processes Installed' =>
     function($i){
-        signal(SIG($i), null); 
+        signal(XP_SIG($i), null);
     },
-    'Signals Emitted' => 
+    'Signals Emitted' =>
     function($i){
-        emit($i);
+        xp_emit($i);
     },
     'Signal Registration' =>
     function($i){
-        register_signal(SIG($i)); 
+        register_signal(XP_SIG($i));
     },
-    // 'Listners Installed' => 
+    // 'Listners Installed' =>
     // function($i) {
     //     listen(new Lst());
     // },
     // 'Interruptions Installed' =>
     // function($i){
-    //     before($i, function(){}); 
+    //     before($i, function(){});
     // },
-    'Loops Performed' => 
+    'Loops Performed' =>
     function($i) {
         wait_loop();
     },
-    // 'Interruption before emit' => 
+    // 'Interruption before emit' =>
     // function($i) {
     //     before($i, function(){});
-    //     emit($i);
+    //     xp_emit($i);
     // },
-    // 'Interruption after emit' => 
+    // 'Interruption after emit' =>
     // function($i) {
     //     after($i, function(){});
-    //     emit($i);
+    //     xp_emit($i);
     // },
-    // 'Complex Signal Registration' => 
+    // 'Complex Signal Registration' =>
     // function($i) {
     //     register_signal(new Cmp());
     // },
-    // 'Complex Signal Evaluation' => 
+    // 'Complex Signal Evaluation' =>
     // function($i, $setup){
     //     if ($setup) {
-    //         signal(new Cmp(), null_exhaust(function(){}));
+    //         signal(new Cmp(), xp_null_exhaust(function(){}));
     //     }
-    //     emit('foo');
+    //     xp_emit('foo');
     // },
-    // 'Complex Signal Registration' => 
+    // 'Complex Signal Registration' =>
     // function($i) {
     //     register_signal(new Cmp());
     // },
-    // 'Complex Signal Evaluation' => 
+    // 'Complex Signal Evaluation' =>
     // function($i, $setup){
     //     if ($setup) {
-    //         signal(new Cmp(), null_exhaust(function(){}));
+    //         signal(new Cmp(), xp_null_exhaust(function(){}));
     //     }
-    //     emit('foo');
+    //     xp_emit('foo');
     // },
-    // 'Complex Signal Interruption Before Install' => 
+    // 'Complex Signal Interruption Before Install' =>
     // function($i, $setup){
     //     before(new Cmp(), function(){});
     // },
-    // 'Complex Signal Interruption After Install' => 
+    // 'Complex Signal Interruption After Install' =>
     // function($i, $setup){
     //     after(new Cmp(), function(){});
     // },
-    // 'Complex Signal Interruption Before' => 
+    // 'Complex Signal Interruption Before' =>
     // function($i, $setup){
     //     before(new Cmp(), function(){});
     //     emit(new Cmp());
     // },
-    // 'Complex Signal Interruption After' => 
+    // 'Complex Signal Interruption After' =>
     // function($i, $setup){
     //     after(new Cmp(), function(){});
     //     emit(new Cmp());

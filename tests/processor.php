@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\suite(function($suite){
 
@@ -22,7 +22,7 @@ unittest\suite(function($suite){
     $suite->test(function($test){
         $test->equal($test->processor->get_state(), STATE_DECLARED);
     }, 'Processor Construction');
-    
+
     $suite->test(function($test){
         $processor = new \XPSPL\Processor(false);
         $test->false($processor->signal_history());
@@ -43,15 +43,15 @@ unittest\suite(function($suite){
         // String based
         $test->processor->register_signal(new \XPSPL\SIG(new \XPSPL\SIG('test')));
         $test->instanceof(
-            $test->processor->find_signal_database(new \XPSPL\SIG(new \XPSPL\SIG('test'))), 
+            $test->processor->find_signal_database(new \XPSPL\SIG(new \XPSPL\SIG('test'))),
             'XPSPL\database\Signals'
         );
         $test->processor->delete_signal(new \XPSPL\SIG('test'));
         $test->null($test->processor->find_signal_database(SIG(new \XPSPL\SIG('test'))));
         $signal = new \XPSPL\SIG(new \XPSPL\SIG('test'));
         // Delete history
-        $test->processor->signal(SIG($signal), new \XPSPL\Process(function(){}));
-        $test->processor->emit(SIG($signal));
+        $test->processor->signal(new \XPSPL\SIG($signal), new \XPSPL\Process(function(){}));
+        $test->processor->emit(new \XPSPL\SIG($signal));
         $history = $test->processor->signal_history();
         // Need to implement a search history function ... ?
         $count = 0;
@@ -107,7 +107,7 @@ unittest\suite(function($suite){
         $test->equal($test->processor->get_state(), STATE_DECLARED);
         $test->count($test->processor->signal_history(), 1);
         $test->instanceof(
-            $test->processor->find_signal_database(new \XPSPL\SIG('test')), 
+            $test->processor->find_signal_database(new \XPSPL\SIG('test')),
             new XPSPL\database\Processes()
         );
         $test->false($test->processor->has_signal_exhausted(new \XPSPL\SIG('test')));
@@ -225,7 +225,7 @@ unittest\suite(function($suite){
     //     $test->processor->register_signal(new \XPSPL\SIG('test'));
     //     $test->notnull($test->processor->find_signal_database(new \XPSPL\SIG('test')));
     //     $test->instanceof(
-    //         $test->processor->find_signal_database(new \XPSPL\SIG('test')), 
+    //         $test->processor->find_signal_database(new \XPSPL\SIG('test')),
     //         new \XPSPL\database\Processes()
     //     );
     //     $test->processor->clean();

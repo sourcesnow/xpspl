@@ -7,12 +7,12 @@
 
 /**
  * Registers a signal in the processor.
- * 
+ *
  * @param  string|integer|object  $signal  Signal
  *
  * @return  object  Database
  */
-function register_signal($signal)
+function xp_register_signal($signal)
 {
     return XPSPL::instance()->register_signal($signal);
 }

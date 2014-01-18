@@ -1,11 +1,11 @@
-.. /signal.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /signal.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - signal
-*****************
+Function - xp_signal
+********************
 
 
-.. function:: signal($signal, $process)
+.. function:: xp_signal($signal, $process)
 
 
     Installs a new process to execute when the given signal is emitted.
@@ -35,38 +35,38 @@ To use a string or integer as a signal it must be wrapped in a ``SIG``.
 Install a new process.
 ######################
 
-This demonstrates installing a new process to execute on ``SIG(foo)``.
+This demonstrates installing a new process to execute on ``XP_SIG(foo)``.
 
 .. code-block:: php
 
     <?php
-    signal(SIG('foo'), function(){
+    xp_signal(XP_SIG('foo'), function(){
         echo "foo was emitted";
     });
 
-    emit('foo');
+    xp_emit('foo');
 
 **Results**
 
 .. code-block:: text
-    
+
     foo was emitted
 
 String or Integer signals
 #########################
 
-When using strings or integers as a signal the string or integer must be 
+When using strings or integers as a signal the string or integer must be
 wrapped in the ``SIG`` function.
 
 .. code-block:: php
 
     <?php
     // install a process for foo
-    signal('foo', function(){
+    xp_signal('foo', function(){
         echo 'foo';
     });
     // emit foo
-    emit('foo');
+    xp_emit(XP_SIG('foo'));
     // results
     // foo
 
@@ -89,7 +89,7 @@ PHP File @ /signal.php
 	 * Installs a new process to execute when the given signal is emitted.
 	 *
 	 * .. note::
-	 * 
+	 *
 	 *    All processes unless otherwise specified have a default exhaust of ``XPSPL_EXHAUST_DEFAULT``.
 	 *
 	 * .. note::
@@ -113,43 +113,43 @@ PHP File @ /signal.php
 	 *
 	 * Install a new process.
 	 *
-	 * This demonstrates installing a new process to execute on ``SIG(foo)``.
+	 * This demonstrates installing a new process to execute on ``XP_SIG(foo)``.
 	 *
 	 * .. code-block:: php
 	 *
 	 *     <?php
-	 *     signal(SIG('foo'), function(){
+	 *     xp_signal(XP_SIG('foo'), function(){
 	 *         echo "foo was emitted";
 	 *     });
 	 *
-	 *     emit('foo');
+	 *     xp_emit('foo');
 	 *
 	 * **Results**
 	 *
 	 * .. code-block:: text
-	 *     
+	 *
 	 *     foo was emitted
 	 *
 	 * @example
 	 *
 	 * String or Integer signals
 	 *
-	 * When using strings or integers as a signal the string or integer must be 
+	 * When using strings or integers as a signal the string or integer must be
 	 * wrapped in the ``SIG`` function.
 	 *
 	 * .. code-block:: php
-	 * 
+	 *
 	 *     <?php
 	 *     // install a process for foo
-	 *     signal('foo', function(){
+	 *     xp_signal('foo', function(){
 	 *         echo 'foo';
 	 *     });
 	 *     // emit foo
-	 *     emit('foo');
+	 *     xp_emit(XP_SIG('foo'));
 	 *     // results
 	 *     // foo
 	 */
-	function signal(\XPSPL\SIG $signal, $process)
+	function xp_signal(\XPSPL\SIG $signal, $process)
 	{
 	    if (!$process instanceof \XPSPL\Process) {
 	        $process = new \XPSPL\Process($process);
@@ -157,4 +157,4 @@ PHP File @ /signal.php
 	    return XPSPL::instance()->signal($signal, $process);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

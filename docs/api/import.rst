@@ -1,14 +1,14 @@
-.. /import.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /import.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - import
-*****************
+Function - xp_import
+********************
 
 
-.. function:: import($name, [$dir = false])
+.. function:: xp_import($name, [$dir = false])
 
 
-    Import a module.
+    Import a module for usage.
 
     :param string: Module name.
     :param string|null: Location of the module.
@@ -31,16 +31,16 @@ PHP File @ /import.php
 	 */
 	
 	/**
-	 * Import a module.
-	 * 
+	 * Import a module for usage.
+	 *
 	 * @param  string  $name  Module name.
-	 * @param  string|null  $dir  Location of the module. 
-	 * 
+	 * @param  string|null  $dir  Location of the module.
+	 *
 	 * @return  void
 	 */
-	function import($name, $dir = null) 
+	function xp_import($name, $dir = null)
 	{
 	    return \XPSPL\Library::instance()->load($name, $dir);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

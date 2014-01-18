@@ -1,4 +1,4 @@
-.. /xpspl_flush.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /xpspl_flush.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
 Function - XPSPL_flush
@@ -37,4 +37,4 @@ PHP File @ /xpspl_flush.php
 	    return XPSPL::instance()->flush();
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

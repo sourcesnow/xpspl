@@ -1,4 +1,4 @@
-.. /processor/SIG/startup.php generated using docpx v1.0.0 on 01/13/14 04:53pm
+.. /processor/SIG/startup.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
 Class - XPSPL\\processor\\SIG_Startup
@@ -30,4 +30,4 @@ PHP File @ /processor/SIG/startup.php
 	 */
 	class SIG_Startup extends \XPSPL\SIG {}
 
-Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -6,8 +6,8 @@
  */
 
 /**
- * Performs a inclusion of the entire directory content, including 
- * subdirectories, with the option to start a listener once the file has been 
+ * Performs a inclusion of the entire directory content, including
+ * subdirectories, with the option to start a listener once the file has been
  * included.
  *
  * @param  string  $dir  Directory to include.
@@ -16,10 +16,10 @@
  *
  * @return  void
  */
-function dir_include($dir, $listen = false, $path = null)
+function xp_dir_include($dir, $listen = false, $path = null)
 {
     /**
-     * This is some pretty narly code but so far the fastest I have been able 
+     * This is some pretty narly code but so far the fastest I have been able
      * to get this to run.
      */
     $iterator = new \RegexIterator(
@@ -37,14 +37,14 @@ function dir_include($dir, $listen = false, $path = null)
                 '%s\\%s',
                 // Namespace
                 implode('\\', array_pop(explode(
-                    (WINDOWS) ? '\\' : '/', 
+                    (WINDOWS) ? '\\' : '/',
                     str_replace([$path, '.php'], '', $i)
                 ))),
                 ucfirst($class)
             );
-            if (class_exists($process, false) && 
+            if (class_exists($process, false) &&
                 is_subclass_of($process, '\XPSPL\Listener')) {
-                listen(new $process());
+                xp_listen(new $process());
             }
         }, $_file);
     }

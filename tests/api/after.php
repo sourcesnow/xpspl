@@ -7,14 +7,14 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
-    $foo = SIG('foo');
-    signal($foo, function(){});
-    after($foo, function($foo){
+    $foo = XP_SIG('foo');
+    xp_signal($foo, function(){});
+    xp_after($foo, function($foo){
         $foo->foo = 'foo';
     });
-    emit($foo);
+    xp_emit($foo);
     $test->equal($foo->foo, 'foo');
 });

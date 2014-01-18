@@ -6,12 +6,13 @@
  */
 
 /**
- * Registers the given process to have the given exhaust rate.
+ * Defines the number of times a process will execute when a signal is emitted.
  *
- * A rated exhaust allows for you to install processes that exhaust at the set 
- * rate rather than 1.
+ * If you require a null exhaust process use the ``xp_null_exhaust`` function.
  *
- * If you require a null exhaust process use the ``null_exhaust`` function.
+ * .. note::
+ *
+ *     By default all processes have an exhaust rate of 1.
  *
  * @param  callable|process  $process  PHP Callable or Process.
  *
@@ -19,55 +20,26 @@
  *
  * @example
  *
- * Defining process exhaust.
+ * Exhaust usage
  *
  * Defines the given process with an exhaust of 5.
- * 
+ *
  * .. code-block:: php
  *
  *    <?php
- *    
- *    signal(SIG('foo'), exhaust(5, function(){
+ *
+ *    xp_signal(XP_SIG('foo'), xp_exhaust(5, function(){
  *        echo 'foo';
  *    });
  *
  *    for($i=0;$i<5;$i++){
- *        emit('foo');
+ *        xp_emit('foo');
  *    }
- *    
+ *
  *    // results
  *    // foofoofoofoofoo
- *
- * @example
- *
- * Null exhaust process.
- *
- * Install a process that never exhausts.
- *
- * .. note::
- *
- *     Once a null exhaust process is installed it must be removed using 
- *     ``delete_process``.
- *
- * .. code-block:: php
- *
- *     <?php
- *
- *     signal(SIG('foo'), null_exhaust(function(){
- *         echo "foo";
- *     }));
- *
- *     for ($i=0;$i<35;$i++) {
- *         emit(SIG('foo'));
- *     }
- *     // results
- *     // foo
- *     // foo
- *     // foo
- *     // foo
- *     // ...
- */ 
-function exhaust($limit, $process)
+ */
+function xp_exhaust($limit, $process)
 {
     if (!$process instanceof \XPSPL\Process) {
         $process = new \XPSPL\Process($process, $limit);

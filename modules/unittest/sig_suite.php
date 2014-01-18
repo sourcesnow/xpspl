@@ -10,19 +10,19 @@ use \XPSPL\SIG_Routine;
 
 /**
  * SIG_Suite
- * 
+ *
  * The suite is designed to run a group of tests together.
  *
  * It is registered as a routine in the processor.
  *
- * All registered tests are registered into a SIG_Test signal constructed when 
+ * All registered tests are registered into a SIG_Test signal constructed when
  * the suite is registered in the processor.
  */
 class SIG_Suite extends SIG_Routine {
 
     /**
      * Teardown function
-     * 
+     *
      * @var  object  Closure
      */
     protected $_teardown = null;
@@ -42,39 +42,39 @@ class SIG_Suite extends SIG_Routine {
 
     /**
      * Registers a setup function.
-     * 
+     *
      * @param  object  $function  Closure
-     * 
+     *
      * @return  void
      */
     public function setup($function)
     {
-        before($this->_test, null_exhaust($function));
+        xp_before($this->_test, xp_null_exhaust($function));
     }
 
     /**
      * Registers a teardown function.
-     * 
+     *
      * @param  object  $function  Closure
-     * 
+     *
      * @return  void
      */
     public function teardown($function)
     {
-        after($this->_test, null_exhaust($function));
+        xp_after($this->_test, xp_null_exhaust($function));
     }
 
     /**
      * Creates a new test case in the suite.
-     * 
+     *
      * @param  object  $function  Test function
      * @param  string  $name  Test name
      *
      * @return  object  SIG_Test
      */
-    function test($function) 
+    function test($function)
     {
-        signal($this->_test, $function);
+        xp_signal($this->_test, $function);
     }
 
     /**

@@ -7,17 +7,17 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 /**
  * Emit Unitest
  */
 unittest\test(function($test){
-    $foo = SIG('foo');
-    $process = process(null);
-    signal($foo, $process);
-    delete_process($foo, $process);
-    emit($foo);
+    $foo = XP_SIG('foo');
+    $process = xp_process(null);
+    xp_signal($foo, $process);
+    xp_delete_process($foo, $process);
+    xp_emit($foo);
     $test->exception('LogicException', function() use ($foo){
         echo $foo->foo;
     });

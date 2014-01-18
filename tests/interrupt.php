@@ -7,19 +7,19 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
-    $foo = SIG('foo');
-    before($foo, function($foo){
+    $foo = XP_SIG('foo');
+    xp_before($foo, function($foo){
         $foo->bar = 'HelloWorld';
     });
-    after($foo, function($foo){
+    xp_after($foo, function($foo){
         unset($foo->bar);
     });
-    signal($foo, function($foo) use ($test) {
+    xp_signal($foo, function($foo) use ($test) {
         $test->equal($foo->bar, 'HelloWorld');
     });
-    emit($foo);
+    xp_emit($foo);
     $test->false(isset($foo->bar));
 }, 'Interruptions');

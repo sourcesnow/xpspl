@@ -5,7 +5,7 @@
  * that can be found in the LICENSE file.
  */
 
-import('unittest');
+xp_import('unittest');
 
 use XPSPL\idle\Time;
 

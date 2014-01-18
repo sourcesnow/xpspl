@@ -1,24 +1,14 @@
-.. /before.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /before.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - before
-*****************
+Function - xp_before
+********************
 
 
-.. function:: before($signal, $process)
+.. function:: xp_before($signal, $process)
 
 
-    Installs the given process to interrupt the signal ``$signal`` when emitted.
-    
-    Interruption processes installed using this function interrupt directly 
-    after a signal is emitted.
-    
-    .. warning:: 
-    
-       Interruptions are not a fix for improperly executing process priorities 
-       within a signal.
-       
-       If unexpected process priority are being executed debug them... 
+    Installs the given process execute to before the signal ``$signal`` is emitted.
     
     .. note::
     
@@ -29,51 +19,26 @@ Function - before
     :rtype: object Process
 
 
-Install a interrupt process before foo
-######################################
+Before Interrupt
+################
 
-High priority process will always execute first immediatly following 
+High priority process will always execute first immediately following
 interruptions.
 
 .. code-block:: php
 
    <?php
-   
-   signal(SIG('foo'), function(){
+
+   xp_signal(XP_SIG('foo'), function(){
        echo 'foo';
    });
 
-   before(SIG('foo'), function(){
+   xp_before(XP_SIG('foo'), function(){
        echo 'before foo';
    });
 
    // results when foo is emitted
-   // foobefore foo
-
-Before Interrupt Process Priority
-#################################
-
-Install before interrupt processes with priority.
-
-.. code-block:: php
-
-   <?php
-   signal(SIG('foo'), function(){
-       echo 'foo';
-   })
-   
-   before(SIG('foo'), low_priority(function(){
-       echo 'low priority foo';
-   }));
-   
-   before(SIG('foo'), high_priority(function(){
-       echo 'high priority foo';
-   }));
-   
-   emit(SIG('foo'));
-
-   // results
-   // highpriorityfoo lowpriorityfoo foo
+   // before foo foo
 
 
 
@@ -91,75 +56,39 @@ PHP File @ /before.php
 	 */
 	
 	/**
-	 * Installs the given process to interrupt the signal ``$signal`` when emitted.
-	 *
-	 * Interruption processes installed using this function interrupt directly 
-	 * after a signal is emitted.
-	 *
-	 * .. warning:: 
-	 *
-	 *    Interruptions are not a fix for improperly executing process priorities 
-	 *    within a signal.
-	 *    
-	 *    If unexpected process priority are being executed debug them... 
+	 * Installs the given process execute to before the signal ``$signal`` is emitted.
 	 *
 	 * .. note::
 	 *
 	 *    Interruptions use the same prioritizing as the Processor.
-	 *    
+	 *
 	 * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
 	 *
 	 * @return  object  Process
 	 *
 	 * @example
 	 *
-	 * Install a interrupt process before foo
+	 * Before Interrupt
 	 *
-	 * High priority process will always execute first immediatly following 
+	 * High priority process will always execute first immediately following
 	 * interruptions.
 	 *
 	 * .. code-block:: php
-	 * 
+	 *
 	 *    <?php
-	 *    
-	 *    signal(SIG('foo'), function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), function(){
 	 *        echo 'foo';
 	 *    });
 	 *
-	 *    before(SIG('foo'), function(){
+	 *    xp_before(XP_SIG('foo'), function(){
 	 *        echo 'before foo';
 	 *    });
 	 *
 	 *    // results when foo is emitted
-	 *    // foobefore foo
-	 *
-	 * @example
-	 *
-	 * Before Interrupt Process Priority
-	 *
-	 * Install before interrupt processes with priority.
-	 *
-	 * .. code-block:: php
-	 *
-	 *    <?php
-	 *    signal(SIG('foo'), function(){
-	 *        echo 'foo';
-	 *    })
-	 *    
-	 *    before(SIG('foo'), low_priority(function(){
-	 *        echo 'low priority foo';
-	 *    }));
-	 *    
-	 *    before(SIG('foo'), high_priority(function(){
-	 *        echo 'high priority foo';
-	 *    }));
-	 *    
-	 *    emit(SIG('foo'));
-	 *
-	 *    // results
-	 *    // highpriorityfoo lowpriorityfoo foo
+	 *    // before foo foo
 	 */
-	function before($signal, $process)
+	function xp_before($signal, $process)
 	{
 	    if (!$signal instanceof \XPSPL\SIG) {
 	        $signal = new \XPSPL\SIG($signal);
@@ -170,4 +99,4 @@ PHP File @ /before.php
 	    return XPSPL::instance()->before($signal, $process);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

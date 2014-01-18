@@ -45,16 +45,11 @@ if (XPSPL_DEBUG) {
     error_reporting(E_ALL ^ E_STRICT);
     import('logger');
     $log = logger(XPSPL_LOG);
-    if (defined('XPSPL_LOG_LOCATION')) {
-        $output = XPSPL_LOG_LOCATION;
-    } else {
-        $output = STDOUT;
-    }
     $formatter = new \logger\Formatter(
         '[{date}] [{str_code}] {message}'.PHP_EOL
     );
     $log->add_handler(new \logger\Handler(
-        $formatter, $output
+        $formatter, STDOUT
     ));
 }
 
@@ -68,14 +63,7 @@ final class XPSPL extends \XPSPL\Processor {
     use XPSPL\Singleton;
 }
 
-// $timing = [];
-// for($i=0;$i<5000;$i++) {
-//     $start = microtime(true);
-//     wait_loop();
-//     $timing[] = microtime(true) - $start;
-// }
-
 /**
  * Start the processor VROOOOOOM!
  */
-set_signal_history(XPSPL_SIGNAL_HISTORY);
+xp_set_signal_history(XPSPL_SIGNAL_HISTORY);

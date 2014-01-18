@@ -12,11 +12,11 @@ namespace unittest;
 
 /**
  * Add a new assertion function.
- * 
+ *
  * @param  closure  $function  Assertion function
  * @param  string  $name  Assertion name
  * @param  string  $message  Message to return on failure.
- * 
+ *
  * @return  void
  */
 function create_assertion($function, $name, $message = null) {
@@ -25,41 +25,41 @@ function create_assertion($function, $name, $message = null) {
 
 /**
  * Creates a new test case.
- * 
+ *
  * @param  object  $function  Test function
  * @param  string  $name  Test name
- * 
+ *
  * @return  array  [Process, Signal]
  */
 function test($function, $name = null) {
-    return signal(new SIG_Test($name), $function);
+    return xp_signal(new SIG_Test($name), $function);
 }
 
 /**
  * Constructs a new unit testing suite.
- * 
+ *
  * @param  object  $function  Closure
- * 
+ *
  * @return  void
  */
 function suite($function) {
     $suite = new SIG_Suite($function);
-    register_signal($suite);
+    xp_register_signal($suite);
     return $suite;
 }
 
 /**
  * Registers a standard output mechanism for test results.
- * 
+ *
  * @return  void
  */
 function generate_output() {
 
     // enable the event history
-    set_signal_history(true);
+    xp_set_signal_history(true);
 
     // Startup
-    on_start(function(){
+    xp_on_start(function(){
         if (XPSPL_DEBUG){
             logger(XPSPL_LOG)->info('Unittest begin');
         }
@@ -67,7 +67,7 @@ function generate_output() {
     });
 
     // Shutdown
-    on_shutdown(function(){
+    xp_on_shutdown(function(){
         if (XPSPL_DEBUG){
             logger(XPSPL_LOG)->info('Unittest end');
         }
@@ -78,13 +78,13 @@ function generate_output() {
         $skip = 0;
         $output = Output::instance();
         $tests_run = [];
-        foreach (signal_history() as $_node) {
+        foreach (xp_signal_history() as $_node) {
             if ($_node[0] instanceof SIG_Test) {
                 // suites
                 $tests++;
                 $tests_run[] = $_node[0];
                 $failures = [];
-                // Get passedXPSPL 
+                // Get passedXPSPL
                 foreach ($_node[0]->get_assertion_results() as $_assertion) {
                     if ($_assertion[0] === true) {
                         $pass++;
@@ -119,7 +119,7 @@ function generate_output() {
              * This was authored by another individual by whom i don't know
              */
             $filesizename = array(
-                " Bytes", "KB", "MB", "GB", 
+                " Bytes", "KB", "MB", "GB",
                 "TB", "PB", " EB", "ZB", "YB"
             );
             return $size ? round(
@@ -128,7 +128,7 @@ function generate_output() {
         };
         $output->send_linebreak();
         $output->send(sprintf(
-            "Ran %s tests in %sms and used %s memory", 
+            "Ran %s tests in %sms and used %s memory",
             $tests,
             UNITTEST_END_TIME - UNITTEST_START_TIME,
             $size(memory_get_peak_usage())

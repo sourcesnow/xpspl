@@ -44,7 +44,7 @@ Importing
 
     <?php
 
-    import('ftp');
+    xp_import('ftp');
 
 Uploading Files
 %%%%%%%%%%%%%%%
@@ -53,7 +53,7 @@ Uploading Files
 
     <?php
 
-    import('ftp');
+    xp_import('ftp');
 
     $files = ['/tmp/myfile_1.txt', '/tmp/myfile_2.txt'];
     $server = [
@@ -64,14 +64,14 @@ Uploading Files
 
     $upload = ftp\upload($files, $server);
 
-    ftp\complete($upload, null_exhaust(function(\ftp\SIG_Complete $sig){
+    ftp\complete($upload, xp_null_exhaust(function(\ftp\SIG_Complete $sig){
         $file = $sig->get_file();
         echo sprintf('%s has uploaded'.PHP_EOL,
             $file->get_name()
         );
     }));
 
-    ftp\failure($upload, null_exhaust(function(\ftp\SIG_Failure $sig){
+    ftp\failure($upload, xp_null_exhaust(function(\ftp\SIG_Failure $sig){
         $file = $sig->get_file();
         echo sprintf('%s has failed to upload'.PHP_EOL,
             $file->get_name()

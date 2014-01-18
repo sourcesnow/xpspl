@@ -1,24 +1,21 @@
-.. /null_exhaust.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /null_exhaust.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - null_exhaust
-***********************
+Function - xp_null_exhaust
+**************************
 
 
-.. function:: null_exhaust($process)
+.. function:: xp_null_exhaust($process)
 
 
-    Registers the given process to have a null exhaust.
+    Nullifies a processes exhaustion rate.
     
-    Be careful when registering a null exhaust process.
+    This allows for processes to exhaust indefiantly when a signal is emitted.
     
-    Once registered it will **never** be purged from the processor.
+    .. note::
     
-    **Do not** register a null exhaust process unless you are absolutely sure you  
-    want it to never exhaust.
-    
-    If you require a process to exhaust after a few executions use the ``rated_exhaust`` 
-    function.
+        Once a process is registered with a null exhaust it will **never**
+        be purged from the processor.
 
     :param callable|process: PHP Callable or Process.
 
@@ -28,15 +25,15 @@ Function - null_exhaust
 Install a null exhaust process.
 ###############################
 
-This example installs a null exhaust process which calls an awake signal 
+This example installs a null exhaust process which calls an awake signal
 every 10 seconds creating an interval.
 
 .. code-block:: php
 
    <?php
    import('time');
-   
-   time\awake(10, null_exhaust(function(){
+
+   time\awake(10, xp_null_exhaust(function(){
        echo "10 seconds";
    }));
 
@@ -56,17 +53,14 @@ PHP File @ /null_exhaust.php
 	 */
 	
 	/**
-	 * Registers the given process to have a null exhaust.
+	 * Nullifies a processes exhaustion rate.
 	 *
-	 * Be careful when registering a null exhaust process.
+	 * This allows for processes to exhaust indefiantly when a signal is emitted.
 	 *
-	 * Once registered it will **never** be purged from the processor.
+	 * .. note::
 	 *
-	 * **Do not** register a null exhaust process unless you are absolutely sure you  
-	 * want it to never exhaust.
-	 *
-	 * If you require a process to exhaust after a few executions use the ``rated_exhaust`` 
-	 * function.
+	 *     Once a process is registered with a null exhaust it will **never**
+	 *     be purged from the processor.
 	 *
 	 * @param  callable|process  $process  PHP Callable or Process.
 	 *
@@ -76,19 +70,19 @@ PHP File @ /null_exhaust.php
 	 *
 	 * Install a null exhaust process.
 	 *
-	 * This example installs a null exhaust process which calls an awake signal 
+	 * This example installs a null exhaust process which calls an awake signal
 	 * every 10 seconds creating an interval.
-	 * 
+	 *
 	 * .. code-block:: php
 	 *
 	 *    <?php
 	 *    import('time');
-	 *    
-	 *    time\awake(10, null_exhaust(function(){
+	 *
+	 *    time\awake(10, xp_null_exhaust(function(){
 	 *        echo "10 seconds";
 	 *    }));
-	 */ 
-	function null_exhaust($process)
+	 */
+	function xp_null_exhaust($process)
 	{
 	    if (!$process instanceof \XPSPL\Process) {
 	        $process = new \XPSPL\Process($process, null);
@@ -98,4 +92,4 @@ PHP File @ /null_exhaust.php
 	    return $process;
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

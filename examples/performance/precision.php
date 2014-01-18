@@ -1,6 +1,6 @@
 <?php
 
-import('time');
+xp_import('time');
 $precision = 150;
 $signal = new \time\SIG_Awake($precision, TIME_MICROSECONDS);
 $signal->time = microtime(true);
@@ -33,7 +33,7 @@ on_shutdown(function() use (&$precision_timing){
 // /**
 //  * TODO: Change awake to wait.
 //  */
-// // time\awake(30, null_exhaust(function(){}), TIME_MICROSECONDS);
+// // time\awake(30, xp_null_exhaust(function(){}), TIME_MICROSECONDS);
 // for ($i=0;$i<PHP_INT_MAX;++$i) {
 //     echo .000001 * gettimeofday()['usec'];
 //     echo PHP_EOL;

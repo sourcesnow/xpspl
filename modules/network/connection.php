@@ -6,7 +6,7 @@ namespace network;
  * that can be found in the LICENSE file.
  */
 
-import('time');
+xp_import('time');
 
 use \XPSPL\Idle as idle;
 
@@ -88,7 +88,7 @@ class Connection {
      *
      * @return  string
      */
-    public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = MSG_DONTWAIT) 
+    public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = MSG_DONTWAIT)
     {
         $r = null;
         $read = @socket_recv($this->get_resource(), $r, $length, $flags);
@@ -114,7 +114,7 @@ class Connection {
 
     /**
      * Returns if the socket is currently connected.
-     * 
+     *
      * @return  boolean
      */
     public function is_connected(/* ... */)
@@ -179,10 +179,10 @@ class Connection {
  * Disconnects a socket signal.
  *
  * @param  object  $sig_disconnect  \network\SIG_Disconnect
- * 
+ *
  * @return  void
  */
-function system_disconnect(SIG_Disconnect $sig_disconnect) 
+function system_disconnect(SIG_Disconnect $sig_disconnect)
 {
     if (is_resource($sig_disconnect->socket->get_resource())) {
         socket_close($sig_disconnect->socket->get_resource());
@@ -194,10 +194,10 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
  *
  * This fires as a last priority to allow pushing content to the host.
  *
- * Though it should be noted that pushing content to a disconnected socket might 
+ * Though it should be noted that pushing content to a disconnected socket might
  * not get the data.
  */
 signal(
-    new SIG_Disconnect(), 
-    low_priority(null_exhaust('\network\system_disconnect'))
+    new SIG_Disconnect(),
+    low_priority(xp_null_exhaust('\network\system_disconnect'))
 );

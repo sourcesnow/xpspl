@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
     $process = new XPSPL\Process(null);

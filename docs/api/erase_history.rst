@@ -1,14 +1,14 @@
-.. /erase_history.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /erase_history.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - erase_history
-************************
+Function - xp_erase_history
+***************************
 
 
-.. function:: erase_history()
+.. function:: xp_erase_history()
 
 
-    Cleans out the entire signal history.
+    Erases the entire signal history.
 
     :rtype: void 
 
@@ -28,13 +28,13 @@ PHP File @ /erase_history.php
 	 */
 	
 	/**
-	 * Cleans out the entire signal history.
+	 * Erases the entire signal history.
 	 *
 	 * @return  void
 	 */
-	function erase_history()
+	function xp_erase_history()
 	{
 	    return XPSPL::instance()->erase_history();
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -11,7 +11,7 @@
  * This example demonstrates how to build a simple TCP chat server which can
  * be connected using telnet.
  */
-import('network');
+xp_import('network');
 
 $socket = network\connect('0.0.0.0', ['port' => '8000'], function(){
     echo "Server Running on " . $this->socket->get_address() . PHP_EOL;
@@ -48,8 +48,8 @@ $socket->on_read(function(network\SIG_Read $sig_read) use ($socket){
             }
         }
         $sig_read->socket->write(sprintf(
-            "%s User Online (%s)".PHP_EOL, 
-            count($connected), 
+            "%s User Online (%s)".PHP_EOL,
+            count($connected),
             implode(", ", $connected)
         ));
     } else {

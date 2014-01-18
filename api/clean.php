@@ -6,13 +6,16 @@
  */
 
 /**
- * Cleans any exhausted signals from the processor.
- * 
- * @param  boolean  $history  Also erase any history of the signals cleaned.
- * 
+ * Cleans the processor removing exhausted signals and their processes from
+ * the processor.
+ *
+ * Optionally the history of cleanable signals can be erased from the history.
+ *
+ * @param  boolean  $history  Erase any history of the signals cleaned.
+ *
  * @return  void
  */
-function clean($history = false)
+function xp_clean($history = false)
 {
     return XPSPL::instance()->clean($history);
 }

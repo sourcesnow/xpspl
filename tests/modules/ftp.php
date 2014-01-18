@@ -7,7 +7,7 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 // unittest\test(function($test){
 //     $foo = SIG('foo');
@@ -20,6 +20,6 @@ import('unittest');
 //     signal($foo, function($foo) use ($test) {
 //         $test->equal($foo->bar, 'HelloWorld');
 //     });
-//     emit($foo);
+//     xp_emit($foo);
 //     $test->false(isset($foo->bar));
 // }, 'Interruptions');

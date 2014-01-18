@@ -1,11 +1,11 @@
-.. /delete_process.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /delete_process.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - delete_process
-*************************
+Function - xp_delete_process
+****************************
 
 
-.. function:: delete_process($signal, $process)
+.. function:: xp_delete_process($signal, $process)
 
 
     Removes an installed signal process.
@@ -16,17 +16,17 @@ Function - delete_process
     :rtype: void 
 
 
-Removing installed processes
-############################
+Delete installed process
+########################
 
 Removes the installed process from the foo signal.
 
 .. code-block::php
 
    <?php
-   $process = signal('foo', function(){});
-   
-   delete_process('foo', $process);
+   $process = xp_signal(XP_SIG('foo'), function(){});
+
+   xp_delete_process(XP_SIG('foo'), $process);
 
 
 
@@ -53,20 +53,20 @@ PHP File @ /delete_process.php
 	 *
 	 * @example
 	 *
-	 * Removing installed processes
+	 * Delete installed process
 	 *
 	 * Removes the installed process from the foo signal.
 	 *
 	 * .. code-block::php
 	 *
 	 *    <?php
-	 *    $process = signal('foo', function(){});
-	 *    
-	 *    delete_process('foo', $process);
+	 *    $process = xp_signal(XP_SIG('foo'), function(){});
+	 *
+	 *    xp_delete_process(XP_SIG('foo'), $process);
 	 */
-	function delete_process($signal, $process)
+	function xp_delete_process($signal, $process)
 	{
-	    return XPSPL::instance()->delete_process($signal, $process);   
+	    return XPSPL::instance()->delete_process($signal, $process);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

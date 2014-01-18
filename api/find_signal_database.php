@@ -6,13 +6,13 @@
  */
 
 /**
- * Finds an installed signals processes database.
+ * Returns an installed signal database or null if it cannot be found.
  *
  * @param  object  $signal  SIG
- * 
+ *
  * @return  null|object  \XPSPL\database\Signals
  */
-function find_signal_database($signal)
+function xp_find_signal_database($signal)
 {
     if (!$signal instanceof \XPSPL\SIG) {
         $signal = new \XPSPL\SIG();

@@ -10,21 +10,19 @@ use \Judy;
 
 /**
  * Database
- * 
+ *
  * A database is a storage mechanism for arbitrary data.
  *
- * @version 1.0.0
+ * .. warning::
  *
- * @note
- *
- * Judy is currently being experimented as a storage mechanism for performance 
+ * Judy is currently being experimented as a storage mechanism for performance
  * improvements.
  *
- * To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support 
+ * To disable Judy support declare XPSPL_JUDY_SUPPORT false, otherwise support
  * will be used if Judy is installed and enabled on the PHP installation.
  */
 class Database extends Storage {
-    
+
     /**
      * Constructs a new Database.
      *
@@ -52,7 +50,7 @@ class Database extends Storage {
 
     /**
      * Access the last node in the database.
-     * 
+     *
      * @return  Node at end of database
      */
     public function end(/* ... */)
@@ -74,7 +72,7 @@ class Database extends Storage {
     public function __toString(/* ... */)
     {
         return sprintf('CLASS(%s) HASH(%s) NODE_COUNT(%s)',
-            get_class($this), 
+            get_class($this),
             spl_object_hash($this),
             $this->count()
         );

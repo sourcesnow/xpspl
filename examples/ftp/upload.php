@@ -1,6 +1,6 @@
 <?php
-import('time');
-import('ftp');
+xp_import('time');
+xp_import('ftp');
 
 $connection = [
     'hostname' => '-',
@@ -19,10 +19,10 @@ $uploader = ftp\upload($files, $connection, function(){
     echo "Upload Started".PHP_EOL;
 });
 
-ftp\complete($uploader, null_exhaust(function(){
+ftp\complete($uploader, xp_null_exhaust(function(){
     echo $this->get_file()->get_name() . ' uploaded succesfully'.PHP_EOL;
 }));
 
-ftp\failure($uploader, null_exhaust(function(){
+ftp\failure($uploader, xp_null_exhaust(function(){
     echo $this->get_file()->get_name() . ' failed to upload'.PHP_EOL;
 }));

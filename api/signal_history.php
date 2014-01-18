@@ -17,32 +17,32 @@
  *        0 => Signal Object
  *        1 => Time in microseconds since Epoch at emittion
  *    ];
- *    
+ *
  * @return  array
  *
  * @example
  *
  * Counting emitted signals
  *
- * This counts the number of ``SIG('foo')`` signals that were emitted.
+ * This counts the number of ``XP_SIG('foo')`` signals that were emitted.
  *
  * .. code-block:: php
  *
  *    <?php
- *    $sig = SIG('foo');
+ *    $sig = XP_SIG('foo');
  *    // Emit a few foo objects
  *    for($i=0;$i<5;$i++){
- *        emit($sig);
+ *        xp_emit($sig);
  *    }
  *    $emitted = 0;
- *    foreach(signal_history() as $_node) {
+ *    foreach(xp_signal_history() as $_node) {
  *        if ($_node[0] instanceof $sig) {
  *            $emitted++;
  *        }
  *    }
  *    echo $emitted;
  */
-function signal_history(/* ... */)
+function xp_signal_history(/* ... */)
 {
     return XPSPL::instance()->signal_history();
 }

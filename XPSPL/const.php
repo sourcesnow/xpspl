@@ -7,6 +7,11 @@
 
 // Add this to include path
 if (!defined('XPSPL_PATH')) {
+    /**
+     * XPSPL Path
+     *
+     * Path to the library.
+     */
     define('XPSPL_PATH', dirname(realpath(__FILE__)).'/..');
 }
 
@@ -15,7 +20,7 @@ if (!defined('XPSPL_DEBUG')) {
      * XPSPL Debug mode
      *
      * When turned on XPSPL generates a log of all activity to STDOUT.
-     * 
+     *
      * When turned off XPSPL removes its processor traces from uncaught exceptions.
      */
     define('XPSPL_DEBUG', false);
@@ -24,9 +29,9 @@ if (!defined('XPSPL_DEBUG')) {
 if (!defined('XPSPL_SIGNAL_HISTORY')) {
     /**
      * Signal History
-     * 
-     * Default setting for the saving the signal history. 
-     * 
+     *
+     * Default setting for the saving the signal history.
+     *
      * By default this is ``false``.
      */
     define('XPSPL_SIGNAL_HISTORY', false);
@@ -35,8 +40,8 @@ if (!defined('XPSPL_SIGNAL_HISTORY')) {
 if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     /**
      * Remove Exhausted processes
-     * 
-     * When turned on this automatically removes installed processes from the 
+     *
+     * When turned on this automatically removes installed processes from the
      * processor once it determines they can no longer be used.
      *
      * By default this settings is ``true``.
@@ -47,7 +52,7 @@ if (!defined('XPSPL_PURGE_EXHAUSTED')) {
 if (!defined('XPSPL_MODULE_DIR')) {
     /**
      * Module Directory
-     * 
+     *
      * Directory to look for modules.
      *
      * By default it is set to the ``module`` directory in XPSPL.
@@ -69,7 +74,7 @@ if (!defined('XPSPL_PROCESS_DEFAULT_EXHAUST')) {
 if (!defined('XPSPL_PROCESS_DEFAULT_PRIORITY')) {
     /**
      * Process default priority
-     * 
+     *
      * Integer option defining the default priority of all processes.
      *
      * By default it is ``10``.
@@ -94,8 +99,8 @@ if (!defined('XPSPL_JUDY_SUPPORT')) {
 if (!defined('XPSPL_ANALYZE_TIME')) {
     /**
      * **UNUSED**
-     * 
-     * This is an unused configuration option that will later add support 
+     *
+     * This is an unused configuration option that will later add support
      * for analyzing the processor timing to auto correct signal timing.
      */
     define('XPSPL_ANALYZE_TIME', class_exists('Judy', false));
@@ -103,10 +108,10 @@ if (!defined('XPSPL_ANALYZE_TIME')) {
 
 if (!defined('XPSPL_THREADS_SUPPORT')) {
     /**
-     * Enables threads ... this is automatically enabled when pthreads is 
+     * Enables threads ... this is automatically enabled when pthreads is
      * detected.
      *
-     * When enabled all processes will be executed in their own inidividual 
+     * When enabled all processes will be executed in their own inidividual
      * thread.
      */
     if (class_exists('Thread')) {
@@ -125,25 +130,25 @@ if (!defined('XPSPL_THREADS_SUPPORT')) {
 define('XPSPL_LOG', 0);
 /**
  * Seconds second timing instruction
- * 
+ *
  * This declares operations based on time in seconds.
  */
 define('TIME_SECONDS', 4);
 /**
  * Millisecond timing instruction
- * 
+ *
  * This declares operations based on time in milliseconds.
  */
 define('TIME_MILLISECONDS', 3);
 /**
  * Microsecond timing instruction
- * 
+ *
  * This declares operations based on time in microseconds.
  */
 define('TIME_MICROSECONDS', 2);
 /**
  * Nanosecond timing instruction
- * 
+ *
  * This declares operations based on time in nanoseconds.
  */
 define('TIME_NANOSECONDS', 1);
@@ -183,5 +188,3 @@ define('SIGNAL_SELF_PARENT', 0x01);
  * Default priority for subdatabase processes
  */
 define('XPSPL_SUBDATABASE_DEFAULT_PRIORITY', 1);
-
-define('XPSPL_AVERAGE_LOOPTIME', 0);

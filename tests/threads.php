@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+// xp_import('unittest');
 
 // class Threaded_Process extends \XPSPL\Process {
 
@@ -24,7 +24,7 @@ import('unittest');
 
 // unittest\test(function($test){
 //     for ($i = 0; $i < 10; $i++) {
-//         signal(SIG('test'.$i), null_exhaust(threaded_process(new Threaded_Process())));
+//         signal(SIG('test'.$i), xp_null_exhaust(threaded_process(new Threaded_Process())));
 //     }
 //     for ($i = 0; $i < 10; $i++) {
 //         emit(SIG('test'.$i));

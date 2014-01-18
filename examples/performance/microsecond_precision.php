@@ -1,6 +1,6 @@
 <?php
 print microseconds();
-import('time');
+xp_import('time');
 $precision = 500;
 $signal = new \time\SIG_Awake($precision, TIME_MICROSECONDS);
 $precision_timing = [];

@@ -1,11 +1,11 @@
-.. /threaded_process.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /threaded_process.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - threaded_process
-***************************
+Function - xp_threaded_process
+******************************
 
 
-.. function:: threaded_process($process)
+.. function:: xp_threaded_process($process)
 
 
     Enables a process to execute within it's own thread.
@@ -26,7 +26,7 @@ Executing processes in their own thread.
 
    <?php
 
-   signal(SIG('foo'), threaded_process(function($sig){
+   xp_signal(XP_SIG('foo'), threaded_process(function($sig){
        print 'Executed in own thread';
        sleep(10);
    });
@@ -69,7 +69,7 @@ PHP File @ /threaded_process.php
 	 *
 	 *    <?php
 	 *
-	 *    signal(SIG('foo'), threaded_process(function($sig){
+	 *    xp_signal(XP_SIG('foo'), threaded_process(function($sig){
 	 *        print 'Executed in own thread';
 	 *        sleep(10);
 	 *    });
@@ -78,7 +78,7 @@ PHP File @ /threaded_process.php
 	 *
 	 * @return  void
 	 */
-	function threaded_process($process)
+	function xp_threaded_process($process)
 	{
 		if (!$process instanceof \XPSPL\Process) {
 	        $process = new \XPSPL\Process($process);
@@ -87,4 +87,4 @@ PHP File @ /threaded_process.php
 	    return $process;
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

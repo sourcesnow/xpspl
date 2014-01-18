@@ -7,10 +7,10 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
-    $foo = SIG('foo');
-    register_signal($foo);
-    $test->instanceof(find_signal_database($foo), 'XPSPL\database\Processes');
+    $foo = XP_SIG('foo');
+    xp_register_signal($foo);
+    $test->instanceof(xp_find_signal_database($foo), 'XPSPL\database\Processes');
 });

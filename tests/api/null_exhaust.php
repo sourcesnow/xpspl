@@ -7,9 +7,9 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
-    $process = null_exhaust(null);
+    $process = xp_null_exhaust(null);
     $test->equal(null, $process->exhaustion());
 });

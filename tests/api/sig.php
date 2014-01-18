@@ -7,9 +7,9 @@
 
 require_once dirname(realpath(__FILE__)).'/../__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
-    $foo = SIG('foo');
+    $foo = XP_SIG('foo');
     $test->instanceof($foo, 'XPSPL\SIG');
 });

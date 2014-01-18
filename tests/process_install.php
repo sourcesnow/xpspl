@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
     $database = new \XPSPL\database\Processes();
@@ -16,7 +16,7 @@ unittest\test(function($test){
         $database->install(new \XPSPL\Process(function(){}));
     }
     $test->instanceof(
-        $database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY), 
+        $database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY),
         'XPSPL\database\Processes'
     );
     $test->count($database->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY), $count);

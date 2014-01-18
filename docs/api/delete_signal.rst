@@ -1,11 +1,11 @@
-.. /delete_signal.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /delete_signal.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - delete_signal
-************************
+Function - xp_delete_signal
+***************************
 
 
-.. function:: delete_signal($signal, [$history = false])
+.. function:: xp_delete_signal($signal, [$history = false])
 
 
     Delete a signal from the processor.
@@ -32,15 +32,15 @@ PHP File @ /delete_signal.php
 	
 	/**
 	 * Delete a signal from the processor.
-	 * 
+	 *
 	 * @param  string|object|int  $signal  Signal to delete.
 	 * @param  boolean  $history  Erase any history of the signal.
-	 * 
+	 *
 	 * @return  boolean
 	 */
-	function delete_signal($signal, $history = false)
+	function xp_delete_signal($signal, $history = false)
 	{
 	    return XPSPL::instance()->delete_signal($signal, $history);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

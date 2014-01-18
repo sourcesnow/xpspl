@@ -6,15 +6,15 @@
  */
 
 /**
- * Emit a signal. 
- * 
- * This will execute all processes and interruptions installed to the signal. 
- * 
+ * Emits a signal.
+ *
+ * This will execute all processes and interruptions installed to the signal.
+ *
  * The executed ``SIG`` object is returned.
  *
  * .. note::
  *
- *    When emitting unique signals, e.g.. complex, routines or defined uniques 
+ *    When emitting unique signals, e.g.. complex, routines or defined uniques
  *    the unique sig object installed must be given.
  *
  * Once a signal is emitted the following execution chain takes place.
@@ -44,16 +44,16 @@
  *    }
  *    // Install a null exhaust process for the Foo signal
  *    $foo = new Foo();
- *    signal($foo, null_exhaust(function(){
+ *    signal($foo, xp_null_exhaust(function(){
  *        echo "Foo";
  *    }));
  *    // Emit foo and new Foo
- *    emit($foo);
- *    emit(new Foo());
+ *    xp_emit($foo);
+ *    xp_emit(new Foo());
  *    // Results
  *    // Foo
  */
-function emit($signal, $context = null)
+function xp_emit($signal, $context = null)
 {
     if (!$signal instanceof \XPSPL\SIG) {
         $signal = new \XPSPL\SIG($signal);

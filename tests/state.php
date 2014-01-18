@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 // tmp class for state test
 class XPSPL_TEST_State {

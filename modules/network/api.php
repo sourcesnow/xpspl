@@ -16,7 +16,7 @@ namespace network;
 function connect($address, $options = [])
 {
     $socket = new Socket($address, $options);
-    signal($socket, null_exhaust(null));
+    signal($socket, xp_null_exhaust(null));
     return $socket;
 }
 
@@ -24,7 +24,7 @@ function connect($address, $options = [])
  * Throws a runtime exception of the last socket error
  *
  * @throws  RuntimeException
- * 
+ *
  * @return  void
  */
 function throw_socket_error() {

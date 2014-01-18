@@ -1,11 +1,11 @@
-.. /register_signal.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /register_signal.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - register_signal
-**************************
+Function - xp_register_signal
+*****************************
 
 
-.. function:: register_signal($signal)
+.. function:: xp_register_signal($signal)
 
 
     Registers a signal in the processor.
@@ -31,14 +31,14 @@ PHP File @ /register_signal.php
 	
 	/**
 	 * Registers a signal in the processor.
-	 * 
+	 *
 	 * @param  string|integer|object  $signal  Signal
 	 *
 	 * @return  object  Database
 	 */
-	function register_signal($signal)
+	function xp_register_signal($signal)
 	{
 	    return XPSPL::instance()->register_signal($signal);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

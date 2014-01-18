@@ -7,12 +7,12 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
     $db = new \XPSPL\database\Processes();
     $p1 = new \XPSPL\Process(null);
-    $p2 = high_priority(new \XPSPL\Process(null));
+    $p2 = xp_high_priority(new \XPSPL\Process(null));
     $db->install($p1);
     $db->install($p2);
     $db->delete($p1);

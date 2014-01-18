@@ -1,15 +1,15 @@
-.. /dir_include.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /dir_include.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - dir_include
-**********************
+Function - xp_dir_include
+*************************
 
 
-.. function:: dir_include($dir, [$listen = false, [$path = false]])
+.. function:: xp_dir_include($dir, [$listen = false, [$path = false]])
 
 
-    Performs a inclusion of the entire directory content, including 
-    subdirectories, with the option to start a listener once the file has been 
+    Performs a inclusion of the entire directory content, including
+    subdirectories, with the option to start a listener once the file has been
     included.
 
     :param string: Directory to include.
@@ -34,8 +34,8 @@ PHP File @ /dir_include.php
 	 */
 	
 	/**
-	 * Performs a inclusion of the entire directory content, including 
-	 * subdirectories, with the option to start a listener once the file has been 
+	 * Performs a inclusion of the entire directory content, including
+	 * subdirectories, with the option to start a listener once the file has been
 	 * included.
 	 *
 	 * @param  string  $dir  Directory to include.
@@ -44,10 +44,10 @@ PHP File @ /dir_include.php
 	 *
 	 * @return  void
 	 */
-	function dir_include($dir, $listen = false, $path = null)
+	function xp_dir_include($dir, $listen = false, $path = null)
 	{
 	    /**
-	     * This is some pretty narly code but so far the fastest I have been able 
+	     * This is some pretty narly code but so far the fastest I have been able
 	     * to get this to run.
 	     */
 	    $iterator = new \RegexIterator(
@@ -65,17 +65,17 @@ PHP File @ /dir_include.php
 	                '%s\\%s',
 	                // Namespace
 	                implode('\\', array_pop(explode(
-	                    (WINDOWS) ? '\\' : '/', 
+	                    (WINDOWS) ? '\\' : '/',
 	                    str_replace([$path, '.php'], '', $i)
 	                ))),
 	                ucfirst($class)
 	            );
-	            if (class_exists($process, false) && 
+	            if (class_exists($process, false) &&
 	                is_subclass_of($process, '\XPSPL\Listener')) {
-	                listen(new $process());
+	                xp_listen(new $process());
 	            }
 	        }, $_file);
 	    }
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

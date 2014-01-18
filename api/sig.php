@@ -11,7 +11,7 @@
  * This function is only a shorthand for ``new SIG($signal)``.
  *
  * @param  string|  $signal  Signal process is attached to.
- * 
+ *
  * @return  object  \XPSPL\SIG
  *
  * @example
@@ -23,13 +23,13 @@
  * .. code-block:: php
  *
  *    <?php
- *    signal(SIG('foo'), function(){
+ *    xp_signal(XP_SIG('foo'), function(){
  *        echo "HelloWorld";
  *    });
- *    
- *    emit(SIG('foo'));
+ *
+ *    xp_emit(XP_SIG('foo'));
  */
-function SIG($signal)
+function XP_SIG($signal)
 {
     return new \XPSPL\SIG($signal);
 }

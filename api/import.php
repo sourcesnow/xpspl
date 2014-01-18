@@ -6,14 +6,14 @@
  */
 
 /**
- * Import a module.
- * 
+ * Import a module for usage.
+ *
  * @param  string  $name  Module name.
- * @param  string|null  $dir  Location of the module. 
- * 
+ * @param  string|null  $dir  Location of the module.
+ *
  * @return  void
  */
-function import($name, $dir = null) 
+function xp_import($name, $dir = null)
 {
     return \XPSPL\Library::instance()->load($name, $dir);
 }

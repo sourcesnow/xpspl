@@ -1,4 +1,4 @@
-.. /database/processes.php generated using docpx v1.0.0 on 01/13/14 04:53pm
+.. /database/processes.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
 Class - XPSPL\\database\\Processes
@@ -60,7 +60,7 @@ merge
 
     Merges two Processes database together.
     
-    The merged into database (self) takes precedence of the merged in 
+    The merged into database (self) takes precedence of the merged in
     database in FIFO.
 
     :param object: \XPSPL\database\Processes
@@ -83,7 +83,7 @@ PHP File @ /database/processes.php
 	 * that can be found in the LICENSE file.
 	 */
 	
-	import('logger');
+	xp_import('logger');
 	
 	use \InvalidArgumentException;
 	
@@ -91,21 +91,21 @@ PHP File @ /database/processes.php
 	 * Processes
 	 *
 	 * Priority database for signal processes.
-	 * 
-	 * @since v0.3.0 
-	 * 
+	 *
+	 * @since v0.3.0
+	 *
 	 * Processes no longer maintain a reference to a signal.
 	 *
 	 * @since v3.1.0
 	 *
-	 * Processes now use index based priority, extends the database and is 
+	 * Processes now use index based priority, extends the database and is
 	 * registered into the XPSPL\database namespace.
 	 *
-	 * This eliminates the need for using an array for storage and should improve 
+	 * This eliminates the need for using an array for storage and should improve
 	 * performance a bit ... but it needs measurements to prove that.
 	 *
-	 * When a process is installed and another process with identical priority 
-	 * exists the processes will be installed into a sub-database the index 
+	 * When a process is installed and another process with identical priority
+	 * exists the processes will be installed into a sub-database the index
 	 * priority is then based on FIFO.
 	 *
 	 * This allows only for a constant n+1 scale without sort.
@@ -203,7 +203,7 @@ PHP File @ /database/processes.php
 	        if ($this->count() === 0) {
 	            return false;
 	        }
-	        // I dont like doing this in PHP ... 
+	        // I dont like doing this in PHP ...
 	        // array_search needs to implement a deep search
 	        $this->reset();
 	        foreach ($this as $_key => $_node) {
@@ -232,7 +232,7 @@ PHP File @ /database/processes.php
 	    /**
 	     * Merges two Processes database together.
 	     *
-	     * The merged into database (self) takes precedence of the merged in 
+	     * The merged into database (self) takes precedence of the merged in
 	     * database in FIFO.
 	     *
 	     * @param  object  $processes  \XPSPL\database\Processes
@@ -268,4 +268,4 @@ PHP File @ /database/processes.php
 	    }
 	}
 
-Created on 01/13/14 04:53pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -12,7 +12,7 @@
  *
  * @return  void
  */
-function set_signal_history($flag)
+function xp_set_signal_history($flag)
 {
     return XPSPL::instance()->set_signal_history($flag);
 }

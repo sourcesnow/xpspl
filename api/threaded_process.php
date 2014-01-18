@@ -24,7 +24,7 @@
  *
  *    <?php
  *
- *    signal(SIG('foo'), threaded_process(function($sig){
+ *    xp_signal(XP_SIG('foo'), threaded_process(function($sig){
  *        print 'Executed in own thread';
  *        sleep(10);
  *    });
@@ -33,7 +33,7 @@
  *
  * @return  void
  */
-function threaded_process($process)
+function xp_threaded_process($process)
 {
 	if (!$process instanceof \XPSPL\Process) {
         $process = new \XPSPL\Process($process);

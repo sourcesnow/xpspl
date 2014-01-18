@@ -11,8 +11,8 @@ date_default_timezone_set('America/New_York');
  *
  * This example demonstrates how to use CRON to awake XPSPL.
  */
-import('time');
+xp_import('time');
 
-time\CRON('*/1 * * * *', null_exhaust(function(){
+time\CRON('*/1 * * * *', xp_null_exhaust(function(){
     echo "Every Minute!".PHP_EOL;
 }));

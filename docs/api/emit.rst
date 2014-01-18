@@ -1,22 +1,22 @@
-.. /emit.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /emit.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - emit
-***************
+Function - xp_emit
+******************
 
 
-.. function:: emit($signal, [$context = false])
+.. function:: xp_emit($signal, [$context = false])
 
 
-    Emit a signal. 
+    Emits a signal.
     
-    This will execute all processes and interruptions installed to the signal. 
+    This will execute all processes and interruptions installed to the signal.
     
     The executed ``SIG`` object is returned.
     
     .. note::
     
-       When emitting unique signals, e.g.. complex, routines or defined uniques 
+       When emitting unique signals, e.g.. complex, routines or defined uniques
        the unique sig object installed must be given.
     
     Once a signal is emitted the following execution chain takes place.
@@ -46,12 +46,12 @@ When a unique signal is emitted
    }
    // Install a null exhaust process for the Foo signal
    $foo = new Foo();
-   signal($foo, null_exhaust(function(){
+   signal($foo, xp_null_exhaust(function(){
        echo "Foo";
    }));
    // Emit foo and new Foo
-   emit($foo);
-   emit(new Foo());
+   xp_emit($foo);
+   xp_emit(new Foo());
    // Results
    // Foo
 
@@ -71,15 +71,15 @@ PHP File @ /emit.php
 	 */
 	
 	/**
-	 * Emit a signal. 
-	 * 
-	 * This will execute all processes and interruptions installed to the signal. 
-	 * 
+	 * Emits a signal.
+	 *
+	 * This will execute all processes and interruptions installed to the signal.
+	 *
 	 * The executed ``SIG`` object is returned.
 	 *
 	 * .. note::
 	 *
-	 *    When emitting unique signals, e.g.. complex, routines or defined uniques 
+	 *    When emitting unique signals, e.g.. complex, routines or defined uniques
 	 *    the unique sig object installed must be given.
 	 *
 	 * Once a signal is emitted the following execution chain takes place.
@@ -109,16 +109,16 @@ PHP File @ /emit.php
 	 *    }
 	 *    // Install a null exhaust process for the Foo signal
 	 *    $foo = new Foo();
-	 *    signal($foo, null_exhaust(function(){
+	 *    signal($foo, xp_null_exhaust(function(){
 	 *        echo "Foo";
 	 *    }));
 	 *    // Emit foo and new Foo
-	 *    emit($foo);
-	 *    emit(new Foo());
+	 *    xp_emit($foo);
+	 *    xp_emit(new Foo());
 	 *    // Results
 	 *    // Foo
 	 */
-	function emit($signal, $context = null)
+	function xp_emit($signal, $context = null)
 	{
 	    if (!$signal instanceof \XPSPL\SIG) {
 	        $signal = new \XPSPL\SIG($signal);
@@ -126,4 +126,4 @@ PHP File @ /emit.php
 	    return XPSPL::instance()->emit($signal, $context);
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

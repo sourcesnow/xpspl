@@ -10,7 +10,7 @@
  *
  * @return  void
  */
-function shutdown()
+function xp_shutdown()
 {
     return XPSPL::instance()->shutdown();
 }

@@ -6,13 +6,13 @@
  */
 
 /**
- * Registers a new event listener object in the processor.
- * 
+ * Registers a new object listener.
+ *
  * @param  object  $listener  The event listening object
- * 
+ *
  * @return  void
  */
-function listen($listener)
+function xp_listen($listener)
 {
     return XPSPL::instance()->listen($listener);
 }

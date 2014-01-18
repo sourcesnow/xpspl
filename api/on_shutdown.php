@@ -7,12 +7,12 @@
 
 /**
  * Call the provided function on processor shutdown.
- * 
+ *
  * @param  callable|object  $function  Function or process object
- * 
+ *
  * @return  object  \XPSPL\Process
  */
-function on_shutdown($function)
+function xp_on_shutdown($function)
 {
-    return signal(new \XPSPL\processor\SIG_Shutdown(), $function);
+    return xp_signal(new \XPSPL\processor\SIG_Shutdown(), $function);
 }

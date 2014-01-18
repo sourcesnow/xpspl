@@ -1,30 +1,30 @@
-.. /priority.php generated using Docpx v1.0.0 on 01/13/14 04:39pm
+.. /priority.php generated using docpx v1.0.0 on 01/16/14 03:57pm
 
 
-Function - priority
-*******************
+Function - xp_priority
+**********************
 
 
-.. function:: priority($priority, $process)
+.. function:: xp_priority($priority, $process)
 
 
-    Registers the given process to have the given priority.
+    Sets the priority of a process.
     
     This allows for controlling the order of processes rather than using FIFO.
     
     Priority uses an ascending order where 0 > 1.
     
-    Processes registered with a high priority will be executed before those with 
+    Processes registered with a high priority will be executed before those with
     a low or default priority.
     
-    Process priority is handy when multiple process will execute and their order 
+    Process priority is handy when multiple process will execute and their order
     is important.
     
     .. note::
     
-       This is not an interruption.
-       
-       Installed interruptions will still be executed before or after a 
+       This is different from an interrupt.
+    
+       Installed interrupts will still be executed before or after a
        prioritized process.
 
     :param integer: Priority to assign
@@ -41,20 +41,20 @@ This installs multiple process each with a seperate ascending priority.
 .. code-block:: php
 
    <?php
-   
-   signal('foo', priority(0, function(){
+
+   xp_signal(XP_SIG('foo'), priority(0, function(){
        echo 'foo';
    }));
-   
-   signal('foo', priority(3, function(){
+
+   xp_signal(XP_SIG('foo'), priority(3, function(){
        echo 'bar';
    }));
-   
-   signal('foo', priority(5, function(){
+
+   xp_signal(XP_SIG('foo'), priority(5, function(){
        echo 'hello';
    }));
-   
-   signal('foo', priority(10, function(){
+
+   xp_signal(XP_SIG('foo'), priority(10, function(){
        echo 'world';
    }));
 
@@ -77,27 +77,27 @@ PHP File @ /priority.php
 	 */
 	
 	/**
-	 * Registers the given process to have the given priority.
+	 * Sets the priority of a process.
 	 *
 	 * This allows for controlling the order of processes rather than using FIFO.
 	 *
 	 * Priority uses an ascending order where 0 > 1.
 	 *
-	 * Processes registered with a high priority will be executed before those with 
+	 * Processes registered with a high priority will be executed before those with
 	 * a low or default priority.
 	 *
-	 * Process priority is handy when multiple process will execute and their order 
+	 * Process priority is handy when multiple process will execute and their order
 	 * is important.
 	 *
 	 * .. note::
 	 *
-	 *    This is not an interruption.
-	 *    
-	 *    Installed interruptions will still be executed before or after a 
+	 *    This is different from an interrupt.
+	 *
+	 *    Installed interrupts will still be executed before or after a
 	 *    prioritized process.
 	 *
 	 * @param  integer  $priority  Priority to assign
-	 * 
+	 *
 	 * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
 	 *
 	 * @return  object  Process
@@ -109,29 +109,29 @@ PHP File @ /priority.php
 	 * This installs multiple process each with a seperate ascending priority.
 	 *
 	 * .. code-block:: php
-	 * 
+	 *
 	 *    <?php
-	 *    
-	 *    signal('foo', priority(0, function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), priority(0, function(){
 	 *        echo 'foo';
 	 *    }));
-	 *    
-	 *    signal('foo', priority(3, function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), priority(3, function(){
 	 *        echo 'bar';
 	 *    }));
-	 *    
-	 *    signal('foo', priority(5, function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), priority(5, function(){
 	 *        echo 'hello';
 	 *    }));
-	 *    
-	 *    signal('foo', priority(10, function(){
+	 *
+	 *    xp_signal(XP_SIG('foo'), priority(10, function(){
 	 *        echo 'world';
 	 *    }));
 	 *
 	 *    // results when foo is emitted
 	 *    // foobarhelloworld
 	 */
-	function priority($priority, $process)
+	function xp_priority($priority, $process)
 	{
 	    if (!$process instanceof \XPSPL\Process) {
 	        $process = new \XPSPL\Process($process);
@@ -140,4 +140,4 @@ PHP File @ /priority.php
 	    return $process;
 	}
 
-Last updated on 01/13/14 04:39pm
+Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_

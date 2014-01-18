@@ -7,7 +7,7 @@
 
 date_default_timezone_set('America/New_York');
 
-import("unittest");
+xp_import("unittest");
 
 ini_set('memory_limit', -1);
 
@@ -15,23 +15,23 @@ ini_set('memory_limit', -1);
 unittest\generate_output();
 
 // make sure we save the event history
-set_signal_history(true);
+xp_set_signal_history(true);
 
 if (defined('GENERATE_CODE_COVERAGE')) {
 
     if (!function_exists('xdebug_start_code_coverage')) {
         \unittest\Output::send(
-            'Coverage skipped xdebug not installed', 
-            \unittest\Output::ERROR, 
+            'Coverage skipped xdebug not installed',
+            \unittest\Output::ERROR,
             true
         );
     } else {
 
-    on_start(function(){
+    xp_on_start(function(){
         xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
     });
 
-    on_shutdown(function(){
+    xp_on_shutdown(function(){
         $exclude = [
             '/api.php', '/XPSPL.php'
         ];
@@ -63,8 +63,8 @@ if (defined('GENERATE_CODE_COVERAGE')) {
             $total += $_c;
         }
         \unittest\Output::send(
-            '--------------------', 
-            \unittest\Output::DEBUG, 
+            '--------------------',
+            \unittest\Output::DEBUG,
             true
         );
         \unittest\Output::send(sprintf(
@@ -72,8 +72,8 @@ if (defined('GENERATE_CODE_COVERAGE')) {
             round(($total / (count($avg) * 100)) * 100, 2)
         ), \unittest\Output::DEBUG, true);
         \unittest\Output::send(
-            '--------------------', 
-            \unittest\Output::DEBUG, 
+            '--------------------',
+            \unittest\Output::DEBUG,
             true
         );
         foreach ($avg as $_k => $_c) {
@@ -86,12 +86,12 @@ if (defined('GENERATE_CODE_COVERAGE')) {
                 $_c
             ), \unittest\Output::DEBUG, true);
             \unittest\Output::send(
-                '--------------------', 
-                \unittest\Output::DEBUG, 
+                '--------------------',
+                \unittest\Output::DEBUG,
                 true
             );
         }
     });
-    
+
     }
 }

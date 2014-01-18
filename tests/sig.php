@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\suite(function($suite){
 
@@ -49,5 +49,5 @@ unittest\suite(function($suite){
             $test->signal->a++;
         });
     }, "signal_data");
-    
+
 });

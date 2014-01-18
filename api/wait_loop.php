@@ -10,7 +10,7 @@
  *
  * @return  void
  */
-function wait_loop()
+function xp_wait_loop()
 {
     return XPSPL::instance()->wait_loop();
 }

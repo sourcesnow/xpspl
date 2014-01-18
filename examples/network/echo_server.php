@@ -11,12 +11,12 @@
  * This example demonstrates a simple echo server that spits back anything that
  * was sent and then disconnects.
  */
-import('network');
-import('time');
+xp_import('network');
+xp_import('time');
 
 $server = network\connect('0.0.0.0', ['port' => '1337']);
 
-$server->on_connect(null_exhaust(function(network\SIG_Connect $sig_connect){
+$server->on_connect(xp_null_exhaust(function(network\SIG_Connect $sig_connect){
     if (null !== $sig_connect->socket) {
         echo "Connection " . PHP_EOL;
         $sig_connect->socket->write('HelloWorld');

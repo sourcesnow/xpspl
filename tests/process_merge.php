@@ -7,7 +7,7 @@
 
 require_once '__init__.php';
 
-import('unittest');
+xp_import('unittest');
 
 unittest\test(function($test){
     $db_1 = new \XPSPL\database\Processes();
@@ -25,7 +25,7 @@ unittest\test(function($test){
     $org_db = clone $db_1;
     $db_1->merge($db_2);
     $test->equal(
-        $db_1->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY)->rewind(), 
+        $db_1->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY)->rewind(),
         $org_db->offsetGet(XPSPL_PROCESS_DEFAULT_PRIORITY)->rewind()
     );
     $test->equal(

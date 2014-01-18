@@ -7,13 +7,13 @@
 
 /**
  * Delete a signal from the processor.
- * 
+ *
  * @param  string|object|int  $signal  Signal to delete.
  * @param  boolean  $history  Erase any history of the signal.
- * 
+ *
  * @return  boolean
  */
-function delete_signal($signal, $history = false)
+function xp_delete_signal($signal, $history = false)
 {
     return XPSPL::instance()->delete_signal($signal, $history);
 }
