@@ -21,7 +21,13 @@ Install
 Composer
 ++++++++
 
+(Composer_) installation.
 
+.. _Composer: http://getcomposer.orgC
+
+.. code-block:: console
+
+	require: "prggmr/xpspl": "v4.0.1"
 
 Manual
 ++++++
