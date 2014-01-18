@@ -4,7 +4,7 @@
  * Directly runs files into the XPSPL Processor
  */
 $usage = 
-"usage: phpsignals [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
+"usage: xpspl [-c|--config=<file>] [-d] [-h|--help] [-p|--passthru] [--test]
               [--test-cover] [-t|--time=<time>] [-v|--version] [-j|--judy]
               <file>
 Options:
@@ -89,6 +89,7 @@ foreach ($options as $_i => $_arg) {
             define('GENERATE_CODE_COVERAGE', true);
             define('SHORT_VARS', false);
             define('VERBOSITY_LEVEL', 2);
+            define('XPSPL_LOG_LOCATION', '/var/log/xpspl/debug.log');
             break;
         case 'test':
         case 'test-cover':

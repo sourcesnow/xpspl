@@ -5,21 +5,6 @@ This guide covers the following topics,
 
 .. contents::
 
-Limitations
-___________
-
-I always find it is best to know what something can't do before what it can.
-
-Here is a list of unsupported features,
-
-    * Threads and forks
-    * epoll, kqueue, poll (select is supported...)
-    * Real time
-
-A suitable epoll, kqueue and poll module is planned.
-
-Contributions for these features are always appreciated.
-
 Examples
 ________
 
@@ -159,3 +144,15 @@ XPSPL understands the following.
       -t/--time     Run for the given amount of milliseconds.
       -v/--version  Displays current XPSPL version.
   
+Unsupported
+___________
+
+Here is a list of unsupported features,
+
+    * Threads and forks
+    * epoll, kqueue, poll (select is supported...)
+    * Real time
+
+A suitable epoll, kqueue and poll module is planned.
+
+Contributions for these features are always appreciated.

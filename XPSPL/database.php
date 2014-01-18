@@ -15,7 +15,7 @@ use \Judy;
  *
  * @version 1.0.0
  *
- * @experimental
+ * @note
  *
  * Judy is currently being experimented as a storage mechanism for performance 
  * improvements.

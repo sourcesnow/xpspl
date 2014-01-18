@@ -45,11 +45,16 @@ if (XPSPL_DEBUG) {
     error_reporting(E_ALL ^ E_STRICT);
     import('logger');
     $log = logger(XPSPL_LOG);
+    if (defined('XPSPL_LOG_LOCATION')) {
+        $output = XPSPL_LOG_LOCATION;
+    } else {
+        $output = STDOUT;
+    }
     $formatter = new \logger\Formatter(
         '[{date}] [{str_code}] {message}'.PHP_EOL
     );
     $log->add_handler(new \logger\Handler(
-        $formatter, STDOUT
+        $formatter, $output
     ));
 }
 

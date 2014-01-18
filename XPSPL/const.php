@@ -183,3 +183,5 @@ define('SIGNAL_SELF_PARENT', 0x01);
  * Default priority for subdatabase processes
  */
 define('XPSPL_SUBDATABASE_DEFAULT_PRIORITY', 1);
+
+define('XPSPL_AVERAGE_LOOPTIME', 0);
