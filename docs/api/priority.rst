@@ -1,11 +1,11 @@
-.. /priority.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /priority.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_priority
-**********************
+xp_priority
+***********
 
 
-.. function:: xp_priority($priority, $process)
+.. function:: xp_priority()
 
 
     Sets the priority of a process.
@@ -140,4 +140,4 @@ PHP File @ /priority.php
 	    return $process;
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

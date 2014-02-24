@@ -1,11 +1,11 @@
-.. /emit.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /emit.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_emit
-******************
+xp_emit
+*******
 
 
-.. function:: xp_emit($signal, [$context = false])
+.. function:: xp_emit()
 
 
     Emits a signal.
@@ -126,4 +126,4 @@ PHP File @ /emit.php
 	    return XPSPL::instance()->emit($signal, $context);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

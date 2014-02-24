@@ -1,8 +1,8 @@
-.. /signal_history.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /signal_history.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_signal_history
-****************************
+xp_signal_history
+*****************
 
 
 .. function:: xp_signal_history()
@@ -101,4 +101,4 @@ PHP File @ /signal_history.php
 	    return XPSPL::instance()->signal_history();
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

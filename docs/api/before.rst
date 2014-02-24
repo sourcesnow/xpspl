@@ -1,11 +1,11 @@
-.. /before.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /before.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_before
-********************
+xp_before
+*********
 
 
-.. function:: xp_before($signal, $process)
+.. function:: xp_before()
 
 
     Installs the given process execute to before the signal ``$signal`` is emitted.
@@ -99,4 +99,4 @@ PHP File @ /before.php
 	    return XPSPL::instance()->before($signal, $process);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -1,11 +1,11 @@
-.. /exhaust.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /exhaust.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_exhaust
-*********************
+xp_exhaust
+**********
 
 
-.. function:: xp_exhaust($limit, $process)
+.. function:: xp_exhaust()
 
 
     Defines the number of times a process will execute when a signal is emitted.
@@ -100,4 +100,4 @@ PHP File @ /exhaust.php
 	    return $process;
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

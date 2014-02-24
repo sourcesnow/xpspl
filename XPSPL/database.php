@@ -71,10 +71,12 @@ class Database extends Storage {
      */
     public function __toString(/* ... */)
     {
-        return sprintf('CLASS(%s) HASH(%s) NODE_COUNT(%s)',
+        return sprintf('CLASS(%s) HASH(%s) NODE_COUNT(%s)%s',
             get_class($this),
             spl_object_hash($this),
-            $this->count()
+            $this->count(),
+            (!XPSPL_JUDY_SUPPORT) ?: sprintf(' JUDY MEMORY(%S)', 
+                $this->_storage->memoryUsage())
         );
     }
 }

@@ -6,11 +6,7 @@
  */
 
 /**
- * Installs the given process to execute after the signal ``$signal`` is emitted.
- *
- * .. note::
- *
- *    Interruptions use the same prioritizing as the Processor.
+ * Register a function to execute after the given signal has been emitted.
  *
  * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
  *
@@ -18,7 +14,9 @@
  *
  * @example
  *
- * Install a interrupt process after foo.
+ * Basic Usage
+ *
+ * Basic usage example demonstrating this functions capabilities.
  *
  * .. code-block:: php
  *
@@ -34,6 +32,29 @@
  *
  *    // results when foo is emitted
  *    // fooafter foo
+ *
+ * @example
+ *
+ * Prioritizing Functions
+ *
+ * Like other functions in XPSPL they can be prioritized using the prioritizing 
+ * API functions.
+ *
+ * .. code-block:: php
+ *
+ *    <?php
+ *
+ *    xp_signal(XP_SIG('foo'), high_priority(function(){
+ *        echo 'FIRST FOO';
+ *    }));
+ *
+ *    xp_signal(XP_SIG('foo'), low_priority(function(){
+ *        echo 'LAST FOO';
+ *    }));
+ *
+ *    xp_signal(XP_SIG('foo'), function(){
+ *        echo 'STANDARD FOO';
+ *    });
  */
 function xp_after($signal, $process)
 {

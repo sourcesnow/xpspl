@@ -1,8 +1,8 @@
-.. /wait_loop.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /wait_loop.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_wait_loop
-***********************
+xp_wait_loop
+************
 
 
 .. function:: xp_wait_loop()
@@ -37,4 +37,4 @@ PHP File @ /wait_loop.php
 	    return XPSPL::instance()->wait_loop();
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

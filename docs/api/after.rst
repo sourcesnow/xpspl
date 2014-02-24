@@ -1,26 +1,24 @@
-.. /after.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /after.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_after
-*******************
+xp_after
+********
 
 
-.. function:: xp_after($signal, $process)
+.. function:: xp_after()
 
 
-    Installs the given process to execute after the signal ``$signal`` is emitted.
-    
-    .. note::
-    
-       Interruptions use the same prioritizing as the Processor.
+    Register a function to execute after the given signal has been emitted.
 
     :param callable|process: PHP Callable or \XPSPL\Process.
 
     :rtype: object Process
 
 
-Install a interrupt process after foo.
-######################################
+Basic Usage
+###########
+
+Basic usage example demonstrating this functions capabilities.
 
 .. code-block:: php
 
@@ -36,6 +34,28 @@ Install a interrupt process after foo.
 
    // results when foo is emitted
    // fooafter foo
+
+Prioritizing Functions
+######################
+
+Like other functions in XPSPL they can be prioritized using the prioritizing 
+API functions.
+
+.. code-block:: php
+
+   <?php
+
+   xp_signal(XP_SIG('foo'), high_priority(function(){
+       echo 'FIRST FOO';
+   }));
+
+   xp_signal(XP_SIG('foo'), low_priority(function(){
+       echo 'LAST FOO';
+   }));
+
+   xp_signal(XP_SIG('foo'), function(){
+       echo 'STANDARD FOO';
+   });
 
 
 
@@ -53,11 +73,7 @@ PHP File @ /after.php
 	 */
 	
 	/**
-	 * Installs the given process to execute after the signal ``$signal`` is emitted.
-	 *
-	 * .. note::
-	 *
-	 *    Interruptions use the same prioritizing as the Processor.
+	 * Register a function to execute after the given signal has been emitted.
 	 *
 	 * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
 	 *
@@ -65,7 +81,9 @@ PHP File @ /after.php
 	 *
 	 * @example
 	 *
-	 * Install a interrupt process after foo.
+	 * Basic Usage
+	 *
+	 * Basic usage example demonstrating this functions capabilities.
 	 *
 	 * .. code-block:: php
 	 *
@@ -81,6 +99,29 @@ PHP File @ /after.php
 	 *
 	 *    // results when foo is emitted
 	 *    // fooafter foo
+	 *
+	 * @example
+	 *
+	 * Prioritizing Functions
+	 *
+	 * Like other functions in XPSPL they can be prioritized using the prioritizing 
+	 * API functions.
+	 *
+	 * .. code-block:: php
+	 *
+	 *    <?php
+	 *
+	 *    xp_signal(XP_SIG('foo'), high_priority(function(){
+	 *        echo 'FIRST FOO';
+	 *    }));
+	 *
+	 *    xp_signal(XP_SIG('foo'), low_priority(function(){
+	 *        echo 'LAST FOO';
+	 *    }));
+	 *
+	 *    xp_signal(XP_SIG('foo'), function(){
+	 *        echo 'STANDARD FOO';
+	 *    });
 	 */
 	function xp_after($signal, $process)
 	{
@@ -93,4 +134,4 @@ PHP File @ /after.php
 	    return XPSPL::instance()->after($signal, $process);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

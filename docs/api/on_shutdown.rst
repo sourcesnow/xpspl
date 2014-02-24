@@ -1,11 +1,11 @@
-.. /on_shutdown.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /on_shutdown.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_on_shutdown
-*************************
+xp_on_shutdown
+**************
 
 
-.. function:: xp_on_shutdown($function)
+.. function:: xp_on_shutdown()
 
 
     Call the provided function on processor shutdown.
@@ -41,4 +41,4 @@ PHP File @ /on_shutdown.php
 	    return xp_signal(new \XPSPL\processor\SIG_Shutdown(), $function);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

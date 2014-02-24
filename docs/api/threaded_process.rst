@@ -1,11 +1,11 @@
-.. /threaded_process.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /threaded_process.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_threaded_process
-******************************
+xp_threaded_process
+*******************
 
 
-.. function:: xp_threaded_process($process)
+.. function:: xp_threaded_process()
 
 
     Enables a process to execute within it's own thread.
@@ -87,4 +87,4 @@ PHP File @ /threaded_process.php
 	    return $process;
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -1,11 +1,11 @@
-.. /find_signal_database.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /find_signal_database.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_find_signal_database
-**********************************
+xp_find_signal_database
+***********************
 
 
-.. function:: xp_find_signal_database($signal)
+.. function:: xp_find_signal_database()
 
 
     Returns an installed signal database or null if it cannot be found.
@@ -44,4 +44,4 @@ PHP File @ /find_signal_database.php
 	    return XPSPL::instance()->find_signal_database($signal);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

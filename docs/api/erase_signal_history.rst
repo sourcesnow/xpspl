@@ -1,11 +1,11 @@
-.. /erase_signal_history.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /erase_signal_history.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_erase_signal_history
-**********************************
+xp_erase_signal_history
+***********************
 
 
-.. function:: xp_erase_signal_history($signal)
+.. function:: xp_erase_signal_history()
 
 
     Erases any history of a signal.
@@ -41,4 +41,4 @@ PHP File @ /erase_signal_history.php
 	    return XPSPL::instance()->erase_signal_history($signal);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

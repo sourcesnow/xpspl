@@ -1,11 +1,11 @@
-.. /clean.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /clean.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_clean
-*******************
+xp_clean
+********
 
 
-.. function:: xp_clean([$history = false])
+.. function:: xp_clean()
 
 
     Cleans the processor removing exhausted signals and their processes from
@@ -47,4 +47,4 @@ PHP File @ /clean.php
 	    return XPSPL::instance()->clean($history);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

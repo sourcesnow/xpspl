@@ -1,11 +1,11 @@
-.. /listen.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /listen.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_listen
-********************
+xp_listen
+*********
 
 
-.. function:: xp_listen($listener)
+.. function:: xp_listen()
 
 
     Registers a new object listener.
@@ -41,4 +41,4 @@ PHP File @ /listen.php
 	    return XPSPL::instance()->listen($listener);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

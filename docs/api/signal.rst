@@ -1,11 +1,11 @@
-.. /signal.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /signal.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_signal
-********************
+xp_signal
+*********
 
 
-.. function:: xp_signal($signal, $process)
+.. function:: xp_signal()
 
 
     Installs a new process to execute when the given signal is emitted.
@@ -157,4 +157,4 @@ PHP File @ /signal.php
 	    return XPSPL::instance()->signal($signal, $process);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

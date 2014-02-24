@@ -6,7 +6,7 @@
  */
 
 /**
- * Installs the given process execute to before the signal ``$signal`` is emitted.
+ * Execute the given function before the given signal is emitted.
  *
  * .. note::
  *

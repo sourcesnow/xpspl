@@ -1,11 +1,11 @@
-.. /high_priority.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /high_priority.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_high_priority
-***************************
+xp_high_priority
+****************
 
 
-.. function:: xp_high_priority($process)
+.. function:: xp_high_priority()
 
 
     Registers the given process to have a high priority.
@@ -107,4 +107,4 @@ PHP File @ /high_priority.php
 	    return xp_priority(0, $process);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

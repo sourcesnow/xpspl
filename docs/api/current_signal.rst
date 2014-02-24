@@ -1,11 +1,11 @@
-.. /current_signal.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /current_signal.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_current_signal
-****************************
+xp_current_signal
+*****************
 
 
-.. function:: xp_current_signal([$offset = false])
+.. function:: xp_current_signal()
 
 
     Returns the current signal in execution.
@@ -120,4 +120,4 @@ PHP File @ /current_signal.php
 	    return XPSPL::instance()->current_signal($offset);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

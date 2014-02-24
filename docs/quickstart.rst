@@ -5,26 +5,6 @@ This guide covers the following topics,
 
 .. contents::
 
-Limitations
-___________
-
-I always find it is best to know what something can't do before what it can.
-
-Here is a list of unsupported features,
-
-    * Threads and forks
-    * epoll, kqueue, poll (select is supported...)
-    * Real time
-
-A suitable epoll, kqueue and poll module is planned.
-
-Contributions for these features are always appreciated.
-
-Examples
-________
-
-XPSPL Programming examples.
-
 
 Handling and Emitting a signal
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -36,12 +16,12 @@ Register a signal handler and emit a signal.
     <?php
 
     // Register signal handler
-    signal(XP_SIG('foo'), function(){
+    xp_signal(XP_SIG('foo'), function(){
         echo 'HelloWorld';
     });
 
     // Now emit the signal
-    emit(XP_SIG('foo'));
+    xp_emit(XP_SIG('foo'));
 
 
 Scheduled CRON Jobs
@@ -60,7 +40,7 @@ Perform a scheduled task using CRON syntax.
      *
      * This example demonstrates how to use CRON to awake XPSPL.
      */
-    import('time');
+    xp_import('time');
 
     time\CRON('*/1 * * * *', function(){
         echo "Every Minute!".PHP_EOL;
@@ -81,8 +61,8 @@ Establish and communicate on a network connection.
      * This example demonstrates a simple network server that says HelloWorld.
      * Waits 5 Seconds and closes the connection.
      */
-    import('network');
-    import('time');
+    xp_import('network');
+    xp_import('time');
 
     $server = network\connect('0.0.0.0', ['port' => '1337']);
 
@@ -108,32 +88,23 @@ This example demonstrates using interrupts.
     <?php
 
     // When foo is emitted insert bar into the event
-    before(XP_SIG('foo'), function($signal){
+    xp_before(XP_SIG('foo'), function($signal){
         echo "I RAN";
         $signal->bar = 'foo';
     });
 
     // Handle Foo
-    signal(XP_SIG('foo'), function($signal){
+    xp_signal(XP_SIG('foo'), function($signal){
         echo $signal->bar;
     });
 
     // After foo is emitted unset bar in the event
-    after(XP_SIG('foo'), function($signal){
+    xp_after(XP_SIG('foo'), function($signal){
         unset($signal->bar);
     });
 
-    $signal = emit(XP_SIG('foo'));
-    var_dump($signal);
-    var_dump(isset($signal->bar));
+    $signal = xp_emit(XP_SIG('foo'));
 
-API
-___
-
-XPSPL's API is designed to provide programmers with a natural speaking,
-intuitive API.
-
-API functions are globally available prefixed with `xp_`.
 
 Environment
 ___________

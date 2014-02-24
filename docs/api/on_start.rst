@@ -1,11 +1,11 @@
-.. /on_start.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /on_start.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_on_start
-**********************
+xp_on_start
+***********
 
 
-.. function:: xp_on_start($function)
+.. function:: xp_on_start()
 
 
     Call the provided function on processor start.
@@ -41,4 +41,4 @@ PHP File @ /on_start.php
 	    return xp_signal(new \XPSPL\processor\SIG_Startup(), $function);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

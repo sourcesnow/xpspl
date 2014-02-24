@@ -1,11 +1,11 @@
-.. /low_priority.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /low_priority.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_low_priority
-**************************
+xp_low_priority
+***************
 
 
-.. function:: xp_low_priority($process)
+.. function:: xp_low_priority()
 
 
     Registers the given process to have a low priority.
@@ -111,4 +111,4 @@ PHP File @ /low_priority.php
 	    return xp_priority(PHP_INT_MAX, $process);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -1,11 +1,11 @@
-.. /sig.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /sig.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - XP_SIG
-*****************
+XP_SIG
+******
 
 
-.. function:: XP_SIG($signal)
+.. function:: XP_SIG()
 
 
     Generates an XPSPL SIG object from the given ``$signal``.
@@ -29,7 +29,7 @@ This will create a SIG idenitified by 'foo'.
        echo "HelloWorld";
    });
 
-   emit(XP_SIG('foo'));
+   xp_emit(XP_SIG('foo'));
 
 
 
@@ -68,11 +68,11 @@ PHP File @ /sig.php
 	 *        echo "HelloWorld";
 	 *    });
 	 *
-	 *    emit(XP_SIG('foo'));
+	 *    xp_emit(XP_SIG('foo'));
 	 */
 	function XP_SIG($signal)
 	{
 	    return new \XPSPL\SIG($signal);
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

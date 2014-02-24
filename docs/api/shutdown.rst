@@ -1,8 +1,8 @@
-.. /shutdown.php generated using docpx v1.0.0 on 01/16/14 03:57pm
+.. /shutdown.php generated using docpx v1.0.0 on 02/22/14 06:39pm
 
 
-Function - xp_shutdown
-**********************
+xp_shutdown
+***********
 
 
 .. function:: xp_shutdown()
@@ -37,4 +37,4 @@ PHP File @ /shutdown.php
 	    return XPSPL::instance()->shutdown();
 	}
 
-Created on 01/16/14 03:57pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/22/14 06:39pm using `Docpx <http://github.com/prggmr/docpx>`_

@@ -8,23 +8,10 @@ Table of Contents
 -----------------
 
 .. toctree::
-   :maxdepth: 2
-   :glob:
-
-   *
-
-.. contents::
-
-API
----
-
-All API functions are non-namespaced, globally available.
-
-.. toctree::
    :maxdepth: 1
    :glob:
 
-   api/*
+   *
 
 Modules
 -------
@@ -32,7 +19,7 @@ Modules
 XPSPL Bundled modules.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    modules/ftp
 
@@ -89,14 +76,14 @@ Author
 XPSPL has been designed and developed by `Nickolas Whiting
 <https://plus.google.com/103257674267659844067?rel=author>`_.
 
-XPSPL Internal Source
----------------------
+.. XPSPL Internal Source
+.. ---------------------
 
-The core classes and functions of XPSPL.
+.. The core classes and functions of XPSPL.
 
-.. toctree::
-   :maxdepth: 1
-   :glob:
+.. .. toctree::
+..    :maxdepth: 1
+..    :glob:
 
-   XPSPL/*
-   XPSPL/*/*
+..    XPSPL/*
+..    XPSPL/*/*

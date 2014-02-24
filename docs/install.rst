@@ -1,29 +1,22 @@
 .. _install:
 
-Installing XPSPL
-----------------
+Install
+-------
 
 Requirements
 ============
 
 XPSPL requires  **>= PHP 5.4**.
 
-Optional
-========
-
-PHP FTP_ extension for XPSPL FTP module support.
-
-.. _FTP: http://php.net/manual/en/book.ftp.php
-
-Install
-=======
 
 Composer
 ++++++++
 
+XPSPL is available via composer.
+
 (Composer_) installation.
 
-.. _Composer: http://getcomposer.orgC
+.. _Composer: http://getcomposer.org
 
 .. code-block:: console
 
@@ -32,35 +25,40 @@ Composer
 Manual
 ++++++
 
-Manual installation is over the network with a CLI. (link_)
+.. warning::
+
+	This is the legacy installation method.
+
+	Only install XPSPL using this if you are using XPSPL < v5.0.0
+
+The manual installation is over the network with a CLI. (link_)
 
 .. _link: https://raw.github.com/prggmr/xpspl/master/install
 
 The installation requires the **CURL** and **ZIP** libraries to be installed
-on the system.
+on the system and is the legacy installation.
 
 .. code-block:: console
 
     curl -s https://raw.github.com/prggmr/xpspl/master/install | sudo sh
 
-Once installed the ``xpspl`` command becomes available.
-
-Updates
-=======
-
-Peform updates by running ``xpspl`` with option ``--update``.
-
-.. code-block:: console
-
-    xpspl --update
-
 Optional
 ========
+
+FTP Module
+++++++++++
+
+PHP FTP_ extension for XPSPL FTP module support.
+
+.. _FTP: http://php.net/manual/en/book.ftp.php
+
+Judy
+++++
 
 C Judy 1.0.4
 PECL Judy 0.1.4
 
-The Judy library demonstrates improving the database by giving storage a linear
+The Judy library demonstrates improving the database by giving sptorage a linear
 average performance of 39us per write to a tested 262144.
 
 For installation of Judy C see the README.
@@ -69,11 +67,3 @@ For installation of Judy PECL visit here_.
 
 .. _here: http://pecl.php.net/package/Judy
 
-Windows
-=======
-
-Currently a Windows installation guide does not exist.
-
-.. todo::
-
-    Add windows install guide.
