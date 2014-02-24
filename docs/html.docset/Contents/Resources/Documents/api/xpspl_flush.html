@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>XPSPL_flush — XPSPL 4.0.0 documentation</title>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'4.0.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<link href="../index.html" rel="top" title="XPSPL 4.0.0 documentation"/>
+<link href="../api.html" rel="up" title="API"/>
+<link href="../configuration.html" rel="next" title="Configuration"/>
+<link href="xpspl.html" rel="prev" title="XPSPL"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> XPSPL</a>
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix">
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="after.html">xp_after</a></li>
+<li class="toctree-l2"><a class="reference internal" href="before.html">xp_before</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html">xp_clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="current_signal.html">xp_current_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delete_process.html">xp_delete_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delete_signal.html">xp_delete_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dir_include.html">xp_dir_include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emit.html">xp_emit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erase_history.html">xp_erase_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erase_signal_history.html">xp_erase_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exhaust.html">xp_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="find_signal_database.html">xp_find_signal_database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="high_priority.html">xp_high_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import.html">xp_import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listen.html">xp_listen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="low_priority.html">xp_low_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="null_exhaust.html">xp_null_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="on_shutdown.html">xp_on_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="on_start.html">xp_on_start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="priority.html">xp_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html">xp_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="register_signal.html">xp_register_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="set_signal_history.html">xp_set_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shutdown.html">xp_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sig.html">XP_SIG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal.html">xp_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_history.html">xp_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threaded_process.html">xp_threaded_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wait_loop.html">xp_wait_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xpspl.html">XPSPL</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">XPSPL_flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#constants">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#optional">Optional</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#handling-and-emitting-a-signal">Handling and Emitting a signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#scheduled-cron-jobs">Scheduled CRON Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#network-connection">Network Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#interrupts">Interrupts</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/ftp.html">FTP Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#api">API</a></li>
+</ul>
+</li>
+</ul>
+</div>
+       
+    </nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav class="wy-nav-top">
+<i class="icon icon-reorder" data-toggle="wy-nav-top"></i>
+<a href="../index.html">XPSPL</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="">XPSPL_flush</a></li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/api/xpspl_flush.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+<div class="section" id="xpspl-flush">
+<h1>XPSPL_flush<a class="headerlink" href="#xpspl-flush" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="XPSPL_flush"><a name="//apple_ref/cpp/func/XPSPL_flush"></a>
+<tt class="descname">XPSPL_flush</tt><big>(</big><big>)</big><a class="headerlink" href="#XPSPL_flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Empties the storage, history and clears the current state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">void</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<div class="section" id="id1">
+<h2>xpspl_flush<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>PHP File @ /xpspl_flush.php</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * Copyright 2010-12 Nickolas Whiting. All rights reserved.</span>
+<span class="sd"> * Use of this source code is governed by the Apache 2 license</span>
+<span class="sd"> * that can be found in the LICENSE file.</span>
+<span class="sd"> */</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Empties the storage, history and clears the current state.</span>
+<span class="sd"> *</span>
+<span class="sd"> * @return void</span>
+<span class="sd"> */</span>
+<span class="k">function</span> <span class="nf">XPSPL_flush</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nx">XPSPL</span><span class="o">::</span><span class="na">instance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Created on 02/24/14 04:00pm using <a class="reference external" href="http://github.com/prggmr/docpx">Docpx</a></p>
+</div>
+</div>
+<footer>
+<div class="rst-footer-buttons">
+<a class="btn btn-neutral float-right" href="../configuration.html" title="Configuration"></a>Next <span class="icon icon-circle-arrow-right"></span>
+<a class="btn btn-neutral" href="xpspl.html" title="XPSPL"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+</div>
+<hr/>
+<p>
+      © Copyright 2012, Nickolas Whiting.
+  </p>
+<a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+</div>
+</div>
+</section>
+</div>
+</body>
+</html>

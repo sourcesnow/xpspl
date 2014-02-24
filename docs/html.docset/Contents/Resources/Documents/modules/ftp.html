@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FTP Module &mdash; XPSPL 4.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'4.0.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="XPSPL 4.0.0 documentation" href="../index.html"/>
+        <link rel="prev" title="Quickstart" href="../quickstart.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> XPSPL</a>
+        <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/after.html">xp_after</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/before.html">xp_before</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/clean.html">xp_clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/current_signal.html">xp_current_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/delete_process.html">xp_delete_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/delete_signal.html">xp_delete_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/dir_include.html">xp_dir_include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/emit.html">xp_emit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/erase_history.html">xp_erase_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/erase_signal_history.html">xp_erase_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/exhaust.html">xp_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/find_signal_database.html">xp_find_signal_database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/high_priority.html">xp_high_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/import.html">xp_import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/listen.html">xp_listen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/low_priority.html">xp_low_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/null_exhaust.html">xp_null_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/on_shutdown.html">xp_on_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/on_start.html">xp_on_start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/priority.html">xp_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/process.html">xp_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/register_signal.html">xp_register_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/set_signal_history.html">xp_set_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/shutdown.html">xp_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/sig.html">XP_SIG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/signal.html">xp_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/signal_history.html">xp_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/threaded_process.html">xp_threaded_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/wait_loop.html">xp_wait_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/xpspl.html">XPSPL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/xpspl_flush.html">XPSPL_flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#constants">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#optional">Optional</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#handling-and-emitting-a-signal">Handling and Emitting a signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#scheduled-cron-jobs">Scheduled CRON Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#network-connection">Network Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#interrupts">Interrupts</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">FTP Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="../index.html">XPSPL</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="../index.html">Docs</a> &raquo;</li>
+  <li><a href="">FTP Module</a></li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="../_sources/modules/ftp.txt" rel="nofollow"> View page source</a>
+      
+    </li>
+</ul>
+<hr/>
+
+          
+  <div class="section" id="ftp-module">
+<h1>FTP Module<a class="headerlink" href="#ftp-module" title="Permalink to this headline">¶</a></h1>
+<p>The FTP Module provides Non-Blocking FTP transfers for XPSPL.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently only uploading files to a remote server is supported.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The FTP Module is bundled with XPSPL as of version 3.0.0.</p>
+<div class="section" id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="php">
+<h4>PHP<a class="headerlink" href="#php" title="Permalink to this headline">¶</a></h4>
+<p>PHP <a class="reference external" href="http://php.net/manual/en/book.ftp.php">FTP</a> extension must be installed and enabled.</p>
+</div>
+<div class="section" id="xpspl">
+<h4>XPSPL<a class="headerlink" href="#xpspl" title="Permalink to this headline">¶</a></h4>
+<p>XPSPL <strong>&gt;= 3.0</strong></p>
+</div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>The FTP Module has no runtime configuration options available.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="importing">
+<h3>Importing<a class="headerlink" href="#importing" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="nx">xp_import</span><span class="p">(</span><span class="s1">&#39;ftp&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uploading-files">
+<h3>Uploading Files<a class="headerlink" href="#uploading-files" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="nx">xp_import</span><span class="p">(</span><span class="s1">&#39;ftp&#39;</span><span class="p">);</span>
+
+<span class="nv">$files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/tmp/myfile_1.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;/tmp/myfile_2.txt&#39;</span><span class="p">];</span>
+<span class="nv">$server</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ftp.myhost.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">];</span>
+
+<span class="nv">$upload</span> <span class="o">=</span> <span class="nx">ftp\upload</span><span class="p">(</span><span class="nv">$files</span><span class="p">,</span> <span class="nv">$server</span><span class="p">);</span>
+
+<span class="nx">ftp\complete</span><span class="p">(</span><span class="nv">$upload</span><span class="p">,</span> <span class="nx">xp_null_exhaust</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nx">\ftp\SIG_Complete</span> <span class="nv">$sig</span><span class="p">){</span>
+    <span class="nv">$file</span> <span class="o">=</span> <span class="nv">$sig</span><span class="o">-&gt;</span><span class="na">get_file</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%s has uploaded&#39;</span><span class="o">.</span><span class="nx">PHP_EOL</span><span class="p">,</span>
+        <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">get_name</span><span class="p">()</span>
+    <span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="nx">ftp\failure</span><span class="p">(</span><span class="nv">$upload</span><span class="p">,</span> <span class="nx">xp_null_exhaust</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nx">\ftp\SIG_Failure</span> <span class="nv">$sig</span><span class="p">){</span>
+    <span class="nv">$file</span> <span class="o">=</span> <span class="nv">$sig</span><span class="o">-&gt;</span><span class="na">get_file</span><span class="p">();</span>
+    <span class="k">echo</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%s has failed to upload&#39;</span><span class="o">.</span><span class="nx">PHP_EOL</span><span class="p">,</span>
+        <span class="nv">$file</span><span class="o">-&gt;</span><span class="na">get_name</span><span class="p">()</span>
+    <span class="p">);</span>
+<span class="p">}));</span>
+
+<span class="nx">ftp\finished</span><span class="p">(</span><span class="nv">$upload</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nx">\ftp\SIG_Finished</span> <span class="nv">$sig</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="s1">&#39;FTP Transfer complete&#39;</span><span class="p">;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<p>All functions and classes are under the <tt class="docutils literal"><span class="pre">ftp</span></tt> namespace.</p>
+<dl class="function">
+<dt>
+<tt class="descname">ftp\upload(array $files, array $connection, [callable $callback = null])</tt></dt>
+<dd><p>Performs a non-blocking FTP upload of the given file(s).</p>
+<p>When multiple files are given they will be uploaded simultaneously using
+separate connections to the given <tt class="docutils literal"><span class="pre">$connection</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">$callback</span></tt> will be called once the files begin uploading.</p>
+<p>It is expected that the absolute path to the file will be given, failure to
+do so will cause unexpected behavior.</p>
+<p>The connection array accepts,</p>
+<ul class="simple">
+<li><strong>hostname</strong> - Hostname of the server to upload.</li>
+<li><strong>username</strong> - Username to use when connecting.</li>
+<li><strong>password</strong> - Password to use when connecting.</li>
+<li><strong>port</strong> - Port number to connect on. <em>Default=21</em></li>
+<li><strong>timeout</strong> - Connection timeout in seconds. <em>Default=90</em></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>$files</strong> (<em>array</em>) &#8211; Files to upload</li>
+<li><strong>$connection</strong> (<em>array</em>) &#8211; FTP Connection options</li>
+<li><strong>$callback</strong> (<em>callable</em>) &#8211; Function to call when upload begins</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return object:</th><td class="field-body"><p class="first last">SIG_Upload</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+      
+        <a href="../quickstart.html" class="btn btn-neutral" title="Quickstart"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2012, Nickolas Whiting.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

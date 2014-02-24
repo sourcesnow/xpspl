@@ -6,8 +6,9 @@
  */
 
 /**
- * Register a function to execute after the given signal has been emitted.
+ * Execute a function after a signal has been emitted.
  *
+ * @param  object  $signal  \XPSPL\SIG
  * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
  *
  * @return  object  Process
@@ -16,7 +17,7 @@
  *
  * Basic Usage
  *
- * Basic usage example demonstrating this functions capabilities.
+ * Basic usage example.
  *
  * .. code-block:: php
  *
@@ -32,29 +33,6 @@
  *
  *    // results when foo is emitted
  *    // fooafter foo
- *
- * @example
- *
- * Prioritizing Functions
- *
- * Like other functions in XPSPL they can be prioritized using the prioritizing 
- * API functions.
- *
- * .. code-block:: php
- *
- *    <?php
- *
- *    xp_signal(XP_SIG('foo'), high_priority(function(){
- *        echo 'FIRST FOO';
- *    }));
- *
- *    xp_signal(XP_SIG('foo'), low_priority(function(){
- *        echo 'LAST FOO';
- *    }));
- *
- *    xp_signal(XP_SIG('foo'), function(){
- *        echo 'STANDARD FOO';
- *    });
  */
 function xp_after($signal, $process)
 {

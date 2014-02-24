@@ -6,18 +6,19 @@
  */
 
 /**
- * Returns the current signal in execution.
+ * Retrieve the current signal in execution.
  *
- * A negative offset can be provided to walk backwards through a signal stack
- * during child execution.
+ * @param  integer  $offset  If a positive offset is given it will return from
+ *                           the top of the signal stack, if negative it will
+ *                           return from the bottom (current) of the stack.
  *
- * @param  integer  $offset  In memory hierarchy offset +/-.
- *
- * @return  object
+ * @return  object  \\XPSPL\\SIG
  *
  * @example
  *
- * Get the current signal.
+ * Basic Usage
+ *
+ * Basic usage example.
  *
  * .. code-block:: php
  *
@@ -32,10 +33,9 @@
  *
  * @example
  *
- * Parent signals
+ * Retrieve parent signal.
  *
- * Providing a negative offset allows for fetching the parent signal for the
- * currently executing signal.
+ * The parent signal can be fetched by using an offset of ```-2```.
  *
  * .. code-block:: php
  *
@@ -46,7 +46,7 @@
  *     });
  *
  *     xp_signal(XP_SIG('foo'), function(){
- *         $a = xp_current_signal(-1);
+ *         $a = xp_current_signal(-2);
  *         echo $a->get_index();
  *     });
  *

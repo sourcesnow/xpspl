@@ -6,12 +6,9 @@
  */
 
 /**
- * Cleans the processor removing exhausted signals and their processes from
- * the processor.
+ * Removes unexecutable signals and processes from XPSPL.
  *
- * Optionally the history of cleanable signals can be erased from the history.
- *
- * @param  boolean  $history  Erase any history of the signals cleaned.
+ * @param  boolean  $history  Erase any history removed signals.
  *
  * @return  void
  */

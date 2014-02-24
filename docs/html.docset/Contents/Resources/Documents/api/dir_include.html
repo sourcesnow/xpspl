@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>xp_dir_include — XPSPL 4.0.0 documentation</title>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'../',
+        VERSION:'4.0.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+<script src="../_static/jquery.js" type="text/javascript"></script>
+<script src="../_static/underscore.js" type="text/javascript"></script>
+<script src="../_static/doctools.js" type="text/javascript"></script>
+<link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<script src="_static/js/theme.js" type="text/javascript"></script>
+<link href="../index.html" rel="top" title="XPSPL 4.0.0 documentation"/>
+<link href="../api.html" rel="up" title="API"/>
+<link href="emit.html" rel="next" title="xp_emit"/>
+<link href="delete_signal.html" rel="prev" title="xp_delete_signal"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+</head>
+<body class="wy-body-for-nav">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side" data-toggle="wy-nav-shift">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../index.html"> XPSPL</a>
+<form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input name="q" placeholder="Search docs" type="text"/>
+<input name="check_keywords" type="hidden" value="yes"/>
+<input name="area" type="hidden" value="default"/>
+</form>
+</div>
+<div class="wy-menu wy-menu-vertical" data-spy="affix">
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="after.html">xp_after</a></li>
+<li class="toctree-l2"><a class="reference internal" href="before.html">xp_before</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clean.html">xp_clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="current_signal.html">xp_current_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delete_process.html">xp_delete_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="delete_signal.html">xp_delete_signal</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">xp_dir_include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emit.html">xp_emit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erase_history.html">xp_erase_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="erase_signal_history.html">xp_erase_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exhaust.html">xp_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="find_signal_database.html">xp_find_signal_database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="high_priority.html">xp_high_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="import.html">xp_import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="listen.html">xp_listen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="low_priority.html">xp_low_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="null_exhaust.html">xp_null_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="on_shutdown.html">xp_on_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="on_start.html">xp_on_start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="priority.html">xp_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html">xp_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="register_signal.html">xp_register_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="set_signal_history.html">xp_set_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shutdown.html">xp_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sig.html">XP_SIG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal.html">xp_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signal_history.html">xp_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threaded_process.html">xp_threaded_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wait_loop.html">xp_wait_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xpspl.html">XPSPL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xpspl_flush.html">XPSPL_flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#constants">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#optional">Optional</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#handling-and-emitting-a-signal">Handling and Emitting a signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#scheduled-cron-jobs">Scheduled CRON Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#network-connection">Network Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#interrupts">Interrupts</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/ftp.html">FTP Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ftp.html#api">API</a></li>
+</ul>
+</li>
+</ul>
+</div>
+       
+    </nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav class="wy-nav-top">
+<i class="icon icon-reorder" data-toggle="wy-nav-top"></i>
+<a href="../index.html">XPSPL</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content">
+<ul class="wy-breadcrumbs">
+<li><a href="../index.html">Docs</a> »</li>
+<li><a href="">xp_dir_include</a></li>
+<li class="wy-breadcrumbs-aside">
+<a href="../_sources/api/dir_include.txt" rel="nofollow"> View page source</a>
+</li>
+</ul>
+<hr/>
+<div class="section" id="xp-dir-include">
+<h1>xp_dir_include<a class="headerlink" href="#xp-dir-include" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="xp_dir_include"><a name="//apple_ref/cpp/func/xp_dir_include"></a>
+<tt class="descname">xp_dir_include</tt><big>(</big><em>$dir</em><span class="optional">[</span>, <em>$listen = false</em><span class="optional">[</span>, <em>$path = false</em><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#xp_dir_include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a inclusion of the entire directory content, including
+subdirectories, with the option to start a listener once the file has been
+included.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name"></col>
+<col class="field-body"></col>
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> – Directory to include.</li>
+<li><strong>boolean</strong> – Start listeners.</li>
+<li><strong>string</strong> – Path to ignore when starting listeners.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">void</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+<div class="section" id="dir-include">
+<h2>dir_include<a class="headerlink" href="#dir-include" title="Permalink to this headline">¶</a></h2>
+<p>PHP File @ /dir_include.php</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * Copyright 2010-12 Nickolas Whiting. All rights reserved.</span>
+<span class="sd"> * Use of this source code is governed by the Apache 2 license</span>
+<span class="sd"> * that can be found in the LICENSE file.</span>
+<span class="sd"> */</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Performs a inclusion of the entire directory content, including</span>
+<span class="sd"> * subdirectories, with the option to start a listener once the file has been</span>
+<span class="sd"> * included.</span>
+<span class="sd"> *</span>
+<span class="sd"> * @param  string  $dir  Directory to include.</span>
+<span class="sd"> * @param  boolean  $listen  Start listeners.</span>
+<span class="sd"> * @param  string  $path  Path to ignore when starting listeners.</span>
+<span class="sd"> *</span>
+<span class="sd"> * @return  void</span>
+<span class="sd"> */</span>
+<span class="k">function</span> <span class="nf">xp_dir_include</span><span class="p">(</span><span class="nv">$dir</span><span class="p">,</span> <span class="nv">$listen</span> <span class="o">=</span> <span class="k">false</span><span class="p">,</span> <span class="nv">$path</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="sd">/**</span>
+<span class="sd">     * This is some pretty narly code but so far the fastest I have been able</span>
+<span class="sd">     * to get this to run.</span>
+<span class="sd">     */</span>
+    <span class="nv">$iterator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\RegexIterator</span><span class="p">(</span>
+        <span class="k">new</span> <span class="nx">\RecursiveIteratorIterator</span><span class="p">(</span>
+            <span class="k">new</span> <span class="nx">\RecursiveDirectoryIterator</span><span class="p">(</span><span class="nv">$dir</span><span class="p">)</span>
+        <span class="p">),</span> <span class="s1">'/^.+\.php$/i'</span><span class="p">,</span> <span class="nx">\RecursiveRegexIterator</span><span class="o">::</span><span class="na">GET_MATCH</span>
+    <span class="p">);</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$iterator</span> <span class="k">as</span> <span class="nv">$_file</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">array_map</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$i</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$path</span><span class="p">,</span> <span class="nv">$listen</span><span class="p">){</span>
+            <span class="k">include</span> <span class="nv">$i</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$listen</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nv">$process</span> <span class="o">=</span> <span class="nb">sprintf</span><span class="p">(</span>
+                <span class="s1">'%s\\%s'</span><span class="p">,</span>
+                <span class="c1">// Namespace</span>
+                <span class="nb">implode</span><span class="p">(</span><span class="s1">'\\'</span><span class="p">,</span> <span class="nb">array_pop</span><span class="p">(</span><span class="nb">explode</span><span class="p">(</span>
+                    <span class="p">(</span><span class="nx">WINDOWS</span><span class="p">)</span> <span class="o">?</span> <span class="s1">'\\'</span> <span class="o">:</span> <span class="s1">'/'</span><span class="p">,</span>
+                    <span class="nb">str_replace</span><span class="p">([</span><span class="nv">$path</span><span class="p">,</span> <span class="s1">'.php'</span><span class="p">],</span> <span class="s1">''</span><span class="p">,</span> <span class="nv">$i</span><span class="p">)</span>
+                <span class="p">))),</span>
+                <span class="nx">ucfirst</span><span class="p">(</span><span class="nv">$class</span><span class="p">)</span>
+            <span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">class_exists</span><span class="p">(</span><span class="nv">$process</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                <span class="nb">is_subclass_of</span><span class="p">(</span><span class="nv">$process</span><span class="p">,</span> <span class="s1">'\XPSPL\Listener'</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">xp_listen</span><span class="p">(</span><span class="k">new</span> <span class="nv">$process</span><span class="p">());</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="nv">$_file</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Created on 02/24/14 04:00pm using <a class="reference external" href="http://github.com/prggmr/docpx">Docpx</a></p>
+</div>
+</div>
+<footer>
+<div class="rst-footer-buttons">
+<a class="btn btn-neutral float-right" href="emit.html" title="xp_emit"></a>Next <span class="icon icon-circle-arrow-right"></span>
+<a class="btn btn-neutral" href="delete_signal.html" title="xp_delete_signal"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+</div>
+<hr/>
+<p>
+      © Copyright 2012, Nickolas Whiting.
+  </p>
+<a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+</div>
+</div>
+</section>
+</div>
+</body>
+</html>

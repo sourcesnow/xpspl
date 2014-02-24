@@ -6,7 +6,7 @@
  */
 
 /**
- * Registers the given process to have a low priority.
+ * Sets a function to have a low priority
  *
  * Processes registered with a low priority will be executed after those with
  * a high and default priority.

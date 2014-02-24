@@ -6,62 +6,44 @@
  */
 
 /**
- * Installs a new process to execute when the given signal is emitted.
+ * Register a process function to execute when a signal is emitted.
  *
  * .. note::
  *
- *    All processes unless otherwise specified have a default exhaust of ``XPSPL_EXHAUST_DEFAULT``.
+ *    All functions unless otherwise specified have a default exhaust of 1
+ *    meaning they will execute only one time.
  *
  * .. note::
  *
- *    Processes installed to the same signal execute in FIFO order without priority.
+ *    Functions installed to the same signal execute in FIFO order
+ *    when no priority is defined.
  *
  * @param  object  $signal  Signal to install process on.
  * @param  object  $callable  PHP Callable
  *
  * @return  object | boolean - \XPSPL\Process otherwise boolean on error
  *
- * Beginning in XPSPL v4.0.0 all signals were converted to strictly objects.
- *
- * To use a string or integer as a signal it must be wrapped in a ``SIG``.
- *
  * .. note::
  *
- *    Any signals wrapped in SIG cannot be unique.
+ *    Beginning in XPSPL v4.0.0 all signals were converted to strictly objects.
+ *
+ *    To use a string or integer as a signal it must be wrapped in a ``XP_SIG``.
+ *
+ * .. warning::
+ *
+ *    Any signal created using ```XP_SIG``` CANNOT be unique.
  *
  * @example
  *
- * Install a new process.
+ * Basic Usage
  *
- * This demonstrates installing a new process to execute on ``XP_SIG(foo)``.
+ * Basic Usage example.
  *
  * .. code-block:: php
  *
  *     <?php
+ *     // install a process fuction for foo
  *     xp_signal(XP_SIG('foo'), function(){
- *         echo "foo was emitted";
- *     });
- *
- *     xp_emit('foo');
- *
- * **Results**
- *
- * .. code-block:: text
- *
- *     foo was emitted
- *
- * @example
- *
- * String or Integer signals
- *
- * When using strings or integers as a signal the string or integer must be
- * wrapped in the ``SIG`` function.
- *
- * .. code-block:: php
- *
- *     <?php
- *     // install a process for foo
- *     xp_signal('foo', function(){
  *         echo 'foo';
  *     });
  *     // emit foo

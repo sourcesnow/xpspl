@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart &mdash; XPSPL 4.0.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'./',
+        VERSION:'4.0.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+    <link rel="top" title="XPSPL 4.0.0 documentation" href="index.html"/>
+        <link rel="next" title="FTP Module" href="modules/ftp.html"/>
+        <link rel="prev" title="Install" href="install.html"/> 
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> XPSPL</a>
+        <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search docs" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/after.html">xp_after</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/before.html">xp_before</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/clean.html">xp_clean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/current_signal.html">xp_current_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/delete_process.html">xp_delete_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/delete_signal.html">xp_delete_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/dir_include.html">xp_dir_include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/emit.html">xp_emit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/erase_history.html">xp_erase_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/erase_signal_history.html">xp_erase_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/exhaust.html">xp_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/find_signal_database.html">xp_find_signal_database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/high_priority.html">xp_high_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/import.html">xp_import</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/listen.html">xp_listen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/low_priority.html">xp_low_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/null_exhaust.html">xp_null_exhaust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/on_shutdown.html">xp_on_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/on_start.html">xp_on_start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/priority.html">xp_priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/process.html">xp_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/register_signal.html">xp_register_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/set_signal_history.html">xp_set_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/shutdown.html">xp_shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/sig.html">XP_SIG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/signal.html">xp_signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/signal_history.html">xp_signal_history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/threaded_process.html">xp_threaded_process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/wait_loop.html">xp_wait_loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/xpspl.html">XPSPL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/xpspl_flush.html">XPSPL_flush</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#constants">Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#optional">Optional</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#handling-and-emitting-a-signal">Handling and Emitting a signal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scheduled-cron-jobs">Scheduled CRON Jobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network-connection">Network Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interrupts">Interrupts</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/ftp.html">FTP Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/ftp.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ftp.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ftp.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ftp.html#api">API</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="index.html">XPSPL</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <ul class="wy-breadcrumbs">
+  <li><a href="index.html">Docs</a> &raquo;</li>
+  <li><a href="">Quickstart</a></li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="_sources/quickstart.txt" rel="nofollow"> View page source</a>
+      
+    </li>
+</ul>
+<hr/>
+
+          
+  <div class="section" id="quickstart">
+<h1><a class="toc-backref" href="#id1">Quickstart</a><a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>This guide covers the following topics,</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#quickstart" id="id1">Quickstart</a><ul>
+<li><a class="reference internal" href="#handling-and-emitting-a-signal" id="id2">Handling and Emitting a signal</a></li>
+<li><a class="reference internal" href="#scheduled-cron-jobs" id="id3">Scheduled CRON Jobs</a></li>
+<li><a class="reference internal" href="#network-connection" id="id4">Network Connection</a></li>
+<li><a class="reference internal" href="#interrupts" id="id5">Interrupts</a><ul>
+<li><a class="reference internal" href="#environment" id="id6">Environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="handling-and-emitting-a-signal">
+<h2><a class="toc-backref" href="#id2">Handling and Emitting a signal</a><a class="headerlink" href="#handling-and-emitting-a-signal" title="Permalink to this headline">¶</a></h2>
+<p>Register a signal handler and emit a signal.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="c1">// Register signal handler</span>
+<span class="nx">xp_signal</span><span class="p">(</span><span class="nx">XP_SIG</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">),</span> <span class="k">function</span><span class="p">(){</span>
+    <span class="k">echo</span> <span class="s1">&#39;HelloWorld&#39;</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// Now emit the signal</span>
+<span class="nx">xp_emit</span><span class="p">(</span><span class="nx">XP_SIG</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scheduled-cron-jobs">
+<h2><a class="toc-backref" href="#id3">Scheduled CRON Jobs</a><a class="headerlink" href="#scheduled-cron-jobs" title="Permalink to this headline">¶</a></h2>
+<p>Perform a scheduled task using CRON syntax.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="nb">date_default_timezone_set</span><span class="p">(</span><span class="s1">&#39;America/New_York&#39;</span><span class="p">);</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * CRON</span>
+<span class="sd"> *</span>
+<span class="sd"> * This example demonstrates how to use CRON to awake XPSPL.</span>
+<span class="sd"> */</span>
+<span class="nx">xp_import</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">);</span>
+
+<span class="nx">time\CRON</span><span class="p">(</span><span class="s1">&#39;*/1 * * * *&#39;</span><span class="p">,</span> <span class="k">function</span><span class="p">(){</span>
+    <span class="k">echo</span> <span class="s2">&quot;Every Minute!&quot;</span><span class="o">.</span><span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="network-connection">
+<h2><a class="toc-backref" href="#id4">Network Connection</a><a class="headerlink" href="#network-connection" title="Permalink to this headline">¶</a></h2>
+<p>Establish and communicate on a network connection.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="sd">/**</span>
+<span class="sd"> * Network Server</span>
+<span class="sd"> *</span>
+<span class="sd"> * This example demonstrates a simple network server that says HelloWorld.</span>
+<span class="sd"> * Waits 5 Seconds and closes the connection.</span>
+<span class="sd"> */</span>
+<span class="nx">xp_import</span><span class="p">(</span><span class="s1">&#39;network&#39;</span><span class="p">);</span>
+<span class="nx">xp_import</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">);</span>
+
+<span class="nv">$server</span> <span class="o">=</span> <span class="nx">network\connect</span><span class="p">(</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1337&#39;</span><span class="p">]);</span>
+
+<span class="nv">$server</span><span class="o">-&gt;</span><span class="na">on_connect</span><span class="p">(</span><span class="nx">xp_null_exhaust</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nx">network\SIG_Connect</span> <span class="nv">$sig_connect</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$sig_connect</span><span class="o">-&gt;</span><span class="na">socket</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">&quot;Connection &quot;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+        <span class="nv">$sig_connect</span><span class="o">-&gt;</span><span class="na">socket</span><span class="o">-&gt;</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;HelloWorld&#39;</span><span class="p">);</span>
+        <span class="nv">$sig_connect</span><span class="o">-&gt;</span><span class="na">socket</span><span class="o">-&gt;</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Closing connection in 5 seconds&#39;</span><span class="p">);</span>
+        <span class="nx">time\awake</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$sig_connect</span><span class="p">){</span>
+            <span class="nv">$sig_connect</span><span class="o">-&gt;</span><span class="na">socket</span><span class="o">-&gt;</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Goodbye&#39;</span><span class="p">);</span>
+            <span class="nv">$sig_connect</span><span class="o">-&gt;</span><span class="na">socket</span><span class="o">-&gt;</span><span class="na">disconnect</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="interrupts">
+<h2><a class="toc-backref" href="#id5">Interrupts</a><a class="headerlink" href="#interrupts" title="Permalink to this headline">¶</a></h2>
+<p>This example demonstrates using interrupts.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="c1">// When foo is emitted insert bar into the event</span>
+<span class="nx">xp_before</span><span class="p">(</span><span class="nx">XP_SIG</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">),</span> <span class="k">function</span><span class="p">(</span><span class="nv">$signal</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="s2">&quot;I RAN&quot;</span><span class="p">;</span>
+    <span class="nv">$signal</span><span class="o">-&gt;</span><span class="na">bar</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// Handle Foo</span>
+<span class="nx">xp_signal</span><span class="p">(</span><span class="nx">XP_SIG</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">),</span> <span class="k">function</span><span class="p">(</span><span class="nv">$signal</span><span class="p">){</span>
+    <span class="k">echo</span> <span class="nv">$signal</span><span class="o">-&gt;</span><span class="na">bar</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// After foo is emitted unset bar in the event</span>
+<span class="nx">xp_after</span><span class="p">(</span><span class="nx">XP_SIG</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">),</span> <span class="k">function</span><span class="p">(</span><span class="nv">$signal</span><span class="p">){</span>
+    <span class="nb">unset</span><span class="p">(</span><span class="nv">$signal</span><span class="o">-&gt;</span><span class="na">bar</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nv">$signal</span> <span class="o">=</span> <span class="nx">xp_emit</span><span class="p">(</span><span class="nx">XP_SIG</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<div class="section" id="environment">
+<h3><a class="toc-backref" href="#id6">Environment</a><a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h3>
+<p>XPSPL ships with the <tt class="docutils literal"><span class="pre">xpspl</span></tt> command for loading its environment.</p>
+<p>XPSPL understands the following.</p>
+<div class="highlight-text"><div class="highlight"><pre>usage: xpspl [-c|--config=&lt;file&gt;] [-d] [-h|--help] [-p|--passthru] [--test]
+              [--test-cover] [-t|--time=&lt;time&gt;] [-v|--version] [-j|--judy]
+              &lt;file&gt;
+Options:
+  -c/--config   Load the giving file for configuration
+  -d            XPSPL Debug Mode
+  -h/--help     Show this help message.
+  -j/--judy     Enable judy support
+  -p/--passthru Ignore any subsequent arguments and pass to &lt;file&gt;.
+  --test        Run the XPSPL unit tests.
+  --test-cover  Run unit tests and generate code coverage.
+  --update      Update XPSPL to the latest available version.
+  -t/--time     Run for the given amount of milliseconds.
+  -v/--version  Displays current XPSPL version.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          <footer>
+  
+    <div class="rst-footer-buttons">
+      
+        <a href="modules/ftp.html" class="btn btn-neutral float-right" title="FTP Module"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral" title="Install"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <p>
+      &copy; Copyright 2012, Nickolas Whiting.
+  </p>
+
+  <a href="https://www.github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="http://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+</body>
+</html>

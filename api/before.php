@@ -6,22 +6,18 @@
  */
 
 /**
- * Execute the given function before the given signal is emitted.
+ * Execute a function before a signal is emitted.
  *
- * .. note::
- *
- *    Interruptions use the same prioritizing as the Processor.
- *
+ * @param  object  $signal  \XPSPL\SIG
  * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
  *
  * @return  object  Process
  *
  * @example
  *
- * Before Interrupt
+ * Basic Usage
  *
- * High priority process will always execute first immediately following
- * interruptions.
+ * Basic usage example.
  *
  * .. code-block:: php
  *
