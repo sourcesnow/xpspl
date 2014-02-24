@@ -38,3 +38,4 @@ docs/_build*
 _build/*
 _build
 _build/*/*
+dev/env
