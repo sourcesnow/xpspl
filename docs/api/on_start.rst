@@ -1,4 +1,4 @@
-.. /on_start.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. on_start.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_on_start
@@ -18,7 +18,7 @@ xp_on_start
 
 on_start
 ========
-PHP File @ /on_start.php
+PHP File @ on_start.php
 
 .. code-block:: php
 
@@ -41,4 +41,4 @@ PHP File @ /on_start.php
 	    return xp_signal(new \XPSPL\processor\SIG_Startup(), $function);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

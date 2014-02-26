@@ -1,4 +1,4 @@
-.. /register_signal.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. register_signal.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_register_signal
@@ -18,7 +18,7 @@ xp_register_signal
 
 register_signal
 ===============
-PHP File @ /register_signal.php
+PHP File @ register_signal.php
 
 .. code-block:: php
 
@@ -41,4 +41,4 @@ PHP File @ /register_signal.php
 	    return XPSPL::instance()->register_signal($signal);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

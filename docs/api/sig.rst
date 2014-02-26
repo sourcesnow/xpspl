@@ -1,4 +1,4 @@
-.. /sig.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. sig.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 XP_SIG
@@ -35,7 +35,7 @@ This will create a SIG idenitified by 'foo'.
 
 sig
 ===
-PHP File @ /sig.php
+PHP File @ sig.php
 
 .. code-block:: php
 
@@ -75,4 +75,4 @@ PHP File @ /sig.php
 	    return new \XPSPL\SIG($signal);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

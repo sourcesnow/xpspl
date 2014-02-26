@@ -1,4 +1,4 @@
-.. /delete_signal.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. delete_signal.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_delete_signal
@@ -19,7 +19,7 @@ xp_delete_signal
 
 delete_signal
 =============
-PHP File @ /delete_signal.php
+PHP File @ delete_signal.php
 
 .. code-block:: php
 
@@ -43,4 +43,4 @@ PHP File @ /delete_signal.php
 	    return XPSPL::instance()->delete_signal($signal, $history);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

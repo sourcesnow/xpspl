@@ -1,4 +1,4 @@
-.. /dir_include.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. dir_include.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_dir_include
@@ -8,9 +8,19 @@ xp_dir_include
 .. function:: xp_dir_include($dir, [$listen = false, [$path = false]])
 
 
-    Performs a inclusion of the entire directory content, including
-    subdirectories, with the option to start a listener once the file has been
-    included.
+    Recursively includes all .php files with the option to start a listener
+    automatically after including the file.
+    
+    .. note::
+    
+       When autostarting listeners the class name is expected in PSR-0 compliant.
+    
+       The ``$dir`` serves as the initial namespace for class listeners.
+    
+       For example ``xp_dir_include('Foobar', true);`` will load all files
+       contained in the Foobar directory, with a file named ``test.php`` it
+       will expect a class ``Foobar\Test`` which extends the ``XPSPL\Listener``
+       object.
 
     :param string: Directory to include.
     :param boolean: Start listeners.
@@ -22,7 +32,7 @@ xp_dir_include
 
 dir_include
 ===========
-PHP File @ /dir_include.php
+PHP File @ dir_include.php
 
 .. code-block:: php
 
@@ -34,9 +44,19 @@ PHP File @ /dir_include.php
 	 */
 	
 	/**
-	 * Performs a inclusion of the entire directory content, including
-	 * subdirectories, with the option to start a listener once the file has been
-	 * included.
+	 * Recursively includes all .php files with the option to start a listener
+	 * automatically after including the file.
+	 *
+	 * .. note::
+	 *
+	 *    When autostarting listeners the class name is expected in PSR-0 compliant.
+	 *
+	 *    The ``$dir`` serves as the initial namespace for class listeners.
+	 *
+	 *    For example ``xp_dir_include('Foobar', true);`` will load all files
+	 *    contained in the Foobar directory, with a file named ``test.php`` it
+	 *    will expect a class ``Foobar\Test`` which extends the ``XPSPL\Listener``
+	 *    object.
 	 *
 	 * @param  string  $dir  Directory to include.
 	 * @param  boolean  $listen  Start listeners.
@@ -78,4 +98,4 @@ PHP File @ /dir_include.php
 	    }
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

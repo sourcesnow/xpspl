@@ -22,6 +22,7 @@ XPSPL Bundled modules.
    :maxdepth: 2
 
    modules/ftp
+   modules/time
 
 Source
 ------

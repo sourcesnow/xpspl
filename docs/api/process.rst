@@ -1,4 +1,4 @@
-.. /process.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. process.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_process
@@ -35,7 +35,7 @@ Creates a new XPSPL Process object.
 
 process
 =======
-PHP File @ /process.php
+PHP File @ process.php
 
 .. code-block:: php
 
@@ -76,4 +76,4 @@ PHP File @ /process.php
 	    return new \XPSPL\Process($callable);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

@@ -1,4 +1,4 @@
-.. /find_signal_database.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. find_signal_database.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_find_signal_database
@@ -18,7 +18,7 @@ xp_find_signal_database
 
 find_signal_database
 ====================
-PHP File @ /find_signal_database.php
+PHP File @ find_signal_database.php
 
 .. code-block:: php
 
@@ -44,4 +44,4 @@ PHP File @ /find_signal_database.php
 	    return XPSPL::instance()->find_signal_database($signal);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

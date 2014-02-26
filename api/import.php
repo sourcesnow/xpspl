@@ -8,6 +8,9 @@
 /**
  * Import a module for usage.
  *
+ * By default modules will be loaded from the ``modules/`` directory located
+ * within XPSPL.
+ *
  * @param  string  $name  Module name.
  * @param  string|null  $dir  Location of the module.
  *

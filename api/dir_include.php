@@ -6,9 +6,19 @@
  */
 
 /**
- * Performs a inclusion of the entire directory content, including
- * subdirectories, with the option to start a listener once the file has been
- * included.
+ * Recursively includes all .php files with the option to start a listener
+ * automatically after including the file.
+ *
+ * .. note::
+ *
+ *    When autostarting listeners the class name is expected in PSR-0 compliant.
+ *
+ *    The ``$dir`` serves as the initial namespace for class listeners.
+ *
+ *    For example ``xp_dir_include('Foobar', true);`` will load all files
+ *    contained in the Foobar directory, with a file named ``test.php`` it
+ *    will expect a class ``Foobar\Test`` which extends the ``XPSPL\Listener``
+ *    object.
  *
  * @param  string  $dir  Directory to include.
  * @param  boolean  $listen  Start listeners.

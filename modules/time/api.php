@@ -11,7 +11,7 @@ namespace time;
  *
  * @param  integer  $time  Time to wake in.
  * @param  callable  $callback  Callable function.
- * @param  integer  $instruction  The time instruction. Default = Milliseconds
+ * @param  integer  $instruction  The time instruction. Default = Seconds
  *
  * @return  array  [signal, process]
  */

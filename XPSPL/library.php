@@ -45,6 +45,17 @@ class Library extends Database {
     {
         // already loaded
         if (isset($this->_storage[$name])) return;
+
+        if (null !== $dir) {
+            $path = $dir.'/'.$name;
+            if (!file_exists(sprintf('%s/__init__.php', $path))) {
+                throw new \RuntimeException(sprintf(
+                    'Module %s does not exist in path %s',
+                    $name, $path
+                ));
+            }
+        }
+
         foreach ($this->_path as $_path) {
             $path = $_path.'/'.$name;
             if (!file_exists(sprintf('%s/__init__.php', $path))) {

@@ -1,4 +1,4 @@
-.. /signal_history.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. signal_history.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_signal_history
@@ -48,7 +48,7 @@ This counts the number of ``XP_SIG('foo')`` signals that were emitted.
 
 signal_history
 ==============
-PHP File @ /signal_history.php
+PHP File @ signal_history.php
 
 .. code-block:: php
 
@@ -101,4 +101,4 @@ PHP File @ /signal_history.php
 	    return XPSPL::instance()->signal_history();
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_
