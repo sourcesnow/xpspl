@@ -11,7 +11,7 @@ namespace time;
  *
  * @param  integer  $time  Time to wake in.
  * @param  callable  $callback  Callable function.
- * @param  integer  $instruction  The time instruction. Default = Milliseconds
+ * @param  integer  $instruction  The time instruction. Default = Seconds
  *
  * @return  array  [signal, process]
  */
@@ -20,7 +20,7 @@ function awake($time, $callback, $instruction = TIME_SECONDS)
     if (!$time instanceof SIG_Awake) {
         $time = new SIG_Awake($time, $instruction);
     }
-    return signal($time, $callback);
+    return xp_signal($time, $callback);
 }
 
 /**

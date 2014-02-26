@@ -1,4 +1,4 @@
-.. /erase_history.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. erase_history.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_erase_history
@@ -16,7 +16,7 @@ xp_erase_history
 
 erase_history
 =============
-PHP File @ /erase_history.php
+PHP File @ erase_history.php
 
 .. code-block:: php
 
@@ -37,4 +37,4 @@ PHP File @ /erase_history.php
 	    return XPSPL::instance()->erase_history();
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

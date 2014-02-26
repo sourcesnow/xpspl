@@ -1,4 +1,4 @@
-.. /set_signal_history.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. set_signal_history.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_set_signal_history
@@ -18,7 +18,7 @@ xp_set_signal_history
 
 set_signal_history
 ==================
-PHP File @ /set_signal_history.php
+PHP File @ set_signal_history.php
 
 .. code-block:: php
 
@@ -41,4 +41,4 @@ PHP File @ /set_signal_history.php
 	    return XPSPL::instance()->set_signal_history($flag);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

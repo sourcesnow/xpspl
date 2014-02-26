@@ -1,4 +1,4 @@
-.. /delete_process.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. delete_process.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_delete_process
@@ -8,7 +8,7 @@ xp_delete_process
 .. function:: xp_delete_process($signal, $process)
 
 
-    Removes an installed signal process.
+    Deletes an installed signal process.
 
     :param string|integer|object: Signal process is attached to.
     :param object: Process.
@@ -32,7 +32,7 @@ Removes the installed process from the foo signal.
 
 delete_process
 ==============
-PHP File @ /delete_process.php
+PHP File @ delete_process.php
 
 .. code-block:: php
 
@@ -44,7 +44,7 @@ PHP File @ /delete_process.php
 	 */
 	
 	/**
-	 * Removes an installed signal process.
+	 * Deletes an installed signal process.
 	 *
 	 * @param  string|integer|object  $signal  Signal process is attached to.
 	 * @param  object  $process  Process.
@@ -69,4 +69,4 @@ PHP File @ /delete_process.php
 	    return XPSPL::instance()->delete_process($signal, $process);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

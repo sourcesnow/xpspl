@@ -1,4 +1,4 @@
-.. /import.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. import.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_import
@@ -9,6 +9,9 @@ xp_import
 
 
     Import a module for usage.
+    
+    By default modules will be loaded from the ``modules/`` directory located
+    within XPSPL.
 
     :param string: Module name.
     :param string|null: Location of the module.
@@ -19,7 +22,7 @@ xp_import
 
 import
 ======
-PHP File @ /import.php
+PHP File @ import.php
 
 .. code-block:: php
 
@@ -33,6 +36,9 @@ PHP File @ /import.php
 	/**
 	 * Import a module for usage.
 	 *
+	 * By default modules will be loaded from the ``modules/`` directory located
+	 * within XPSPL.
+	 *
 	 * @param  string  $name  Module name.
 	 * @param  string|null  $dir  Location of the module.
 	 *
@@ -43,4 +49,4 @@ PHP File @ /import.php
 	    return \XPSPL\Library::instance()->load($name, $dir);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

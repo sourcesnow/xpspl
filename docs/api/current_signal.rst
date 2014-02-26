@@ -1,4 +1,4 @@
-.. /current_signal.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. current_signal.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_current_signal
@@ -57,7 +57,7 @@ The parent signal can be fetched by using an offset of ```-2```.
 
 current_signal
 ==============
-PHP File @ /current_signal.php
+PHP File @ current_signal.php
 
 .. code-block:: php
 
@@ -120,4 +120,4 @@ PHP File @ /current_signal.php
 	    return XPSPL::instance()->current_signal($offset);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

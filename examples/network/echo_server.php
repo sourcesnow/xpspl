@@ -19,9 +19,9 @@ $server = network\connect('0.0.0.0', ['port' => '1337']);
 $server->on_connect(xp_null_exhaust(function(network\SIG_Connect $sig_connect){
     if (null !== $sig_connect->socket) {
         echo "Connection " . PHP_EOL;
-        $sig_connect->socket->write('HelloWorld');
-        $sig_connect->socket->write('Closing connection in 5 seconds');
-        time\awake(5, function() use ($sig_connect){
+        echo "Closing connection in 5 seconds".PHP_EOL;
+        time\awake(3, function() use ($sig_connect){
+            echo "I RAN".PHP_EOL;
             $sig_connect->socket->write('Goodbye');
             $sig_connect->socket->disconnect();
         });

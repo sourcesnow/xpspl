@@ -1,4 +1,4 @@
-.. /after.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. after.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_after
@@ -40,7 +40,7 @@ Basic usage example.
 
 after
 =====
-PHP File @ /after.php
+PHP File @ after.php
 
 .. code-block:: php
 
@@ -91,4 +91,4 @@ PHP File @ /after.php
 	    return XPSPL::instance()->after($signal, $process);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

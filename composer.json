@@ -25,5 +25,13 @@
     "require": {
         "php": ">=5.4.0"
     },
-    "bin": ["bin/xpspl"]
+    "bin": ["bin/xpspl"],
+    "autoload": {
+        "psr-0": {
+            "XPSPL": "XPSPL"
+        },
+        "files": [
+            "__init__.php"
+        ]
+    }
 }

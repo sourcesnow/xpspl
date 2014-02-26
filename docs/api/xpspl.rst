@@ -1,4 +1,4 @@
-.. /xpspl.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. xpspl.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 XPSPL
@@ -16,7 +16,7 @@ XPSPL
 
 xpspl
 =====
-PHP File @ /xpspl.php
+PHP File @ xpspl.php
 
 .. code-block:: php
 
@@ -37,4 +37,4 @@ PHP File @ /xpspl.php
 	    return XPSPL::instance();
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

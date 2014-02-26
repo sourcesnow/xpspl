@@ -20,7 +20,9 @@ XPSPL is available via composer.
 
 .. code-block:: console
 
-	require: "prggmr/xpspl": "v4.0.1"
+	require: "prggmr/xpspl": "v5.0.0"
+
+Once installed XPSPL's API will be available after including composer's ``vender/autoload.php``.
 
 Manual
 ++++++

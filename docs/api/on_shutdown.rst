@@ -1,4 +1,4 @@
-.. /on_shutdown.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. on_shutdown.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_on_shutdown
@@ -18,7 +18,7 @@ xp_on_shutdown
 
 on_shutdown
 ===========
-PHP File @ /on_shutdown.php
+PHP File @ on_shutdown.php
 
 .. code-block:: php
 
@@ -41,4 +41,4 @@ PHP File @ /on_shutdown.php
 	    return xp_signal(new \XPSPL\processor\SIG_Shutdown(), $function);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

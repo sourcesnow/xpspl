@@ -146,7 +146,7 @@ class Connection {
      */
     public function disconnect(/* ... */)
     {
-        return emit(new SIG_Disconnect(null, $this));
+        return xp_emit(new SIG_Disconnect(null, $this));
     }
 
     /**
@@ -197,7 +197,7 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
  * Though it should be noted that pushing content to a disconnected socket might
  * not get the data.
  */
-signal(
+xp_signal(
     new SIG_Disconnect(),
-    low_priority(xp_null_exhaust('\network\system_disconnect'))
+    xp_low_priority(xp_null_exhaust('\network\system_disconnect'))
 );

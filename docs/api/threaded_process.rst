@@ -1,4 +1,4 @@
-.. /threaded_process.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. threaded_process.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_threaded_process
@@ -39,7 +39,7 @@ Executing processes in their own thread.
 
 threaded_process
 ================
-PHP File @ /threaded_process.php
+PHP File @ threaded_process.php
 
 .. code-block:: php
 
@@ -87,4 +87,4 @@ PHP File @ /threaded_process.php
 	    return $process;
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

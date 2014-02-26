@@ -6,7 +6,7 @@
  */
 
 /**
- * Removes an installed signal process.
+ * Deletes an installed signal process.
  *
  * @param  string|integer|object  $signal  Signal process is attached to.
  * @param  object  $process  Process.

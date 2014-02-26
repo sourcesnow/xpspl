@@ -1,4 +1,4 @@
-.. /signal.php generated using docpx v1.0.0 on 02/24/14 04:00pm
+.. signal.php generated using docpx v1.0.0 on 02/26/14 11:56am
 
 
 xp_signal
@@ -57,7 +57,7 @@ Basic Usage example.
 
 signal
 ======
-PHP File @ /signal.php
+PHP File @ signal.php
 
 .. code-block:: php
 
@@ -122,4 +122,4 @@ PHP File @ /signal.php
 	    return XPSPL::instance()->signal($signal, $process);
 	}
 
-Created on 02/24/14 04:00pm using `Docpx <http://github.com/prggmr/docpx>`_
+Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

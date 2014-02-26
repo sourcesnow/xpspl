@@ -16,7 +16,7 @@ namespace network;
 function connect($address, $options = [])
 {
     $socket = new Socket($address, $options);
-    signal($socket, xp_null_exhaust(null));
+    xp_signal($socket, xp_null_exhaust(null));
     return $socket;
 }
 
