@@ -20,7 +20,7 @@ function awake($time, $callback, $instruction = TIME_SECONDS)
     if (!$time instanceof SIG_Awake) {
         $time = new SIG_Awake($time, $instruction);
     }
-    return signal($time, $callback);
+    return xp_signal($time, $callback);
 }
 
 /**

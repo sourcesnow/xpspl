@@ -67,3 +67,27 @@ final class XPSPL extends \XPSPL\Processor {
  * Start the processor VROOOOOOM!
  */
 xp_set_signal_history(XPSPL_SIGNAL_HISTORY);
+
+if ( ! function_exists('rfind'))
+{
+    function rfind($src = '', $file_type = '')
+    {
+        // If source is not a directory stop processing
+        if ( ! is_dir($src)) return false;
+
+        $matches = [];
+
+        $i = new RegexIterator(
+            new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($template_directory_path)
+            ), '/^.+\.' . $file_type . '$/i', RecursiveRegexIterator::GET_MATCH
+        );
+        foreach ($i as $f) {
+            array_map($f, function($file) use ($matches){
+                $matches[] = $file;
+            });
+        }
+
+        return $matches;
+    }
+}

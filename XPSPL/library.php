@@ -10,7 +10,7 @@ use XPSPL\exception\Module_Load_Failure;
 
 /**
  * Library
- * 
+ *
  * Loads and tracks XPSPL modules.
  */
 class Library extends Database {
@@ -18,33 +18,63 @@ class Library extends Database {
     use Singleton;
 
     /**
+     * Path(s) to XPSPL modules.
+     *
+     * @var  string
+     */
+    protected $_path = [];
+
+    /**
+     * Constructs the Library
+     */
+    public function __construct() {
+        if (defined('XPSPL_MODULE_DIR')) {
+            $this->add_path(XPSPL_MODULE_DIR);
+        }
+    }
+
+    /**
      * Loads a XPSPL module.
-     * 
+     *
      * @param  string  $name  Module name.
-     * @param  string|null  $dir  Location of the module. 
-     * 
+     * @param  string|null  $dir  Location of the module.
+     *
      * @return  void
      */
-    public function load($name, $dir = null) 
+    public function load($name, $dir = null)
     {
         // already loaded
         if (isset($this->_storage[$name])) return;
-        if ($dir === null) {
-            $dir = XPSPL_MODULE_DIR;
+        foreach ($this->_path as $_path) {
+            $path = $_path.'/'.$name;
+            if (!file_exists(sprintf('%s/__init__.php', $path))) {
+                continue;
+            }
+            $this->_storage[$name] = true;
+            require_once $path.'/__init__.php';
+            if (!defined(strtoupper(sprintf('%s_version', $name)))) {
+                throw new \RuntimeException(sprintf(
+                    'Module %s does not specify a version path %s',
+                    $name, $path
+                ));
+            }
         }
-        if (!is_dir($dir)) {
+    }
+
+    /**
+     * Adds a new path where XPSPL modules are loaded from.
+     *
+     * @param  string  $path  Full path to directory
+     *
+     * @return  void
+     */
+    public function add_path($path)
+    {
+        if (!is_dir($path)) {
             throw new Module_Load_Failure(sprintf(
-                "Module directory %s does not exist", $dir
+                "Module directory %s does not exist", $path
             ));
         }
-        $path = $dir.'/'.$name;
-        $this->_storage[$name] = true;
-        require_once $path.'/__init__.php';
-        if (!defined(strtoupper(sprintf('%s_version', $name)))) {
-            throw new \RuntimeException(sprintf(
-                'Module %s does not specify a version',
-                $name
-            ));
-        }
+        $this->_path[] = $path;
     }
 }

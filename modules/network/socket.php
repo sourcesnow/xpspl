@@ -45,6 +45,13 @@ class Socket extends \XPSPL\SIG_Routine {
     protected $_clients = [];
 
     /**
+     * Default socket wait time in seconds.
+     *
+     * @var  integer
+     */
+    public $default_wait_time = 30;
+
+    /**
      * Constructs a new socket.
      *
      * @param  string  $address  Address to make the connection on.
@@ -88,8 +95,17 @@ class Socket extends \XPSPL\SIG_Routine {
                 // If we have signals to process only poll and continue
                 $time = 0;
             } elseif (count($idle) >= 2) {
+                $default_wait_time = time() + $this->default_wait_time;
                 foreach ($idle as $_idle) {
                     if ($_idle->get_idle() instanceof Time) {
+                        echo $default_wait_time.PHP_EOL;
+                        echo $_idle->get_idle()->get_time_until().PHP_EOL;
+                        echo $_idle->get_idle()->get_time_until() < $default_wait_time.PHP_EOL;
+                        echo $_idle->get_idle()->get_time_until() > $default_wait_time.PHP_EOL;
+                        echo $_idle.PHP_EOL;
+                    }
+                    if ($_idle->get_idle() instanceof Time && (
+                        $default_wait_time > $_idle->get_idle()->get_time_until())) {
                         $time = round($_idle->get_idle()->convert_length(
                             $_idle->get_idle()->get_time_left(),
                             TIME_SECONDS
@@ -98,6 +114,7 @@ class Socket extends \XPSPL\SIG_Routine {
                             $utime = $time * 1000;
                             $time = 0;
                         }
+                        echo $time.PHP_EOL;
                         break;
                     }
                 }
@@ -112,7 +129,7 @@ class Socket extends \XPSPL\SIG_Routine {
                 // test if socket is still connected
                 // send disconnect if disconnect detected
                 if ($_c->is_connected() === false) {
-                    emit(
+                    xp_emit(
                         new SIG_Disconnect($_c)
                     );
                     unset($this->_clients[$_k]);
@@ -154,7 +171,7 @@ class Socket extends \XPSPL\SIG_Routine {
                     if (!isset($this->_clients[$id])) {
                         $client = new Client($_r);
                         $id = intval($client->get_resource());
-                        emit(
+                        xp_emit(
                             new SIG_Connect($this, $client)
                         );
                         $this->_clients[$id] = $client;
@@ -165,7 +182,7 @@ class Socket extends \XPSPL\SIG_Routine {
                             ));
                         }
                     } else {
-                        emit(
+                        xp_emit(
                             new SIG_Read($this, $this->_clients[$id])
                         );
                     }
@@ -189,7 +206,7 @@ class Socket extends \XPSPL\SIG_Routine {
             }
         });
 
-        $this->on_disconnect(priority(PHP_INT_MAX, xp_null_exhaust('\network\system_disconnect')));
+        $this->on_disconnect(xp_priority(PHP_INT_MAX, xp_null_exhaust('\network\system_disconnect')));
     }
 
     /**
@@ -229,7 +246,7 @@ class Socket extends \XPSPL\SIG_Routine {
      */
     public function on_disconnect($function)
     {
-        return signal(new SIG_Disconnect($this), $function);
+        return xp_signal(new SIG_Disconnect($this), $function);
     }
 
     /**
@@ -241,7 +258,7 @@ class Socket extends \XPSPL\SIG_Routine {
      */
     public function on_read($function)
     {
-        return signal(new SIG_Read($this), $function);
+        return xp_signal(new SIG_Read($this), $function);
     }
 
     /**
@@ -253,7 +270,7 @@ class Socket extends \XPSPL\SIG_Routine {
      */
     public function on_write($function)
     {
-        return signal(new SIG_Write($this), $function);
+        return xp_signal(new SIG_Write($this), $function);
     }
 
     /**
@@ -265,7 +282,7 @@ class Socket extends \XPSPL\SIG_Routine {
      */
     public function on_connect($function)
     {
-        return signal(new SIG_Connect($this), $function);
+        return xp_signal(new SIG_Connect($this), $function);
     }
 
     /**

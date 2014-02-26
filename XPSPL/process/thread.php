@@ -1,5 +1,4 @@
 <?php
-
 namespace XPSPL\process;
 
 /**
@@ -10,11 +9,8 @@ namespace XPSPL\process;
 
 if (!class_exists('\\Thread')) {
     // used for the docs ...
-    namespace \ {
-        class Thread {
-
-        }
-    }
+    namespace \ {class Thread {}}
+    __halt_compiler();
 }
 
 /**
