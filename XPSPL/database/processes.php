@@ -43,7 +43,7 @@ class Processes extends \XPSPL\Database {
     public function __construct(/* ... */)
     {
         if (XPSPL_JUDY_SUPPORT) {
-            $this->_storage = new \Judy(\Judy::INT_TO_MIXED);
+            $this->_storage = new \Judy(\Judy::STRING_TO_MIXED);
         }
     }
 
@@ -95,11 +95,15 @@ class Processes extends \XPSPL\Database {
             }
         } else {
             if (XPSPL_DEBUG) {
+                // var_dump($this->_storage);
                 logger(XPSPL_LOG)->debug(sprintf(
-                    '%s process installed',
-                    $process
+                    '%s process installed NODE_COUNT(%s)',
+                    $process,
+                    $this->_storage->count()
                 ));
             }
+            // var_dump($priority);
+            // var_dump($process);
             $this->_storage[$priority] = $process;
         }
     }

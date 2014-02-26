@@ -31,7 +31,7 @@ class Database extends Storage {
     public function __construct(/* ... */)
     {
         if (XPSPL_JUDY_SUPPORT) {
-            $this->_storage = new Judy(Judy::STRING_TO_MIXED);
+            $this->_storage = new Judy(Judy::INT_TO_MIXED);
         }
     }
 
@@ -44,7 +44,7 @@ class Database extends Storage {
             $this->_storage->free();
         } else {
             unset($this->_storage);
-            $this->_storage = [];
+            $this->_storage = new \ArrayObject();
         }
     }
 

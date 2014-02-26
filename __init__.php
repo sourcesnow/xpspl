@@ -43,7 +43,7 @@ foreach ($dir as $_file) {
 if (XPSPL_DEBUG) {
     define('LOGGER_DATE_FORMAT', 'm-d-y H:i:s.u');
     error_reporting(E_ALL ^ E_STRICT);
-    import('logger');
+    xp_import('logger');
     $log = logger(XPSPL_LOG);
     $formatter = new \logger\Formatter(
         '[{date}] [{str_code}] {message}'.PHP_EOL

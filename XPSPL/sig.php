@@ -9,18 +9,16 @@ namespace XPSPL;
 /**
  * SIG
  * 
- * The SIG is the representation of a signal.
+ * The SIG object is the representation of a signal.
  *
  * Every SIG object is represented as an index, with each index being a valid 
  * indexable value.
  *
- * By default a SIG will generate it's index based on its name to allow for a 
- * class based signal architecture.
+ * By default a SIG will generate it's index based simply on the value of the 
+ * function ``get_class``.
  *
- * The SIG object allows for unique signals by declaring a subclass with the 
- * property of unique set as true.
- *
- * It is also possible to provide the SIG an index value to represent itself as.
+ * The SIG object allows for unique signals by creating a child of SIG with the 
+ * property of ``_unique`` set as true.
  *
  * .. note::
  *    
@@ -61,7 +59,7 @@ namespace XPSPL;
  *    When using object signals always provide a new object to the 
  *    operation you are performing.
  *    
- *    The processor is optimized to detect object new SIGs and discard any which 
+ *    The processor is optimized to detect new object SIGs and discard any which 
  *    are not needed.
  * 
  *     
@@ -104,15 +102,12 @@ namespace XPSPL;
  *
  * @example
  *
- * A unique SIG object.
- *
- * All unique SIG objects are completely unique. 
+ * Unique SIG objects.
  * 
- * Their index is generated automatically based their internal object identifier.
+ * Unique SIG objects are completely unique, they can only be used with the a 
+ * reference or clone of the object used to create the signal.
  *
- * Unique SIG can only be object based signals.
- *
- * Given the example below.
+ * Given the example below,
  *
  * .. code-block:: php
  *
@@ -132,6 +127,7 @@ namespace XPSPL;
  *    signal($foo2, function(){
  *        echo 'Foo 2 Emitted';
  *    });
+ *    
  *    // We can now emit foo_1 and foo_2 separately 
  *    emit($foo_1);
  *    emit($foo_2);
@@ -139,9 +135,9 @@ namespace XPSPL;
  *    // Foo 1 Emitted
  *    // Foo 2 Emitted
  *
- * .. note::
- *     
- *     When using unique SIGs they must always be identified by their object.
+ *    // We can also clone $foo_1 into a new variable and emit the same unique signal.
+ *    $foo_1_copy = clone $foo_1;
+ *    emit($foo_1_copy);
  *    
  */
 class SIG {

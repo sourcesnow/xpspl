@@ -20,8 +20,6 @@ if (!defined('XPSPL_DEBUG')) {
      * XPSPL Debug mode
      *
      * When turned on XPSPL generates a log of all activity to STDOUT.
-     *
-     * When turned off XPSPL removes its processor traces from uncaught exceptions.
      */
     define('XPSPL_DEBUG', false);
 }
@@ -30,7 +28,7 @@ if (!defined('XPSPL_SIGNAL_HISTORY')) {
     /**
      * Signal History
      *
-     * Default setting for the saving the signal history.
+     * Default setting for saving the signal history.
      *
      * By default this is ``false``.
      */
@@ -39,19 +37,18 @@ if (!defined('XPSPL_SIGNAL_HISTORY')) {
 
 if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     /**
-     * Remove Exhausted processes
+     * Automatically purges exhausted processes.
      *
-     * When turned on this automatically removes installed processes from the
-     * processor once it determines they can no longer be used.
+     * This will increase performance when turned on and vice-versa. 
      *
-     * By default this settings is ``true``.
+     * @default true
      */
     define('XPSPL_PURGE_EXHAUSTED', true);
 }
 
 if (!defined('XPSPL_MODULE_DIR')) {
     /**
-     * Module Directory
+     * Directory used to load XPSPL modules.
      *
      * Directory to look for modules.
      *

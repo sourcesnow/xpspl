@@ -1,10 +1,14 @@
 Quickstart
 ----------
 
-This guide covers the following topics,
 
 .. contents::
 
+
+Installing XPSPL
+%%%%%%%%%%%%%%%%
+
+XPSPL is installed using (composer).
 
 Handling and Emitting a signal
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

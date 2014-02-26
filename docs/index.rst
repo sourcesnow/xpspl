@@ -73,17 +73,5 @@ Performance Tests
 Author
 ------
 
-XPSPL has been designed and developed by `Nickolas Whiting
+XPSPL is designed and developed by `Nickolas Whiting
 <https://plus.google.com/103257674267659844067?rel=author>`_.
-
-.. XPSPL Internal Source
-.. ---------------------
-
-.. The core classes and functions of XPSPL.
-
-.. .. toctree::
-..    :maxdepth: 1
-..    :glob:
-
-..    XPSPL/*
-..    XPSPL/*/*
