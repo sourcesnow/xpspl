@@ -41,7 +41,7 @@ File a bug report in `Github issues
 Performance
 -----------
 
-Performance testing using a 2.0 GHz Intel Core 2 Duo.
+Performance testing on a 3.2 GHz Intel i5.
 
 Demonstrating a linear signal emit performance.
 
@@ -52,24 +52,22 @@ Performance Tests
 
 .. code-block:: php
 
-   --------------------------------------
-   Total tests performed 5,242,800
-   --------------------------------------
-   Average Processes Installed - 0.0009126066 seconds
-   Tests Performed : 1,310,700
-   --------------------------------------
-   --------------------------------------
-   Average Signals Emitted - 0.0001160003 seconds
-   Tests Performed : 1,310,700
-   --------------------------------------
-   --------------------------------------
-   Average Signal Registration - 0.0003996142 seconds
-   Tests Performed : 1,310,700
-   --------------------------------------
-   --------------------------------------
-   Average Loops Performed - 0.0003038336 seconds
-   Tests Performed : 1,310,700
-   --------------------------------------
+    Installation SIG Process Performance Test
+    Tests Performed : 204601
+    Average Time Spent : 0.0000093658
+    --------------------------------------
+    Emitting a signal Performance Test
+    Tests Performed : 204601
+    Average Time Spent : 0.0000031479
+    --------------------------------------
+    Registering a signal Performance Test
+    Tests Performed : 204601
+    Average Time Spent : 0.0000024548
+    --------------------------------------
+    Event Loop Performance Test
+    Tests Performed : 204601
+    Average Time Spent : 0.0000109978
+    --------------------------------------
 
 Author
 ------

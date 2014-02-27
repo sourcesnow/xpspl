@@ -13,20 +13,20 @@ if (function_exists('xdebug_start_code_coverage')) {
 xp_import('unittest');
 
 $output = unittest\Output::instance();
-
+function a(){}
 $tests = [
-    // 'Processes Installed' =>
-    // function($i){
-    //     signal(XP_SIG($i), null);
-    // },
-    'Signals Emitted' =>
-    function($i){
-        xp_emit($i);
+    'Installation SIG Process' =>
+    function($processor, $i){
+        $processor->signal($i, xp_null_exhaust(null));
     },
-    // 'Signal Registration' =>
-    // function($i){
-    //     register_signal(XP_SIG($i));
-    // },
+    'Emitting a signal' =>
+    function($processor, $i){
+        $processor->emit($i);
+    },
+    'Registering a signal' =>
+    function($processor, $i){
+        $processor->register_signal($i);
+    },
     // 'Listners Installed' =>
     // function($i) {
     //     listen(new Lst());
@@ -35,10 +35,10 @@ $tests = [
     // function($i){
     //     before($i, function(){});
     // },
-    // 'Loops Performed' =>
-    // function($i) {
-    //     xp_wait_loop();
-    // },
+    'Event Loop' =>
+    function($i) {
+        xp_wait_loop();
+    },
     // 'Interruption before emit' =>
     // function($i) {
     //     before($i, function(){});
@@ -92,17 +92,20 @@ $tests = [
 ];
 $output::send('Beginning performance tests ... please be patient.');
 $results = [];
-$average_perform = 10;
+$average_perform = 100;
 $total_tests = 0;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
+    $processor = new \XPSPL\Processor();
+    $processor->signal_history(false);
+    $sig = XP_SIG('a');
     for ($i=1;$i<$average_perform+1;$i++) {
         $output::send(sprintf(
             'Running %s test %s of %s',
             $_test,
             $i, $average_perform
         ));
-        for($a=1;$a<(1 << 16);) {
+        for($a=1;$a<(1 << 10);) {
             $a = $a << 1;
             $tc = $a;
             if ($a === 1) {
@@ -116,13 +119,13 @@ foreach ($tests as $_test => $_func) {
             for ($c=0;$c<$tc;$c++) {
                 // do the test
                 $start = microtime(true);
-                $_func($c, $setup);
+                $_func($processor, $sig);
                 $end = microtime(true);
                 // add test time
-                $results[$_test][$tc][] = $end - $start;
+                $results[$_test][] = $end - $start;
                 ++$total_tests;
+                $processor->flush();
             }
-            XPSPL_flush();
         }
     }
     $output::send(sprintf(
@@ -130,8 +133,8 @@ foreach ($tests as $_test => $_func) {
         $_test
     ));
 }
-echo '--------------------------------------'.PHP_EOL;
-echo "Total tests performed " . number_format($total_tests).PHP_EOL;
+// echo '--------------------------------------'.PHP_EOL;
+// echo "Total tests performed " . number_format($total_tests).PHP_EOL;
 // ob_start();
 include dirname(realpath(__FILE__)).'/averages_output.php';
 // $data = ob_get_contents();

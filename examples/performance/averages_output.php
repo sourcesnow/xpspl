@@ -14,17 +14,18 @@ function push_to_array($array1, $js_array) {
 }
 function make_average($name, $data) {
     global $average_perform;
-    $average = 0.0000;
+    $average = 0.000000;
     $averages = [];
     $tests_performed = 0;
-    foreach ($data as $_count => $_array) {
-        $averages[] = array_sum($_array) / $_count;
-        $tests_performed += $_count * $average_perform;
-    }
-    echo '--------------------------------------'.PHP_EOL;
-    $total_average = array_sum($averages) / count($averages);
-    echo 'Average '. $name . ' - ' . number_format($total_average, 10) . ' seconds ' . PHP_EOL;
-    echo 'Tests Performed : ' . number_format($tests_performed).PHP_EOL;
+    echo $name . ' Performance Test '.PHP_EOL;
+    echo 'Tests Performed : ' . count($data) . PHP_EOL;
+    echo 'Average Time Spent : ' . number_format(array_sum($data) / count($data), 10).PHP_EOL;
+    //     $averages[] = array_sum($_array) / count($_array);
+    //     $tests_performed += $_count * $average_perform;
+    // echo '--------------------------------------'.PHP_EOL;
+    // $total_average = array_sum($averages) / count($averages);
+    // echo 'Average Time Spent '. $name . ' - ' . number_format($total_average, 10) . ' seconds ' . PHP_EOL;
+    // echo 'Tests Performed : ' . number_format($tests_performed).PHP_EOL;
     echo '--------------------------------------'.PHP_EOL;
 }
 foreach ($results as $_name => $_data) {
