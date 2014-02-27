@@ -4,7 +4,7 @@ xp_import('time');
 $precision = 500;
 $signal = new \time\SIG_Awake($precision, TIME_MICROSECONDS);
 $precision_timing = [];
-signal($signal, exhaust(5500, function($signal) use ($precision, &$precision_timing){
+xp_signal($signal, xp_exhaust(5500, function($signal) use ($precision, &$precision_timing){
     if (!isset($signal->time)) {
         $signal->time = microseconds();
         return true;
@@ -18,7 +18,7 @@ signal($signal, exhaust(5500, function($signal) use ($precision, &$precision_tim
     $precision_timing[] = [$timing, 0];
     $signal->time = microseconds();
 }));
-on_shutdown(function() use (&$precision_timing){
+xp_on_shutdown(function() use (&$precision_timing){
     array_shift($precision_timing);
     $results = ['usPrecision' => $precision_timing];
     ob_start();

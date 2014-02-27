@@ -5,7 +5,7 @@ $precision = 10;
 $signal = new \time\SIG_Awake($precision, TIME_MILLISECONDS);
 $signal->time = milliseconds();
 $precision_timing = [];
-$function = exhaust(100, function($signal) use ($precision, &$precision_timing){
+$function = xp_exhaust(100, function($signal) use ($precision, &$precision_timing){
     $timing = (intval(floatval((milliseconds() - $signal->time))) - $precision);
     echo $timing.PHP_EOL;
     // if ($timing > 100000) {
@@ -15,8 +15,8 @@ $function = exhaust(100, function($signal) use ($precision, &$precision_timing){
     $precision_timing[] = [$timing, 0];
     $signal->time = milliseconds();
 });
-signal($signal, $function);
-on_shutdown(function() use (&$precision_timing){
+xp_signal($signal, $function);
+xp_on_shutdown(function() use (&$precision_timing){
     array_shift($precision_timing);
     $results = ['msPrecision' => $precision_timing];
     ob_start();

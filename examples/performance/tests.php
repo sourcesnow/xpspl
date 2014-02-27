@@ -15,18 +15,18 @@ xp_import('unittest');
 $output = unittest\Output::instance();
 
 $tests = [
-    'Processes Installed' =>
-    function($i){
-        signal(XP_SIG($i), null);
-    },
+    // 'Processes Installed' =>
+    // function($i){
+    //     signal(XP_SIG($i), null);
+    // },
     'Signals Emitted' =>
     function($i){
         xp_emit($i);
     },
-    'Signal Registration' =>
-    function($i){
-        register_signal(XP_SIG($i));
-    },
+    // 'Signal Registration' =>
+    // function($i){
+    //     register_signal(XP_SIG($i));
+    // },
     // 'Listners Installed' =>
     // function($i) {
     //     listen(new Lst());
@@ -35,10 +35,10 @@ $tests = [
     // function($i){
     //     before($i, function(){});
     // },
-    'Loops Performed' =>
-    function($i) {
-        wait_loop();
-    },
+    // 'Loops Performed' =>
+    // function($i) {
+    //     xp_wait_loop();
+    // },
     // 'Interruption before emit' =>
     // function($i) {
     //     before($i, function(){});
@@ -133,7 +133,7 @@ foreach ($tests as $_test => $_func) {
 echo '--------------------------------------'.PHP_EOL;
 echo "Total tests performed " . number_format($total_tests).PHP_EOL;
 // ob_start();
-include dirname(realpath(__FILE__)).'/performance/averages_output.php';
+include dirname(realpath(__FILE__)).'/averages_output.php';
 // $data = ob_get_contents();
 // ob_end_clean();
 // file_put_contents('performance_chart.html', $data);
