@@ -40,12 +40,12 @@ class Processes extends \XPSPL\Database {
      *
      * @return  void
      */
-    public function __construct(/* ... */)
-    {
-        if (XPSPL_JUDY_SUPPORT) {
-            $this->_storage = new \Judy(\Judy::STRING_TO_MIXED);
-        }
-    }
+    // public function __construct(/* ... */)
+    // {
+    //     if (XPSPL_JUDY_SUPPORT) {
+    //         $this->_storage = new \Judy(\Judy::STRING_TO_MIXED);
+    //     }
+    // }
 
     /**
      * Installs a new process into the database.

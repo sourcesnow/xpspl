@@ -97,26 +97,26 @@ class Socket extends \XPSPL\SIG_Routine {
             } elseif (count($idle) >= 2) {
                 $default_wait_time = time() + $this->default_wait_time;
                 foreach ($idle as $_idle) {
-                    if ($_idle->get_idle() instanceof Time) {
-                        echo $default_wait_time.PHP_EOL;
-                        echo $_idle->get_idle()->get_time_until().PHP_EOL;
-                        echo $_idle->get_idle()->get_time_until() < $default_wait_time.PHP_EOL;
-                        echo $_idle->get_idle()->get_time_until() > $default_wait_time.PHP_EOL;
-                        echo $_idle.PHP_EOL;
-                    }
-                    if ($_idle->get_idle() instanceof Time && (
-                        $default_wait_time > $_idle->get_idle()->get_time_until())) {
-                        $time = round($_idle->get_idle()->convert_length(
-                            $_idle->get_idle()->get_time_left(),
-                            TIME_SECONDS
-                        ), 3);
-                        if ($time > 0 && $time < 1) {
-                            $utime = $time * 1000;
-                            $time = 0;
-                        }
-                        echo $time.PHP_EOL;
-                        break;
-                    }
+                    // if ($_idle->get_idle() instanceof Time) {
+                    //     // echo $default_wait_time.PHP_EOL;
+                    //     // echo $_idle->get_idle()->get_time_until().PHP_EOL;
+                    //     // echo $_idle->get_idle()->get_time_until() < $default_wait_time.PHP_EOL;
+                    //     // echo $_idle->get_idle()->get_time_until() > $default_wait_time.PHP_EOL;
+                    //     // echo $_idle.PHP_EOL;
+                    // }
+                    // if ($_idle->get_idle() instanceof Time && (
+                    //     // $default_wait_time > $_idle->get_idle()->get_time_until())) {
+                    //     // $time = round($_idle->get_idle()->convert_length(
+                    //     //     $_idle->get_idle()->get_time_left(),
+                    //     //     TIME_SECONDS
+                    //     // ), 3);
+                    //     // if ($time > 0 && $time < 1) {
+                    //     //     $utime = $time * 1000;
+                    //     //     $time = 0;
+                    //     // }
+                    //     // echo $time.PHP_EOL;
+                    //     // break;
+                    // }
                 }
             }
             // establish sockets
@@ -139,6 +139,7 @@ class Socket extends \XPSPL\SIG_Routine {
                     $ex[] = $_resource;
                 }
             }
+            var_dump([$re, $wr, $ex, $time, $utime]);
             $count = socket_select($re, $wr, $ex, $time, $utime);
             if ($count === false) {
                 logger(XPSPL_LOG)->debug(

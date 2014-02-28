@@ -1,17 +1,18 @@
 <?php
-namespace XPSPL\process;
+namespace {
+if (!class_exists('\\Thread')) {
+    // used for the docs ...
+    class Thread {}
+}
+}
+
+namespace XPSPL\process {
 
 /**
  * Copyright 2010-12 Nickolas Whiting. All rights reserved.
  * Use of this source code is governed by the Apache 2 license
  * that can be found in the LICENSE file.
  */
-
-if (!class_exists('\\Thread')) {
-    // used for the docs ...
-    namespace \ {class Thread {}}
-    __halt_compiler();
-}
 
 /**
  * A Threaded process.
@@ -29,7 +30,7 @@ class Thread extends \Thread {
 	public function run()
 	{
 
-        call_user_func_array($this->_callable, [current_signal(), $this]);
+        call_user_func_array($this->_callable, [null, $this]);
         // if (is_array($callable)) {
         //     if (count($callable) >= 2) {
         //         if (is_object($callable[0])) {
@@ -64,5 +65,7 @@ class Thread extends \Thread {
     {
         $this->_callable = $this->_callable;
     }
+
+}
 
 }

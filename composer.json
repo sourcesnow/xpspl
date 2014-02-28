@@ -5,14 +5,11 @@
     "homepage": "http://prggmr.com",
     "keywords": [
         "signal",
-        "event",
-        "sockets",
+        "events",
+        "time",
         "io",
         "non blocking io",
         "non-blocking ftp",
-        "time",
-        "timed event",
-        "complex event processor",
     ],
     "license": "Apache 2.0",
     "authors": [

@@ -32,6 +32,8 @@ class Database extends Storage {
     {
         if (XPSPL_JUDY_SUPPORT) {
             $this->_storage = new Judy(Judy::INT_TO_MIXED);
+        } else {
+            $this->_storage = new \ArrayObject();
         }
     }
 
