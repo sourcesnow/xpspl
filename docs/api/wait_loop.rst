@@ -1,4 +1,4 @@
-.. wait_loop.php generated using docpx v1.0.0 on 02/26/14 11:56am
+.. /wait_loop.php generated using docpx v1.0.0 on 02/28/14 07:47pm
 
 
 xp_wait_loop
@@ -8,33 +8,53 @@ xp_wait_loop
 .. function:: xp_wait_loop()
 
 
-    Starts the XPSPL wait loop.
+    Begin the XPSPL wait loop.
+    
+    The XPSPL wait loop is a core function of XPSPL and *MUST* be called as the 
+    final function to execute any type of complex event, this includes time, 
+    networking and ftp operations.
 
-    :rtype: void 
+    :rtype: void .. warning::
+
+   This is a *BLOCKING* function.
+
+   A loop based signal time, networking, ftp ... etc must be registered 
+   before calling the wait_loop.
+
+   Any code underneath the function call will *NOT* be executed until 
+   the processor halts execution.
 
 
+Basic Usage
+###########
 
-wait_loop
-=========
-PHP File @ wait_loop.php
+Basic usage example demonstrating using the loop for time based code.
 
 .. code-block:: php
 
-	<?php
-	/**
-	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
-	 * Use of this source code is governed by the Apache 2 license
-	 * that can be found in the LICENSE file.
-	 */
-	
-	/**
-	 * Starts the XPSPL wait loop.
-	 *
-	 * @return  void
-	 */
-	function xp_wait_loop()
-	{
-	    return XPSPL::instance()->wait_loop();
-	}
+   <?php
 
-Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_
+   // Import time module
+   xp_import('time');
+
+   xp_time\awake(10, function(){
+       echo '10 seconds passed';
+   });
+
+   xp_wait_loop()
+
+Automatic shutdown
+##################
+
+The processor loop has built in support for automatically shutting down when 
+it detects there is nothing else it will ever do.
+
+This example demonstrates the loop shutting down after emitting 5 time based 
+signals.
+
+.. code-block:: php
+
+
+
+
+

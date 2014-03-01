@@ -1,4 +1,4 @@
-.. find_signal_database.php generated using docpx v1.0.0 on 02/26/14 11:56am
+.. /find_signal_database.php generated using docpx v1.0.0 on 02/28/14 07:47pm
 
 
 xp_find_signal_database
@@ -16,32 +16,5 @@ xp_find_signal_database
 
 
 
-find_signal_database
-====================
-PHP File @ find_signal_database.php
 
-.. code-block:: php
 
-	<?php
-	/**
-	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
-	 * Use of this source code is governed by the Apache 2 license
-	 * that can be found in the LICENSE file.
-	 */
-	
-	/**
-	 * Returns an installed signal database or null if it cannot be found.
-	 *
-	 * @param  object  $signal  SIG
-	 *
-	 * @return  null|object  \XPSPL\database\Signals
-	 */
-	function xp_find_signal_database($signal)
-	{
-	    if (!$signal instanceof \XPSPL\SIG) {
-	        $signal = new \XPSPL\SIG();
-	    }
-	    return XPSPL::instance()->find_signal_database($signal);
-	}
-
-Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

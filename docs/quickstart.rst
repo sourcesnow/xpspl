@@ -8,24 +8,24 @@ Quickstart
 Installing XPSPL
 %%%%%%%%%%%%%%%%
 
-XPSPL is installed using (composer).
+XPSPL is installed using (composer_).
 
-Handling and Emitting a signal
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+.. _composer: http://getcomposer.org
 
-Register a signal handler and emit a signal.
+.. code-block:: console
 
-.. code-block:: php
+  require: "prggmr/xpspl": "v5.0.0"
 
-    <?php
+Once installed XPSPL's API will be available after including composer's ``vender/autoload.php``.
 
-    // Register signal handler
-    xp_signal(XP_SIG('foo'), function(){
-        echo 'HelloWorld';
-    });
+Processing and Emitting signals
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    // Now emit the signal
-    xp_emit(XP_SIG('foo'));
+Processing and emitting signals is available using the ``xp_signal`` and ``xp_emit`` functions.
+
+.. include:: api/signal.rst
+
+.. include:: api/emit.rst
 
 
 Scheduled CRON Jobs

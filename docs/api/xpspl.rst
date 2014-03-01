@@ -1,4 +1,4 @@
-.. xpspl.php generated using docpx v1.0.0 on 02/26/14 11:56am
+.. /xpspl.php generated using docpx v1.0.0 on 02/28/14 07:47pm
 
 
 XPSPL
@@ -14,27 +14,5 @@ XPSPL
 
 
 
-xpspl
-=====
-PHP File @ xpspl.php
 
-.. code-block:: php
 
-	<?php
-	/**
-	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
-	 * Use of this source code is governed by the Apache 2 license
-	 * that can be found in the LICENSE file.
-	 */
-	
-	/**
-	 * Returns the XPSPL processor.
-	 *
-	 * @return  object  XPSPL\Processor
-	 */
-	function XPSPL(/* ... */)
-	{
-	    return XPSPL::instance();
-	}
-
-Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

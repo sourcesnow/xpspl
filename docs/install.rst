@@ -12,11 +12,9 @@ XPSPL requires  **>= PHP 5.4**.
 Composer
 ++++++++
 
-XPSPL is available via composer.
+XPSPL is installed using (composer_).
 
-(Composer_) installation.
-
-.. _Composer: http://getcomposer.org
+.. _composer: http://getcomposer.org
 
 .. code-block:: console
 

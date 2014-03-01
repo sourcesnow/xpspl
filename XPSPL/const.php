@@ -63,9 +63,9 @@ if (!defined('XPSPL_PROCESS_DEFAULT_EXHAUST')) {
      *
      * Integer option defining the default exhausting of a process.
      *
-     * By default it is ``1``.
+     * By default it is ``null``.
      */
-    define('XPSPL_PROCESS_DEFAULT_EXHAUST', 1);
+    define('XPSPL_PROCESS_DEFAULT_EXHAUST', null);
 }
 
 if (!defined('XPSPL_PROCESS_DEFAULT_PRIORITY')) {

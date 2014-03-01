@@ -1,4 +1,4 @@
-.. xpspl_flush.php generated using docpx v1.0.0 on 02/26/14 11:56am
+.. /xpspl_flush.php generated using docpx v1.0.0 on 02/28/14 07:47pm
 
 
 XPSPL_flush
@@ -14,27 +14,5 @@ XPSPL_flush
 
 
 
-xpspl_flush
-===========
-PHP File @ xpspl_flush.php
 
-.. code-block:: php
 
-	<?php
-	/**
-	 * Copyright 2010-12 Nickolas Whiting. All rights reserved.
-	 * Use of this source code is governed by the Apache 2 license
-	 * that can be found in the LICENSE file.
-	 */
-	
-	/**
-	 * Empties the storage, history and clears the current state.
-	 *
-	 * @return void
-	 */
-	function XPSPL_flush(/* ... */)
-	{
-	    return XPSPL::instance()->flush();
-	}
-
-Created on 02/26/14 11:56am using `Docpx <http://github.com/prggmr/docpx>`_

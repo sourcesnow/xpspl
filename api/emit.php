@@ -26,13 +26,13 @@
  * @param  signal  $signal  Signal to emit.
  * @param  object  $context  Signal context.
  *
- * @return  object  SIG
+ * @return  object  \XPSPL\SIG
  *
  * @example
  *
- * Emitting a unique signal
+ * Basic Usage
  *
- * When a unique signal is emitted
+ * Basic Usage example.
  *
  * .. code-block:: php
  *
