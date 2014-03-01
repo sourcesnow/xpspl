@@ -9,7 +9,7 @@
         "time",
         "io",
         "non blocking io",
-        "non-blocking ftp",
+        "non-blocking ftp"
     ],
     "license": "Apache 2.0",
     "authors": [
