@@ -10,8 +10,7 @@
  *
  * .. note::
  *
- *    This *DOES NOT* flush the processor and will leave emittable signals in
- *    the processor.
+ *    This DOES NOT flush the processor.
  *
  *    A signal is determined to be emittable only if it has installed processes
  *    that have not exhausted.
@@ -42,7 +41,7 @@
  *
  *     xp_clean();
  *
- * The above will output.
+ * The above code will output.
  *
  * .. code-block:: php
  *

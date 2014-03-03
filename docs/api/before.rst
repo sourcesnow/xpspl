@@ -1,4 +1,4 @@
-.. /before.php generated using docpx v1.0.0 on 03/02/14 12:15pm
+.. /before.php generated using docpx v1.0.0 on 03/03/14 10:55am
 
 
 xp_before
@@ -10,10 +10,10 @@ xp_before
 
     Execute a function before a signal is emitted.
 
-    :param object: \XPSPL\SIG
-    :param callable|process: PHP Callable or \XPSPL\Process.
+    :param object: \\XPSPL\\SIG
+    :param callable|process: PHP Callable or \\XPSPL\\Process.
 
-    :rtype: object Process
+    :rtype: object \\XPSPL\\Process
 
 
 Example #1 Basic Usage
@@ -39,7 +39,30 @@ The above code will output.
 
    // before foo foo
 
+Example #2 Class Signals
+########################
+
+.. code-block:: php
+
+    <?php
+
+    class SIG_Foo extends \XPSPL\SIG {}
+
+    xp_signal(new SIG_Foo(), function(){
+        echo 'bar';
+    });
+
+    xp_before(new SIG_Foo(), function(){
+        echo 'foo';
+    });
+
+The above code will output.
+
+.. code-block:: php
+
+    foobar
 
 
 
 
+Created on 03/03/14 10:55am using `Docpx <http://github.com/prggmr/docpx>`_

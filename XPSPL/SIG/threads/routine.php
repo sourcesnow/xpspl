@@ -9,21 +9,22 @@ namespace XPSPL\SIG\threads;
 /**
  * Idles the processor checking if registered processor threads are alive.
  *
- * Threaded extends and replaces the Time idle in the processor once threaded 
+ * Threaded extends and replaces the Time idle in the processor once threaded
  * processes are registered.
  */
 class Routine extends \XPSPL\SIG_Routine
-{   
+{
 
     public function __construct()
     {
         $this->_idle = new \XPSPL\idle\Threads(0, TIME_SECONDS);
+        parent::__construct();
     }
 
     /**
      * Run the idle function.
      */
-    public function routine(\XPSPL\Routine $routine) 
+    public function routine(\XPSPL\Routine $routine)
     {
         // TODO - Add function to fetch lowest idle time
         $routine->add_idle($this);

@@ -16,9 +16,7 @@
  *
  * @example
  *
- * Basic Usage
- *
- * Basic usage example.
+ * Example #1 Basic Usage
  *
  * .. code-block:: php
  *
@@ -29,28 +27,40 @@
  *         echo $a->get_index();
  *     });
  *
- *     // Results in 'foo'
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *    foo
  *
  * @example
  *
- * Retrieve parent signal.
+ * Example #2 Parent Signals
  *
- * The parent signal can be fetched by using an offset of ```-2```.
+ * Parent signals can be fetched by using a negative offset ``< -1``.
  *
  * .. code-block:: php
  *
  *     <?php
  *
+ *     // Install a process on the bar SIG
  *     xp_signal(XP_SIG('bar'), function(){
+ *         // Emit foo within bar
  *         xp_emit(XP_SIG('foo'));
  *     });
  *
+ *     // Install a process on the foo SIG
  *     xp_signal(XP_SIG('foo'), function(){
+ *         // Get the parent of foo
  *         $a = xp_current_signal(-2);
  *         echo $a->get_index();
  *     });
  *
- *     // Results in 'bar'
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *    bar
  */
 function xp_current_signal($offset = 0)
 {

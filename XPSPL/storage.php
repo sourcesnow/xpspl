@@ -8,12 +8,12 @@ namespace XPSPL;
 
 /**
  * Storage.
- * 
+ *
  * Storage is designed to allow objects to act as a storage.
- * 
+ *
  * Storage provides an interface to the normal PHP functions used for
  * transversing an array, keeping all data within a central storage.
- * 
+ *
  * See the PHP Manual for more information regarding the functions used
  * in Storage.
  */
@@ -28,7 +28,7 @@ class Storage implements \ArrayAccess, \Iterator {
 
     /**
      * Returns the current storage array.
-     * 
+     *
      * @return  array
      */
     public function get_storage(/* ... */)
@@ -38,7 +38,7 @@ class Storage implements \ArrayAccess, \Iterator {
 
     /**
      * Merge an array with the current storage.
-     * 
+     *
      * @return  void
      */
     public function merge($array)
@@ -48,9 +48,9 @@ class Storage implements \ArrayAccess, \Iterator {
 
     /**
      * Apply the given function to every node in storage.
-     * 
+     *
      * @param  callable  $func
-     * 
+     *
      * @return  void
      */
     public function walk($func)
@@ -76,7 +76,7 @@ class Storage implements \ArrayAccess, \Iterator {
     {
         return count($this->_storage);
     }
-    public function current(/* ... */) 
+    public function current(/* ... */)
     {
         return current($this->_storage);
     }
@@ -88,7 +88,7 @@ class Storage implements \ArrayAccess, \Iterator {
     {
         return key($this->_storage);
     }
-    public function next(/* ... */) 
+    public function next(/* ... */)
     {
         return next($this->_storage);
     }
@@ -96,7 +96,7 @@ class Storage implements \ArrayAccess, \Iterator {
     {
         return prev($this->_storage);
     }
-    public function reset(/* ... */) 
+    public function reset(/* ... */)
     {
         return reset($this->_storage);
     }

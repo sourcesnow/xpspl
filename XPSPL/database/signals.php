@@ -8,7 +8,7 @@ namespace XPSPL\database;
 
 /**
  * Signal Database
- * 
+ *
  * A database of signals.
  *
  * All signals are stored in a database by their index.
@@ -22,7 +22,7 @@ class Signals extends \XPSPL\Database {
      *
      * Returns null if the signal does not exit.
      *
-     * @param  object  $signal  
+     * @param  object  $signal
      *
      * @return  object
      */

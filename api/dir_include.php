@@ -10,16 +10,16 @@
  *
  * Listeners can be started automatically by passing ``$listen`` as ``true``.
  *
+ * .. note::
+ *
+ *    Listener class names are generated compliant to PSR-4 with the directory
+ *    serving as the top-level namespace.
+ *
  * @param  string  $dir  Directory to include.
  * @param  boolean  $listen  Start listeners.
  * @param  string  $path  Path to ignore when starting listeners.
  *
  * @return  void
- *
- * .. note::
- *
- *    Listener class names are generated compliant to PSR-4 with the directory
- *    serving as the top-level namespace.
  *
  * @example
  *
@@ -27,10 +27,12 @@
  *
  * .. code-block:: php
  *
+ *     <?php
+ *
  *     xp_dir_include('Foo');
  *
  * With the directory structure.
- * 
+ *
  * .. code-block:: php
  *
  *     - Foo/
@@ -44,10 +46,12 @@
  *
  * .. code-block:: php
  *
+ *     <?php
+ *
  *     xp_include_dir('Foo', true);
  *
  * With the directory structure.
- * 
+ *
  * .. code-block:: php
  *
  *     - Foo/
@@ -55,7 +59,7 @@
  *         - Bar/
  *             - Hello_World.php
  *
- * Will include the files ``Foo/Bar.php, Foo/Bar/Hello_World.php`` and attempt 
+ * Will include the files ``Foo/Bar.php, Foo/Bar/Hello_World.php`` and attempt
  * to start classes ``Foo\Bar, Foo\Bar\Hello_World``.
  *
  * .. note::

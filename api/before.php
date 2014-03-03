@@ -8,15 +8,15 @@
 /**
  * Execute a function before a signal is emitted.
  *
- * @param  object  $signal  \XPSPL\SIG
- * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
+ * @param  object  $signal  \\XPSPL\\SIG
+ * @param  callable|process  $process  PHP Callable or \\XPSPL\\Process.
  *
- * @return  object  Process
+ * @return  object  \\XPSPL\\Process
  *
  * @example
  *
  * Example #1 Basic Usage
- * 
+ *
  * .. code-block:: php
  *
  *    <?php
@@ -34,8 +34,32 @@
  * The above code will output.
  *
  * .. code-block:: php
- * 
+ *
  *    // before foo foo
+ *
+ * @example
+ *
+ * Example #2 Class Signals
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     class SIG_Foo extends \XPSPL\SIG {}
+ *
+ *     xp_signal(new SIG_Foo(), function(){
+ *         echo 'bar';
+ *     });
+ *
+ *     xp_before(new SIG_Foo(), function(){
+ *         echo 'foo';
+ *     });
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *     foobar
  */
 function xp_before($signal, $process)
 {

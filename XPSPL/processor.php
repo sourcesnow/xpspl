@@ -495,39 +495,47 @@ class Processor {
                 $signal
             ));
         }
-        if ($this->has_signal_exhausted($signal)) {
-            if (XPSPL_DEBUG) {
-                logger(XPSPL_LOG)->debug(
-                    'Non emittable signal emitted'
-                );
-            }
-            return $signal;
-        }
+
         // Store the history of the signal
         if (false !== $this->_history) {
             $this->_history[] = [$signal, microtime()];
         }
+
         // Set child status
         if (count($this->_signal) > 1)  {
             $signal->set_parent($this->current_signal());
         }
+
         // Check if signal is installed
         $memory = $this->find_signal_database($signal);
         if (null === $memory) {
-            return $signal;
+            $memory = new \XPSPL\database\Processes();
+        } else {
+            if (XPSPL_DEBUG) {
+                logger(XPSPL_LOG)->debug(
+                    'Signal with no installed processes emitted'
+                );
+            }
         }
-        // Set as currently emitted signal
-        $this->_signal[] = $signal;
-        // evaluate
+
+        // Evaluate complex signals
         $evaluated = $this->evaluate_signals($signal);
         if (null !== $evaluated) {
             foreach ($evaluated as $_db) {
                 $memory->merge($_db);
             }
         }
-        $this->_execute($signal, $memory);
-        // Remove the last signal
-        array_pop($this->_signal);
+
+        // Execute if we have processes
+        if ($memory->count() > 0) {
+            // Set as currently executing signal
+            $this->_signal[] = $signal;
+            // Execute
+            $this->_execute($signal, $memory);
+            // Remove once finished
+            array_pop($this->_signal);
+        }
+
         return $signal;
     }
 

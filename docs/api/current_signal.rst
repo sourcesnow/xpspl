@@ -1,4 +1,4 @@
-.. /current_signal.php generated using docpx v1.0.0 on 03/02/14 12:15pm
+.. /current_signal.php generated using docpx v1.0.0 on 03/03/14 10:55am
 
 
 xp_current_signal
@@ -17,10 +17,8 @@ xp_current_signal
     :rtype: object \\XPSPL\\SIG
 
 
-Basic Usage
-###########
-
-Basic usage example.
+Example #1 Basic Usage
+######################
 
 .. code-block:: php
 
@@ -31,29 +29,41 @@ Basic usage example.
         echo $a->get_index();
     });
 
-    // Results in 'foo'
+The above code will output.
 
-Retrieve parent signal.
-#######################
+.. code-block:: php
 
-The parent signal can be fetched by using an offset of ```-2```.
+   foo
+
+Example #2 Parent Signals
+#########################
+
+Parent signals can be fetched by using a negative offset ``< -1``.
 
 .. code-block:: php
 
     <?php
 
+    // Install a process on the bar SIG
     xp_signal(XP_SIG('bar'), function(){
+        // Emit foo within bar
         xp_emit(XP_SIG('foo'));
     });
 
+    // Install a process on the foo SIG
     xp_signal(XP_SIG('foo'), function(){
+        // Get the parent of foo
         $a = xp_current_signal(-2);
         echo $a->get_index();
     });
 
-    // Results in 'bar'
+The above code will output.
+
+.. code-block:: php
+
+   bar
 
 
 
 
-
+Created on 03/03/14 10:55am using `Docpx <http://github.com/prggmr/docpx>`_

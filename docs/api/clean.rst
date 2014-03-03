@@ -1,4 +1,4 @@
-.. /clean.php generated using docpx v1.0.0 on 03/02/14 12:15pm
+.. /clean.php generated using docpx v1.0.0 on 03/03/14 10:55am
 
 
 xp_clean
@@ -12,8 +12,7 @@ xp_clean
     
     .. note::
     
-       This *DOES NOT* flush the processor and will leave emittable signals in
-       the processor.
+       This DOES NOT flush the processor.
     
        A signal is determined to be emittable only if it has installed processes
        that have not exhausted.
@@ -44,7 +43,7 @@ Basic usage example demonstrating cleaning old signals and processes.
 
     xp_clean();
 
-The above will output.
+The above code will output.
 
 .. code-block:: php
 
@@ -53,4 +52,4 @@ The above will output.
 
 
 
-
+Created on 03/03/14 10:55am using `Docpx <http://github.com/prggmr/docpx>`_

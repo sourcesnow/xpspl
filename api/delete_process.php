@@ -8,23 +8,43 @@
 /**
  * Deletes an installed signal process.
  *
- * @param  string|integer|object  $signal  Signal process is attached to.
- * @param  object  $process  Process.
+ * .. note::
+ *
+ *    The \\XPSPL\\Process object given must be the same returned or created
+ *    when the process was installed.
+ *
+ * @param  object  $signal  \\XPSPL\\SIG signal to remove process from.
+ * @param  object  $process  \\XPSPL\\Process object to remove.
  *
  * @return  void
  *
  * @example
  *
- * Delete installed process
- *
- * Removes the installed process from the foo signal.
+ * Example #1 Basic Usage
  *
  * .. code-block::php
  *
  *    <?php
- *    $process = xp_signal(XP_SIG('foo'), function(){});
+ *    // Create a new process on the foo SIG.
+ *    $process_one = xp_signal(XP_SIG('foo'), function(){
+ *        echo 'foo';
+ *    });
  *
- *    xp_delete_process(XP_SIG('foo'), $process);
+ *    $process_two = xp_signal(XP_SIG('foo'), function(){
+ *        echo 'bar';
+ *    });
+ *
+ *    // Delete process_one using the returned \XPSPL\Process object
+ *    xp_delete_process(XP_SIG('foo'), $process_one);
+ *
+ *    // Emit foo
+ *    xp_emit(XP_SIG('foo'));
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *    bar
  */
 function xp_delete_process($signal, $process)
 {
