@@ -1,4 +1,4 @@
-.. /erase_signal_history.php generated using docpx v1.0.0 on 02/28/14 07:47pm
+.. /erase_signal_history.php generated using docpx v1.0.0 on 03/02/14 12:15pm
 
 
 xp_erase_signal_history

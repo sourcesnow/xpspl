@@ -656,6 +656,7 @@ class Processor {
         if (null === $function) {
             return;
         }
+        return call_user_func_array($function, [$signal]);
         if (is_array($function)) {
             if (count($function) >= 2) {
                 if (is_object($function[0])) {

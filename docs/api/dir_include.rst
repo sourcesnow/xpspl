@@ -1,4 +1,4 @@
-.. /dir_include.php generated using docpx v1.0.0 on 02/28/14 07:47pm
+.. /dir_include.php generated using docpx v1.0.0 on 03/02/14 12:15pm
 
 
 xp_dir_include
@@ -8,25 +8,58 @@ xp_dir_include
 .. function:: xp_dir_include($dir, [$listen = false, [$path = false]])
 
 
-    Recursively includes all .php files with the option to start a listener
-    automatically after including the file.
+    Recursively includes all .php files in the given directory.
     
-    .. note::
-    
-       When autostarting listeners the class name is expected in PSR-0 compliant.
-    
-       The ``$dir`` serves as the initial namespace for class listeners.
-    
-       For example ``xp_dir_include('Foobar', true);`` will load all files
-       contained in the Foobar directory, with a file named ``test.php`` it
-       will expect a class ``Foobar\Test`` which extends the ``XPSPL\Listener``
-       object.
+    Listeners can be started automatically by passing ``$listen`` as ``true``.
 
     :param string: Directory to include.
     :param boolean: Start listeners.
     :param string: Path to ignore when starting listeners.
 
-    :rtype: void 
+    :rtype: void .. note::
+
+   Listener class names are generated compliant to PSR-4 with the directory
+   serving as the top-level namespace.
+
+
+Example #1 Basic Usage
+######################
+
+.. code-block:: php
+
+    xp_dir_include('Foo');
+
+With the directory structure.
+
+.. code-block:: php
+
+    - Foo/
+        - Bar.php
+
+Will include the file Foo/Bar.php
+
+Example #2 Listeners
+####################
+
+.. code-block:: php
+
+    xp_include_dir('Foo', true);
+
+With the directory structure.
+
+.. code-block:: php
+
+    - Foo/
+        - Bar.php
+        - Bar/
+            - Hello_World.php
+
+Will include the files ``Foo/Bar.php, Foo/Bar/Hello_World.php`` and attempt 
+to start classes ``Foo\Bar, Foo\Bar\Hello_World``.
+
+.. note::
+
+    Listeners must extend the XPSPL\\Listener class.
 
 
 

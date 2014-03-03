@@ -35,10 +35,10 @@ $tests = [
     // function($i){
     //     before($i, function(){});
     // },
-    'Event Loop' =>
-    function($i) {
-        xp_wait_loop();
-    },
+    // 'Event Loop' =>
+    // function($i) {
+    //     xp_wait_loop();
+    // },
     // 'Interruption before emit' =>
     // function($i) {
     //     before($i, function(){});
@@ -92,13 +92,14 @@ $tests = [
 ];
 $output::send('Beginning performance tests ... please be patient.');
 $results = [];
-$average_perform = 100;
+$average_perform = 10;
 $total_tests = 0;
 foreach ($tests as $_test => $_func) {
     $results[$_test] = [];
     $processor = new \XPSPL\Processor();
     $processor->signal_history(false);
     $sig = XP_SIG('a');
+    $processor->signal($sig, xp_null_exhaust(null));
     for ($i=1;$i<$average_perform+1;$i++) {
         $output::send(sprintf(
             'Running %s test %s of %s',
@@ -125,6 +126,7 @@ foreach ($tests as $_test => $_func) {
                 $results[$_test][] = $end - $start;
                 ++$total_tests;
                 $processor->flush();
+                $processor->signal($sig, xp_null_exhaust(null));
             }
         }
     }

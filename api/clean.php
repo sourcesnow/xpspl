@@ -6,7 +6,7 @@
  */
 
 /**
- * Will scan and remove any processes and signals that can no longer be emitted.
+ * Scans and removes non-emittable signals and processes.
  *
  * .. note::
  *
@@ -22,7 +22,7 @@
  *
  * @example
  *
- * Basic Usage
+ * Example #1 Basic Usage
  *
  * Basic usage example demonstrating cleaning old signals and processes.
  *
@@ -42,9 +42,11 @@
  *
  *     xp_clean();
  *
- * When ran the above code will output `SIG Test` and then remove the signal
- * the Test_2 signal will not be removed since it still contains an emittable
- * signal.
+ * The above will output.
+ *
+ * .. code-block:: php
+ *
+ *     SIG Test
  */
 function xp_clean($history = false)
 {

@@ -1,4 +1,4 @@
-.. /after.php generated using docpx v1.0.0 on 02/28/14 07:47pm
+.. /after.php generated using docpx v1.0.0 on 03/02/14 12:15pm
 
 
 xp_after
@@ -16,10 +16,8 @@ xp_after
     :rtype: object Process
 
 
-Basic Usage
-###########
-
-Basic usage example.
+Example #1 Basic Usage
+######################
 
 .. code-block:: php
 
@@ -33,7 +31,10 @@ Basic usage example.
        echo 'after foo';
    });
 
-   // results when foo is emitted
+The above code will output.
+
+.. code-block:: php
+
    // fooafter foo
 
 

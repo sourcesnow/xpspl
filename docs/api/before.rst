@@ -1,4 +1,4 @@
-.. /before.php generated using docpx v1.0.0 on 02/28/14 07:47pm
+.. /before.php generated using docpx v1.0.0 on 03/02/14 12:15pm
 
 
 xp_before
@@ -16,10 +16,8 @@ xp_before
     :rtype: object Process
 
 
-Basic Usage
-###########
-
-Basic usage example.
+Example #1 Basic Usage
+######################
 
 .. code-block:: php
 
@@ -34,6 +32,11 @@ Basic usage example.
    });
 
    // results when foo is emitted
+
+The above code will output.
+
+.. code-block:: php
+
    // before foo foo
 
 

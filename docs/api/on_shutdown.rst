@@ -1,4 +1,4 @@
-.. /on_shutdown.php generated using docpx v1.0.0 on 02/28/14 07:47pm
+.. /on_shutdown.php generated using docpx v1.0.0 on 03/02/14 12:15pm
 
 
 xp_on_shutdown

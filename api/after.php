@@ -15,9 +15,7 @@
  *
  * @example
  *
- * Basic Usage
- *
- * Basic usage example.
+ * Example #1 Basic Usage
  *
  * .. code-block:: php
  *
@@ -31,7 +29,10 @@
  *        echo 'after foo';
  *    });
  *
- *    // results when foo is emitted
+ * The above code will output.
+ *
+ * .. code-block:: php
+ * 
  *    // fooafter foo
  */
 function xp_after($signal, $process)

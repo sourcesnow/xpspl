@@ -1,4 +1,4 @@
-.. /clean.php generated using docpx v1.0.0 on 02/28/14 07:47pm
+.. /clean.php generated using docpx v1.0.0 on 03/02/14 12:15pm
 
 
 xp_clean
@@ -8,7 +8,7 @@ xp_clean
 .. function:: xp_clean([$history = false])
 
 
-    Will scan and remove any processes and signals that can no longer be emitted.
+    Scans and removes non-emittable signals and processes.
     
     .. note::
     
@@ -23,8 +23,8 @@ xp_clean
     :rtype: void 
 
 
-Basic Usage
-###########
+Example #1 Basic Usage
+######################
 
 Basic usage example demonstrating cleaning old signals and processes.
 
@@ -44,9 +44,11 @@ Basic usage example demonstrating cleaning old signals and processes.
 
     xp_clean();
 
-When ran the above code will output `SIG Test` and then remove the signal
-the Test_2 signal will not be removed since it still contains an emittable
-signal.
+The above will output.
+
+.. code-block:: php
+
+    SIG Test
 
 
 

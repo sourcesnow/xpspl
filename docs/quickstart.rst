@@ -21,14 +21,14 @@ Once installed XPSPL's API will be available after including composer's ``vender
 Processing and Emitting signals
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Processing and emitting signals is available using the ``xp_signal`` and ``xp_emit`` functions.
+Processing and emitting signals  available using the ``xp_signal`` and ``xp_emit`` functions.
 
 .. include:: api/signal.rst
 
 .. include:: api/emit.rst
 
 
-Scheduled CRON Jobs
+Time
 %%%%%%%%%%%%%%%%%%%
 
 Perform a scheduled task using CRON syntax.
