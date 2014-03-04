@@ -29,9 +29,9 @@
  *
  *     <?php
  *
- *     xp_signal(XP_SIG('Test'), function(){
+ *     xp_signal(XP_SIG('Test'), xp_exhaust(1, function(){
  *         echo 'SIG Test';
- *     });
+ *     }));
  *
  *     xp_signal(XP_SIG('Test_2'), function(){
  *         echo 'SIG Test 2';
@@ -40,6 +40,7 @@
  *     xp_emit(XP_SIG('Test'));
  *
  *     xp_clean();
+ *     var_dump(xp_find_signal_database(XP_SIG('Test')));
  *
  * The above code will output.
  *

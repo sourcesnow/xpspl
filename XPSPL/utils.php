@@ -113,22 +113,6 @@ function microseconds(/* ... */) {
 }
 
 /**
- * Transforms PHP exceptions into a signal.
- *
- * The signal fired is \XPSPL\processor\Signal::GLOBAL_EXCEPTION
- *
- * @param  object  $exception  \Exception
- *
- * @return void
- */
-function signal_exceptions($exception) {
-    // \XPSPL\signal(
-    //     new \XPSPL\processor\exception\Error(),
-    //     new \XPSPL\processor\event\Error($exception)
-    // );
-}
-
-/**
  * Transforms PHP errors into a signal.
  *
  * The signal fired is \XPSPL\processor\Signal::GLOBAL_ERROR
