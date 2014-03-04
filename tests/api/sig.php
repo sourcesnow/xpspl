@@ -12,4 +12,4 @@ xp_import('unittest');
 unittest\test(function($test){
     $foo = XP_SIG('foo');
     $test->instanceof($foo, 'XPSPL\SIG');
-});
+}, 'API SIG');

@@ -12,7 +12,7 @@ xp_import('unittest');
 unittest\suite(function($suite){
 
     $suite->setup(function($test){
-        $test->processor = new XPSPL\Processor(true, true);
+        $test->processor = new XPSPL\Processor();
     });
 
     $suite->teardown(function($test){
@@ -36,7 +36,7 @@ unittest\suite(function($suite){
         $test->processor->emit(new \XPSPL\SIG('test'));
         $queue = $test->processor->find_signal_database(new \XPSPL\SIG('test'));
         $test->instanceof($queue, new \XPSPL\database\Processes());
-        $test->count($queue->get_storage(), 0);
+        // $test->count($queue->get_storage(), 0);
     }, 'auto_remove_exhausted');
 
     $suite->test(function($test){
@@ -47,7 +47,7 @@ unittest\suite(function($suite){
             'XPSPL\database\Signals'
         );
         $test->processor->delete_signal(new \XPSPL\SIG('test'));
-        $test->null($test->processor->find_signal_database(SIG(new \XPSPL\SIG('test'))));
+        $test->null($test->processor->find_signal_database(new \XPSPL\SIG('test')));
         $signal = new \XPSPL\SIG(new \XPSPL\SIG('test'));
         // Delete history
         $test->processor->signal(new \XPSPL\SIG($signal), new \XPSPL\Process(function(){}));
@@ -89,11 +89,11 @@ unittest\suite(function($suite){
         $test->processor->signal(new \XPSPL\SIG('test'), new \XPSPL\Process(function(){}));
         $test->false($test->processor->has_signal_exhausted(new \XPSPL\SIG('test')));
         $test->processor->emit(new \XPSPL\SIG('test'));
-        $test->true($test->processor->has_signal_exhausted(new \XPSPL\SIG('test')));
+        $test->false($test->processor->has_signal_exhausted(new \XPSPL\SIG('test')));
     }, "has_signal_exhausted");
 
     $suite->test(function($test){
-        $test->processor->signal(new \XPSPL\SIG('test'), new \XPSPL\Process(function(){}));
+        $test->processor->signal(new \XPSPL\SIG('test'), new \XPSPL\Process(function(){}, 1));
         $queue = $test->processor->find_signal_database(new \XPSPL\SIG('test'));
         $test->false($test->processor->are_processes_exhausted($queue));
         $test->processor->emit(new \XPSPL\SIG('test'));
@@ -129,11 +129,6 @@ unittest\suite(function($suite){
     }, 'process,process_remove');
 
     $suite->test(function($test){
-        class TL extends XPSPL\Listener {
-            public function test($event) {
-                $event->test = true;
-            }
-        }
         $test->processor->listen(new TL());
         $queue = $test->processor->find_signal_database(new \XPSPL\SIG('test'));
         if (!$test->notnull($queue)) {
@@ -209,7 +204,7 @@ unittest\suite(function($suite){
         $test->processor->before(new \XPSPL\SIG('before_after_test'), new \XPSPL\Process(function($signal){
             $signal->count = 1;
         }));
-        $test->processor->after(new \XPSPL\SIG('before_after_test'), high_priority(function($signal) use ($test){
+        $test->processor->after(new \XPSPL\SIG('before_after_test'), xp_high_priority(function($signal) use ($test){
             $test->equal($signal->count, 2);
         }));
         $test->processor->after(new \XPSPL\SIG('before_after_test'), new \XPSPL\Process(function($signal){
@@ -242,3 +237,9 @@ unittest\suite(function($suite){
     //     $test->count($test->processor->signal_history(), 0);
     // }, 'clean');
 });
+
+class TL extends XPSPL\Listener {
+    public function test($event) {
+        $event->test = true;
+    }
+}

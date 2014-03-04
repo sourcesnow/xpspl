@@ -11,6 +11,16 @@ define('XPSPL_VERSION', '4.0.1');
 // The creator
 define('XPSPL_MASTERMIND', 'Nickolas Whiting');
 
+// Add this to include path
+if (!defined('XPSPL_PATH')) {
+    /**
+     * XPSPL Path
+     *
+     * Path to the library.
+     */
+    define('XPSPL_PATH', dirname(realpath(__FILE__)));
+}
+
 // start'er up
 // utils & traits
 require dirname(realpath(__FILE__)).'/XPSPL/const.php';

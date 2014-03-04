@@ -77,7 +77,7 @@ class Database extends Storage {
             get_class($this),
             spl_object_hash($this),
             $this->count(),
-            (!XPSPL_JUDY_SUPPORT) ?: sprintf(' JUDY MEMORY(%S)', 
+            (!XPSPL_JUDY_SUPPORT) ?: sprintf(' JUDY MEMORY_SIZE(%S)',
                 $this->_storage->memoryUsage())
         );
     }

@@ -12,4 +12,4 @@ xp_import('unittest');
 unittest\test(function($test){
     $process = xp_null_exhaust(null);
     $test->equal(null, $process->exhaustion());
-});
+}, 'API null exhaust');

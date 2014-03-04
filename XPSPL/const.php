@@ -5,16 +5,6 @@
  * that can be found in the LICENSE file.
  */
 
-// Add this to include path
-if (!defined('XPSPL_PATH')) {
-    /**
-     * XPSPL Path
-     *
-     * Path to the library.
-     */
-    define('XPSPL_PATH', dirname(realpath(__FILE__)).'/..');
-}
-
 if (!defined('XPSPL_DEBUG')) {
     /**
      * XPSPL Debug mode
@@ -39,7 +29,7 @@ if (!defined('XPSPL_PURGE_EXHAUSTED')) {
     /**
      * Automatically purges exhausted processes.
      *
-     * This will increase performance when turned on and vice-versa. 
+     * This will increase performance when turned on and vice-versa.
      *
      * @default true
      */

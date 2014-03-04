@@ -14,13 +14,13 @@ if (!defined('SKIP_TESTS_ON_FAILURE')) {
 
 /**
  * Unit testing signal
- * 
+ *
  * This allows for unit testing using signals.
- * 
+ *
  * Testing is performed as:
  *
  * import('unittest');
- * 
+ *
  * unittest\test(function($test){
  *     $test->true(true);
  *     $test->false(false);
@@ -34,7 +34,7 @@ class SIG_Test extends \XPSPL\SIG_Routine {
     /**
      * Assertion tests ran.
      */
-    protected $_assertions_ran = []; 
+    protected $_assertions_ran = [];
 
     /**
      * Assertions run and their results.
@@ -60,9 +60,9 @@ class SIG_Test extends \XPSPL\SIG_Routine {
 
     /**
      * Constructs a new test signal.
-     * 
+     *
      * @param  string  $name  Name of the test.
-     * 
+     *
      * @return  void
      */
     public function __construct($name = null)
@@ -74,7 +74,7 @@ class SIG_Test extends \XPSPL\SIG_Routine {
 
     /**
      * Calls an assertion function.
-     * 
+     *
      * @return  boolean  true
      */
     public function __call($func, $args)
@@ -106,7 +106,7 @@ class SIG_Test extends \XPSPL\SIG_Routine {
 
     /**
      * Returns the assertion results.
-     * 
+     *
      * @return  array
      */
     public function get_assertion_results()
@@ -116,7 +116,7 @@ class SIG_Test extends \XPSPL\SIG_Routine {
 
     /**
      * Returns the assertions run.
-     * 
+     *
      * @return  array
      */
     public function get_assertions_ran()
@@ -126,7 +126,7 @@ class SIG_Test extends \XPSPL\SIG_Routine {
 
     /**
      * Checks if the test failed.
-     * 
+     *
      * @return  boolean
      */
     public function failed()

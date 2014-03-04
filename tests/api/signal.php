@@ -13,4 +13,4 @@ unittest\test(function($test){
     $foo = XP_SIG('foo');
     xp_signal($foo, null);
     $test->instanceof(xp_find_signal_database($foo), 'XPSPL\database\Processes');
-});
+}, 'API Signal');

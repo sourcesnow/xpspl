@@ -12,4 +12,4 @@ xp_import('unittest');
 unittest\test(function($test){
     $process = xp_priority(100, null);
     $test->equal(100, $process->get_priority());
-});
+}, 'API Priority');

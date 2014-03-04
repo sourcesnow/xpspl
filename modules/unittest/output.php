@@ -22,7 +22,7 @@ class Output {
      * Line break count
      */
     protected $_breakcount = 0;
-    
+
     /**
      * Output message types.
      */
@@ -42,18 +42,18 @@ class Output {
         '0;35',
         '0;36'
     ];
-    
+
     /**
      * Outputs an assertion result.
-     * 
+     *
      * @param  object  $event  Test event object
      * @param  string  $assertion  Name of the assertion
      * @param  array|null  $args  Array of arguments used during test
      * @param  null|boolean  $result  True-pass,False-fail,null-skipped
-     * 
+     *
      * @return  void
      */
-    public function assertion($test, $assertion, $args, $result) 
+    public function assertion($test, $assertion, $args, $result)
     {
         if ($result === true) {
             $type = self::SUCCESS;
@@ -73,7 +73,7 @@ class Output {
                 }
                 $this->send(sprintf(
                     '%s - %s (%s) [%s]',
-                    $test->get_signal()->info(),
+                    $test->name,
                     $assertion,
                     $print,
                     $this->variable($args)
@@ -111,15 +111,15 @@ class Output {
                     $print = "F";
                 }
                 $this->send(
-                    $print, 
-                    $type, 
+                    $print,
+                    $type,
                     $nl
                 );
                 $this->_breakcount++;
                 break;
         }
     }
-    
+
     /**
      * Sends a string to output.
      *
@@ -140,11 +140,11 @@ class Output {
         print($string);
         if ($newline) print PHP_EOL;
     }
-    
+
     /**
      * Returns if short vars are enabled or to use.
      *
-     * @param  string  $str 
+     * @param  string  $str
      *
      * @return  boolean
      */
@@ -153,7 +153,7 @@ class Output {
         return (null === $str) ? SHORT_VARS :
                 (SHORT_VARS && is_string($str) && strlen($str) >= 60);
     }
-    
+
     /**
      * Generates PHP vars like printr, var_dump the output is limited
      * by using shortvars and the maximum output length.
@@ -163,7 +163,7 @@ class Output {
      * @param  mixed  $v
      * @param  integer  $depth  Current transvering depth.
      *
-     * @return  string  
+     * @return  string
      */
     public function variable($v, &$depth = 0)
     {
@@ -211,10 +211,10 @@ class Output {
                 return sprintf('object(%s)', get_class($v));
             break;
         }
-        
+
         return "unknown";
     }
-    
+
     /**
      * Outputs a readable backtrace, by default it just dumps it from a for.
      * The output generator is at fault for providing it simplified.
@@ -241,11 +241,11 @@ class Output {
 
     /**
      * Returns the location an assertion was called.
-     * 
+     *
      * Currently this just returns the node at index 3 a more advanced method
-     * for determaining the assertion call will need to be developed to 
+     * for determaining the assertion call will need to be developed to
      * account for changes in the flow.
-     * 
+     *
      * @return  array
      */
     public function get_assertion_call_line()
@@ -262,17 +262,17 @@ class Output {
 
     /**
      * Generates an error indicating an unknown assertion has been called.
-     * 
+     *
      * @param  string  $func  Assertion function called
      * @param  array  $args  Array of arguments passed to the assertion
      * @param  object  $assertion  The assertion object used
-     * 
+     *
      * @return  void
      */
-    public function unknown_assertion($signal, $func, $args, $assertion) 
+    public function unknown_assertion($signal, $func, $args, $assertion)
     {
         $assertions = array_keys($assertion->get_storage());
-        $suggestions = array_filter($assertions, 
+        $suggestions = array_filter($assertions,
             function($var) use ($func){
                 if (\similar_text($var, $func) >= 5) return true;
                 return false;
@@ -282,7 +282,7 @@ class Output {
         $this->send(sprintf(
             "TEST : %s%sASSERTION : [ %s ] is not a valid assertion %s",
             $signal->get_index(), PHP_EOL,
-            $func, (count($suggestions) != 0) ? 
+            $func, (count($suggestions) != 0) ?
                 'did you want ('.implode(', ', $suggestions).')?' :
                 'no suggestions found.'
         ), self::ERROR);
@@ -295,7 +295,7 @@ class Output {
 
     /**
      * Sends a line break to the output with a border.
-     * 
+     *
      * @return  void
      */
     public function send_linebreak($type = null){

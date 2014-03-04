@@ -155,7 +155,7 @@ api\create_assertion(function($object, $class){
  * Count of the array equals
  */
 api\create_assertion(function($array, $count){
-    if (is_object($array) && $array instanceof \XPSPL\Storage) {
+    if (is_object($array)/* && $array instanceof \XPSPL\Storage*/) {
         return $array->count() === $count;
     }
     return count($array) === $count;

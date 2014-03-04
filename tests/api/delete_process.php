@@ -13,12 +13,9 @@ xp_import('unittest');
  * Emit Unitest
  */
 unittest\test(function($test){
-    $foo = XP_SIG('foo');
+    $foo = XP_SIG(spl_object_hash(new stdClass()));
     $process = xp_process(null);
     xp_signal($foo, $process);
     xp_delete_process($foo, $process);
-    xp_emit($foo);
-    $test->exception('LogicException', function() use ($foo){
-        echo $foo->foo;
-    });
-});
+    $test->count(xp_find_signal_database($foo), 0);
+}, 'API Delete Process');

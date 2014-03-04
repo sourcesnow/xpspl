@@ -17,4 +17,4 @@ unittest\test(function($test){
     });
     xp_emit($foo);
     $test->equal($foo->foo, 'foo');
-});
+}, 'API after');

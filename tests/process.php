@@ -19,7 +19,7 @@ unittest\test(function($test){
     $process = new XPSPL\Process(function(){});
     $test->false($process->is_exhausted());
     $process->decrement_exhaust();
-    $test->true($process->is_exhausted());
+    $test->false($process->is_exhausted());
     $process = new XPSPL\Process(function(){}, 2);
     $process->decrement_exhaust();
     $test->false($process->is_exhausted());

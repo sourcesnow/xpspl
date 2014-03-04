@@ -36,7 +36,7 @@ class SIG_Suite extends SIG_Routine {
             throw new InvalidArgumentException;
         }
         parent::__construct();
-        $this->_test = new SIG_Test();
+        $this->_test = new SIG_Test(spl_object_hash($this));
         $function($this);
     }
 
@@ -72,9 +72,12 @@ class SIG_Suite extends SIG_Routine {
      *
      * @return  object  SIG_Test
      */
-    function test($function)
+    function test($function, $name = null)
     {
-        xp_signal($this->_test, $function);
+        xp_signal($this->_test, xp_exhaust(1, function($signal) use ($name, $function){
+            $signal->name = $name;
+            return $function($signal);
+        }));
     }
 
     /**

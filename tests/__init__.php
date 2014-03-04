@@ -17,23 +17,22 @@ unittest\generate_output();
 // make sure we save the event history
 xp_set_signal_history(true);
 
-if (defined('GENERATE_CODE_COVERAGE')) {
+// if (defined('GENERATE_CODE_COVERAGE')) {
 
-    if (!function_exists('xdebug_start_code_coverage')) {
-        \unittest\Output::send(
-            'Coverage skipped xdebug not installed',
-            \unittest\Output::ERROR,
-            true
-        );
-    } else {
-
-    xp_on_start(function(){
-        xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-    });
+if (!function_exists('xdebug_start_code_coverage')) {
+    \unittest\Output::send(
+        'Coverage skipped xdebug not installed',
+        \unittest\Output::ERROR,
+        true
+    );
+} else {
+    // xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
+    xdebug_start_code_coverage();
 
     xp_on_shutdown(function(){
         $exclude = [
-            '/api.php', '/XPSPL.php'
+            '/api.php', '/XPSPL.php', '/__init__.php',
+            '/examples', '/tests'
         ];
         $coverage = xdebug_get_code_coverage();
         xdebug_stop_code_coverage();
@@ -45,16 +44,28 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         $avg = [];
         foreach ($dir as $_file) {
             array_map(function($i) use ($coverage, &$avg, $exclude){
+                $include = true;
                 $file = trim(str_replace(XPSPL_PATH, '', $i));
-                if (!in_array($file, $exclude) && isset($coverage[$i])) {
-                    $lines = count($coverage[$i]);
-                    $total = 0;
-                    foreach ($coverage[$i] as $_v) {
-                        if ($_v >= 1) {
-                            $total++;
-                        }
+                foreach ($exclude as $_exclude) {
+                    if (stripos($_exclude, $file) !== false) {
+                        $include = false;
+                        break;
                     }
-                    $avg[$file] = round(($total / $lines) * 100, 2);
+                }
+                reset($exclude);
+                if ($include) {
+                    if (isset($coverage[$i])) {
+                        $lines = count($coverage[$i]);
+                        $total = 0;
+                        foreach ($coverage[$i] as $_v) {
+                            if ($_v >= 1) {
+                                $total++;
+                            }
+                        }
+                        $avg[$file] = round(($total / $lines) * 100, 2);
+                    } else {
+                        $avg[$file] = 0;
+                    }
                 }
             }, $_file);
         }
@@ -69,6 +80,7 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         );
         \unittest\Output::send(sprintf(
             'Total Test Coverage : %s%%',
+            // $total
             round(($total / (count($avg) * 100)) * 100, 2)
         ), \unittest\Output::DEBUG, true);
         \unittest\Output::send(
@@ -93,5 +105,5 @@ if (defined('GENERATE_CODE_COVERAGE')) {
         }
     });
 
-    }
 }
+// }

@@ -16,7 +16,7 @@ unittest\test(function($test){
     $start = time();
     $processor->signal(new \time\SIG_Awake(1, TIME_SECONDS), new \XPSPL\Process(function() use ($start, $test) {
         $test->equal(1, time() - $start);
-    }));
+    }, 1));
     $processor->wait_loop();
 
 }, 'Time Module');
