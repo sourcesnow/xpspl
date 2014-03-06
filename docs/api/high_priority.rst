@@ -1,4 +1,4 @@
-.. /high_priority.php generated using docpx v1.0.0 on 03/05/14 10:23pm
+.. /high_priority.php generated using docpx v1.0.0 on 03/06/14 11:19am
 
 
 xp_high_priority
@@ -48,4 +48,4 @@ Basic usage example demonstrating high priority processes.
 
 
 
-
+Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_

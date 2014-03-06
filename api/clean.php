@@ -46,7 +46,7 @@
  *
  * .. code-block:: php
  *
- *     SIG Test
+ *     SIG Test null
  */
 function xp_clean($history = false)
 {

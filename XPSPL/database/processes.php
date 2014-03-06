@@ -99,7 +99,7 @@ class Processes extends \XPSPL\Database {
                 logger(XPSPL_LOG)->debug(sprintf(
                     '%s process installed NODE_COUNT(%s)',
                     $process,
-                    count($this->_storage)//->count()
+                    $this->count()///->count()
                 ));
             }
             // var_dump($priority);
@@ -179,7 +179,6 @@ class Processes extends \XPSPL\Database {
             if ($_process instanceof Processes) {
                 foreach ($_process as $_sub_process) {
                     $_sub_process->set_priority($_priority);
-                    $_sub_process->set_exhaust(1);
                     $this->install($_sub_process);
                 }
             } else {

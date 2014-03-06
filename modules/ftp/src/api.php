@@ -30,7 +30,7 @@ function upload($files, $options, $callback = null)
     if (null === $callback) {
         $callback = function(){};
     }
-    signal($upload, $callback);
+    xp_signal($upload, $callback);
     return $upload;
 }
 
@@ -44,7 +44,7 @@ function upload($files, $options, $callback = null)
  */
 function complete(SIG_Upload $upload, $callback)
 {
-    return signal($upload->SIG_Complete(), $callback);
+    return xp_signal($upload->SIG_Complete(), $callback);
 }
 
 /**
@@ -57,7 +57,7 @@ function complete(SIG_Upload $upload, $callback)
  */
 function failure(SIG_Upload $upload, $callback)
 {
-    return signal($upload->SIG_Failure(), $callback);
+    return xp_signal($upload->SIG_Failure(), $callback);
 }
 
 /**
@@ -69,5 +69,5 @@ function failure(SIG_Upload $upload, $callback)
  */
 function finished(SIG_Upload $upload, $callback)
 {
-    return signal($upload->SIG_Finished(), $callback);
+    return xp_signal($upload->SIG_Finished(), $callback);
 }

@@ -1,4 +1,4 @@
-.. /low_priority.php generated using docpx v1.0.0 on 03/05/14 10:23pm
+.. /low_priority.php generated using docpx v1.0.0 on 03/06/14 11:19am
 
 
 xp_low_priority
@@ -52,4 +52,4 @@ Low priority processes always execute last.
 
 
 
-
+Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_

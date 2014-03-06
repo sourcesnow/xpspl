@@ -39,5 +39,5 @@ function CRON($cron, $process)
         $process = xp_null_exhaust($process);
     }
     $signal = new SIG_CRON($cron);
-    return [$signal, signal($signal, $process)];
+    return [$signal, xp_signal($signal, $process)];
 }

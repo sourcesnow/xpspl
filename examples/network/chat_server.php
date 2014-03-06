@@ -30,7 +30,6 @@ $socket->on_read(function(network\SIG_Read $sig_read) use ($socket){
     $content = implode("", explode("\r\n", $sig_read->socket->read()));
     // windows
     $content = implode("", explode("\n\r", $content));
-    var_dump($content);
     // On first connection read in the username
     if (!isset($client->username)) {
         $client->username = $content;

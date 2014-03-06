@@ -15,7 +15,7 @@ use \XPSPL\idle\Process;
  *
  * Once all files are transfered it will emit a \ftp\SIG_Finished signal.
  */
-class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
+class SIG_Upload extends \XPSPL\SIG_Routine {
 
     /**
      * Files to be uploaded.
@@ -77,7 +77,8 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
     public function __construct($files, $options = [])
     {
         parent::__construct();
-        $this->signal_this();
+
+
         $this->_sig_complete = new SIG_Complete();
         $this->_sig_failure = new SIG_Failure();
         $this->_sig_finished = new SIG_Finished($this);
@@ -86,7 +87,8 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
             'port' => 21,
             'timeout' => 90,
             'username' => null,
-            'password' => null
+            'password' => null,
+            'secure' => false
         ];
         $this->_files = $files;
         $options += $defaults;
@@ -95,7 +97,7 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
         /**
          * Upload Idle process
          */
-        $this->_routine->set_idle(new Process(function(){
+        $this->_idle = new Process(function(){
             $this->_init_transfers();
             foreach ($this->_uploading as $_key => $_file) {
                 $status = ftp_nb_continue($_file[0]);
@@ -104,13 +106,13 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
                 }
                 if ($status === FTP_FINISHED) {
                     $this->_sig_complete->set_upload($_file[1]);
-                    emit($this->_sig_complete);
+                    xp_emit($this->_sig_complete);
                     // Close the FTP connection to that file
                     ftp_close($_file[0]);
                     $this->_uploaded[] = $_file[1];
                 } else {
                     $this->_sig_failure->set_upload($_file[1]);
-                    emit($this->_sig_failure);
+                    xp_emit($this->_sig_failure);
                     // Close the FTP connection to that file
                     ftp_close($_file[0]);
                 }
@@ -118,21 +120,22 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
             }
             // Cleanup once finished
             if (count($this->_uploading) == 0) {
-                emit($this->_sig_finished);
-                delete_signal($this);
-                delete_signal($this->_sig_complete);
-                delete_signal($this->_sig_failure);
+                xp_emit($this->_sig_finished);
+                xp_delete_signal($this);
+                xp_delete_signal($this->_sig_complete);
+                xp_delete_signal($this->_sig_failure);
             }
+        });
 
-        }));
+        // Init
+        xp_emit($this);
     }
 
-    public function routine($history = null)
+    public function routine(\XPSPL\Routine $routine)
     {
         if (count($this->_files) > 0 || count($this->_uploading) > 0) {
-            return true;
+            $routine->add_idle($this);
         }
-        return false;
     }
 
     /**
@@ -149,11 +152,19 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
             if (!$_file instanceof File) {
                 continue;
             }
-            $connection = ftp_connect(
-                $this->_options['hostname'],
-                $this->_options['port'],
-                $this->_options['timeout']
-            );
+            if ($this->_options['secure']) {
+                $connection = ftp_ssl_connect(
+                    $this->_options['hostname'],
+                    $this->_options['port'],
+                    $this->_options['timeout']
+                );
+            } else {
+                $connection = ftp_connect(
+                    $this->_options['hostname'],
+                    $this->_options['port'],
+                    $this->_options['timeout']
+                );
+            }
             if (false === $connection) {
                 break;
             }
@@ -163,13 +174,18 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
                 $this->_options['password']
             );
             if ($login === false) {
+                $this->_sig_failure->set_upload($_file);
+                xp_emit(
+                    $this->_sig_failure,
+                    new SIG_Failure($_file)
+                );
                 ftp_close($connection);
                 break;
             }
             if (!file_exists($_file->get_full_path())) {
-                emit(
+                xp_emit(
                     $this->_sig_failure,
-                    new EV_Failure($_file)
+                    new SIG_Failure($_file)
                 );
             } else {
                 $transfer = ftp_nb_put(
@@ -186,13 +202,13 @@ class SIG_Upload extends \XPSPL\SIG\SIG_Complex {
                 } else {
                     if ($transfer == FTP_FINISHED) {
                         $this->_sig_complete->set_upload($_file);
-                        emit($this->_sig_complete);
+                        xp_emit($this->_sig_complete);
                         // Close the FTP connection to that file
                         ftp_close($connection);
                         $this->_uploaded[] = $_file;
                     } else {
-                        $this->_sig_failure->set_upload($_file)
-                        emit($this->_sig_failure);
+                        $this->_sig_failure->set_upload($_file);
+                        xp_emit($this->_sig_failure);
                         // Close the FTP connection to that file
                         ftp_close($connection);
                     }

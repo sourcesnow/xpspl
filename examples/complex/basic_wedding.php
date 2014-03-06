@@ -1,4 +1,10 @@
 <?php
+/**
+ * Example of emitting a complex signal based on an analysis of emitted signals.
+ *
+ * In this case we will watch for a SIG_Bells, SIG_Bride and SIG_Groom to emit
+ * and once we detect all three signals have happened we emit the SIG_Wedding.
+ */
 
 // Create our 3 required signals.
 class SIG_Bells extends \XPSPL\SIG {}

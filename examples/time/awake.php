@@ -17,5 +17,5 @@ time\awake(10, function(){
 });
 
 time\awake(5, xp_null_exhaust(function(){
-    echo "Every 5 seconds".PHP_EOLz;
+    echo "Every 5 seconds".PHP_EOL;
 }));

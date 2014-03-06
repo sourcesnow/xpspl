@@ -1,4 +1,4 @@
-.. /null_exhaust.php generated using docpx v1.0.0 on 03/05/14 10:23pm
+.. /null_exhaust.php generated using docpx v1.0.0 on 03/06/14 11:19am
 
 
 xp_null_exhaust
@@ -40,4 +40,4 @@ every 10 seconds creating an interval.
 
 
 
-
+Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_

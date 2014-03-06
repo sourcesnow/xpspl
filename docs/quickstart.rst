@@ -21,11 +21,13 @@ Once installed XPSPL's API will be available after including composer's ``vender
 Processing and Emitting signals
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Processing and emitting signals is available using the ``xp_signal`` and ``xp_emit`` functions.
+Processing and emitting signals is performed using the ``xp_signal``, ``xp_emit`` and ``xp_complex_sig`` functions.
 
 .. include:: api/signal.rst
 
 .. include:: api/emit.rst
+
+.. include:: api/complex_sig.rst
 
 Environment
 %%%%%%%%%%%

@@ -38,6 +38,19 @@ class Connection {
      */
     protected $_read_attempted = 0;
 
+    /**
+     * Error encountered on the socket.
+     *
+     * @var  string
+     */
+    public $error = null;
+
+     /**
+     * Error encountered on the socket.
+     *
+     * @var  string
+     */
+    public $error_str = null;
 
     /**
      * Constructs a new connection.
@@ -92,27 +105,27 @@ class Connection {
     {
         $r = null;
         $read = @socket_recv($this->get_resource(), $r, $length, $flags);
-        // Gracefull disconnect
         if ($read === 0) {
             return false;
         }
         if ($read === false) {
             $error = socket_last_error($this->get_resource());
-            if ($error == SOCKET_EWOULDBLOCK) {
-                if ($this->_read_attempted >= 10) {
-                    return false;
-                } else {
-                    ++$this->_read_attempted;
-                }
-                return;
+            $this->error = $error;
+            $this->error_str = socket_strerror($this->error);
+            // Non-blocking IO
+            if ($error == SOCKET_EWOULDBLOCK || $error = SOCKET_EAGAIN) {
+                ++$this->_read_attempted;
+                return true;
             }
             return false;
         }
         $this->_read_attempted = 0;
-        if (null === $this->_read_buffer) {
-            $this->_read_buffer = $r;
-        } else {
-            $this->_read_buffer .= $r;
+        if ($r !== null) {
+            if (null === $this->_read_buffer) {
+                $this->_read_buffer = trim($r);
+            } else {
+                $this->_read_buffer .= trim($r);
+            }
         }
         return true;
     }
@@ -127,14 +140,21 @@ class Connection {
         if (!is_resource($this->get_resource())) {
             return false;
         }
-        // peek into the connection reading 1 byte
+        // peek into the connection reading 1 byte ... this works only
+        // when there is data to read on the connection
         if (false === $this->_read_buffer(1, MSG_DONTWAIT ^ MSG_PEEK)) {
             return false;
         }
-        // if (null !== $this->_read_buffer) {
-        //     return true;
-        // }
-        return $this->_read_buffer();
+        // try and read data waiting on the connection into the buffer.
+        $this->_read_buffer();
+        $error = socket_get_option($this->get_resource(), SOL_SOCKET, SO_ERROR);
+        if ($error !== 0) {
+            $this->error = socket_last_error($this->get_resource());
+            $this->error_str = socket_strerror($this->error);
+
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -208,18 +228,14 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
 }
 
 /**
- * Fills the read buffer into the connection from the socket.
+ * Flushes the read buffer at the end of the cycle.
  *
  * This makes data available from the ``read`` method.
- *
- * 
  *
  * @return  void
  */
 function clean_buffer(SIG_Read $sig_read)
 {
-    echo $sig_read->socket->read();
-    echo 'cleaning buffer';
     $sig_read->socket->flush_read_buffer();
 }
 
@@ -236,4 +252,3 @@ xp_signal(
     new SIG_Disconnect(),
     xp_low_priority(xp_null_exhaust('\network\system_disconnect'))
 );
-

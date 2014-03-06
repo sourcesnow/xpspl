@@ -8,16 +8,16 @@
 /**
  * Allows for performing complex signal processing using callable PHP variables.
  *
- * A ``\Closure`` will be bound into an object context which allows maintaining 
+ * A ``\Closure`` will be bound into an object context which allows maintaining
  * variables across emits within ``$this``.
  *
  * .. note::
  *
- *    A ``\Closure`` can remain bound to its original context by passing 
- *    ``rebind_context as ``false``.
+ *    A ``\Closure`` can remain bound to its original context by passing
+ *    ``$rebind_context`` as ``false``.
  *
  * @param  callable  $function  Callable variable to use for evaluation.
- * @param  boolean  $rebind_context  Rebind the given closures context to this 
+ * @param  boolean  $rebind_context  Rebind the given closures context to this
  *                                   object.
  *
  * @return  \\XPSPL\\SIG_Complex  Complex signal registered to the processor.
@@ -38,13 +38,15 @@
  *             $this->bells = false;
  *         }
  *         switch (true) {
- *             case $signal == XP_SIG('groom'):
+ *             // Signals can be compared using the compare method
+ *             // this will return if the signals are identical
+ *             case $signal->compare(XP_SIG('groom')):
  *                 $this->groom = true;
  *                 break;
- *             case $signal == XP_SIG('bride'):
+ *             case $signal->compare(XP_SIG('bride')):
  *                 $this->bride = true;
  *                 break;
- *             case $signal == XP_SIG('bells'):
+ *             case $signal->compare(XP_SIG('bells')):
  *                 $this->bells = true;
  *                 break;
  *         }
@@ -75,47 +77,61 @@
  *
  * .. code-block:: php
  *
- *     <?php
- *     
- *     xp_import('network');
+ *   <?php
  *
- *     $server = network\server('0.0.0.0', ['port' => 8000]);
- * 
- *     // Once a bride, groom and bell signals are emitted we emit the wedding.
- *     $wedding = xp_complex_sig(function($signal) use ($server){
- *         if (!isset($this->reset) || $this->reset) {
- *             $this->reset = false;
- *             $this->bride = false;
- *             $this->groom = false;
- *             $this->bells = false;
- *         }
- *         // If its not a network signal ignore it ...
- *         if (!$signal instanceof \XPSPL\network\SIG_Base) {
- *             return false;
- *         }
- *         // Find the signal from the input
- *         $sig = XP_SIG($signal->socket->read());
- *         switch (true) {
- *             case $sig == XP_SIG('groom'):
- *                 $this->groom = true;
- *                 break;
- *             case $sig == XP_SIG('bride'):
- *                 $this->bride = true;
- *                 break;
- *             case $sig == XP_SIG('bells'):
- *                 $this->bells = true;
- *                 break;
- *         }
- *         if ($this->groom && $this->bride && $this->bells) {
- *             $this->reset = true;
- *             return true;
- *         }
+ *   xp_import('network');
+ *
+ *   $server = network\connect('0.0.0.0', ['port' => 8000]);
+ *   // Setup a server that emits a signal of recieved data
+ *   $server->on_read(function($signal){
+ *       $read = trim($signal->socket->read());
+ *       if ($read == null) {
  *         return false;
- *     });
+ *       }
+ *       xp_emit(XP_SIG($read));
+ *   });
  *
- *     xp_signal($wedding, function(){
- *         echo 'A wedding just happened.';
- *     });
+ *   // Once a bride, groom and bell signals are emitted we emit the wedding.
+ *   $wedding = xp_complex_sig(function($signal){
+ *       if (!isset($this->reset) || $this->reset) {
+ *         $this->reset = false;
+ *         $this->bride = false;
+ *         $this->groom = false;
+ *         $this->bells = false;
+ *       }
+ *       switch (true) {
+ *         case $signal->compare(XP_SIG('groom')):
+ *             $this->groom = true;
+ *             break;
+ *         case $signal->compare(XP_SIG('bride')):
+ *             $this->bride = true;
+ *             break;
+ *         case $signal->compare(XP_SIG('bells')):
+ *             $this->bells = true;
+ *             break;
+ *       }
+ *       if ($this->groom && $this->bride && $this->bells) {
+ *         $this->reset = true;
+ *         return true;
+ *       }
+ *       return false;
+ *   });
+ *
+ *   xp_signal($wedding, function(){
+ *       echo 'A wedding just happened.';
+ *   });
+ *
+ *   // Start the wait loop
+ *   xp_wait_loop();
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *    A wedding just happened.
+ *
+ * Once the ``bride``, ``groom`` and ``bells`` signals are emitted from the
+ * network connection the complex signal will emit the wedding.
  */
 function xp_complex_sig($function, $rebind_context = true)
 {

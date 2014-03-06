@@ -205,10 +205,31 @@ class Socket extends \XPSPL\SIG_Routine {
                     );
                 }
             }
+            // Errors
+            if (count($ex) !== 0) {
+                foreach ($ex as $_excep) {
+                    if (XPSPL_DEBUG) {
+                        logger(XPSPL_LOG)->debug(sprintf(
+                            'Connection Exception %s',
+                            strval($_excep)
+                        ));
+                    }
+                    $this->_clients[intval($_excep)]->error = socket_last_error($_excep);
+                    $this->_clients[intval($_excep)]->error_str = socket_strerror($_excep);
+                    $processor->get_routine()->add_signal(
+                        new SIG_Error(
+                            $this, $this->_clients[intval($_excep)]
+                        )
+                    );
+                }
+            }
         });
 
         $this->on_disconnect(xp_priority(PHP_INT_MAX, '\network\system_disconnect'));
-        $this->on_read(xp_low_priority('\network\clean_buffer'));
+        // After processing read clean the buffer
+        xp_after(new SIG_Read($this), xp_low_priority('\network\clean_buffer'));
+        // Emit this has started
+        xp_emit($this);
     }
 
     /**
@@ -295,6 +316,18 @@ class Socket extends \XPSPL\SIG_Routine {
     public function get_connections(/* ... */)
     {
         return $this->_clients;
+    }
+
+    /**
+     * Registers a new handle for socket connection errors.
+     *
+     * @param  callable  $function  Function to call on errors.
+     *
+     * @return  object
+     */
+    public function on_error($function)
+    {
+        return xp_signal(new SIG_Error($this), $function);
     }
 
     /**

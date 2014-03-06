@@ -111,6 +111,8 @@ class Storage implements \ArrayAccess, \Iterator {
     public function offsetSet($offset, $value)
     {
         $this->_storage[$offset] = $value;
+        // Internally sort keys properly
+        ksort($this->_storage);
     }
     public function offsetGet($offset)
     {

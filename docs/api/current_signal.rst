@@ -1,4 +1,4 @@
-.. /current_signal.php generated using docpx v1.0.0 on 03/05/14 10:23pm
+.. /current_signal.php generated using docpx v1.0.0 on 03/06/14 11:19am
 
 
 xp_current_signal
@@ -66,4 +66,4 @@ The above code will output.
 
 
 
-
+Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_

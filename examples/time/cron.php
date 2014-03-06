@@ -13,6 +13,6 @@ date_default_timezone_set('America/New_York');
  */
 xp_import('time');
 
-time\CRON('*/1 * * * *', xp_null_exhaust(function(){
+time\CRON('* * * * *', xp_null_exhaust(function(){
     echo "Every Minute!".PHP_EOL;
 }));

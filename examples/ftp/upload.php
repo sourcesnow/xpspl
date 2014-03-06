@@ -2,10 +2,12 @@
 xp_import('time');
 xp_import('ftp');
 
+// Must provide username/password
 $connection = [
-    'hostname' => '-',
+    'hostname' => 'ftps://app.brickftp.com',
     'username' => '-',
-    'password' => '-'
+    'password' => '-',
+    'secure'   => false
 ];
 
 $files = [
@@ -15,14 +17,14 @@ $files = [
     dirname(realpath(__FILE__)).'/file_4.txt'
 ];
 
-$uploader = ftp\upload($files, $connection, function(){
+$uploader = ftp\upload($files, $connection, function($signal){
     echo "Upload Started".PHP_EOL;
 });
 
-ftp\complete($uploader, xp_null_exhaust(function(){
-    echo $this->get_file()->get_name() . ' uploaded succesfully'.PHP_EOL;
-}));
+ftp\complete($uploader, function($signal){
+    echo $signal->get_file()->get_name() . ' uploaded succesfully'.PHP_EOL;
+});
 
-ftp\failure($uploader, xp_null_exhaust(function(){
-    echo $this->get_file()->get_name() . ' failed to upload'.PHP_EOL;
-}));
+ftp\failure($uploader, function($signal){
+    echo $signal->get_file()->get_name() . ' failed to upload'.PHP_EOL;
+});
