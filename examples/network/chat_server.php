@@ -21,14 +21,16 @@ $socket->on_connect(function(network\SIG_Connect $sig_connect) use ($socket){
     $sig_connect->socket->write("Welcome to the prggmr chat server".PHP_EOL);
     $sig_connect->socket->write("Enter your username : ");
 });
-
+$socket->on_read(null);
 $socket->on_read(function(network\SIG_Read $sig_read) use ($socket){
     $clients = $socket->get_connections();
-    $client = $clients[$sig_read->socket->get_resource()];
+    $client = $clients[intval($sig_read->socket->get_resource())];
     // Strip any newlines from linux
+    $sig_read->socket->_read_buffer();
     $content = implode("", explode("\r\n", $sig_read->socket->read()));
     // windows
     $content = implode("", explode("\n\r", $content));
+    var_dump($content);
     // On first connection read in the username
     if (!isset($client->username)) {
         $client->username = $content;

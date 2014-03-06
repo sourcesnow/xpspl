@@ -1,5 +1,5 @@
 <?php
-$sig = SIG('foo');
+$sig = XP_SIG('foo');
 // Emit a few foo objects
 for($i=0;$i<5;$i++){
     xp_emit($sig);

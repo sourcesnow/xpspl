@@ -12,7 +12,7 @@
  *
  * @return  null|object  \XPSPL\database\Signals
  */
-function xp_find_signal_database($signal)
+function xp_get_signal($signal)
 {
     if (!$signal instanceof \XPSPL\SIG) {
         $signal = new \XPSPL\SIG();

@@ -11,7 +11,7 @@ xp_import('unittest');
 
 unittest\test(function($test){
     $database = new \XPSPL\database\Processes();
-    $count = 10000;
+    $count = 10;
     for ($i=0;$i<$count;$i++) {
         $database->install(new \XPSPL\Process(function(){}));
     }

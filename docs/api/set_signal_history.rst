@@ -1,4 +1,4 @@
-.. /set_signal_history.php generated using docpx v1.0.0 on 03/03/14 10:55am
+.. /set_signal_history.php generated using docpx v1.0.0 on 03/05/14 10:23pm
 
 
 xp_set_signal_history
@@ -17,4 +17,4 @@ xp_set_signal_history
 
 
 
-Created on 03/03/14 10:55am using `Docpx <http://github.com/prggmr/docpx>`_
+

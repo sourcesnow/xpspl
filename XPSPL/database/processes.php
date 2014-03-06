@@ -99,7 +99,7 @@ class Processes extends \XPSPL\Database {
                 logger(XPSPL_LOG)->debug(sprintf(
                     '%s process installed NODE_COUNT(%s)',
                     $process,
-                    $this->_storage->count()
+                    count($this->_storage)//->count()
                 ));
             }
             // var_dump($priority);

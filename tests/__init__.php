@@ -7,17 +7,7 @@
 
 date_default_timezone_set('America/New_York');
 
-xp_import("unittest");
-
 ini_set('memory_limit', -1);
-
-// load the standard unittest output
-unittest\generate_output();
-
-// make sure we save the event history
-xp_set_signal_history(true);
-
-// if (defined('GENERATE_CODE_COVERAGE')) {
 
 if (!function_exists('xdebug_start_code_coverage')) {
     \unittest\Output::send(
@@ -27,12 +17,12 @@ if (!function_exists('xdebug_start_code_coverage')) {
     );
 } else {
     // xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-    xdebug_start_code_coverage();
+    xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
 
     xp_on_shutdown(function(){
         $exclude = [
-            '/api.php', '/XPSPL.php', '/__init__.php',
-            '/examples', '/tests'
+            'api.php', 'XPSPL.php', '__init__.php',
+            'examples', 'tests', 'module'
         ];
         $coverage = xdebug_get_code_coverage();
         xdebug_stop_code_coverage();
@@ -47,25 +37,21 @@ if (!function_exists('xdebug_start_code_coverage')) {
                 $include = true;
                 $file = trim(str_replace(XPSPL_PATH, '', $i));
                 foreach ($exclude as $_exclude) {
-                    if (stripos($_exclude, $file) !== false) {
-                        $include = false;
-                        break;
+                    if (stripos($file, $_exclude) !== false) {
+                        return;
                     }
                 }
-                reset($exclude);
-                if ($include) {
-                    if (isset($coverage[$i])) {
-                        $lines = count($coverage[$i]);
-                        $total = 0;
-                        foreach ($coverage[$i] as $_v) {
-                            if ($_v >= 1) {
-                                $total++;
-                            }
+                if (isset($coverage[$i])) {
+                    $lines = count($coverage[$i]);
+                    $total = 0;
+                    foreach ($coverage[$i] as $_v) {
+                        if ($_v >= 1) {
+                            $total++;
                         }
-                        $avg[$file] = round(($total / $lines) * 100, 2);
-                    } else {
-                        $avg[$file] = 0;
                     }
+                    $avg[$file] = round(($total / $lines) * 100, 2);
+                } else {
+                    $avg[$file] = 0;
                 }
             }, $_file);
         }
@@ -104,6 +90,12 @@ if (!function_exists('xdebug_start_code_coverage')) {
             );
         }
     });
-
 }
-// }
+
+xp_import("unittest");
+
+// load the standard unittest output
+unittest\generate_output();
+
+// make sure we save the event history
+xp_set_signal_history(true);

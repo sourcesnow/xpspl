@@ -80,7 +80,7 @@ class Connection {
     }
 
     /**
-     * Reads the given length of data from the socket.
+     * Reads the given length of data from the socket into the read buffer.
      *
      * @param  integer  $length  Maximum number of bytes to read in.
      *                           Default = 2MB
@@ -88,7 +88,7 @@ class Connection {
      *
      * @return  string
      */
-    public function read($length = XPSPL_SOCKET_READ_LENGTH, $flags = MSG_DONTWAIT)
+    public function _read_buffer($length = XPSPL_SOCKET_READ_LENGTH, $flags = MSG_DONTWAIT)
     {
         $r = null;
         $read = @socket_recv($this->get_resource(), $r, $length, $flags);
@@ -102,14 +102,19 @@ class Connection {
                 if ($this->_read_attempted >= 10) {
                     return false;
                 } else {
-                    ++$this->_read_attemped;
+                    ++$this->_read_attempted;
                 }
                 return;
             }
             return false;
         }
         $this->_read_attempted = 0;
-        return $r;
+        if (null === $this->_read_buffer) {
+            $this->_read_buffer = $r;
+        } else {
+            $this->_read_buffer .= $r;
+        }
+        return true;
     }
 
     /**
@@ -123,18 +128,13 @@ class Connection {
             return false;
         }
         // peek into the connection reading 1 byte
-        if (false === $this->read(1, MSG_DONTWAIT ^ MSG_PEEK)) {
+        if (false === $this->_read_buffer(1, MSG_DONTWAIT ^ MSG_PEEK)) {
             return false;
         }
-        if (null !== $this->_read_buffer) {
-            return true;
-        }
-        $read = $this->read();
-        if (false === $read) {
-            return false;
-        }
-        $this->_read_buffer = $read;
-        return true;
+        // if (null !== $this->_read_buffer) {
+        //     return true;
+        // }
+        return $this->_read_buffer();
     }
 
     /**
@@ -173,6 +173,24 @@ class Connection {
     protected function _connect(/* ... */) {
         throw new \RuntimeException;
     }
+
+    /**
+     * Read data from the socket.
+     *
+     * @return  void
+     */
+    public function read($length = XPSPL_SOCKET_READ_LENGTH, $start = 0) {
+        return substr($this->_read_buffer, $start, $length);
+    }
+
+    /**
+     * Flushes the read buffer.
+     *
+     * @return  void
+     */
+    public function flush_read_buffer(/* ... */) {
+        $this->_read_buffer = null;
+    }
 }
 
 /**
@@ -190,6 +208,23 @@ function system_disconnect(SIG_Disconnect $sig_disconnect)
 }
 
 /**
+ * Fills the read buffer into the connection from the socket.
+ *
+ * This makes data available from the ``read`` method.
+ *
+ * 
+ *
+ * @return  void
+ */
+function clean_buffer(SIG_Read $sig_read)
+{
+    echo $sig_read->socket->read();
+    echo 'cleaning buffer';
+    $sig_read->socket->flush_read_buffer();
+}
+
+
+/**
  * Register the disconnect
  *
  * This fires as a last priority to allow pushing content to the host.
@@ -201,3 +236,4 @@ xp_signal(
     new SIG_Disconnect(),
     xp_low_priority(xp_null_exhaust('\network\system_disconnect'))
 );
+

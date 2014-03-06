@@ -240,6 +240,18 @@ class SIG {
         return ($this->_parent === SIGNAL_SELF_PARENT) ? $this : $this->_parent;
     }
 
+    /**
+     * Compare if the given ``$sig`` is identical to this.
+     *
+     * @param  object  $sig  SIG to compare.
+     *
+     * @return  boolean
+     */
+    public function compare(SIG $sig)
+    {
+        return $sig->get_index() === $this->_index;
+    }
+
     // --------------------------------------------------------------------- \\
     // INTERNAL FUNCTIONS
     // --------------------------------------------------------------------- \\

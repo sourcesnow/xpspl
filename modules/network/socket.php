@@ -139,7 +139,6 @@ class Socket extends \XPSPL\SIG_Routine {
                     $ex[] = $_resource;
                 }
             }
-            var_dump([$re, $wr, $ex, $time, $utime]);
             $count = socket_select($re, $wr, $ex, $time, $utime);
             if ($count === false) {
                 logger(XPSPL_LOG)->debug(
@@ -183,6 +182,7 @@ class Socket extends \XPSPL\SIG_Routine {
                             ));
                         }
                     } else {
+                        $this->_clients[$id]->_read_buffer();
                         xp_emit(
                             new SIG_Read($this, $this->_clients[$id])
                         );
@@ -207,7 +207,8 @@ class Socket extends \XPSPL\SIG_Routine {
             }
         });
 
-        $this->on_disconnect(xp_priority(PHP_INT_MAX, xp_null_exhaust('\network\system_disconnect')));
+        $this->on_disconnect(xp_priority(PHP_INT_MAX, '\network\system_disconnect'));
+        $this->on_read(xp_low_priority('\network\clean_buffer'));
     }
 
     /**

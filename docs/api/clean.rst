@@ -1,4 +1,4 @@
-.. /clean.php generated using docpx v1.0.0 on 03/03/14 10:55am
+.. /clean.php generated using docpx v1.0.0 on 03/05/14 10:23pm
 
 
 xp_clean
@@ -31,9 +31,9 @@ Basic usage example demonstrating cleaning old signals and processes.
 
     <?php
 
-    xp_signal(XP_SIG('Test'), function(){
+    xp_signal(XP_SIG('Test'), xp_exhaust(1, function(){
         echo 'SIG Test';
-    });
+    }));
 
     xp_signal(XP_SIG('Test_2'), function(){
         echo 'SIG Test 2';
@@ -42,6 +42,7 @@ Basic usage example demonstrating cleaning old signals and processes.
     xp_emit(XP_SIG('Test'));
 
     xp_clean();
+    var_dump(xp_find_signal(XP_SIG('Test')));
 
 The above code will output.
 
@@ -52,4 +53,4 @@ The above code will output.
 
 
 
-Created on 03/03/14 10:55am using `Docpx <http://github.com/prggmr/docpx>`_
+

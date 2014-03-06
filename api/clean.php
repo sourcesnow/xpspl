@@ -40,7 +40,7 @@
  *     xp_emit(XP_SIG('Test'));
  *
  *     xp_clean();
- *     var_dump(xp_find_signal_database(XP_SIG('Test')));
+ *     var_dump(xp_find_signal(XP_SIG('Test')));
  *
  * The above code will output.
  *

@@ -585,6 +585,7 @@ class Processor {
             ));
         }
         $db->reset();
+        var_dump($db);
         foreach ($db as $_process) {
             # Always check state first
             if ($signal->get_state() === STATE_HALTED) {

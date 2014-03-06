@@ -17,5 +17,5 @@ unittest\test(function($test){
     $process = xp_process(null);
     xp_signal($foo, $process);
     xp_delete_process($foo, $process);
-    $test->count(xp_find_signal_database($foo), 0);
+    $test->count(xp_find_signal($foo), 0);
 }, 'API Delete Process');
