@@ -6,7 +6,7 @@
  */
 
 // library version
-define('XPSPL_VERSION', '4.0.0');
+define('XPSPL_VERSION', '5.0.0');
 
 // The creator
 define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
@@ -41,10 +41,10 @@ final class XPSPL extends \XPSPL\Processor {
      * Initialise the global processor instance.
      *
      * @param  boolean  $event_history  Store a history of all events.
-     * 
+     *
      * @return  object  XPSPL\Processor
      */
-    final public static function init($event_history = true) 
+    final public static function init($event_history = true)
     {
         if (null === static::$_instance) {
             static::$_instance = new self($event_history);
