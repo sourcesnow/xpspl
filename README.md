@@ -2,6 +2,14 @@
 
 PHP Signal and Event Library.
 
+XPSPL is a high-performance event loop that supports the following event types,
+
+* Signals
+* Timers
+* I/O
+* Complex Signals
+* Idle
+
 ## Documentation
 
 XPSPL's documentation is available at http://xpspl.readthedocs.org.
