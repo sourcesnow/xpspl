@@ -10,7 +10,7 @@ XPSPL is a high-performance event loop that supports the following event types,
 * Complex Signals
 * Idle
 
-
+The best way to think of XPSPL is as a libevent and libev library only written in PHP and much less mature.
 
 ## I/O Poll Support
 
