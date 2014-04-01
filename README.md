@@ -6,9 +6,25 @@ XPSPL is a high-performance event loop that supports the following event types,
 
 * Signals
 * Timers
-* I/O
+* I/O (Asynchronous)
 * Complex Signals
 * Idle
+
+## I/O Poll Support
+
+Currently the only supported polling mechnanism is `select`.
+
+## Install
+
+XPSPL is installed using composer.
+
+```
+{
+  'require': {
+    'prggmr\xpspl': 'v5.0.0'
+  }
+}
+```
 
 ## Documentation
 
