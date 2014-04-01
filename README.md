@@ -10,6 +10,8 @@ XPSPL is a high-performance event loop that supports the following event types,
 * Complex Signals
 * Idle
 
+
+
 ## I/O Poll Support
 
 Currently the only supported polling mechnanism is `select`.
@@ -31,3 +33,7 @@ XPSPL is installed using composer.
 XPSPL's documentation is available at http://xpspl.readthedocs.org.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/prggmr/xpspl/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+## Threads
+
+Threads are currently being experimented with using the `pthreads` PHP extension.
