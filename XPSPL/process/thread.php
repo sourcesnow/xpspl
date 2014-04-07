@@ -21,16 +21,17 @@ namespace XPSPL\process {
 class Thread extends \Thread {
 
 	public $_callable = '';
+    public $signal = null;
 
-	public function __construct(\XPSPL\Process $process)
+	public function __construct(\XPSPL\Process $process, $signal)
     {
         $this->_callable = $process->get_function();
+        $this->signal = $signal;
 	}
 
 	public function run()
 	{
-
-        call_user_func_array($this->_callable, [null, $this]);
+        call_user_func_array($this->_callable, [$this->signal, $this]);
         // if (is_array($callable)) {
         //     if (count($callable) >= 2) {
         //         if (is_object($callable[0])) {

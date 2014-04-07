@@ -11,20 +11,20 @@ use \XPSPL\Processor as Processor;
 /**
  * Idles the processor checking if registered processor threads are alive.
  *
- * Threaded extends and replaces the Time idle in the processor once threaded 
+ * Threaded extends and replaces the Time idle in the processor once threaded
  * processes are registered.
  */
 class Threads extends Time
-{   
+{
     /**
      * Run the idle function.
      */
-    public function idle(Processor $processor) 
+    public function idle(Processor $processor)
     {
         foreach ($processor->active_threads as $_key => $_thread) {
             echo 'I RAN';
             // Add better checks
-            if ($_thread->isRunning() === False) {
+            if ($_thread->isRunning() === false) {
                 unset($process->active_threads[$_key]);
             }
         }

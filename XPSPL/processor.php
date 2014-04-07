@@ -120,6 +120,10 @@ class Processor {
         }
         $this->set_state(STATE_DECLARED);
         $this->flush();
+        if (XPSPL_THREAD_SUPPORT) {
+            // Register the thread routine
+            $this->register_signal(new \XPSPL\SIG\threads\Routine());
+        }
     }
 
     /**
@@ -611,7 +615,7 @@ class Processor {
                     // if (in_array($_process->get_function(), $this->active_threads)) {
                     //     continue;
                     // }
-                    $this->active_threads[] = new process\Thread(clone $_process);
+                    $this->active_threads[] = new process\Thread(clone $_process, $signal);
                     end($this->active_threads)->start();
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(

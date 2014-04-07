@@ -12,7 +12,7 @@ use \Closure,
 
 /**
  * Process
- * 
+ *
  * A process is the callable which will execute when a signal is emitted.
  */
 class Process {
@@ -49,7 +49,7 @@ class Process {
      * @param  mixed  $callable  A callable php variable.
      * @param  integer  $exhaust  Count to set process exhaustion.
      * @param  null|integer  $priority  Priority of the process.
-     * 
+     *
      * @return  void
      */
     public function __construct($callable = null, $exhaust = XPSPL_PROCESS_DEFAULT_EXHAUST, $priority = XPSPL_PROCESS_DEFAULT_PRIORITY)
@@ -132,7 +132,7 @@ class Process {
      * Sets the process exhaust rate.
      *
      * @param  integer  $rate  Exhaust rate
-     * 
+     *
      * @return  void
      */
     final public function set_exhaust($rate)
@@ -149,7 +149,7 @@ class Process {
      * Sets the process priority.
      *
      * @param  integer  $priority  Integer Priority
-     * 
+     *
      * @return  void
      */
     final public function set_priority($priority)
@@ -170,7 +170,7 @@ class Process {
     public function __toString(/* ... */)
     {
         return sprintf('CLASS(%s) - HASH(%s) - EXHAUST(%s) PRIORITY(%s)',
-            get_class($this), 
+            get_class($this),
             spl_object_hash($this),
             (null === $this->_exhaustion) ? 'null' : $this->_exhaustion,
             $this->_priority
@@ -181,21 +181,12 @@ class Process {
      * Enable threads for this process.
      *
      * @param  integer  $priority  Integer Priority
-     * 
+     *
      * @return  void
      */
     final public function enable_threads(/* ... */)
     {
         $this->_threads = true;
-        // if (!$this->_callable instanceof process\Thread) {
-        //     if (!(is_array($this->_callable) && $this->_callable[0] === $this)) {
-        //         throw new \RuntimeException(
-        //             'Threaded processes must be implemented using the `execute` method.'
-        //         );
-        //     }
-        //     $this->_callable = new process\Thread($this->_callable);
-        //     var_dump($this);
-        // }
         return;
     }
 
