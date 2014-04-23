@@ -52,37 +52,6 @@ Have an issue?
 File a bug report in `Github issues
 <https://github.com/prggmr/XPSPL/issues>`_.
 
-Performance
------------
-
-Performance testing on a 3.2 GHz Intel i5.
-
-Demonstrating a linear signal emit performance.
-
-.. image:: emit_graph_upper.png
-
-Performance Tests
-%%%%%%%%%%%%%%%%%
-
-.. code-block:: php
-
-    Installation SIG Process Performance Test
-    Tests Performed : 204601
-    Average Time Spent : 0.0000093658
-    --------------------------------------
-    Emitting a signal Performance Test
-    Tests Performed : 204601
-    Average Time Spent : 0.0000031479
-    --------------------------------------
-    Registering a signal Performance Test
-    Tests Performed : 204601
-    Average Time Spent : 0.0000024548
-    --------------------------------------
-    Event Loop Performance Test
-    Tests Performed : 204601
-    Average Time Spent : 0.0000109978
-    --------------------------------------
-
 Author
 ------
 
