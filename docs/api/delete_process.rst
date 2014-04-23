@@ -1,4 +1,4 @@
-.. /delete_process.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /delete_process.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_delete_process
@@ -51,4 +51,4 @@ The above code will output.
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

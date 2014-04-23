@@ -33,7 +33,7 @@
  *
  * @example
  *
- * Installing multiple priorities
+ * Example #1 Basic Usage
  *
  * This installs multiple process each with a seperate ascending priority.
  *
@@ -57,8 +57,11 @@
  *        echo 'world';
  *    }));
  *
- *    // results when foo is emitted
- *    // foobarhelloworld
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *    foobarhelloworld
  */
 function xp_priority($priority, $process)
 {

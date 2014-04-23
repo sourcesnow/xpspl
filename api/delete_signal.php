@@ -12,6 +12,20 @@
  * @param  boolean  $history  Erase any history of the signal.
  *
  * @return  boolean
+ *
+ * @example
+ *
+ * Example #1 Basic Usage
+ *
+ * .. code-block:: php
+ *
+ *    <?php
+ *    // Install process on signal foo
+ *    xp_signal(XP_SIG('foo'), function(){});
+ *    // Delete the signal foo
+ *    xp_delete_signal(XP_SIG('foo'));
+ *    // Emit the signal foo
+ *    xp_emit(XP_SIG('foo'));
  */
 function xp_delete_signal($signal, $history = false)
 {

@@ -1,4 +1,4 @@
-.. /erase_signal_history.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /erase_signal_history.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_erase_signal_history
@@ -27,6 +27,33 @@ xp_erase_signal_history
     :rtype: void 
 
 
+Example #1 Basic Usage
+######################
+
+.. code-block:: php
+
+    <?php
+    
+    // Install a procss for the foo and bar signals.
+    xp_signal(XP_SIG('foo'), function(){});
+    xp_signal(XP_SIG('bar'), function(){});
+    // Emit each foo and bar 10 times.
+    for($i=0;$i<10;$i++) {
+        xp_emit(XP_SIG('foo'));
+        xp_emit(XP_SIG('bar'));
+    }
+    var_dump(count(xp_signal_history()));
+    // Delete the history of the foo signal.
+    xp_delete_signal_history(XP_SIG('foo'));
+    var_dump(count(xp_signal_history()));
+
+The above code will output.
+
+.. code-block:: php
+
+    20 ... 10
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+
+
+

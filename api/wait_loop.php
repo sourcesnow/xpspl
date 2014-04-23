@@ -6,28 +6,28 @@
  */
 
 /**
- * Begin the XPSPL wait loop.
+ * Begins the XPSPL event wait loop.
  *
- * The XPSPL wait loop is a core function of XPSPL and *MUST* be called as the 
- * final function to execute any type of complex event, this includes time, 
- * networking and ftp operations.
+ * The event loop must be started to allow execution of time, networking or 
+ * complex loop based signals.
  *
- * @return  void
+ * .. note:: 
+ *
+ *    XPSPL provides an executable ``xpspl`` in the *bin* directory for 
+ *    automatically loading code into the event loop.
  *
  * .. warning::
  *
  *    This is a *BLOCKING* function.
  *
- *    A loop based signal time, networking, ftp ... etc must be registered 
- *    before calling the wait_loop.
- *
  *    Any code underneath the function call will *NOT* be executed until 
  *    the processor halts execution.
  *
+ * @return  void
  *
  * @example
  *
- * Basic Usage
+ * Example #1 Basic Usage
  *
  * Basic usage example demonstrating using the loop for time based code.
  *
@@ -42,7 +42,7 @@
  *        echo '10 seconds passed';
  *    });
  *
- *    xp_wait_loop()
+ *    xp_wait_loop();
  *
  * @example
  *

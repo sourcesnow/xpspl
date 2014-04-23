@@ -37,29 +37,6 @@
  *
  *    // before foo foo
  *
- * @example
- *
- * Example #2 Class Signals
- *
- * .. code-block:: php
- *
- *     <?php
- *
- *     class SIG_Foo extends \XPSPL\SIG {}
- *
- *     xp_signal(new SIG_Foo(), function(){
- *         echo 'bar';
- *     });
- *
- *     xp_before(new SIG_Foo(), function(){
- *         echo 'foo';
- *     });
- *
- * The above code will output.
- *
- * .. code-block:: php
- *
- *     foobar
  */
 function xp_before($signal, $process)
 {

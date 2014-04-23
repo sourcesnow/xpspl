@@ -52,6 +52,13 @@ PHP FTP_ extension for XPSPL FTP module support.
 
 .. _FTP: http://php.net/manual/en/book.ftp.php
 
+Networking
+++++++++++
+
+PHP Sockets_ extension for XPSPL Networking module support.
+
+.. _Sockets: http://us1.php.net/manual/en/book.sockets.php
+
 Judy
 ++++
 

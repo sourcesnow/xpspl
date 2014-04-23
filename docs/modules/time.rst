@@ -39,34 +39,39 @@ Importing
 Timeouts
 ^^^^^^^^
 
-Timeouts are functions executed once after X amount of seconds, the time module
-supports timeouts using the ``awake`` function.
+Timeouts are functions executed once after a specific amount of time.
+
+Timeouts are supported using the ``awake`` and xp_exhaust functions.
 
 The below example demonstrates executing a timeout after 30 seconds.
 
 .. code-block:: php
 
     <?php
-
+    // Import the time module.
     xp_import('time');
 
-    time\awake(30, function(){
+    // Define the exhaust rate of 1.
+    time\awake(30, xp_exhaust(1, function(){
         echo '30 seconds just passed';
     });
 
 Intervals
 ^^^^^^^^^
 
-Intervals are functions executed every X amount of seconds for a set exhaustion,
-the time module supports intervals using the ``awake`` function and defining an
-exhausting on the process.
+Intervals are functions executed every continously after a specific amount of time.
 
-The example below demonstrates an interval that runs every 30 seconds 10 times.
+The example below demonstrates an interval that runs every 30 seconds.
 
-.. note::
+.. code-block:: php
 
-   Setting a null exhaustion allows for permanently running intervals, which
-   can only be removed by manually deleting the signal using ``xp_signal_delete``.
+   <?php
+
+   xp_import('time');
+
+   time\awake(30, function(){
+       echo '30 seconds passed';
+   });
 
 Milliseconds and Microseconds Instructions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -113,12 +118,6 @@ CRON Based Time
 
 The CRON syntax is supported for executing signals based on the CRON syntax using
 the ``CRON`` api function.
-
-.. note::
-
-    CRON based time signals automatically register themselves with a null
-    exhaust, an exhaustion rate should only be defined when it is explicitly
-    required.
 
 The example below demonstrates executing a signal everyday at 12pm.
 

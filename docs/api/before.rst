@@ -1,4 +1,4 @@
-.. /before.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /before.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_before
@@ -39,30 +39,7 @@ The above code will output.
 
    // before foo foo
 
-Example #2 Class Signals
-########################
-
-.. code-block:: php
-
-    <?php
-
-    class SIG_Foo extends \XPSPL\SIG {}
-
-    xp_signal(new SIG_Foo(), function(){
-        echo 'bar';
-    });
-
-    xp_before(new SIG_Foo(), function(){
-        echo 'foo';
-    });
-
-The above code will output.
-
-.. code-block:: php
-
-    foobar
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_

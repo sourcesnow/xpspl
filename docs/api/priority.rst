@@ -1,4 +1,4 @@
-.. /priority.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /priority.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_priority
@@ -33,8 +33,8 @@ xp_priority
     :rtype: object Process
 
 
-Installing multiple priorities
-##############################
+Example #1 Basic Usage
+######################
 
 This installs multiple process each with a seperate ascending priority.
 
@@ -58,10 +58,13 @@ This installs multiple process each with a seperate ascending priority.
        echo 'world';
    }));
 
-   // results when foo is emitted
-   // foobarhelloworld
+The above code will output.
+
+.. code-block:: php
+
+   foobarhelloworld
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

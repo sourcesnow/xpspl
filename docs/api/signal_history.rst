@@ -1,4 +1,4 @@
-.. /signal_history.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /signal_history.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_signal_history
@@ -17,16 +17,16 @@ xp_signal_history
        <?php
        $array = [
            0 => Signal Object
-           1 => Time in microseconds since Epoch at emittion
+           1 => UNIX timestamp of execution
        ];
 
     :rtype: array 
 
 
-Counting emitted signals
-########################
+Example #1 Basic Usage
+######################
 
-This counts the number of ``XP_SIG('foo')`` signals that were emitted.
+Count the number of ``XP_SIG('foo')`` signals that were emitted.
 
 .. code-block:: php
 
@@ -44,7 +44,13 @@ This counts the number of ``XP_SIG('foo')`` signals that were emitted.
    }
    echo $emitted;
 
+The above code will output.
+
+.. code-block:: php
+
+    5
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+
+

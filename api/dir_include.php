@@ -11,7 +11,9 @@
  * Listeners can be started automatically by passing ``$listen`` as ``true``.
  *
  * @param  string  $dir  Directory to include.
+ * 
  * @param  boolean  $listen  Start listeners.
+ * 
  * @param  string  $path  Path to ignore when starting listeners.
  *
  * @return  void

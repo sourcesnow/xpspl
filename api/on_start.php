@@ -6,11 +6,31 @@
  */
 
 /**
- * Call the provided function on processor start.
+ * Registers a function to call when the processor starts.
  *
  * @param  callable|object  $function  Function or process object
  *
  * @return  object  \XPSPL\Process
+ *
+ * @example
+ *
+ * Example #1 Basic Usage
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     xp_on_start(function(){
+ *         echo 'The processor started';
+ *     });
+ *
+ *     xp_wait_loop();
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *     The processor started!
  */
 function xp_on_start($function)
 {

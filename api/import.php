@@ -15,6 +15,28 @@
  * @param  string|null  $dir  Location of the module.
  *
  * @return  void
+ *
+ * @example
+ *
+ * Example #1 Basic Usage
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     // Import the time module
+ *     xp_import('time');
+ *
+ * @example
+ *
+ * Example #2 Importing modules from user-defined directories
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     // Import the "foobar" module from our custom module directory
+ *     xp_import('foobar', '/my-custom/directory/path');
  */
 function xp_import($name, $dir = null)
 {

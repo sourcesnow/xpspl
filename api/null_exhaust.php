@@ -8,12 +8,10 @@
 /**
  * Nullifies a processes exhaustion rate.
  *
- * This allows for processes to exhaust indefiantly when a signal is emitted.
- *
  * .. note::
  *
  *     Once a process is registered with a null exhaust it will **never**
- *     be purged from the processor.
+ *     be purged from the processor unless a ``xp_flush`` is called.
  *
  * @param  callable|process  $process  PHP Callable or Process.
  *
@@ -21,7 +19,7 @@
  *
  * @example
  *
- * Install a null exhaust process.
+ * Example #1 Basic Usage
  *
  * This example installs a null exhaust process which calls an awake signal
  * every 10 seconds creating an interval.

@@ -1,4 +1,4 @@
-.. /wait_loop.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /wait_loop.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_wait_loop
@@ -8,25 +8,28 @@ xp_wait_loop
 .. function:: xp_wait_loop()
 
 
-    Begin the XPSPL wait loop.
+    Begins the XPSPL event wait loop.
     
-    The XPSPL wait loop is a core function of XPSPL and *MUST* be called as the 
-    final function to execute any type of complex event, this includes time, 
-    networking and ftp operations.
+    The event loop must be started to allow execution of time, networking or 
+    complex loop based signals.
+    
+    .. note:: 
+    
+       XPSPL provides an executable ``xpspl`` in the *bin* directory for 
+       automatically loading code into the event loop.
+    
+    .. warning::
+    
+       This is a *BLOCKING* function.
+    
+       Any code underneath the function call will *NOT* be executed until 
+       the processor halts execution.
 
-    :rtype: void .. warning::
-
-   This is a *BLOCKING* function.
-
-   A loop based signal time, networking, ftp ... etc must be registered 
-   before calling the wait_loop.
-
-   Any code underneath the function call will *NOT* be executed until 
-   the processor halts execution.
+    :rtype: void 
 
 
-Basic Usage
-###########
+Example #1 Basic Usage
+######################
 
 Basic usage example demonstrating using the loop for time based code.
 
@@ -41,7 +44,7 @@ Basic usage example demonstrating using the loop for time based code.
        echo '10 seconds passed';
    });
 
-   xp_wait_loop()
+   xp_wait_loop();
 
 Automatic shutdown
 ##################
@@ -57,4 +60,4 @@ signals.
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

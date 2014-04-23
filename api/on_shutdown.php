@@ -6,11 +6,31 @@
  */
 
 /**
- * Call the provided function on processor shutdown.
+ * Registers a function to call when the processor shuts down.
  *
  * @param  callable|object  $function  Function or process object
  *
  * @return  object  \XPSPL\Process
+ *
+ * @example
+ *
+ * Example #1 Basic Usage
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     xp_on_shutdown(function(){
+ *         echo 'Shutting down the processor!';
+ *     });
+ *
+ *     xp_wait_loop();
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *     Shutting down the processor!
  */
 function xp_on_shutdown($function)
 {

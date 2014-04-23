@@ -9,9 +9,18 @@ namespace network;
 /**
  * Creates a new socket connection.
  *
+ * Connection options.
+ *
+ * * **port** - Default: null
+ * * **domain** - Default: AF_INET
+ * * **type** - Default: SOCK_STREAM
+ * * **protocol** - Default: SOL_TCP
+ *
  * @param  string  $address  Address to make the connection on.
  * @param  string  $options  Connection options
  * @param  callback  $callback  Function to call when connected
+ *
+ * @return  object  \network\Socket
  */
 function connect($address, $options = [])
 {

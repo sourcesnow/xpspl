@@ -5,6 +5,8 @@
  * that can be found in the LICENSE file.
  */
 
+xp_import('unittest');
+
 date_default_timezone_set('America/New_York');
 
 ini_set('memory_limit', -1);

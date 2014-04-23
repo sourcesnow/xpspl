@@ -8,15 +8,21 @@
 /**
  * Enables a process to execute within it's own thread.
  *
- * This works only when the PECL package pthreads is installed.
- *
  * .. warning::
  *
- *    Threaded functionality within XPSPL is still *highly* experiemental...
+ *    Threaded functionality within XPSPL is *highly* experiemental...
  *
- *    Use this at your own RISK!.
+ *    This has not been tested in a production environment.
+ *
+ * .. note::
+ *
+ *    To enable threads you must install and enable the PECL pthreads extension.
+ *
+ *    Once installed threads will be automatically enabled.
  *
  * @example
+ *
+ * Example #1 Basic Usage
  *
  * Executing processes in their own thread.
  *

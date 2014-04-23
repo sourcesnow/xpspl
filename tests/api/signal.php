@@ -12,5 +12,5 @@ xp_import('unittest');
 unittest\test(function($test){
     $foo = XP_SIG('foo');
     xp_signal($foo, null);
-    $test->instanceof(xp_find_signal($foo), 'XPSPL\database\Processes');
+    $test->instanceof(xp_get_signal($foo), 'XPSPL\database\Processes');
 }, 'API Signal');

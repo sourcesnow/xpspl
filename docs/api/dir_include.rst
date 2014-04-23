@@ -1,4 +1,4 @@
-.. /dir_include.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /dir_include.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_dir_include
@@ -81,4 +81,4 @@ method will be executed.
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

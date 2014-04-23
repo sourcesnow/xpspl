@@ -8,7 +8,7 @@
 /**
  * Generates an XPSPL SIG object from the given ``$signal``.
  *
- * This function is only a shorthand for ``new SIG($signal)``.
+ * This function is only a shorthand for ``new XPSPL\SIG($signal)``.
  *
  * @param  string|  $signal  Signal process is attached to.
  *
@@ -16,7 +16,7 @@
  *
  * @example
  *
- * Creating a SIG.
+ * Example #1 Basic Usage
  *
  * This will create a SIG idenitified by 'foo'.
  *

@@ -36,6 +36,7 @@ XPSPL Bundled modules.
 
    modules/ftp
    modules/time
+   modules/network
 
 Source
 ------

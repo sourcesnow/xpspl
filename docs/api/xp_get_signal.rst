@@ -1,4 +1,4 @@
-.. /find_signal_database.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /xp_get_signal.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_get_signal
@@ -17,4 +17,4 @@ xp_get_signal
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

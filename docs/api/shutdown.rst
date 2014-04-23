@@ -1,4 +1,4 @@
-.. /shutdown.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /shutdown.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_shutdown
@@ -8,11 +8,11 @@ xp_shutdown
 .. function:: xp_shutdown()
 
 
-    Sends the loop the shutdown signal.
+    Sends the event loop the shutdown signal.
 
     :rtype: void 
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

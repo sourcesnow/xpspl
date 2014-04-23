@@ -1,4 +1,4 @@
-.. /process.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /process.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_process
@@ -20,18 +20,20 @@ xp_process
     :rtype: void 
 
 
+Example #1 Basic Usage
+######################
+
 Creates a new XPSPL Process object.
-###################################
 
 .. code-block::php
 
    <?php
 
    $process = xp_process(function(){});
-
+	  // The process can now be installed to a signal.
    xp_signal(XP_SIG('foo'), $process);
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

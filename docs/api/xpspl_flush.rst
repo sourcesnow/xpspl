@@ -1,4 +1,4 @@
-.. /xpspl_flush.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /xpspl_flush.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 XPSPL_flush
@@ -8,11 +8,17 @@ XPSPL_flush
 .. function:: XPSPL_flush()
 
 
-    Empties the storage, history and clears the current state.
+    Performs a complete flush of the processor.
+    
+    This will clear the processor state and remove the following.
+    
+    * Installed signals.
+    * Installed processes.
+    * Signal history.
 
     :rtype: void 
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

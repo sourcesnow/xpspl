@@ -6,7 +6,13 @@
  */
 
 /**
- * Empties the storage, history and clears the current state.
+ * Performs a complete flush of the processor.
+ *
+ * This will clear the processor state and remove the following.
+ *
+ * * Installed signals.
+ * * Installed processes.
+ * * Signal history.
  *
  * @return void
  */

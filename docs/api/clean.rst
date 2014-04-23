@@ -1,4 +1,4 @@
-.. /clean.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /clean.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_clean
@@ -48,9 +48,9 @@ The above code will output.
 
 .. code-block:: php
 
-    SIG Test
+    SIG Test null
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

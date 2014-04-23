@@ -1,4 +1,4 @@
-.. /import.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /import.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_import
@@ -19,6 +19,27 @@ xp_import
     :rtype: void 
 
 
+Example #1 Basic Usage
+######################
+
+.. code-block:: php
+
+    <?php
+
+    // Import the time module
+    xp_import('time');
+
+Example #2 Importing modules from user-defined directories
+##########################################################
+
+.. code-block:: php
+
+    <?php
+
+    // Import the "foobar" module from our custom module directory
+    xp_import('foobar', '/my-custom/directory/path');
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+
+
+

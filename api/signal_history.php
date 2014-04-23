@@ -15,16 +15,16 @@
  *    <?php
  *    $array = [
  *        0 => Signal Object
- *        1 => Time in microseconds since Epoch at emittion
+ *        1 => UNIX timestamp of execution
  *    ];
  *
  * @return  array
  *
  * @example
  *
- * Counting emitted signals
+ * Example #1 Basic Usage
  *
- * This counts the number of ``XP_SIG('foo')`` signals that were emitted.
+ * Count the number of ``XP_SIG('foo')`` signals that were emitted.
  *
  * .. code-block:: php
  *
@@ -41,6 +41,12 @@
  *        }
  *    }
  *    echo $emitted;
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *     5
  */
 function xp_signal_history(/* ... */)
 {

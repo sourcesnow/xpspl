@@ -1,4 +1,4 @@
-.. /sig.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /sig.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 XP_SIG
@@ -10,15 +10,15 @@ XP_SIG
 
     Generates an XPSPL SIG object from the given ``$signal``.
     
-    This function is only a shorthand for ``new SIG($signal)``.
+    This function is only a shorthand for ``new XPSPL\SIG($signal)``.
 
     :param string|: Signal process is attached to.
 
     :rtype: object \XPSPL\SIG
 
 
-Creating a SIG.
-###############
+Example #1 Basic Usage
+######################
 
 This will create a SIG idenitified by 'foo'.
 
@@ -34,4 +34,4 @@ This will create a SIG idenitified by 'foo'.
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

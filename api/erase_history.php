@@ -9,6 +9,34 @@
  * Erases the entire signal history.
  *
  * @return  void
+ *
+ * @example
+ *
+ * Example #1 Basic Usage
+ *
+ * .. code-block:: php
+ *
+ *     <?php
+ *
+ *     // Create some history
+ *     xp_signal(XP_SIG('foo'), function(){});
+ *     for ($i=0;$i<10;$i++) {
+ *         xp_emit(XP_SIG('foo'));
+ *     }
+ *     
+ *     // Dump the history count
+ *     var_dump(count(xp_signal_history()));
+ *
+ *     // Erase the history
+ *     xp_erase_history();
+ *
+ *     var_dump(count(xp_signal_history()));
+ *
+ * The above code will output.
+ *
+ * .. code-block:: php
+ *
+ *     10 ... 0
  */
 function xp_erase_history()
 {

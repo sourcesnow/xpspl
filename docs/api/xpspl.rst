@@ -1,4 +1,4 @@
-.. /xpspl.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /xpspl.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 XPSPL
@@ -8,11 +8,11 @@ XPSPL
 .. function:: XPSPL()
 
 
-    Returns the XPSPL processor.
+    Returns the global XPSPL processor.
 
     :rtype: object XPSPL\Processor
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

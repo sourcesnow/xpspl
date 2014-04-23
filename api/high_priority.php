@@ -6,17 +6,16 @@
  */
 
 /**
- * Registers the given process to have a high priority.
+ * Creates or sets a process to have a high priority.
  *
- * Processes registered with a high priority will be executed before those with
+ * Processes with a high priority will be executed before those with
  * a low or default priority.
  *
- * This will register the priority as *0*.
+ * This will register the priority as *0* as priority goes in ascending order.
  *
  * .. note::
  *
- *    Interruptions defined to execute before the signal will still be executed
- *    before high priority processes.
+ *    Interruptions will be executed before high priority processes.
  *
  * @param  callable|process  $process  PHP Callable or \XPSPL\Process.
  *
@@ -24,7 +23,7 @@
  *
  * @example
  *
- * Basic Usage
+ * Example #1 Basic Usage
  *
  * Basic usage example demonstrating high priority processes.
  *
@@ -32,16 +31,21 @@
  *
  *    <?php
  *
+ *    // Register a process on the foo signal
  *    xp_signal(XP_SIG('foo'), function(){
  *        echo 'bar';
  *    });
  *
- *    xp_signal(XP_SIG('foo'), XP_high_priority(function(){
+ *    // Register another process with high priority
+ *    xp_signal(XP_SIG('foo'), xp_high_priority(function(){
  *        echo 'foo';
  *    }));
  *
- *    // results when foo is emitted
- *    // foobar
+ * The above code will output.
+ *
+ * .. code-block:: php
+ * 
+ *    foobar
  */
 function xp_high_priority($process)
 {

@@ -15,17 +15,18 @@ class Threaded_Process extends \XPSPL\Process
 {
     public function execute($signal, $thread = null)
     {
-        for ($i = 0; $i<100000;$i++) {
-            print $signal.PHP_EOL;
+        // Just count
+        for ($i = 0; $i<10000000;$i++) {
+            echo $i;
         }
     }
 }
 
 unittest\test(function($test){
-    for ($i = 0; $i < 2; $i++) {
+    for ($i = 0; $i < 16; $i++) {
         xp_signal(XP_SIG('test'.$i), xp_threaded_process(new Threaded_Process()));
     }
-    for ($i = 0; $i < 2; $i++) {
+    for ($i = 0; $i < 16; $i++) {
         xp_emit(XP_SIG('test'.$i));
     }
 }, "threads");

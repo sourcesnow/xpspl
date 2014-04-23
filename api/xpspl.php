@@ -6,7 +6,7 @@
  */
 
 /**
- * Returns the XPSPL processor.
+ * Returns the global XPSPL processor.
  *
  * @return  object  XPSPL\Processor
  */

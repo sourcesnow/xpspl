@@ -6,7 +6,7 @@
  */
 
 /**
- * Sends the loop the shutdown signal.
+ * Sends the event loop the shutdown signal.
  *
  * @return  void
  */

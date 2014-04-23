@@ -1,4 +1,4 @@
-.. /complex_sig.php generated using docpx v1.0.0 on 03/06/14 11:19am
+.. /complex_sig.php generated using docpx v1.0.0 on 04/23/14 12:10pm
 
 
 xp_complex_sig
@@ -131,10 +131,10 @@ The above code will output.
 
    A wedding just happened.
 
-Once it emits the ``bride``, ``groom`` and ``bells`` signals from the
-network connection.
+Once the ``bride``, ``groom`` and ``bells`` signals are emitted from the
+network connection the complex signal will emit the wedding.
 
 
 
 
-Created on 03/06/14 11:19am using `Docpx <http://github.com/prggmr/docpx>`_
+

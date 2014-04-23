@@ -19,6 +19,8 @@
  *
  * @example
  *
+ * Example #1 Basic Usage
+ *
  * Creates a new XPSPL Process object.
  *
  * .. code-block::php
@@ -26,7 +28,7 @@
  *    <?php
  *
  *    $process = xp_process(function(){});
- *
+ * 	  // The process can now be installed to a signal.
  *    xp_signal(XP_SIG('foo'), $process);
  *
  */
