@@ -6,7 +6,7 @@
  */
 
 // library version
-define('XPSPL_VERSION', '5.0.0');
+define('XPSPL_VERSION', '5.0.1');
 
 // The creator
 define('XPSPL_MASTERMIND', 'Nickolas C. Whiting');
