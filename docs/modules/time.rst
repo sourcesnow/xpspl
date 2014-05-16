@@ -59,7 +59,7 @@ The below example demonstrates executing a timeout after 30 seconds.
 Intervals
 ^^^^^^^^^
 
-Intervals are functions executed every continously after a specific amount of time.
+Intervals are functions executed continously after a specific amount of time.
 
 The example below demonstrates an interval that runs every 30 seconds.
 
@@ -104,17 +104,17 @@ microseconds.
     }, TIME_SECONDS);
 
     // MILLISECONDS
-    time\awake(30, function(){
+    time\awake(1000, function(){
         echo '1000 milliseconds just passed';
     }, TIME_MILLISECONDS);
 
     // SECONDS
-    time\awake(30, function(){
+    time\awake(1000, function(){
         echo '1000 microseconds just passed';
     }, TIME_MICROSECONDS);
 
-CRON Based Time
-^^^^^^^^^^^^^^^
+CRON Time
+^^^^^^^^^
 
 The CRON syntax is supported for executing signals based on the CRON syntax using
 the ``CRON`` api function.

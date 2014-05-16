@@ -22,11 +22,11 @@ class Threaded_Process extends \XPSPL\Process
     }
 }
 
-unittest\test(function($test){
-    for ($i = 0; $i < 16; $i++) {
-        xp_signal(XP_SIG('test'.$i), xp_threaded_process(new Threaded_Process()));
-    }
-    for ($i = 0; $i < 16; $i++) {
-        xp_emit(XP_SIG('test'.$i));
-    }
-}, "threads");
+// unittest\test(function($test){
+//     for ($i = 0; $i < 16; $i++) {
+//         xp_signal(XP_SIG('test'.$i), xp_threaded_process(new Threaded_Process()));
+//     }
+//     for ($i = 0; $i < 16; $i++) {
+//         xp_emit(XP_SIG('test'.$i));
+//     }
+// }, "threads");

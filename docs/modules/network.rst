@@ -33,7 +33,7 @@ The Network Module has no runtime configuration options available.
 API
 ___
 
-.. function:: network\\connect()
+.. function:: network\\connect($address, [$options = array()])
 
 
     Creates a new socket connection.

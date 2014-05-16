@@ -18,8 +18,8 @@ if (!function_exists('xdebug_start_code_coverage')) {
         true
     );
 } else {
-    // xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
     xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
+    //xdebug_start_code_coverage();
 
     xp_on_shutdown(function(){
         $exclude = [
@@ -33,20 +33,27 @@ if (!function_exists('xdebug_start_code_coverage')) {
                 new \RecursiveDirectoryIterator(XPSPL_PATH)
             ), '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH
         );
+        $c = [];
         $avg = [];
+        foreach ($coverage as $_k => $_v) {
+            $c[strtolower($_k)] = $_v;
+        }
+        $coverage = $c;
+        unset($c);
         foreach ($dir as $_file) {
             array_map(function($i) use ($coverage, &$avg, $exclude){
                 $include = true;
-                $file = trim(str_replace(XPSPL_PATH, '', $i));
+                $file = strtolower($i);//trim(str_replace(XPSPL_PATH, '', $i));
                 foreach ($exclude as $_exclude) {
                     if (stripos($file, $_exclude) !== false) {
                         return;
                     }
                 }
-                if (isset($coverage[$i])) {
-                    $lines = count($coverage[$i]);
+                if (isset($coverage[$file])) {
+                    $lines = 0;
                     $total = 0;
-                    foreach ($coverage[$i] as $_v) {
+                    foreach ($coverage[$file] as $_v) {
+                        if ($_v != -2) $lines++;
                         if ($_v >= 1) {
                             $total++;
                         }
@@ -79,7 +86,7 @@ if (!function_exists('xdebug_start_code_coverage')) {
         foreach ($avg as $_k => $_c) {
             \unittest\Output::send(sprintf(
                 'File : %s',
-                str_replace(XPSPL_PATH, '', $_k)
+                $_k
             ), \unittest\Output::DEBUG, true);
             \unittest\Output::send(sprintf(
                 'Coverage : %s%%',
