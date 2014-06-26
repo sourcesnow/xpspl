@@ -1,5 +1,7 @@
 # XPSPL
 
+[![Code Climate](https://codeclimate.com/github/prggmr/xpspl.png)](https://codeclimate.com/github/prggmr/xpspl) [![Total Downloads](https://poser.pugx.org/prggmr/xpspl/downloads.svg)](https://packagist.org/packages/prggmr/xpspl) [![Latest Stable Version](https://poser.pugx.org/prggmr/xpspl/v/stable.svg)](https://packagist.org/packages/prggmr/xpspl)
+
 PHP Signal and Event Library.
 
 XPSPL is a high-performance event loop that supports the following event types,
