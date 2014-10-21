@@ -16,7 +16,7 @@ install() {
     cd /tmp
     echo "Inflating"
     unzip XPSPL.zip
-    cd "XPSPL-$XPSPL_VERSION"
+    cd "xpspl-$XPSPL_VERSION"
     echo $PWD
     echo "Running installation"
     PHPPATH=$(php -r "echo get_include_path();")
