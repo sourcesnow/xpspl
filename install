@@ -1,7 +1,7 @@
 #!/bin/bash
 
 install() {
-    XPSPL_VERSION='4.0.1'
+    XPSPL_VERSION='5.0.1'
     VERSION=$(php -r "if (version_compare(PHP_VERSION, '5.4.0') >= 0) { echo '1'; } else { echo '0'; }")
     if [ $VERSION != '1' ];
     then
