@@ -33,7 +33,7 @@ Manual
 
 The manual installation is over the network with a CLI. (link_)
 
-.. _link: https://raw.github.com/prggmr/xpspl/master/install
+.. _link: https://raw.githubusercontent.com/prggmr/xpspl/master/install
 
 The installation requires the **CURL** and **ZIP** libraries to be installed
 on the system and is the legacy installation.
