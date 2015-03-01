@@ -101,7 +101,7 @@ final class Routine {
                 if ($_func->get_idle()->override($routine->get_idle())) {
                     $this->_idle[$_k] = $routine;
                 }
-                return;
+                // return;
             }
         }
         $this->_idle[] = $routine;

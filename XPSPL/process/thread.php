@@ -23,10 +23,13 @@ class Thread extends \Thread {
 	public $_callable = '';
     public $signal = null;
 
-	public function __construct(\XPSPL\Process $process, $signal)
+	public function __construct(\XPSPL\Process $process, $signal, $thread_vars)
     {
         $this->_callable = $process->get_function();
         $this->signal = $signal;
+        foreach($thread_vars as $_key => $_var ) {
+            $this->{$_key} = $_var;
+        }
 	}
 
 	public function run()

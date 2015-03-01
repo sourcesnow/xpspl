@@ -43,6 +43,8 @@ class Process {
      */
     protected $_threads = false;
 
+    public $thread_vars = [];
+
     /**
      * Constructs a new process object.
      *
@@ -198,5 +200,15 @@ class Process {
     public function threads_enabled(/* ... */)
     {
         return $this->_threads;
+    }
+
+    /**
+     * Returns the thread to run this process.
+     *
+     *
+     */
+    public function get_thread($signal = null)
+    {
+        return new process\Thread($this, $signal, $this->thread_vars);
     }
 }

@@ -108,20 +108,23 @@ class Time extends \XPSPL\Idle {
                 $this->_instruction, $this->get_time_left()
             ));
         }
-        if ($this->get_time_left() <= 0) {
+        $time = $this->convert_length($this->get_time_left(), TIME_SECONDS);
+        // Determine the least amount of time available and use it.
+        foreach ($processor->get_routine()->get_idles_available() as $_idle) {
+            if ($_idle->get_idle() instanceof Time && ($time > $_idle->get_idle()->convert_length(
+                    $_idle->get_idle()->get_time_left(),
+                    TIME_SECONDS))) {
+                $time = $_idle->get_idle()->convert_length($_idle->get_idle()->get_time_left(), 
+                    TIME_SECONDS);
+            }
+        }
+        if ($time < 0) {
             return;
         }
-        switch ($this->_instruction) {
-            case TIME_SECONDS:
-                sleep($this->get_time_left());
-                break;
-            case TIME_MILLISECONDS:
-                usleep($this->get_time_left() * 1000);
-                break;
-            case TIME_MICROSECONDS:
-                usleep($this->get_time_left());
-                break;
-
+        if ($time > 0 && $time < 1) {
+            usleep($time * 1000000);
+        } else {
+            sleep($time);
         }
     }
 

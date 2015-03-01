@@ -16,16 +16,20 @@ use \XPSPL\Processor as Processor;
  */
 class Threads extends Time
 {
+    protected $_priority = 0;
+
+    // protected $_allow_override = false;
+
     /**
      * Run the idle function.
      */
     public function idle(Processor $processor)
     {
         foreach ($processor->active_threads as $_key => $_thread) {
-            echo 'I RAN';
             // Add better checks
-            if ($_thread->isRunning() === false) {
-                unset($process->active_threads[$_key]);
+            $_thread[1]->join();
+            if ($_thread[1]->isRunning() === false) {
+                unset($processor->active_threads[$_key]);
             }
         }
         parent::idle($processor);

@@ -17,7 +17,7 @@ class Routine extends \XPSPL\SIG_Routine
 
     public function __construct()
     {
-        $this->_idle = new \XPSPL\idle\Threads(0, TIME_MICROSECONDS);
+        $this->_idle = new \XPSPL\idle\Threads(0, TIME_SECONDS);
         parent::__construct();
     }
 

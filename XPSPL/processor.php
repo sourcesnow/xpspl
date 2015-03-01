@@ -102,6 +102,13 @@ class Processor {
     private $_routine = null;
 
     /**
+     * Active processor threads.
+     *
+     * @var  array
+     */
+    public $active_threads = [];
+
+    /**
      * Starts the processor.
      *
      * @return  void
@@ -122,7 +129,7 @@ class Processor {
         $this->flush();
         if (XPSPL_THREAD_SUPPORT) {
             // Register the thread routine
-            $this->register_signal(new \XPSPL\SIG\threads\Routine());
+            $this->signal(new \XPSPL\SIG\threads\Routine(), new \XPSPL\Process(null,null));
         }
     }
 
@@ -196,13 +203,14 @@ class Processor {
             }
             // check for idle function
             if (null !== $this->_routine->get_idle()) {
-                foreach ($this->_routine->get_idles_available() as $_idle) {
-                    if (false === $this->has_signal_exhausted($_idle)) {
-                        $_idle->idle($this);
-                        $this->_routine->reset();
-                        goto routine;
-                    }
-                }
+                reset($this->_routine->get_idles_available())->idle($this);
+                // foreach ($this->_routine->get_idles_available() as $_idle) {
+                //     if (false === $this->has_signal_exhausted($_idle)) {
+                // $_idle->idle($this);
+                $this->_routine->reset();
+                goto routine;
+                    // }
+                // }
             }
         }
         $this->emit(new processor\SIG_Shutdown());
@@ -612,15 +620,22 @@ class Processor {
                 $_process->decrement_exhaust();
                 if (XPSPL_THREAD_SUPPORT && $_process->threads_enabled()) {
                     // DO NOT EXECUTE THE SAME PROCESS WHILE ANOTHER IS RUNNING
-                    // if (in_array($_process->get_function(), $this->active_threads)) {
-                    //     continue;
-                    // }
-                    $this->active_threads[] = new process\Thread(clone $_process, $signal);
-                    end($this->active_threads)->start();
+                    $_running = False;
+                    foreach ($this->active_threads as $_key => $_thread) {
+                        if ($_thread[0] === $_process) {
+                            $_running = True;
+                        }
+                    }
+                    if ($_running) {
+                        continue;
+                    }
+                    $thread = $_process->get_thread($signal);
+                    $this->active_threads[] = [$_process, $thread];
+                    $thread->start();
                     if (XPSPL_DEBUG) {
                         logger(XPSPL_LOG)->debug(sprintf(
                             'Starting thread %s %s',
-                            end($this->active_threads),
+                            end($this->active_threads)[1],
                             get_class($_process) . ' : ' . $_process
                         ));
                     }
