@@ -1,3 +1,7 @@
+I have stopped development of this library due to the limitations in the PHP language. 
+
+If you are interested in my work in signal processing I will be releasing a successor to this library sometime in the future in a more suitable language.
+
 # XPSPL
 
 [![Code Climate](https://codeclimate.com/github/prggmr/xpspl.png)](https://codeclimate.com/github/prggmr/xpspl) [![Total Downloads](https://poser.pugx.org/prggmr/xpspl/downloads.svg)](https://packagist.org/packages/prggmr/xpspl) [![Latest Stable Version](https://poser.pugx.org/prggmr/xpspl/v/stable.svg)](https://packagist.org/packages/prggmr/xpspl)
